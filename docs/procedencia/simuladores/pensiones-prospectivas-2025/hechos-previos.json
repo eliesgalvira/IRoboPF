@@ -1,0 +1,235 @@
+{
+  "schema": "pensiones-prospectivas-preparacion-v1",
+  "at": "2026-11-17T16:01:41.647Z",
+  "original": {
+    "exactos": 76,
+    "N": 80,
+    "preservado": true
+  },
+  "procedenciaEstructura": {
+    "path": "docs/procedencia/simuladores/medicion-2025/casos.json",
+    "sha256": "42294af5094929e206e2869f187fe7895ff05212cb2773df9d9fb4da2ce8a2e3",
+    "caso": "open2025-madrid-01",
+    "adaptacion": "clase pensión, edad, territorio, bruto, cotizaciones cero y retención inventados; no se reutiliza resultado oficial"
+  },
+  "fuentes": {
+    "territorios": "https://sede.agenciatributaria.gob.es/AEAT/Contenidos_Comunes/La_Agencia_Tributaria/Estadisticas/Publicaciones/sites/irpf/2024/jrubik761f99dedc02a6bd64c84e572c313aa65a720d84.html",
+    "minimos": "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-ayuda-presentacion/irpf-2025/8-cumplimentacion-irpf/8_3-adecuacion-impuesto-circunstancias-personales-familiares/8_3_2-minimo-contribuyente.html",
+    "da61": "https://sede.agenciatributaria.gob.es/Sede/eu_es/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2025/c18-cuota-liquida-resultante-autoliquidacion/deducciones-cuota-liquida-total/deduccion-obtencion-rendimientos-trabajo.html"
+  },
+  "prioridad": {
+    "ejercicioEstadistica": 2024,
+    "andaluciaDeclaraciones": 4434333,
+    "madridDeclaraciones": 3992431,
+    "limite": "Recuento territorial, no número de pensionistas ni afectados por estas edades/importes. Sin cruce estadístico acreditado; no asignar peso poblacional ni alterar pesos originales."
+  },
+  "casos": [
+    {
+      "id": "pension-2025-andalucia-68",
+      "ejercicio": 2025,
+      "tipo": "hechos-sinteticos-prospectivos",
+      "utilidad": "Pensión ordinaria sin servicios laborales: art20, exclusión DA61 y mínimo propio mayor de65. No está acreditado por los casos salariales.",
+      "hechos": {
+        "nacimiento": "01/01/1957",
+        "estadoCivil": "soltero",
+        "vivienda": "sin-propiedad-ni-deducciones-solicitadas",
+        "pension": "jubilacion-ordinaria-sujeta-no-exenta",
+        "mutualidadesDT2": "ninguna",
+        "serviciosLaborales2025": "ninguno",
+        "otrosPagadores": "ninguno",
+        "otrasRentas": "ninguna",
+        "familiares": "ninguno",
+        "discapacidad": "ninguna",
+        "ingresosExentos": "ninguno"
+      },
+      "entrada": {
+        "ejercicio": 2025,
+        "comunidadAutonoma": "andalucia",
+        "edad": 68,
+        "modalidad": "individual",
+        "residenciaTodoElAnio": true,
+        "devengo": "2025-12-31",
+        "otrasRentas": "ninguna",
+        "familiaresConDerechoMinimo": "ninguno",
+        "discapacidad": "ninguna",
+        "reduccionesBase": "ninguna",
+        "saldosAnteriores": "ninguno",
+        "deducciones": "solo-da61-si-procede",
+        "rentasExtranjeras": "ninguna",
+        "especialidades": "ninguna",
+        "perfil": "solo-trabajo",
+        "conciliacion": {
+          "ejercicio": 2025,
+          "estado": "totales-anuales-sin-duplicados",
+          "procedencia": [
+            "sintetico:datos-fiscales-2025",
+            "sintetico:certificados-pagadores"
+          ]
+        },
+        "trabajo": {
+          "ejercicio": 2025,
+          "territorio": "comun",
+          "reduccionesArt18": "ninguna",
+          "movilidad": "ninguna",
+          "discapacidadActiva": "ninguna",
+          "rendimientos": [
+            {
+              "id": "a",
+              "clase": "pension",
+              "integro": "17000.00",
+              "cotizaciones": {
+                "clase": "efectivas",
+                "seguridadSocial": "0.00",
+                "derechosPasivos": "0",
+                "colegiosHuerfanos": "0"
+              },
+              "sindicato": {
+                "importe": "0.00",
+                "satisfecho": "si"
+              },
+              "colegio": {
+                "importe": "0.00",
+                "satisfecho": "si",
+                "obligatorio": "si",
+                "finesEsenciales": "si"
+              },
+              "defensa": {
+                "importe": "0.00",
+                "satisfecho": "si",
+                "litigioDirectoPagador": "si"
+              }
+            }
+          ]
+        },
+        "retenciones": [
+          {
+            "operacionId": "ret-0",
+            "procedencia": "sintetico:certificado-0",
+            "ejercicio": 2025,
+            "importe": "1200.00",
+            "efectiva": true
+          }
+        ]
+      },
+      "resultadoOpen": null,
+      "prediccionMotor": null,
+      "incluidoEnMuestraOriginal": false,
+      "pesoExterno": null,
+      "controlesNormativosPrevios": {
+        "deduccionDA61": "0.00",
+        "minimoEstatal": "6700.00",
+        "minimoAutonomico": "6990.00"
+      },
+      "transportePendiente": [
+        "Nueva declaración ordinaria, sin importar SES ni copiar liquidación.",
+        "Introducir pensión en rendimientos del trabajo; no introducir ingresos en el subdiálogo DA61 de servicios efectivos.",
+        "Verificar nacimiento, territorio, bruto, gastos cero, retención y ausencia DA61 en readback, SES y PDF.",
+        "Conservar toda la persistencia original y comparar sólo después de sellar predicción."
+      ]
+    },
+    {
+      "id": "pension-2025-madrid-77",
+      "ejercicio": 2025,
+      "tipo": "hechos-sinteticos-prospectivos",
+      "utilidad": "Pensión ordinaria sin reducción art20: incremento propio mayor de75 y mínimo autonómico madrileño. No duplica el primer caso.",
+      "hechos": {
+        "nacimiento": "01/01/1948",
+        "estadoCivil": "soltero",
+        "vivienda": "sin-propiedad-ni-deducciones-solicitadas",
+        "pension": "jubilacion-ordinaria-sujeta-no-exenta",
+        "mutualidadesDT2": "ninguna",
+        "serviciosLaborales2025": "ninguno",
+        "otrosPagadores": "ninguno",
+        "otrasRentas": "ninguna",
+        "familiares": "ninguno",
+        "discapacidad": "ninguna",
+        "ingresosExentos": "ninguno"
+      },
+      "entrada": {
+        "ejercicio": 2025,
+        "comunidadAutonoma": "madrid",
+        "edad": 77,
+        "modalidad": "individual",
+        "residenciaTodoElAnio": true,
+        "devengo": "2025-12-31",
+        "otrasRentas": "ninguna",
+        "familiaresConDerechoMinimo": "ninguno",
+        "discapacidad": "ninguna",
+        "reduccionesBase": "ninguna",
+        "saldosAnteriores": "ninguno",
+        "deducciones": "solo-da61-si-procede",
+        "rentasExtranjeras": "ninguna",
+        "especialidades": "ninguna",
+        "perfil": "solo-trabajo",
+        "conciliacion": {
+          "ejercicio": 2025,
+          "estado": "totales-anuales-sin-duplicados",
+          "procedencia": [
+            "sintetico:datos-fiscales-2025",
+            "sintetico:certificados-pagadores"
+          ]
+        },
+        "trabajo": {
+          "ejercicio": 2025,
+          "territorio": "comun",
+          "reduccionesArt18": "ninguna",
+          "movilidad": "ninguna",
+          "discapacidadActiva": "ninguna",
+          "rendimientos": [
+            {
+              "id": "a",
+              "clase": "pension",
+              "integro": "30000.00",
+              "cotizaciones": {
+                "clase": "efectivas",
+                "seguridadSocial": "0.00",
+                "derechosPasivos": "0",
+                "colegiosHuerfanos": "0"
+              },
+              "sindicato": {
+                "importe": "0.00",
+                "satisfecho": "si"
+              },
+              "colegio": {
+                "importe": "0.00",
+                "satisfecho": "si",
+                "obligatorio": "si",
+                "finesEsenciales": "si"
+              },
+              "defensa": {
+                "importe": "0.00",
+                "satisfecho": "si",
+                "litigioDirectoPagador": "si"
+              }
+            }
+          ]
+        },
+        "retenciones": [
+          {
+            "operacionId": "ret-0",
+            "procedencia": "sintetico:certificado-0",
+            "ejercicio": 2025,
+            "importe": "4200.00",
+            "efectiva": true
+          }
+        ]
+      },
+      "resultadoOpen": null,
+      "prediccionMotor": null,
+      "incluidoEnMuestraOriginal": false,
+      "pesoExterno": null,
+      "controlesNormativosPrevios": {
+        "deduccionDA61": "0.00",
+        "minimoEstatal": "8100.00",
+        "minimoAutonomico": "8693.49"
+      },
+      "transportePendiente": [
+        "Nueva declaración ordinaria, sin importar SES ni copiar liquidación.",
+        "Introducir pensión en rendimientos del trabajo; no introducir ingresos en el subdiálogo DA61 de servicios efectivos.",
+        "Verificar nacimiento, territorio, bruto, gastos cero, retención y ausencia DA61 en readback, SES y PDF.",
+        "Conservar toda la persistencia original y comparar sólo después de sellar predicción."
+      ]
+    }
+  ],
+  "estado": "Preparación de hechos; sin ejecutar motor, transporte, capturas ni comparación."
+}

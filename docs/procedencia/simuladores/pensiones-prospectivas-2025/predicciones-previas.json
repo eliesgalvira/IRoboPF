@@ -1,0 +1,597 @@
+{
+  "at": "2026-11-17T16:07:10.141Z",
+  "revision": "0841e6bc0aac0f0696534917b9c749ea6fbfe6f7",
+  "hechosSHA256": "dcb6324b10ba4c5b003e4fa3185326061f234ef69468b6228c3af6018645d825",
+  "casos": [
+    {
+      "id": "pension-2025-andalucia-68",
+      "schemaAccepted": true,
+      "openObserved": false,
+      "counted": false,
+      "result": {
+        "_tag": "LiquidacionIrpfAnualExplicitaCalculada",
+        "perfil": "solo-trabajo",
+        "ejercicio": 2025,
+        "alcance": "individual-comun-2025-hechos-explicitos",
+        "rendimientoNetoReducido": "11457",
+        "baseImponibleGeneral": "11457",
+        "baseLiquidableGeneral": "11457",
+        "baseLiquidableAhorro": "0",
+        "reduccionArt20": "3543",
+        "componentesCuota": {
+          "unidad": "EUR",
+          "gravamenEstatal": "1088.415",
+          "gravamenMinimoEstatal": "636.5",
+          "gravamenAutonomico": "1088.415",
+          "gravamenMinimoAutonomico": "664.05",
+          "cuotaEstatal": "451.915",
+          "cuotaAutonomica": "424.365"
+        },
+        "cuotaLiquidaLegal": "876.28",
+        "deduccionTrabajo": "0",
+        "cuotaPosterior": "876.28",
+        "retenciones": "1200",
+        "pagosFraccionados": "0",
+        "cuotaDiferencial": "-323.72",
+        "cuotaDiferencialPresentada": "-323.72",
+        "aceptacionFiscal": "pendiente",
+        "rastro": {
+          "titulo": "Liquidación anual explícita 2025",
+          "contexto": {
+            "anio": 2025,
+            "territorio": "andalucia",
+            "perfilCalculo": "solo-trabajo"
+          },
+          "pasos": [
+            {
+              "_tag": "PasoExplicacion",
+              "titulo": "Trabajo conciliado y reducción única",
+              "descripcion": "Totales anuales disjuntos aportados: sintetico:datos-fiscales-2025, sintetico:certificados-pagadores. Pensión excluida de DA61.",
+              "fuentes": [
+                {
+                  "titulo": "Alcance y evidencia de la conexión anual",
+                  "referencia": "docs/procedencia/implementaciones/conexion-anual/INFORME.md"
+                }
+              ],
+              "lineasCalculo": [
+                {
+                  "etiqueta": "Trabajo íntegro",
+                  "formula": "suma de rendimientos anuales conciliados",
+                  "resultado": "17000.00 euros",
+                  "origen": {
+                    "siteId": "anual.explicito.trabajo.integro",
+                    "instanceId": "anual.explicito.trabajo.integro.0",
+                    "decimal": "17000",
+                    "unidad": "EUR"
+                  },
+                  "procedencia": {
+                    "estado": "pendiente",
+                    "motivo": "Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: /procedencia/f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885/paso.anual.explicito.trabajo.integro/c8f9fe78300a68be6c8c677dbf2b54d2dcfc66d64786d3cee5306c00d7364cde; snapshot f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885; algoritmo 394e31ba87586ab327620183f6756e521f724decbcb0a9891f60b1a0aa240980; datos da16d0a5655d37c330b63a5f510c25be6cc1544ce09aa288a6273d7984a62517; explicación a3ca89b1716dc4086fc226184749ab85f04e94afbeaffad438ee96cb8846dac5; sujeto paso.anual.explicito.trabajo.integro@c8f9fe78300a68be6c8c677dbf2b54d2dcfc66d64786d3cee5306c00d7364cde"
+                  }
+                },
+                {
+                  "etiqueta": "Gastos a–e",
+                  "formula": "cotizaciones efectivas + sindicato + colegio limitado + defensa limitada, una vez al año",
+                  "resultado": "0.00 euros",
+                  "origen": {
+                    "siteId": "anual.explicito.trabajo.gastos-a-e",
+                    "instanceId": "anual.explicito.trabajo.gastos-a-e.0",
+                    "decimal": "0",
+                    "unidad": "EUR"
+                  },
+                  "procedencia": {
+                    "estado": "pendiente",
+                    "motivo": "Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: /procedencia/f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885/paso.anual.explicito.trabajo.gastos-a-e/6d20471987fb5290c8ffac713254c23872b5553021a26d473fed1d4ff0758e4b; snapshot f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885; algoritmo 394e31ba87586ab327620183f6756e521f724decbcb0a9891f60b1a0aa240980; datos da16d0a5655d37c330b63a5f510c25be6cc1544ce09aa288a6273d7984a62517; explicación a3ca89b1716dc4086fc226184749ab85f04e94afbeaffad438ee96cb8846dac5; sujeto paso.anual.explicito.trabajo.gastos-a-e@6d20471987fb5290c8ffac713254c23872b5553021a26d473fed1d4ff0758e4b"
+                  }
+                },
+                {
+                  "etiqueta": "Gasto general aplicado",
+                  "formula": "min(2000, saldo positivo después de a–e)",
+                  "resultado": "2000.00 euros",
+                  "origen": {
+                    "siteId": "anual.explicito.trabajo.gasto-f",
+                    "instanceId": "anual.explicito.trabajo.gasto-f.0",
+                    "decimal": "2000",
+                    "unidad": "EUR"
+                  },
+                  "procedencia": {
+                    "estado": "pendiente",
+                    "motivo": "Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: /procedencia/f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885/paso.anual.explicito.trabajo.gasto-f/992a4ddb351575a627789101b3b5d7faa37ae731fe59b747ef2e6db6f68485cd; snapshot f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885; algoritmo 394e31ba87586ab327620183f6756e521f724decbcb0a9891f60b1a0aa240980; datos da16d0a5655d37c330b63a5f510c25be6cc1544ce09aa288a6273d7984a62517; explicación a3ca89b1716dc4086fc226184749ab85f04e94afbeaffad438ee96cb8846dac5; sujeto paso.anual.explicito.trabajo.gasto-f@992a4ddb351575a627789101b3b5d7faa37ae731fe59b747ef2e6db6f68485cd"
+                  }
+                },
+                {
+                  "etiqueta": "Neto artículo 19",
+                  "formula": "íntegro menos gastos efectivos a–e y gasto f limitado",
+                  "resultado": "15000.00 euros",
+                  "origen": {
+                    "siteId": "anual.explicito.trabajo.art19",
+                    "instanceId": "anual.explicito.trabajo.art19.0",
+                    "decimal": "15000",
+                    "unidad": "EUR"
+                  },
+                  "procedencia": {
+                    "estado": "pendiente",
+                    "motivo": "Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: /procedencia/f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885/paso.anual.explicito.trabajo.art19/a7f955eaf3891aff49085d096f6a86675abe3128f9d1c2931988850e034d5f64; snapshot f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885; algoritmo 394e31ba87586ab327620183f6756e521f724decbcb0a9891f60b1a0aa240980; datos da16d0a5655d37c330b63a5f510c25be6cc1544ce09aa288a6273d7984a62517; explicación a3ca89b1716dc4086fc226184749ab85f04e94afbeaffad438ee96cb8846dac5; sujeto paso.anual.explicito.trabajo.art19@a7f955eaf3891aff49085d096f6a86675abe3128f9d1c2931988850e034d5f64"
+                  }
+                },
+                {
+                  "etiqueta": "Reducción artículo 20",
+                  "formula": "min(saldo positivo art19, reducción sobre neto sin f; otras rentas = cobros identificados (cero sólo en perfil sin ellas))",
+                  "resultado": "3543.00 euros",
+                  "origen": {
+                    "siteId": "anual.explicito.trabajo.art20",
+                    "instanceId": "anual.explicito.trabajo.art20.0",
+                    "decimal": "3543",
+                    "unidad": "EUR"
+                  },
+                  "procedencia": {
+                    "estado": "pendiente",
+                    "motivo": "Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: /procedencia/f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885/paso.anual.explicito.trabajo.art20/77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9; snapshot f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885; algoritmo 394e31ba87586ab327620183f6756e521f724decbcb0a9891f60b1a0aa240980; datos da16d0a5655d37c330b63a5f510c25be6cc1544ce09aa288a6273d7984a62517; explicación a3ca89b1716dc4086fc226184749ab85f04e94afbeaffad438ee96cb8846dac5; sujeto paso.anual.explicito.trabajo.art20@77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9"
+                  }
+                }
+              ]
+            },
+            {
+              "_tag": "PasoExplicacion",
+              "titulo": "Bases, cuotas y pagos anuales",
+              "descripcion": "Bases, derechos y deducciones admitidos por el perfil anual. Artículo 80 sin importe al excluir rentas extranjeras. Cuota líquida legal conservada antes de DA61. Precisión decimal hasta salida; presentación final half-up a céntimos, pendiente de aceptación fiscal.",
+              "fuentes": [
+                {
+                  "titulo": "Alcance y evidencia de la conexión anual",
+                  "referencia": "docs/procedencia/implementaciones/conexion-anual/INFORME.md"
+                }
+              ],
+              "lineasCalculo": [
+                {
+                  "etiqueta": "Base imponible general",
+                  "formula": "rendimiento neto reducido más ganancias no transmisión cobradas e identificadas",
+                  "resultado": "11457.00 euros",
+                  "origen": {
+                    "siteId": "anual.explicito.big",
+                    "instanceId": "anual.explicito.big.0",
+                    "decimal": "11457",
+                    "unidad": "EUR"
+                  },
+                  "procedencia": {
+                    "estado": "pendiente",
+                    "motivo": "Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: /procedencia/f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885/paso.anual.explicito.big/14211db94189677b5d7a19da9b0cc3977802623c5568694c61fe6bd00c7e5610; snapshot f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885; algoritmo 394e31ba87586ab327620183f6756e521f724decbcb0a9891f60b1a0aa240980; datos da16d0a5655d37c330b63a5f510c25be6cc1544ce09aa288a6273d7984a62517; explicación a3ca89b1716dc4086fc226184749ab85f04e94afbeaffad438ee96cb8846dac5; sujeto paso.anual.explicito.big@14211db94189677b5d7a19da9b0cc3977802623c5568694c61fe6bd00c7e5610"
+                  }
+                },
+                {
+                  "etiqueta": "Base liquidable general",
+                  "formula": "BIG sin reducciones de base ni compensaciones anteriores",
+                  "resultado": "11457.00 euros",
+                  "origen": {
+                    "siteId": "anual.explicito.blg",
+                    "instanceId": "anual.explicito.blg.0",
+                    "decimal": "11457",
+                    "unidad": "EUR"
+                  },
+                  "procedencia": {
+                    "estado": "pendiente",
+                    "motivo": "Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: /procedencia/f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885/paso.anual.explicito.blg/e65982b324a5249c54b5e5155d91db059b4c7afca04607b25977cb4d421c95af; snapshot f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885; algoritmo 394e31ba87586ab327620183f6756e521f724decbcb0a9891f60b1a0aa240980; datos da16d0a5655d37c330b63a5f510c25be6cc1544ce09aa288a6273d7984a62517; explicación a3ca89b1716dc4086fc226184749ab85f04e94afbeaffad438ee96cb8846dac5; sujeto paso.anual.explicito.blg@e65982b324a5249c54b5e5155d91db059b4c7afca04607b25977cb4d421c95af"
+                  }
+                },
+                {
+                  "etiqueta": "Cuota estatal",
+                  "formula": "escala(base positiva) − escala(mínimo limitado a base)",
+                  "resultado": "451.92 euros",
+                  "origen": {
+                    "siteId": "anual.explicito.cuota.estatal",
+                    "instanceId": "anual.explicito.cuota.estatal.0",
+                    "decimal": "451.915",
+                    "unidad": "EUR"
+                  },
+                  "procedencia": {
+                    "estado": "pendiente",
+                    "motivo": "Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: /procedencia/f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885/paso.anual.explicito.cuota.estatal/b35c71f1baa6857ec72889b762dc43056761d21d6372be5f8017cb101b0585f6; snapshot f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885; algoritmo 394e31ba87586ab327620183f6756e521f724decbcb0a9891f60b1a0aa240980; datos da16d0a5655d37c330b63a5f510c25be6cc1544ce09aa288a6273d7984a62517; explicación a3ca89b1716dc4086fc226184749ab85f04e94afbeaffad438ee96cb8846dac5; sujeto paso.anual.explicito.cuota.estatal@b35c71f1baa6857ec72889b762dc43056761d21d6372be5f8017cb101b0585f6"
+                  }
+                },
+                {
+                  "etiqueta": "Cuota autonómica",
+                  "formula": "escala autonómica(base) − escala(mínimo limitado a base)",
+                  "resultado": "424.37 euros",
+                  "origen": {
+                    "siteId": "anual.explicito.cuota.autonomica",
+                    "instanceId": "anual.explicito.cuota.autonomica.0",
+                    "decimal": "424.365",
+                    "unidad": "EUR"
+                  },
+                  "procedencia": {
+                    "estado": "pendiente",
+                    "motivo": "Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: /procedencia/f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885/paso.anual.explicito.cuota.autonomica/c9458d9ecaaf5c365aaf1323a4dfa8fb09754cffc353b5c9a470f9da99db6b03; snapshot f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885; algoritmo 394e31ba87586ab327620183f6756e521f724decbcb0a9891f60b1a0aa240980; datos da16d0a5655d37c330b63a5f510c25be6cc1544ce09aa288a6273d7984a62517; explicación a3ca89b1716dc4086fc226184749ab85f04e94afbeaffad438ee96cb8846dac5; sujeto paso.anual.explicito.cuota.autonomica@c9458d9ecaaf5c365aaf1323a4dfa8fb09754cffc353b5c9a470f9da99db6b03"
+                  }
+                },
+                {
+                  "etiqueta": "Cuota líquida legal",
+                  "formula": "cuota estatal + autonómica - deducciones aplicadas en la composición anual",
+                  "resultado": "876.28 euros",
+                  "origen": {
+                    "siteId": "anual.explicito.cuota.liquida-legal",
+                    "instanceId": "anual.explicito.cuota.liquida-legal.0",
+                    "decimal": "876.28",
+                    "unidad": "EUR"
+                  },
+                  "procedencia": {
+                    "estado": "pendiente",
+                    "motivo": "Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: /procedencia/f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885/paso.anual.explicito.cuota.liquida-legal/0302441d128ed71664e963255ceae24ddb18667a6a9993e3334590dd553db779; snapshot f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885; algoritmo 394e31ba87586ab327620183f6756e521f724decbcb0a9891f60b1a0aa240980; datos da16d0a5655d37c330b63a5f510c25be6cc1544ce09aa288a6273d7984a62517; explicación a3ca89b1716dc4086fc226184749ab85f04e94afbeaffad438ee96cb8846dac5; sujeto paso.anual.explicito.cuota.liquida-legal@0302441d128ed71664e963255ceae24ddb18667a6a9993e3334590dd553db779"
+                  }
+                },
+                {
+                  "etiqueta": "DA61",
+                  "formula": "deducción de servicios después del artículo 80, una sola vez",
+                  "resultado": "0.00 euros",
+                  "origen": {
+                    "siteId": "anual.explicito.da61",
+                    "instanceId": "anual.explicito.da61.0",
+                    "decimal": "0",
+                    "unidad": "EUR"
+                  },
+                  "procedencia": {
+                    "estado": "pendiente",
+                    "motivo": "Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: /procedencia/f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885/paso.anual.explicito.da61/8f017bd4469068dc65bceb6bbf27cce725ce58930dd5bf4dbf96d9ea407e0cd4; snapshot f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885; algoritmo 394e31ba87586ab327620183f6756e521f724decbcb0a9891f60b1a0aa240980; datos da16d0a5655d37c330b63a5f510c25be6cc1544ce09aa288a6273d7984a62517; explicación a3ca89b1716dc4086fc226184749ab85f04e94afbeaffad438ee96cb8846dac5; sujeto paso.anual.explicito.da61@8f017bd4469068dc65bceb6bbf27cce725ce58930dd5bf4dbf96d9ea407e0cd4"
+                  }
+                },
+                {
+                  "etiqueta": "Cuota posterior",
+                  "formula": "cuota líquida legal − DA61",
+                  "resultado": "876.28 euros",
+                  "origen": {
+                    "siteId": "anual.explicito.cuota.posterior",
+                    "instanceId": "anual.explicito.cuota.posterior.0",
+                    "decimal": "876.28",
+                    "unidad": "EUR"
+                  },
+                  "procedencia": {
+                    "estado": "pendiente",
+                    "motivo": "Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: /procedencia/f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885/paso.anual.explicito.cuota.posterior/c950c0baf60228f8d0624cf197bfe5b235224966cbbf0305c1344705b35c4074; snapshot f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885; algoritmo 394e31ba87586ab327620183f6756e521f724decbcb0a9891f60b1a0aa240980; datos da16d0a5655d37c330b63a5f510c25be6cc1544ce09aa288a6273d7984a62517; explicación a3ca89b1716dc4086fc226184749ab85f04e94afbeaffad438ee96cb8846dac5; sujeto paso.anual.explicito.cuota.posterior@c950c0baf60228f8d0624cf197bfe5b235224966cbbf0305c1344705b35c4074"
+                  }
+                },
+                {
+                  "etiqueta": "Retenciones efectivas",
+                  "formula": "suma por operación única",
+                  "resultado": "1200.00 euros",
+                  "origen": {
+                    "siteId": "anual.explicito.retenciones",
+                    "instanceId": "anual.explicito.retenciones.0",
+                    "decimal": "1200",
+                    "unidad": "EUR"
+                  },
+                  "procedencia": {
+                    "estado": "pendiente",
+                    "motivo": "Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: /procedencia/f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885/paso.anual.explicito.retenciones/61983dac53bde004f9c21de76fa7bc1d3f2defba75ce57794c7a9516c5b4c724; snapshot f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885; algoritmo 394e31ba87586ab327620183f6756e521f724decbcb0a9891f60b1a0aa240980; datos da16d0a5655d37c330b63a5f510c25be6cc1544ce09aa288a6273d7984a62517; explicación a3ca89b1716dc4086fc226184749ab85f04e94afbeaffad438ee96cb8846dac5; sujeto paso.anual.explicito.retenciones@61983dac53bde004f9c21de76fa7bc1d3f2defba75ce57794c7a9516c5b4c724"
+                  }
+                },
+                {
+                  "etiqueta": "Pagos fraccionados efectivos",
+                  "formula": "suma por operación única",
+                  "resultado": "0.00 euros",
+                  "origen": {
+                    "siteId": "anual.explicito.pagos",
+                    "instanceId": "anual.explicito.pagos.0",
+                    "decimal": "0",
+                    "unidad": "EUR"
+                  },
+                  "procedencia": {
+                    "estado": "pendiente",
+                    "motivo": "Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: /procedencia/f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885/paso.anual.explicito.pagos/c5f98a8135d517633e6fe5d17ba6b5c8327e8909259ca8ffc23f65539d8f91a5; snapshot f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885; algoritmo 394e31ba87586ab327620183f6756e521f724decbcb0a9891f60b1a0aa240980; datos da16d0a5655d37c330b63a5f510c25be6cc1544ce09aa288a6273d7984a62517; explicación a3ca89b1716dc4086fc226184749ab85f04e94afbeaffad438ee96cb8846dac5; sujeto paso.anual.explicito.pagos@c5f98a8135d517633e6fe5d17ba6b5c8327e8909259ca8ffc23f65539d8f91a5"
+                  }
+                },
+                {
+                  "etiqueta": "Cuota diferencial",
+                  "formula": "cuota posterior − retenciones − pagos fraccionados",
+                  "resultado": "-323.72 euros",
+                  "origen": {
+                    "siteId": "anual.explicito.diferencial",
+                    "instanceId": "anual.explicito.diferencial.0",
+                    "decimal": "-323.72",
+                    "unidad": "EUR"
+                  },
+                  "procedencia": {
+                    "estado": "pendiente",
+                    "motivo": "Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: /procedencia/f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885/paso.anual.explicito.diferencial/b39370fddabe883e530533560262af81afdfe0d0379e0c2997c9f669044d5c5e; snapshot f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885; algoritmo 394e31ba87586ab327620183f6756e521f724decbcb0a9891f60b1a0aa240980; datos da16d0a5655d37c330b63a5f510c25be6cc1544ce09aa288a6273d7984a62517; explicación a3ca89b1716dc4086fc226184749ab85f04e94afbeaffad438ee96cb8846dac5; sujeto paso.anual.explicito.diferencial@b39370fddabe883e530533560262af81afdfe0d0379e0c2997c9f669044d5c5e"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "pension-2025-madrid-77",
+      "schemaAccepted": true,
+      "openObserved": false,
+      "counted": false,
+      "result": {
+        "_tag": "LiquidacionIrpfAnualExplicitaCalculada",
+        "perfil": "solo-trabajo",
+        "ejercicio": 2025,
+        "alcance": "individual-comun-2025-hechos-explicitos",
+        "rendimientoNetoReducido": "28000",
+        "baseImponibleGeneral": "28000",
+        "baseLiquidableGeneral": "28000",
+        "baseLiquidableAhorro": "0",
+        "reduccionArt20": "0",
+        "componentesCuota": {
+          "unidad": "EUR",
+          "gravamenEstatal": "3282.75",
+          "gravamenMinimoEstatal": "769.5",
+          "gravamenAutonomico": "2890.93736",
+          "gravamenMinimoAutonomico": "738.94665",
+          "cuotaEstatal": "2513.25",
+          "cuotaAutonomica": "2151.99071"
+        },
+        "cuotaLiquidaLegal": "4665.24071",
+        "deduccionTrabajo": "0",
+        "cuotaPosterior": "4665.24071",
+        "retenciones": "4200",
+        "pagosFraccionados": "0",
+        "cuotaDiferencial": "465.24071",
+        "cuotaDiferencialPresentada": "465.24",
+        "aceptacionFiscal": "pendiente",
+        "rastro": {
+          "titulo": "Liquidación anual explícita 2025",
+          "contexto": {
+            "anio": 2025,
+            "territorio": "madrid",
+            "perfilCalculo": "solo-trabajo"
+          },
+          "pasos": [
+            {
+              "_tag": "PasoExplicacion",
+              "titulo": "Trabajo conciliado y reducción única",
+              "descripcion": "Totales anuales disjuntos aportados: sintetico:datos-fiscales-2025, sintetico:certificados-pagadores. Pensión excluida de DA61.",
+              "fuentes": [
+                {
+                  "titulo": "Alcance y evidencia de la conexión anual",
+                  "referencia": "docs/procedencia/implementaciones/conexion-anual/INFORME.md"
+                }
+              ],
+              "lineasCalculo": [
+                {
+                  "etiqueta": "Trabajo íntegro",
+                  "formula": "suma de rendimientos anuales conciliados",
+                  "resultado": "30000.00 euros",
+                  "origen": {
+                    "siteId": "anual.explicito.trabajo.integro",
+                    "instanceId": "anual.explicito.trabajo.integro.0",
+                    "decimal": "30000",
+                    "unidad": "EUR"
+                  },
+                  "procedencia": {
+                    "estado": "pendiente",
+                    "motivo": "Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: /procedencia/f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885/paso.anual.explicito.trabajo.integro/c8f9fe78300a68be6c8c677dbf2b54d2dcfc66d64786d3cee5306c00d7364cde; snapshot f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885; algoritmo 394e31ba87586ab327620183f6756e521f724decbcb0a9891f60b1a0aa240980; datos da16d0a5655d37c330b63a5f510c25be6cc1544ce09aa288a6273d7984a62517; explicación a3ca89b1716dc4086fc226184749ab85f04e94afbeaffad438ee96cb8846dac5; sujeto paso.anual.explicito.trabajo.integro@c8f9fe78300a68be6c8c677dbf2b54d2dcfc66d64786d3cee5306c00d7364cde"
+                  }
+                },
+                {
+                  "etiqueta": "Gastos a–e",
+                  "formula": "cotizaciones efectivas + sindicato + colegio limitado + defensa limitada, una vez al año",
+                  "resultado": "0.00 euros",
+                  "origen": {
+                    "siteId": "anual.explicito.trabajo.gastos-a-e",
+                    "instanceId": "anual.explicito.trabajo.gastos-a-e.0",
+                    "decimal": "0",
+                    "unidad": "EUR"
+                  },
+                  "procedencia": {
+                    "estado": "pendiente",
+                    "motivo": "Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: /procedencia/f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885/paso.anual.explicito.trabajo.gastos-a-e/6d20471987fb5290c8ffac713254c23872b5553021a26d473fed1d4ff0758e4b; snapshot f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885; algoritmo 394e31ba87586ab327620183f6756e521f724decbcb0a9891f60b1a0aa240980; datos da16d0a5655d37c330b63a5f510c25be6cc1544ce09aa288a6273d7984a62517; explicación a3ca89b1716dc4086fc226184749ab85f04e94afbeaffad438ee96cb8846dac5; sujeto paso.anual.explicito.trabajo.gastos-a-e@6d20471987fb5290c8ffac713254c23872b5553021a26d473fed1d4ff0758e4b"
+                  }
+                },
+                {
+                  "etiqueta": "Gasto general aplicado",
+                  "formula": "min(2000, saldo positivo después de a–e)",
+                  "resultado": "2000.00 euros",
+                  "origen": {
+                    "siteId": "anual.explicito.trabajo.gasto-f",
+                    "instanceId": "anual.explicito.trabajo.gasto-f.0",
+                    "decimal": "2000",
+                    "unidad": "EUR"
+                  },
+                  "procedencia": {
+                    "estado": "pendiente",
+                    "motivo": "Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: /procedencia/f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885/paso.anual.explicito.trabajo.gasto-f/992a4ddb351575a627789101b3b5d7faa37ae731fe59b747ef2e6db6f68485cd; snapshot f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885; algoritmo 394e31ba87586ab327620183f6756e521f724decbcb0a9891f60b1a0aa240980; datos da16d0a5655d37c330b63a5f510c25be6cc1544ce09aa288a6273d7984a62517; explicación a3ca89b1716dc4086fc226184749ab85f04e94afbeaffad438ee96cb8846dac5; sujeto paso.anual.explicito.trabajo.gasto-f@992a4ddb351575a627789101b3b5d7faa37ae731fe59b747ef2e6db6f68485cd"
+                  }
+                },
+                {
+                  "etiqueta": "Neto artículo 19",
+                  "formula": "íntegro menos gastos efectivos a–e y gasto f limitado",
+                  "resultado": "28000.00 euros",
+                  "origen": {
+                    "siteId": "anual.explicito.trabajo.art19",
+                    "instanceId": "anual.explicito.trabajo.art19.0",
+                    "decimal": "28000",
+                    "unidad": "EUR"
+                  },
+                  "procedencia": {
+                    "estado": "pendiente",
+                    "motivo": "Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: /procedencia/f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885/paso.anual.explicito.trabajo.art19/a7f955eaf3891aff49085d096f6a86675abe3128f9d1c2931988850e034d5f64; snapshot f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885; algoritmo 394e31ba87586ab327620183f6756e521f724decbcb0a9891f60b1a0aa240980; datos da16d0a5655d37c330b63a5f510c25be6cc1544ce09aa288a6273d7984a62517; explicación a3ca89b1716dc4086fc226184749ab85f04e94afbeaffad438ee96cb8846dac5; sujeto paso.anual.explicito.trabajo.art19@a7f955eaf3891aff49085d096f6a86675abe3128f9d1c2931988850e034d5f64"
+                  }
+                },
+                {
+                  "etiqueta": "Reducción artículo 20",
+                  "formula": "min(saldo positivo art19, reducción sobre neto sin f; otras rentas = cobros identificados (cero sólo en perfil sin ellas))",
+                  "resultado": "0.00 euros",
+                  "origen": {
+                    "siteId": "anual.explicito.trabajo.art20",
+                    "instanceId": "anual.explicito.trabajo.art20.0",
+                    "decimal": "0",
+                    "unidad": "EUR"
+                  },
+                  "procedencia": {
+                    "estado": "pendiente",
+                    "motivo": "Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: /procedencia/f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885/paso.anual.explicito.trabajo.art20/77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9; snapshot f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885; algoritmo 394e31ba87586ab327620183f6756e521f724decbcb0a9891f60b1a0aa240980; datos da16d0a5655d37c330b63a5f510c25be6cc1544ce09aa288a6273d7984a62517; explicación a3ca89b1716dc4086fc226184749ab85f04e94afbeaffad438ee96cb8846dac5; sujeto paso.anual.explicito.trabajo.art20@77e7e24cbb2964cffa17a15b4ea5a92b12c584fcace32cb289e067bd621977b9"
+                  }
+                }
+              ]
+            },
+            {
+              "_tag": "PasoExplicacion",
+              "titulo": "Bases, cuotas y pagos anuales",
+              "descripcion": "Bases, derechos y deducciones admitidos por el perfil anual. Artículo 80 sin importe al excluir rentas extranjeras. Cuota líquida legal conservada antes de DA61. Precisión decimal hasta salida; presentación final half-up a céntimos, pendiente de aceptación fiscal.",
+              "fuentes": [
+                {
+                  "titulo": "Alcance y evidencia de la conexión anual",
+                  "referencia": "docs/procedencia/implementaciones/conexion-anual/INFORME.md"
+                }
+              ],
+              "lineasCalculo": [
+                {
+                  "etiqueta": "Base imponible general",
+                  "formula": "rendimiento neto reducido más ganancias no transmisión cobradas e identificadas",
+                  "resultado": "28000.00 euros",
+                  "origen": {
+                    "siteId": "anual.explicito.big",
+                    "instanceId": "anual.explicito.big.0",
+                    "decimal": "28000",
+                    "unidad": "EUR"
+                  },
+                  "procedencia": {
+                    "estado": "pendiente",
+                    "motivo": "Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: /procedencia/f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885/paso.anual.explicito.big/14211db94189677b5d7a19da9b0cc3977802623c5568694c61fe6bd00c7e5610; snapshot f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885; algoritmo 394e31ba87586ab327620183f6756e521f724decbcb0a9891f60b1a0aa240980; datos da16d0a5655d37c330b63a5f510c25be6cc1544ce09aa288a6273d7984a62517; explicación a3ca89b1716dc4086fc226184749ab85f04e94afbeaffad438ee96cb8846dac5; sujeto paso.anual.explicito.big@14211db94189677b5d7a19da9b0cc3977802623c5568694c61fe6bd00c7e5610"
+                  }
+                },
+                {
+                  "etiqueta": "Base liquidable general",
+                  "formula": "BIG sin reducciones de base ni compensaciones anteriores",
+                  "resultado": "28000.00 euros",
+                  "origen": {
+                    "siteId": "anual.explicito.blg",
+                    "instanceId": "anual.explicito.blg.0",
+                    "decimal": "28000",
+                    "unidad": "EUR"
+                  },
+                  "procedencia": {
+                    "estado": "pendiente",
+                    "motivo": "Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: /procedencia/f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885/paso.anual.explicito.blg/e65982b324a5249c54b5e5155d91db059b4c7afca04607b25977cb4d421c95af; snapshot f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885; algoritmo 394e31ba87586ab327620183f6756e521f724decbcb0a9891f60b1a0aa240980; datos da16d0a5655d37c330b63a5f510c25be6cc1544ce09aa288a6273d7984a62517; explicación a3ca89b1716dc4086fc226184749ab85f04e94afbeaffad438ee96cb8846dac5; sujeto paso.anual.explicito.blg@e65982b324a5249c54b5e5155d91db059b4c7afca04607b25977cb4d421c95af"
+                  }
+                },
+                {
+                  "etiqueta": "Cuota estatal",
+                  "formula": "escala(base positiva) − escala(mínimo limitado a base)",
+                  "resultado": "2513.25 euros",
+                  "origen": {
+                    "siteId": "anual.explicito.cuota.estatal",
+                    "instanceId": "anual.explicito.cuota.estatal.0",
+                    "decimal": "2513.25",
+                    "unidad": "EUR"
+                  },
+                  "procedencia": {
+                    "estado": "pendiente",
+                    "motivo": "Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: /procedencia/f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885/paso.anual.explicito.cuota.estatal/b35c71f1baa6857ec72889b762dc43056761d21d6372be5f8017cb101b0585f6; snapshot f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885; algoritmo 394e31ba87586ab327620183f6756e521f724decbcb0a9891f60b1a0aa240980; datos da16d0a5655d37c330b63a5f510c25be6cc1544ce09aa288a6273d7984a62517; explicación a3ca89b1716dc4086fc226184749ab85f04e94afbeaffad438ee96cb8846dac5; sujeto paso.anual.explicito.cuota.estatal@b35c71f1baa6857ec72889b762dc43056761d21d6372be5f8017cb101b0585f6"
+                  }
+                },
+                {
+                  "etiqueta": "Cuota autonómica",
+                  "formula": "escala autonómica(base) − escala(mínimo limitado a base)",
+                  "resultado": "2151.99 euros",
+                  "origen": {
+                    "siteId": "anual.explicito.cuota.autonomica",
+                    "instanceId": "anual.explicito.cuota.autonomica.0",
+                    "decimal": "2151.99071",
+                    "unidad": "EUR"
+                  },
+                  "procedencia": {
+                    "estado": "pendiente",
+                    "motivo": "Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: /procedencia/f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885/paso.anual.explicito.cuota.autonomica/c9458d9ecaaf5c365aaf1323a4dfa8fb09754cffc353b5c9a470f9da99db6b03; snapshot f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885; algoritmo 394e31ba87586ab327620183f6756e521f724decbcb0a9891f60b1a0aa240980; datos da16d0a5655d37c330b63a5f510c25be6cc1544ce09aa288a6273d7984a62517; explicación a3ca89b1716dc4086fc226184749ab85f04e94afbeaffad438ee96cb8846dac5; sujeto paso.anual.explicito.cuota.autonomica@c9458d9ecaaf5c365aaf1323a4dfa8fb09754cffc353b5c9a470f9da99db6b03"
+                  }
+                },
+                {
+                  "etiqueta": "Cuota líquida legal",
+                  "formula": "cuota estatal + autonómica - deducciones aplicadas en la composición anual",
+                  "resultado": "4665.24 euros",
+                  "origen": {
+                    "siteId": "anual.explicito.cuota.liquida-legal",
+                    "instanceId": "anual.explicito.cuota.liquida-legal.0",
+                    "decimal": "4665.24071",
+                    "unidad": "EUR"
+                  },
+                  "procedencia": {
+                    "estado": "pendiente",
+                    "motivo": "Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: /procedencia/f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885/paso.anual.explicito.cuota.liquida-legal/0302441d128ed71664e963255ceae24ddb18667a6a9993e3334590dd553db779; snapshot f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885; algoritmo 394e31ba87586ab327620183f6756e521f724decbcb0a9891f60b1a0aa240980; datos da16d0a5655d37c330b63a5f510c25be6cc1544ce09aa288a6273d7984a62517; explicación a3ca89b1716dc4086fc226184749ab85f04e94afbeaffad438ee96cb8846dac5; sujeto paso.anual.explicito.cuota.liquida-legal@0302441d128ed71664e963255ceae24ddb18667a6a9993e3334590dd553db779"
+                  }
+                },
+                {
+                  "etiqueta": "DA61",
+                  "formula": "deducción de servicios después del artículo 80, una sola vez",
+                  "resultado": "0.00 euros",
+                  "origen": {
+                    "siteId": "anual.explicito.da61",
+                    "instanceId": "anual.explicito.da61.0",
+                    "decimal": "0",
+                    "unidad": "EUR"
+                  },
+                  "procedencia": {
+                    "estado": "pendiente",
+                    "motivo": "Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: /procedencia/f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885/paso.anual.explicito.da61/8f017bd4469068dc65bceb6bbf27cce725ce58930dd5bf4dbf96d9ea407e0cd4; snapshot f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885; algoritmo 394e31ba87586ab327620183f6756e521f724decbcb0a9891f60b1a0aa240980; datos da16d0a5655d37c330b63a5f510c25be6cc1544ce09aa288a6273d7984a62517; explicación a3ca89b1716dc4086fc226184749ab85f04e94afbeaffad438ee96cb8846dac5; sujeto paso.anual.explicito.da61@8f017bd4469068dc65bceb6bbf27cce725ce58930dd5bf4dbf96d9ea407e0cd4"
+                  }
+                },
+                {
+                  "etiqueta": "Cuota posterior",
+                  "formula": "cuota líquida legal − DA61",
+                  "resultado": "4665.24 euros",
+                  "origen": {
+                    "siteId": "anual.explicito.cuota.posterior",
+                    "instanceId": "anual.explicito.cuota.posterior.0",
+                    "decimal": "4665.24071",
+                    "unidad": "EUR"
+                  },
+                  "procedencia": {
+                    "estado": "pendiente",
+                    "motivo": "Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: /procedencia/f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885/paso.anual.explicito.cuota.posterior/c950c0baf60228f8d0624cf197bfe5b235224966cbbf0305c1344705b35c4074; snapshot f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885; algoritmo 394e31ba87586ab327620183f6756e521f724decbcb0a9891f60b1a0aa240980; datos da16d0a5655d37c330b63a5f510c25be6cc1544ce09aa288a6273d7984a62517; explicación a3ca89b1716dc4086fc226184749ab85f04e94afbeaffad438ee96cb8846dac5; sujeto paso.anual.explicito.cuota.posterior@c950c0baf60228f8d0624cf197bfe5b235224966cbbf0305c1344705b35c4074"
+                  }
+                },
+                {
+                  "etiqueta": "Retenciones efectivas",
+                  "formula": "suma por operación única",
+                  "resultado": "4200.00 euros",
+                  "origen": {
+                    "siteId": "anual.explicito.retenciones",
+                    "instanceId": "anual.explicito.retenciones.0",
+                    "decimal": "4200",
+                    "unidad": "EUR"
+                  },
+                  "procedencia": {
+                    "estado": "pendiente",
+                    "motivo": "Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: /procedencia/f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885/paso.anual.explicito.retenciones/61983dac53bde004f9c21de76fa7bc1d3f2defba75ce57794c7a9516c5b4c724; snapshot f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885; algoritmo 394e31ba87586ab327620183f6756e521f724decbcb0a9891f60b1a0aa240980; datos da16d0a5655d37c330b63a5f510c25be6cc1544ce09aa288a6273d7984a62517; explicación a3ca89b1716dc4086fc226184749ab85f04e94afbeaffad438ee96cb8846dac5; sujeto paso.anual.explicito.retenciones@61983dac53bde004f9c21de76fa7bc1d3f2defba75ce57794c7a9516c5b4c724"
+                  }
+                },
+                {
+                  "etiqueta": "Pagos fraccionados efectivos",
+                  "formula": "suma por operación única",
+                  "resultado": "0.00 euros",
+                  "origen": {
+                    "siteId": "anual.explicito.pagos",
+                    "instanceId": "anual.explicito.pagos.0",
+                    "decimal": "0",
+                    "unidad": "EUR"
+                  },
+                  "procedencia": {
+                    "estado": "pendiente",
+                    "motivo": "Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: /procedencia/f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885/paso.anual.explicito.pagos/c5f98a8135d517633e6fe5d17ba6b5c8327e8909259ca8ffc23f65539d8f91a5; snapshot f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885; algoritmo 394e31ba87586ab327620183f6756e521f724decbcb0a9891f60b1a0aa240980; datos da16d0a5655d37c330b63a5f510c25be6cc1544ce09aa288a6273d7984a62517; explicación a3ca89b1716dc4086fc226184749ab85f04e94afbeaffad438ee96cb8846dac5; sujeto paso.anual.explicito.pagos@c5f98a8135d517633e6fe5d17ba6b5c8327e8909259ca8ffc23f65539d8f91a5"
+                  }
+                },
+                {
+                  "etiqueta": "Cuota diferencial",
+                  "formula": "cuota posterior − retenciones − pagos fraccionados",
+                  "resultado": "465.24 euros",
+                  "origen": {
+                    "siteId": "anual.explicito.diferencial",
+                    "instanceId": "anual.explicito.diferencial.0",
+                    "decimal": "465.24071",
+                    "unidad": "EUR"
+                  },
+                  "procedencia": {
+                    "estado": "pendiente",
+                    "motivo": "Reforma pendiente de nuevo snapshot y revisión. Referencia histórica: /procedencia/f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885/paso.anual.explicito.diferencial/b39370fddabe883e530533560262af81afdfe0d0379e0c2997c9f669044d5c5e; snapshot f4b1aa7c6bea6b43031bf0e661751daa65a4d5950f661491ff86780fdea00885; algoritmo 394e31ba87586ab327620183f6756e521f724decbcb0a9891f60b1a0aa240980; datos da16d0a5655d37c330b63a5f510c25be6cc1544ce09aa288a6273d7984a62517; explicación a3ca89b1716dc4086fc226184749ab85f04e94afbeaffad438ee96cb8846dac5; sujeto paso.anual.explicito.diferencial@b39370fddabe883e530533560262af81afdfe0d0379e0c2997c9f669044d5c5e"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

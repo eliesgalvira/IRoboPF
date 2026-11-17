@@ -1,0 +1,46 @@
+{
+  "predictionRevision": "0841e6bc0aac0f0696534917b9c749ea6fbfe6f7",
+  "validatedRevision": "60db11dc6f0670d0fd8df035dd140c1daac6746c",
+  "changedFiles": [
+    "scripts/procedencia/fuentes-actuales.json"
+  ],
+  "referencedSources": [
+    {
+      "path": "lib/dominio/irpf/deducciones/asturias-cantabria-ampliacion-2025/vivienda.ts",
+      "sha256": "d8f480f9bce828086a29ceee56a529f740293897fdb441e01a251d1577a0267f",
+      "equal": true
+    },
+    {
+      "path": "lib/dominio/irpf/deducciones/b-ampliado-anual-2025/esquemas.ts",
+      "sha256": "97ff7aef5b21bb86583fd770083227560ee3b0f75e3e44dbdc065da0ba12a083",
+      "equal": true
+    },
+    {
+      "path": "lib/dominio/irpf/trabajo-alquiler-ordinario-2025/contrato.ts",
+      "sha256": "ecc61687af52396c2f0fbaedde34085d0740224818bdcb30be19ca1ed0926849",
+      "equal": true
+    },
+    {
+      "path": "lib/dominio/irpf/trabajo-alquiler-ordinario-2025/preparar.ts",
+      "sha256": "b7e0a96897a2240559aea895e6b9b2b04a90a31d0b9af0bf3de0257ddd32345f",
+      "equal": true
+    },
+    {
+      "path": "lib/dominio/irpf/trabajo-alquiler-ordinario-2025/seleccion-open.ts",
+      "sha256": "49e77a3ba9c609cd30d1e5f00d2d42b5c0ee420e13e640fafba317b143c15c9f",
+      "equal": true
+    },
+    {
+      "path": "lib/dominio/irpf/deducciones/asturias-cantabria-ampliacion-2025/exclusion-tipologica.ts",
+      "sha256": "66962e9ca5b6d98460cbe984742abbe055d6be4259c112712809ebe197b83963",
+      "equal": true
+    },
+    {
+      "path": "lib/dominio/irpf/trabajo-alquiler-ordinario-2025/asturias-arrendador.ts",
+      "sha256": "f593b14968f019d6fcca014617b68460addb8861b50402aa353bef3e148b7a81",
+      "equal": true
+    }
+  ],
+  "clarification": "Las siete rutas son claves cuyos pins se actualizaron dentro de fuentes-actuales.json; no son siete archivos cambiados entre estas revisiones. El código fiscal y los esperados son idénticos.",
+  "method": "jj diff --from <predictionRevision> --to <validatedRevision> --name-only; jj file show de cada fuente en ambas revisiones."
+}

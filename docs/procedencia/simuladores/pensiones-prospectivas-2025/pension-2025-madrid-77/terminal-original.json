@@ -1,0 +1,235 @@
+{
+  "reason": "cierre-solicitado",
+  "actions": [
+    {
+      "command": {
+        "op": "click",
+        "role": "button",
+        "name": "Nueva declaración"
+      },
+      "at": "2026-11-17T16:23:56.595Z"
+    },
+    {
+      "command": {
+        "op": "fill",
+        "css": "input[title=\"NIF:\"],input[title=\"NIF\"]",
+        "first": true,
+        "value": "90000000B"
+      },
+      "at": "2026-11-17T16:24:01.102Z"
+    },
+    {
+      "command": {
+        "op": "fill",
+        "css": "input[title=\"Apellidos y nombre:\"],input[title=\"Apellidos y nombre\"]",
+        "first": true,
+        "value": "PRUEBA C OPEN"
+      },
+      "at": "2026-11-17T16:24:05.977Z"
+    },
+    {
+      "command": {
+        "op": "check",
+        "css": "input[type=\"checkbox\"]:visible",
+        "first": true,
+        "value": true
+      },
+      "at": "2026-11-17T16:24:09.476Z"
+    },
+    {
+      "command": {
+        "op": "click",
+        "css": ".z-combobox[title^=\"Estado Civil\"]"
+      },
+      "at": "2026-11-17T16:24:12.974Z"
+    },
+    {
+      "command": {
+        "op": "click",
+        "text": "SOLTERO/A"
+      },
+      "at": "2026-11-17T16:24:16.478Z"
+    },
+    {
+      "command": {
+        "op": "fill",
+        "css": ".z-datebox input:visible",
+        "first": true,
+        "value": "01/01/1948"
+      },
+      "at": "2026-11-17T16:24:21.061Z"
+    },
+    {
+      "command": {
+        "op": "click",
+        "text": "Hombre"
+      },
+      "at": "2026-11-17T16:24:24.560Z"
+    },
+    {
+      "command": {
+        "op": "click",
+        "css": ".z-combobox[title=\"Comunidad Autónoma\"]"
+      },
+      "at": "2026-11-17T16:24:28.069Z"
+    },
+    {
+      "command": {
+        "op": "click",
+        "text": "MADRID"
+      },
+      "at": "2026-11-17T16:24:52.074Z"
+    },
+    {
+      "command": {
+        "op": "click",
+        "role": "button",
+        "name": "Aceptar"
+      },
+      "at": "2026-11-17T16:24:55.640Z"
+    },
+    {
+      "command": {
+        "op": "click",
+        "title": "Apartados declaración"
+      },
+      "at": "2026-11-17T16:25:19.358Z"
+    },
+    {
+      "selectionRejected": true,
+      "command": {
+        "op": "click",
+        "text": "Rendimientos del trabajo"
+      },
+      "count": 0
+    },
+    {
+      "command": {
+        "op": "click",
+        "text": "Rendimientos del trabajo (sueldos, nóminas, pensiones, etc.)"
+      },
+      "at": "2026-11-17T16:26:16.970Z"
+    },
+    {
+      "command": {
+        "op": "click",
+        "css": "xpath=//*[normalize-space(text())=\"0003\"]/../../..//button"
+      },
+      "at": "2026-11-17T16:26:49.058Z"
+    },
+    {
+      "command": {
+        "op": "fill",
+        "title": "Importe íntegro:",
+        "value": "30000,00"
+      },
+      "at": "2026-11-17T16:27:21.150Z"
+    },
+    {
+      "command": {
+        "op": "fill",
+        "title": "Seguridad Social y otros:",
+        "value": "0,00"
+      },
+      "at": "2026-11-17T16:27:25.116Z"
+    },
+    {
+      "command": {
+        "op": "fill",
+        "title": "Retención:",
+        "value": "4200,00"
+      },
+      "at": "2026-11-17T16:27:29.396Z"
+    },
+    {
+      "command": {
+        "op": "fill",
+        "css": ".z-window-modal:visible :text-is(\"Cuotas satisfechas a Sindicatos\") >> xpath=ancestor::td[1]/following-sibling::td[1]//input",
+        "value": "0,00"
+      },
+      "at": "2026-11-17T16:27:33.453Z"
+    },
+    {
+      "command": {
+        "op": "fill",
+        "css": ".z-window-modal:visible :text-is(\"Cuotas a Colegios profesionales\") >> xpath=ancestor::td[1]/following-sibling::td[1]//input",
+        "value": "0,00"
+      },
+      "at": "2026-11-17T16:27:37.485Z"
+    },
+    {
+      "command": {
+        "op": "fill",
+        "css": ".z-window-modal:visible :text-is(\"Gastos de defensa jurídica\") >> xpath=ancestor::td[1]/following-sibling::td[1]//input",
+        "value": "0,00"
+      },
+      "at": "2026-11-17T16:27:41.526Z"
+    },
+    {
+      "command": {
+        "op": "click",
+        "text": "Deducción por obtención de rendimientos del trabajo"
+      },
+      "at": "2026-11-17T16:28:05.755Z"
+    },
+    {
+      "command": {
+        "op": "fill",
+        "scope": ".z-window-modal:visible",
+        "title": "Importe íntegro:",
+        "value": "0,00"
+      },
+      "at": "2026-11-17T16:28:30.429Z"
+    },
+    {
+      "command": {
+        "op": "fill",
+        "scope": ".z-window-modal:visible",
+        "title": "Gastos Seguridad Social y otros:",
+        "value": "0,00"
+      },
+      "at": "2026-11-17T16:28:34.407Z"
+    },
+    {
+      "command": {
+        "op": "click",
+        "scope": ".z-window-modal:visible",
+        "role": "button",
+        "name": "Aceptar"
+      },
+      "at": "2026-11-17T16:28:38.016Z"
+    },
+    {
+      "command": {
+        "op": "click",
+        "title": "Mostrar opciones"
+      },
+      "at": "2026-11-17T16:29:41.497Z"
+    },
+    {
+      "command": {
+        "op": "click",
+        "title": "Guardar datos trabajo (.ses)"
+      },
+      "at": "2026-11-17T16:29:45.012Z"
+    },
+    {
+      "command": {
+        "op": "click",
+        "title": "Resumen de declaraciones"
+      },
+      "at": "2026-11-17T16:29:48.529Z"
+    },
+    {
+      "command": {
+        "op": "click",
+        "role": "button",
+        "name": "Vista previa"
+      },
+      "at": "2026-11-17T16:29:52.042Z"
+    }
+  ],
+  "completedTarget": false,
+  "transportComplete": false,
+  "metricChanged": false
+}

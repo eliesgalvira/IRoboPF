@@ -1,0 +1,5472 @@
+{
+  "id": "pension-2025-madrid-77",
+  "stage": "correspondencias-propuestas-no-admision",
+  "rules": [
+    {
+      "kind": "plantilla-exacta",
+      "literal": "true",
+      "why": "Estado técnico de interfaz persistida; no prueba de secuencia, aprobación fiscal o cronología.",
+      "priorReference": {
+        "path": "tools/procedencia/simuladores/prospectivos-censo.json",
+        "sha256": "ff48dcade311f35873670e790fd044e15ddab4ec09eb97874931cccbdc30686f",
+        "row": {
+          "scope": 0,
+          "path": "DECLARACIONES",
+          "key": "DPACEPTADOS",
+          "type": "1",
+          "flag": null
+        }
+      },
+      "context": "H: pension individual, sin pareja ni familiares; seis plantillas ACTIVIDADES sólo contienen titular, no importes.",
+      "row": {
+        "path": "DECLARACIONES",
+        "scope": 0,
+        "key": "DPACEPTADOS",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "254",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES",
+        "scope": 0,
+        "key": "RGLP2",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "254",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES",
+        "scope": 0,
+        "key": "GAHLP2",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "254",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES",
+        "scope": 0,
+        "key": "TODOLPUF",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "plantilla-exacta",
+      "literal": "G229PW",
+      "why": "Código técnico compartido de trámite en simulación; no código de verificación, presentación ni fecha acreditada.",
+      "priorReference": {
+        "path": "tools/procedencia/simuladores/prospectivos-censo.json",
+        "sha256": "ff48dcade311f35873670e790fd044e15ddab4ec09eb97874931cccbdc30686f",
+        "row": {
+          "scope": 0,
+          "path": "DECLARACIONES",
+          "key": "COD_TRAMITE",
+          "type": "1",
+          "flag": null
+        }
+      },
+      "context": "H: pension individual, sin pareja ni familiares; seis plantillas ACTIVIDADES sólo contienen titular, no importes.",
+      "row": {
+        "path": "DECLARACIONES",
+        "scope": 0,
+        "key": "COD_TRAMITE",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "plantilla-exacta",
+      "literal": "COMÚN",
+      "why": "Etiqueta de titularidad común disponible, no acredita ganancialidad.",
+      "priorReference": {
+        "path": "tools/procedencia/simuladores/prospectivos-censo.json",
+        "sha256": "ff48dcade311f35873670e790fd044e15ddab4ec09eb97874931cccbdc30686f",
+        "row": {
+          "scope": 0,
+          "path": "DECLARACIONES",
+          "key": "LEERTITULARCOMUN",
+          "type": "1",
+          "flag": null
+        }
+      },
+      "context": "H: pension individual, sin pareja ni familiares; seis plantillas ACTIVIDADES sólo contienen titular, no importes.",
+      "row": {
+        "path": "DECLARACIONES",
+        "scope": 0,
+        "key": "LEERTITULARCOMUN",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "plantilla-exacta",
+      "literal": "90000000B",
+      "why": "Alias nominal sintético del rol contribuyente s-1, no identificador real ni segunda renta.",
+      "priorReference": {
+        "path": "tools/procedencia/simuladores/prospectivos-censo.json",
+        "sha256": "ff48dcade311f35873670e790fd044e15ddab4ec09eb97874931cccbdc30686f",
+        "row": {
+          "scope": 0,
+          "path": "DECLARACIONES",
+          "key": "DF_NIF_D",
+          "type": "3",
+          "flag": "254"
+        }
+      },
+      "context": "H: pension individual, sin pareja ni familiares; seis plantillas ACTIVIDADES sólo contienen titular, no importes.",
+      "row": {
+        "path": "DECLARACIONES",
+        "scope": 0,
+        "key": "DF_NIF_D",
+        "type": "3",
+        "flag": "254"
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "254",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES",
+        "scope": 0,
+        "key": "TIDI1APEDIF24",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "254",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES",
+        "scope": 0,
+        "key": "TIDI1APEDIF22",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "254",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES",
+        "scope": 0,
+        "key": "TIDI1APEDIF23",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "254",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES",
+        "scope": 0,
+        "key": "TIDI1APEDIF21",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "plantilla-exacta",
+      "literal": "OPEN",
+      "why": "Modo técnico de simulación de la envoltura; no certificación AEAT.",
+      "priorReference": {
+        "path": "tools/procedencia/simuladores/prospectivos-censo.json",
+        "sha256": "ff48dcade311f35873670e790fd044e15ddab4ec09eb97874931cccbdc30686f",
+        "row": {
+          "scope": 0,
+          "path": "DECLARACIONES",
+          "key": "MODO_APLICACION_INFR",
+          "type": "1",
+          "flag": null
+        }
+      },
+      "context": "H: pension individual, sin pareja ni familiares; seis plantillas ACTIVIDADES sólo contienen titular, no importes.",
+      "row": {
+        "path": "DECLARACIONES",
+        "scope": 0,
+        "key": "MODO_APLICACION_INFR",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "plantilla-exacta",
+      "literal": "true",
+      "why": "Estado técnico de interfaz persistida; no prueba de secuencia, aprobación fiscal o cronología.",
+      "priorReference": {
+        "path": "tools/procedencia/simuladores/prospectivos-censo.json",
+        "sha256": "ff48dcade311f35873670e790fd044e15ddab4ec09eb97874931cccbdc30686f",
+        "row": {
+          "scope": 0,
+          "path": "DECLARACIONES",
+          "key": "DF_FIN_D",
+          "type": "1",
+          "flag": null
+        }
+      },
+      "context": "H: pension individual, sin pareja ni familiares; seis plantillas ACTIVIDADES sólo contienen titular, no importes.",
+      "row": {
+        "path": "DECLARACIONES",
+        "scope": 0,
+        "key": "DF_FIN_D",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "plantilla-exacta",
+      "literal": "false",
+      "why": "No fichero de cónyuge; H sin matrimonio ni pareja.",
+      "priorReference": {
+        "path": "tools/procedencia/simuladores/prospectivos-censo.json",
+        "sha256": "ff48dcade311f35873670e790fd044e15ddab4ec09eb97874931cccbdc30686f",
+        "row": {
+          "scope": 0,
+          "path": "DECLARACIONES",
+          "key": "CONYUGEUEFICHERO",
+          "type": "1",
+          "flag": null
+        }
+      },
+      "context": "H: pension individual, sin pareja ni familiares; seis plantillas ACTIVIDADES sólo contienen titular, no importes.",
+      "row": {
+        "path": "DECLARACIONES",
+        "scope": 0,
+        "key": "CONYUGEUEFICHERO",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "plantilla-exacta",
+      "literal": "89890005W",
+      "why": "Identificador técnico de certificado de demostración; distinto de NIF del contribuyente.",
+      "priorReference": {
+        "path": "tools/procedencia/simuladores/prospectivos-censo.json",
+        "sha256": "ff48dcade311f35873670e790fd044e15ddab4ec09eb97874931cccbdc30686f",
+        "row": {
+          "scope": 0,
+          "path": "DECLARACIONES",
+          "key": "T0_NIFCERTIFICADO",
+          "type": "1",
+          "flag": null
+        }
+      },
+      "context": "H: pension individual, sin pareja ni familiares; seis plantillas ACTIVIDADES sólo contienen titular, no importes.",
+      "row": {
+        "path": "DECLARACIONES",
+        "scope": 0,
+        "key": "T0_NIFCERTIFICADO",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "plantilla-exacta",
+      "literal": "1",
+      "why": "Selector inicial de bloque sin prestación/vehículo material; no importe. H completitud sin maternidad ni vehículos, bloques sin importes.",
+      "priorReference": {
+        "path": "tools/procedencia/simuladores/prospectivos-censo.json",
+        "sha256": "ff48dcade311f35873670e790fd044e15ddab4ec09eb97874931cccbdc30686f",
+        "row": {
+          "scope": 0,
+          "path": "DECLARACIONES",
+          "key": "OBLMATERD",
+          "type": "1",
+          "flag": null
+        }
+      },
+      "context": "H: pension individual, sin pareja ni familiares; seis plantillas ACTIVIDADES sólo contienen titular, no importes.",
+      "row": {
+        "path": "DECLARACIONES",
+        "scope": 0,
+        "key": "OBLMATERD",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "plantilla-exacta",
+      "literal": "CÓNYUGE",
+      "why": "Etiqueta de selector, no existencia de cónyuge.",
+      "priorReference": {
+        "path": "tools/procedencia/simuladores/prospectivos-censo.json",
+        "sha256": "ff48dcade311f35873670e790fd044e15ddab4ec09eb97874931cccbdc30686f",
+        "row": {
+          "scope": 0,
+          "path": "DECLARACIONES",
+          "key": "LEERTITULARC",
+          "type": "1",
+          "flag": null
+        }
+      },
+      "context": "H: pension individual, sin pareja ni familiares; seis plantillas ACTIVIDADES sólo contienen titular, no importes.",
+      "row": {
+        "path": "DECLARACIONES",
+        "scope": 0,
+        "key": "LEERTITULARC",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "plantilla-exacta",
+      "literal": "DECLARANTE",
+      "why": "Etiqueta del declarante en selector.",
+      "priorReference": {
+        "path": "tools/procedencia/simuladores/prospectivos-censo.json",
+        "sha256": "ff48dcade311f35873670e790fd044e15ddab4ec09eb97874931cccbdc30686f",
+        "row": {
+          "scope": 0,
+          "path": "DECLARACIONES",
+          "key": "LEERTITULARD",
+          "type": "1",
+          "flag": null
+        }
+      },
+      "context": "H: pension individual, sin pareja ni familiares; seis plantillas ACTIVIDADES sólo contienen titular, no importes.",
+      "row": {
+        "path": "DECLARACIONES",
+        "scope": 0,
+        "key": "LEERTITULARD",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "plantilla-exacta",
+      "literal": "IDII,TPDIN,IEVA,TPVA,IEIC,TPIC,IEIR,TPICR,GSS,TPGSS,IDRE",
+      "why": "Lista cerrada de claves habilitadas; no valores de renta.",
+      "priorReference": {
+        "path": "tools/procedencia/simuladores/prospectivos-censo.json",
+        "sha256": "ff48dcade311f35873670e790fd044e15ddab4ec09eb97874931cccbdc30686f",
+        "row": {
+          "scope": 0,
+          "path": "DECLARACIONES",
+          "key": "ENABLED_CASILLAEXT_CAMBIO_POR_REGLAS",
+          "type": "1",
+          "flag": null
+        }
+      },
+      "context": "H: pension individual, sin pareja ni familiares; seis plantillas ACTIVIDADES sólo contienen titular, no importes.",
+      "row": {
+        "path": "DECLARACIONES",
+        "scope": 0,
+        "key": "ENABLED_CASILLAEXT_CAMBIO_POR_REGLAS",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "254",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES",
+        "scope": 0,
+        "key": "RAHLP2",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "254",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES",
+        "scope": 0,
+        "key": "GG2",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "254",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES",
+        "scope": 0,
+        "key": "GAH2",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "254",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES",
+        "scope": 0,
+        "key": "RAH2",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "plantilla-exacta",
+      "literal": "25",
+      "why": "Índice/contador técnico de la sesión ordinaria. No es importe ni fecha acreditada.",
+      "row": {
+        "path": "DECLARACIONES",
+        "scope": 0,
+        "key": "CON_REG",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "entrada-o-hecho",
+      "source": "H/entrada/modalidad",
+      "table": {
+        "individual": "true"
+      },
+      "why": "Modalidad individual preregistrada.",
+      "row": {
+        "path": "DECLARACIONES",
+        "scope": 0,
+        "key": "INDV",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "plantilla-exacta",
+      "literal": "true",
+      "why": "Estado técnico de interfaz persistida; no prueba de secuencia, aprobación fiscal o cronología.",
+      "priorReference": {
+        "path": "tools/procedencia/simuladores/prospectivos-censo.json",
+        "sha256": "ff48dcade311f35873670e790fd044e15ddab4ec09eb97874931cccbdc30686f",
+        "row": {
+          "scope": 0,
+          "path": "DECLARACIONES",
+          "key": "DFRTAOK",
+          "type": "1",
+          "flag": null
+        }
+      },
+      "context": "H: pension individual, sin pareja ni familiares; seis plantillas ACTIVIDADES sólo contienen titular, no importes.",
+      "row": {
+        "path": "DECLARACIONES",
+        "scope": 0,
+        "key": "DFRTAOK",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "plantilla-exacta",
+      "literal": "1",
+      "why": "Selector inicial de bloque sin prestación/vehículo material; no importe. H completitud sin maternidad ni vehículos, bloques sin importes.",
+      "priorReference": {
+        "path": "tools/procedencia/simuladores/prospectivos-censo.json",
+        "sha256": "ff48dcade311f35873670e790fd044e15ddab4ec09eb97874931cccbdc30686f",
+        "row": {
+          "scope": 0,
+          "path": "DECLARACIONES",
+          "key": "OBLUFMATER",
+          "type": "1",
+          "flag": null
+        }
+      },
+      "context": "H: pension individual, sin pareja ni familiares; seis plantillas ACTIVIDADES sólo contienen titular, no importes.",
+      "row": {
+        "path": "DECLARACIONES",
+        "scope": 0,
+        "key": "OBLUFMATER",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "254",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES",
+        "scope": 0,
+        "key": "RG2",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "plantilla-exacta",
+      "literal": "OPEN",
+      "why": "Modo técnico de simulación de la envoltura; no certificación AEAT.",
+      "priorReference": {
+        "path": "tools/procedencia/simuladores/prospectivos-censo.json",
+        "sha256": "ff48dcade311f35873670e790fd044e15ddab4ec09eb97874931cccbdc30686f",
+        "row": {
+          "scope": 0,
+          "path": "DECLARACIONES",
+          "key": "MODO_APLICACION",
+          "type": "1",
+          "flag": null
+        }
+      },
+      "context": "H: pension individual, sin pareja ni familiares; seis plantillas ACTIVIDADES sólo contienen titular, no importes.",
+      "row": {
+        "path": "DECLARACIONES",
+        "scope": 0,
+        "key": "MODO_APLICACION",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "plantilla-exacta",
+      "literal": "1",
+      "why": "Índice/contador técnico de la sesión ordinaria. No es importe ni fecha acreditada.",
+      "row": {
+        "path": "DECLARACIONES",
+        "scope": 0,
+        "key": "INDICE_GENERAL",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "plantilla-exacta",
+      "literal": "HIJO",
+      "why": "Etiqueta de selector, no descendiente efectivo.",
+      "priorReference": {
+        "path": "tools/procedencia/simuladores/prospectivos-censo.json",
+        "sha256": "ff48dcade311f35873670e790fd044e15ddab4ec09eb97874931cccbdc30686f",
+        "row": {
+          "scope": 0,
+          "path": "DECLARACIONES",
+          "key": "LEERTITULARHR",
+          "type": "1",
+          "flag": null
+        }
+      },
+      "context": "H: pension individual, sin pareja ni familiares; seis plantillas ACTIVIDADES sólo contienen titular, no importes.",
+      "row": {
+        "path": "DECLARACIONES",
+        "scope": 0,
+        "key": "LEERTITULARHR",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "254",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES",
+        "scope": 0,
+        "key": "TODOCYMUF",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "254",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES",
+        "scope": 0,
+        "key": "GGLP2",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "plantilla-exacta",
+      "literal": "IDII,TPDIN,IEVA,TPVA,IEIC,TPIC,IEIR,TPICR,GSS,TPGSS,IDRE",
+      "why": "Lista cerrada de claves habilitadas; no valores de renta.",
+      "priorReference": {
+        "path": "tools/procedencia/simuladores/prospectivos-censo.json",
+        "sha256": "ff48dcade311f35873670e790fd044e15ddab4ec09eb97874931cccbdc30686f",
+        "row": {
+          "scope": 0,
+          "path": "DECLARACIONES",
+          "key": "ENABLED_CASILLAEXT_CAPA001",
+          "type": "1",
+          "flag": null
+        }
+      },
+      "context": "H: pension individual, sin pareja ni familiares; seis plantillas ACTIVIDADES sólo contienen titular, no importes.",
+      "row": {
+        "path": "DECLARACIONES",
+        "scope": 0,
+        "key": "ENABLED_CASILLAEXT_CAPA001",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "entrada-o-hecho",
+      "source": "H/entrada/ejercicio",
+      "numeric": true,
+      "why": "Correspondencia con hecho sintético preregistrado; conservar ámbito y flag.",
+      "row": {
+        "path": "DECLARACIONES",
+        "scope": 0,
+        "key": "EJERCICIO",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "plantilla-exacta",
+      "literal": "15042018",
+      "why": "Fecha técnica heredada de plantilla; no ejercicio, devengo ni prueba de cronología.",
+      "priorReference": {
+        "path": "tools/procedencia/simuladores/prospectivos-censo.json",
+        "sha256": "ff48dcade311f35873670e790fd044e15ddab4ec09eb97874931cccbdc30686f",
+        "row": {
+          "scope": 0,
+          "path": "DECLARACIONES",
+          "key": "FECHAINICIOCAMPANYA",
+          "type": "1",
+          "flag": null
+        }
+      },
+      "context": "H: pension individual, sin pareja ni familiares; seis plantillas ACTIVIDADES sólo contienen titular, no importes.",
+      "row": {
+        "path": "DECLARACIONES",
+        "scope": 0,
+        "key": "FECHAINICIOCAMPANYA",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "salida-derivada",
+      "boxes": [
+        "0587",
+        "0505"
+      ],
+      "operation": "truncar(100*cuota/base,2)",
+      "why": "Tipo medio informativo derivado de salidas oficiales, nunca una base o renta adicional.",
+      "row": {
+        "path": "DECLARACIONES",
+        "scope": 0,
+        "key": "TBGD",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "plantilla-exacta",
+      "literal": "true",
+      "why": "Rol s-1 no casado, sin familiares, H.entrada.familiares y régimen no-casado.",
+      "priorReference": {
+        "path": "tools/procedencia/simuladores/prospectivos-censo.json",
+        "sha256": "ff48dcade311f35873670e790fd044e15ddab4ec09eb97874931cccbdc30686f",
+        "row": {
+          "scope": 1,
+          "path": "DECLARACIONES/DP",
+          "key": "SOLTERO",
+          "type": "3",
+          "flag": "254"
+        }
+      },
+      "context": "H: pension individual, sin pareja ni familiares; seis plantillas ACTIVIDADES sólo contienen titular, no importes.",
+      "row": {
+        "path": "DECLARACIONES/DP",
+        "scope": 1,
+        "key": "SOLTERO",
+        "type": "3",
+        "flag": "254"
+      }
+    },
+    {
+      "kind": "plantilla-exacta",
+      "literal": "true",
+      "why": "Sexo nominal del contribuyente sintético, H en TI; no inferido del nombre.",
+      "priorReference": {
+        "path": "tools/procedencia/simuladores/prospectivos-censo.json",
+        "sha256": "ff48dcade311f35873670e790fd044e15ddab4ec09eb97874931cccbdc30686f",
+        "row": {
+          "scope": 1,
+          "path": "DECLARACIONES/DP",
+          "key": "HOMBRE_D",
+          "type": "3",
+          "flag": "254"
+        }
+      },
+      "context": "H: pension individual, sin pareja ni familiares; seis plantillas ACTIVIDADES sólo contienen titular, no importes.",
+      "row": {
+        "path": "DECLARACIONES/DP",
+        "scope": 1,
+        "key": "HOMBRE_D",
+        "type": "3",
+        "flag": "254"
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "254",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES/DP",
+        "scope": 1,
+        "key": "HOMBRE_C",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "254",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES/DP",
+        "scope": 1,
+        "key": "ISAUTORIZCONYU",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "entrada-o-hecho",
+      "source": "H/hechos/nacimiento",
+      "numeric": false,
+      "why": "Correspondencia con hecho sintético preregistrado; conservar ámbito y flag.",
+      "row": {
+        "path": "DECLARACIONES/DP",
+        "scope": 1,
+        "key": "DPFNAC_D",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "entrada-o-hecho",
+      "source": "H/entrada/comunidadAutonoma",
+      "table": {
+        "andalucia": "ANDALUCIA",
+        "madrid": "MADRID"
+      },
+      "why": "Código y etiqueta del catálogo territorial de Open conciliados; sin inferir territorio del resultado.",
+      "row": {
+        "path": "DECLARACIONES/DP",
+        "scope": 1,
+        "key": "CAD_D",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "254",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES/DP",
+        "scope": 1,
+        "key": "MUJER_D",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "254",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES/DP",
+        "scope": 1,
+        "key": "MUJER_C",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "254",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES/DP",
+        "scope": 1,
+        "key": "CASADO",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "254",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES/DP",
+        "scope": 1,
+        "key": "DECFAL",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "plantilla-exacta",
+      "literal": "0",
+      "why": "Contador de hijos dependientes vacío, conforme H.entrada.familiares=ninguno.",
+      "priorReference": {
+        "path": "tools/procedencia/simuladores/prospectivos-censo.json",
+        "sha256": "ff48dcade311f35873670e790fd044e15ddab4ec09eb97874931cccbdc30686f",
+        "row": {
+          "scope": 1,
+          "path": "DECLARACIONES/DP",
+          "key": "PH18",
+          "type": "3",
+          "flag": "254"
+        }
+      },
+      "context": "H: pension individual, sin pareja ni familiares; seis plantillas ACTIVIDADES sólo contienen titular, no importes.",
+      "row": {
+        "path": "DECLARACIONES/DP",
+        "scope": 1,
+        "key": "PH18",
+        "type": "3",
+        "flag": "254"
+      }
+    },
+    {
+      "kind": "plantilla-exacta",
+      "literal": "SOLTERO/A",
+      "why": "Representación nominal no-casado del único contribuyente.",
+      "priorReference": {
+        "path": "tools/procedencia/simuladores/prospectivos-censo.json",
+        "sha256": "ff48dcade311f35873670e790fd044e15ddab4ec09eb97874931cccbdc30686f",
+        "row": {
+          "scope": 1,
+          "path": "DECLARACIONES/DP",
+          "key": "ECIVIL",
+          "type": "3",
+          "flag": "254"
+        }
+      },
+      "context": "H: pension individual, sin pareja ni familiares; seis plantillas ACTIVIDADES sólo contienen titular, no importes.",
+      "row": {
+        "path": "DECLARACIONES/DP",
+        "scope": 1,
+        "key": "ECIVIL",
+        "type": "3",
+        "flag": "254"
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "254",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES/DP",
+        "scope": 1,
+        "key": "VIUDO",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "plantilla-exacta",
+      "literal": "1",
+      "why": "Código de estado civil de la plantilla; no importe ni cónyuge adicional.",
+      "priorReference": {
+        "path": "tools/procedencia/simuladores/prospectivos-censo.json",
+        "sha256": "ff48dcade311f35873670e790fd044e15ddab4ec09eb97874931cccbdc30686f",
+        "row": {
+          "scope": 1,
+          "path": "DECLARACIONES/DP",
+          "key": "ECIVILC",
+          "type": "1",
+          "flag": null
+        }
+      },
+      "context": "H: pension individual, sin pareja ni familiares; seis plantillas ACTIVIDADES sólo contienen titular, no importes.",
+      "row": {
+        "path": "DECLARACIONES/DP",
+        "scope": 1,
+        "key": "ECIVILC",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "entrada-o-hecho",
+      "source": "H/entrada/comunidadAutonoma",
+      "table": {
+        "andalucia": "01",
+        "madrid": "12"
+      },
+      "why": "Código y etiqueta del catálogo territorial de Open conciliados; sin inferir territorio del resultado.",
+      "row": {
+        "path": "DECLARACIONES/DP",
+        "scope": 1,
+        "key": "CAC_D",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "plantilla-exacta",
+      "literal": "PRUEBA C OPEN",
+      "why": "Nombre nominal sintético del contribuyente s-1 en todos sus alias.",
+      "priorReference": {
+        "path": "tools/procedencia/simuladores/prospectivos-censo.json",
+        "sha256": "ff48dcade311f35873670e790fd044e15ddab4ec09eb97874931cccbdc30686f",
+        "row": {
+          "scope": 1,
+          "path": "DECLARACIONES/DP",
+          "key": "DP_APENOM_D",
+          "type": "1",
+          "flag": null
+        }
+      },
+      "context": "H: pension individual, sin pareja ni familiares; seis plantillas ACTIVIDADES sólo contienen titular, no importes.",
+      "row": {
+        "path": "DECLARACIONES/DP",
+        "scope": 1,
+        "key": "DP_APENOM_D",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "entrada-o-hecho",
+      "source": "H/entrada/edad",
+      "numeric": true,
+      "why": "Correspondencia con hecho sintético preregistrado; conservar ámbito y flag.",
+      "row": {
+        "path": "DECLARACIONES/DP",
+        "scope": 1,
+        "key": "EDADD",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "254",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES/DP",
+        "scope": 1,
+        "key": "SEPARADO",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "254",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES/DP",
+        "scope": 1,
+        "key": "DPNIF_C",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "plantilla-exacta",
+      "literal": "90000000B",
+      "why": "Alias nominal sintético del rol contribuyente s-1, no identificador real ni segunda renta.",
+      "priorReference": {
+        "path": "tools/procedencia/simuladores/prospectivos-censo.json",
+        "sha256": "ff48dcade311f35873670e790fd044e15ddab4ec09eb97874931cccbdc30686f",
+        "row": {
+          "scope": 1,
+          "path": "DECLARACIONES/DP",
+          "key": "DPNIF_D",
+          "type": "3",
+          "flag": "254"
+        }
+      },
+      "context": "H: pension individual, sin pareja ni familiares; seis plantillas ACTIVIDADES sólo contienen titular, no importes.",
+      "row": {
+        "path": "DECLARACIONES/DP",
+        "scope": 1,
+        "key": "DPNIF_D",
+        "type": "3",
+        "flag": "254"
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "255",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES/DP/ASCENDIENTES",
+        "scope": 2,
+        "key": "ANOASDLG_CREGLAS_CASILLAEXT",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "plantilla-exacta",
+      "literal": "90000000B",
+      "why": "Alias nominal sintético del rol contribuyente s-1, no identificador real ni segunda renta.",
+      "priorReference": {
+        "path": "tools/procedencia/simuladores/prospectivos-censo.json",
+        "sha256": "ff48dcade311f35873670e790fd044e15ddab4ec09eb97874931cccbdc30686f",
+        "row": {
+          "scope": 4,
+          "path": "DECLARACIONES/RESUMEN",
+          "key": "R_SPNIF",
+          "type": "1",
+          "flag": null
+        }
+      },
+      "context": "H: pension individual, sin pareja ni familiares; seis plantillas ACTIVIDADES sólo contienen titular, no importes.",
+      "row": {
+        "path": "DECLARACIONES/RESUMEN",
+        "scope": 4,
+        "key": "R_SPNIF",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "entrada-o-hecho",
+      "source": "H/controlesNormativosPrevios/minimoAutonomico",
+      "numeric": true,
+      "why": "Correspondencia con hecho sintético preregistrado; conservar ámbito y flag.",
+      "row": {
+        "path": "DECLARACIONES/RESUMEN",
+        "scope": 4,
+        "key": "R_MPERFAAU",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "plantilla-exacta",
+      "literal": "PRUEBA C OPEN",
+      "why": "Nombre nominal sintético del contribuyente s-1 en todos sus alias.",
+      "priorReference": {
+        "path": "tools/procedencia/simuladores/prospectivos-censo.json",
+        "sha256": "ff48dcade311f35873670e790fd044e15ddab4ec09eb97874931cccbdc30686f",
+        "row": {
+          "scope": 4,
+          "path": "DECLARACIONES/RESUMEN",
+          "key": "R_SPNOM",
+          "type": "1",
+          "flag": null
+        }
+      },
+      "context": "H: pension individual, sin pareja ni familiares; seis plantillas ACTIVIDADES sólo contienen titular, no importes.",
+      "row": {
+        "path": "DECLARACIONES/RESUMEN",
+        "scope": 4,
+        "key": "R_SPNOM",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "entrada-o-hecho",
+      "source": "H/controlesNormativosPrevios/minimoEstatal",
+      "numeric": true,
+      "why": "Correspondencia con hecho sintético preregistrado; conservar ámbito y flag.",
+      "row": {
+        "path": "DECLARACIONES/RESUMEN",
+        "scope": 4,
+        "key": "R_MPERFA",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "plantilla-exacta",
+      "literal": "DECLARANTE",
+      "why": "Titular único s-1, rol declarante individual.",
+      "priorReference": {
+        "path": "tools/procedencia/simuladores/prospectivos-censo.json",
+        "sha256": "ff48dcade311f35873670e790fd044e15ddab4ec09eb97874931cccbdc30686f",
+        "row": {
+          "scope": 4,
+          "path": "DECLARACIONES/RESUMEN",
+          "key": "R_TIT",
+          "type": "1",
+          "flag": null
+        }
+      },
+      "context": "H: pension individual, sin pareja ni familiares; seis plantillas ACTIVIDADES sólo contienen titular, no importes.",
+      "row": {
+        "path": "DECLARACIONES/RESUMEN",
+        "scope": 4,
+        "key": "R_TIT",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "plantilla-exacta",
+      "literal": "DECLARANTE",
+      "why": "Seis instancias vacías predeterminadas de actividad. Sólo ACT_TIT en cada una; no seis personas ni seis actividades. H sin familiares ni actividades.",
+      "priorReference": {
+        "path": "tools/procedencia/simuladores/prospectivos-censo.json",
+        "sha256": "ff48dcade311f35873670e790fd044e15ddab4ec09eb97874931cccbdc30686f",
+        "row": {
+          "scope": 5,
+          "path": "DECLARACIONES/ACTIVIDADES",
+          "key": "ACT_TIT",
+          "type": "1",
+          "flag": null
+        }
+      },
+      "context": "H: pension individual, sin pareja ni familiares; seis plantillas ACTIVIDADES sólo contienen titular, no importes.",
+      "row": {
+        "path": "DECLARACIONES/ACTIVIDADES",
+        "scope": 5,
+        "key": "ACT_TIT",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "plantilla-exacta",
+      "literal": "CONYUGE",
+      "why": "Seis instancias vacías predeterminadas de actividad. Sólo ACT_TIT en cada una; no seis personas ni seis actividades. H sin familiares ni actividades.",
+      "priorReference": {
+        "path": "tools/procedencia/simuladores/prospectivos-censo.json",
+        "sha256": "ff48dcade311f35873670e790fd044e15ddab4ec09eb97874931cccbdc30686f",
+        "row": {
+          "scope": 6,
+          "path": "DECLARACIONES/ACTIVIDADES",
+          "key": "ACT_TIT",
+          "type": "1",
+          "flag": null
+        }
+      },
+      "context": "H: pension individual, sin pareja ni familiares; seis plantillas ACTIVIDADES sólo contienen titular, no importes.",
+      "row": {
+        "path": "DECLARACIONES/ACTIVIDADES",
+        "scope": 6,
+        "key": "ACT_TIT",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "plantilla-exacta",
+      "literal": "HIJO1",
+      "why": "Seis instancias vacías predeterminadas de actividad. Sólo ACT_TIT en cada una; no seis personas ni seis actividades. H sin familiares ni actividades.",
+      "priorReference": {
+        "path": "tools/procedencia/simuladores/prospectivos-censo.json",
+        "sha256": "ff48dcade311f35873670e790fd044e15ddab4ec09eb97874931cccbdc30686f",
+        "row": {
+          "scope": 7,
+          "path": "DECLARACIONES/ACTIVIDADES",
+          "key": "ACT_TIT",
+          "type": "1",
+          "flag": null
+        }
+      },
+      "context": "H: pension individual, sin pareja ni familiares; seis plantillas ACTIVIDADES sólo contienen titular, no importes.",
+      "row": {
+        "path": "DECLARACIONES/ACTIVIDADES",
+        "scope": 7,
+        "key": "ACT_TIT",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "plantilla-exacta",
+      "literal": "HIJO2",
+      "why": "Seis instancias vacías predeterminadas de actividad. Sólo ACT_TIT en cada una; no seis personas ni seis actividades. H sin familiares ni actividades.",
+      "priorReference": {
+        "path": "tools/procedencia/simuladores/prospectivos-censo.json",
+        "sha256": "ff48dcade311f35873670e790fd044e15ddab4ec09eb97874931cccbdc30686f",
+        "row": {
+          "scope": 8,
+          "path": "DECLARACIONES/ACTIVIDADES",
+          "key": "ACT_TIT",
+          "type": "1",
+          "flag": null
+        }
+      },
+      "context": "H: pension individual, sin pareja ni familiares; seis plantillas ACTIVIDADES sólo contienen titular, no importes.",
+      "row": {
+        "path": "DECLARACIONES/ACTIVIDADES",
+        "scope": 8,
+        "key": "ACT_TIT",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "plantilla-exacta",
+      "literal": "HIJO3",
+      "why": "Seis instancias vacías predeterminadas de actividad. Sólo ACT_TIT en cada una; no seis personas ni seis actividades. H sin familiares ni actividades.",
+      "priorReference": {
+        "path": "tools/procedencia/simuladores/prospectivos-censo.json",
+        "sha256": "ff48dcade311f35873670e790fd044e15ddab4ec09eb97874931cccbdc30686f",
+        "row": {
+          "scope": 9,
+          "path": "DECLARACIONES/ACTIVIDADES",
+          "key": "ACT_TIT",
+          "type": "1",
+          "flag": null
+        }
+      },
+      "context": "H: pension individual, sin pareja ni familiares; seis plantillas ACTIVIDADES sólo contienen titular, no importes.",
+      "row": {
+        "path": "DECLARACIONES/ACTIVIDADES",
+        "scope": 9,
+        "key": "ACT_TIT",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "plantilla-exacta",
+      "literal": "HIJO4",
+      "why": "Seis instancias vacías predeterminadas de actividad. Sólo ACT_TIT en cada una; no seis personas ni seis actividades. H sin familiares ni actividades.",
+      "priorReference": {
+        "path": "tools/procedencia/simuladores/prospectivos-censo.json",
+        "sha256": "ff48dcade311f35873670e790fd044e15ddab4ec09eb97874931cccbdc30686f",
+        "row": {
+          "scope": 10,
+          "path": "DECLARACIONES/ACTIVIDADES",
+          "key": "ACT_TIT",
+          "type": "1",
+          "flag": null
+        }
+      },
+      "context": "H: pension individual, sin pareja ni familiares; seis plantillas ACTIVIDADES sólo contienen titular, no importes.",
+      "row": {
+        "path": "DECLARACIONES/ACTIVIDADES",
+        "scope": 10,
+        "key": "ACT_TIT",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "plantilla-exacta",
+      "literal": "true",
+      "why": "Estado técnico de interfaz persistida; no prueba de secuencia, aprobación fiscal o cronología.",
+      "priorReference": {
+        "path": "tools/procedencia/simuladores/prospectivos-censo.json",
+        "sha256": "ff48dcade311f35873670e790fd044e15ddab4ec09eb97874931cccbdc30686f",
+        "row": {
+          "scope": 11,
+          "path": "DECLARACIONES/INFO",
+          "key": "MIRARDETER",
+          "type": "1",
+          "flag": null
+        }
+      },
+      "context": "H: pension individual, sin pareja ni familiares; seis plantillas ACTIVIDADES sólo contienen titular, no importes.",
+      "row": {
+        "path": "DECLARACIONES/INFO",
+        "scope": 11,
+        "key": "MIRARDETER",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "salida-observada",
+      "box": "0675",
+      "why": "Correspondencia SES/PDF. No se usa como entrada ni como esperado del motor; las discrepancias con la predicción se conservan separadas.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025",
+        "scope": 12,
+        "key": "IRPFCCAA",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "salida-observada",
+      "box": "0500",
+      "why": "Correspondencia SES/PDF. No se usa como entrada ni como esperado del motor; las discrepancias con la predicción se conservan separadas.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025",
+        "scope": 12,
+        "key": "BLGRAL",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "salida-derivada",
+      "boxes": [
+        "0670"
+      ],
+      "operation": "total-halfup(total*0.6,2)",
+      "why": "Desglose técnico 60/40 del resultado positivo; no suma pagos efectivos ni altera diferencial.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025",
+        "scope": 12,
+        "key": "T1_IMPORTE_PF2",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "salida-derivada",
+      "boxes": [
+        "0670"
+      ],
+      "operation": "halfup(total*0.6,2)",
+      "why": "Desglose técnico 60/40 del resultado positivo; no suma pagos efectivos ni altera diferencial.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025",
+        "scope": 12,
+        "key": "T1_IMPORTE_PF1",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "salida-observada",
+      "box": "0019",
+      "why": "Correspondencia SES/PDF. No se usa como entrada ni como esperado del motor; las discrepancias con la predicción se conservan separadas.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025",
+        "scope": 12,
+        "key": "TPOGD",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "254",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025",
+        "scope": 12,
+        "key": "DF_CAT1VA4",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "255",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025",
+        "scope": 12,
+        "key": "DED98A",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "salida-observada",
+      "box": "0670",
+      "why": "Correspondencia SES/PDF. No se usa como entrada ni como esperado del motor; las discrepancias con la predicción se conservan separadas.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025",
+        "scope": 12,
+        "key": "T1_IMPORTE",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "plantilla-exacta",
+      "literal": "PRUEBA C OPEN",
+      "why": "Nombre nominal sintético del contribuyente s-1 en todos sus alias.",
+      "priorReference": {
+        "path": "tools/procedencia/simuladores/prospectivos-censo.json",
+        "sha256": "ff48dcade311f35873670e790fd044e15ddab4ec09eb97874931cccbdc30686f",
+        "row": {
+          "scope": 12,
+          "path": "DECLARACIONES/IRPF2025",
+          "key": "ZAPENOM_D",
+          "type": "1",
+          "flag": null
+        }
+      },
+      "context": "H: pension individual, sin pareja ni familiares; seis plantillas ACTIVIDADES sólo contienen titular, no importes.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025",
+        "scope": 12,
+        "key": "ZAPENOM_D",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "salida-observada",
+      "box": "0586",
+      "why": "Correspondencia SES/PDF. No se usa como entrada ni como esperado del motor; las discrepancias con la predicción se conservan separadas.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025",
+        "scope": 12,
+        "key": "CLAIN",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "plantilla-exacta",
+      "literal": "U",
+      "why": "Forma de pago/devolución por defecto; sin cuenta bancaria ni pago efectivo. El resultado se verifica separadamente.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025",
+        "scope": 12,
+        "key": "T1_FORMAPAGO",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "salida-observada",
+      "box": "0596",
+      "why": "Correspondencia SES/PDF. No se usa como entrada ni como esperado del motor; las discrepancias con la predicción se conservan separadas.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025",
+        "scope": 12,
+        "key": "RET1",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "salida-observada",
+      "box": "0505",
+      "why": "Correspondencia SES/PDF. No se usa como entrada ni como esperado del motor; las discrepancias con la predicción se conservan separadas.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025",
+        "scope": 12,
+        "key": "BLGGRAV",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "plantilla-exacta",
+      "literal": "true",
+      "why": "Estado técnico de interfaz persistida; no prueba de secuencia, aprobación fiscal o cronología.",
+      "priorReference": {
+        "path": "tools/procedencia/simuladores/prospectivos-censo.json",
+        "sha256": "ff48dcade311f35873670e790fd044e15ddab4ec09eb97874931cccbdc30686f",
+        "row": {
+          "scope": 12,
+          "path": "DECLARACIONES/IRPF2025",
+          "key": "SOLONEGROS",
+          "type": "1",
+          "flag": null
+        }
+      },
+      "context": "H: pension individual, sin pareja ni familiares; seis plantillas ACTIVIDADES sólo contienen titular, no importes.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025",
+        "scope": 12,
+        "key": "SOLONEGROS",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "salida-observada",
+      "box": "0545",
+      "why": "Correspondencia SES/PDF. No se usa como entrada ni como esperado del motor; las discrepancias con la predicción se conservan separadas.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025",
+        "scope": 12,
+        "key": "CINTEST",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "salida-observada",
+      "box": "0018",
+      "why": "Correspondencia SES/PDF. No se usa como entrada ni como esperado del motor; las discrepancias con la predicción se conservan separadas.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025",
+        "scope": 12,
+        "key": "SUMTPRNP",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "salida-observada",
+      "box": "0535",
+      "why": "Correspondencia SES/PDF. No se usa como entrada ni como esperado del motor; las discrepancias con la predicción se conservan separadas.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025",
+        "scope": 12,
+        "key": "TMA",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "salida-observada",
+      "box": "0534",
+      "why": "Correspondencia SES/PDF. No se usa como entrada ni como esperado del motor; las discrepancias con la predicción se conservan separadas.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025",
+        "scope": 12,
+        "key": "TME",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "255",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025",
+        "scope": 12,
+        "key": "Y81",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "plantilla-exacta",
+      "literal": "1",
+      "why": "Selector inicial de bloque sin prestación/vehículo material; no importe. H completitud sin maternidad ni vehículos, bloques sin importes.",
+      "priorReference": {
+        "path": "tools/procedencia/simuladores/prospectivos-censo.json",
+        "sha256": "ff48dcade311f35873670e790fd044e15ddab4ec09eb97874931cccbdc30686f",
+        "row": {
+          "scope": 12,
+          "path": "DECLARACIONES/IRPF2025",
+          "key": "OBLMATERSNTDF",
+          "type": "1",
+          "flag": null
+        }
+      },
+      "context": "H: pension individual, sin pareja ni familiares; seis plantillas ACTIVIDADES sólo contienen titular, no importes.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025",
+        "scope": 12,
+        "key": "OBLMATERSNTDF",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "salida-observada",
+      "box": "0586",
+      "why": "Correspondencia SES/PDF. No se usa como entrada ni como esperado del motor; las discrepancias con la predicción se conservan separadas.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025",
+        "scope": 12,
+        "key": "CLAINO",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "salida-observada",
+      "box": "0511",
+      "why": "Correspondencia SES/PDF. No se usa como entrada ni como esperado del motor; las discrepancias con la predicción se conservan separadas.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025",
+        "scope": 12,
+        "key": "MPER",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "plantilla-exacta",
+      "literal": "U",
+      "why": "Código técnico de forma de pago; no cuenta bancaria ni pago acreditado.",
+      "priorReference": {
+        "path": "tools/procedencia/simuladores/prospectivos-censo.json",
+        "sha256": "ff48dcade311f35873670e790fd044e15ddab4ec09eb97874931cccbdc30686f",
+        "row": {
+          "scope": 12,
+          "path": "DECLARACIONES/IRPF2025",
+          "key": "T1_FORMAPAGO_PF2",
+          "type": "1",
+          "flag": null
+        }
+      },
+      "context": "H: pension individual, sin pareja ni familiares; seis plantillas ACTIVIDADES sólo contienen titular, no importes.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025",
+        "scope": 12,
+        "key": "T1_FORMAPAGO_PF2",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "plantilla-exacta",
+      "literal": "U",
+      "why": "Código técnico de forma de pago; no cuenta bancaria ni pago acreditado.",
+      "priorReference": {
+        "path": "tools/procedencia/simuladores/prospectivos-censo.json",
+        "sha256": "ff48dcade311f35873670e790fd044e15ddab4ec09eb97874931cccbdc30686f",
+        "row": {
+          "scope": 12,
+          "path": "DECLARACIONES/IRPF2025",
+          "key": "T1_FORMAPAGO_PF1",
+          "type": "1",
+          "flag": null
+        }
+      },
+      "context": "H: pension individual, sin pareja ni familiares; seis plantillas ACTIVIDADES sólo contienen titular, no importes.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025",
+        "scope": 12,
+        "key": "T1_FORMAPAGO_PF1",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "salida-observada",
+      "box": "0670",
+      "why": "Correspondencia SES/PDF. No se usa como entrada ni como esperado del motor; las discrepancias con la predicción se conservan separadas.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025",
+        "scope": 12,
+        "key": "RESULTADO",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "salida-observada",
+      "box": "0435",
+      "why": "Correspondencia SES/PDF. No se usa como entrada ni como esperado del motor; las discrepancias con la predicción se conservan separadas.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025",
+        "scope": 12,
+        "key": "BIGRALH",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "salida-observada",
+      "box": "0546",
+      "why": "Correspondencia SES/PDF. No se usa como entrada ni como esperado del motor; las discrepancias con la predicción se conservan separadas.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025",
+        "scope": 12,
+        "key": "CINTAUT",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "salida-observada",
+      "box": "0435",
+      "why": "Correspondencia SES/PDF. No se usa como entrada ni como esperado del motor; las discrepancias con la predicción se conservan separadas.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025",
+        "scope": 12,
+        "key": "BIGRALJ",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "transporte-completo",
+      "stages": [
+        {
+          "text": "68,71,9,68,71,48,48,48,48,48,9,49,9,48,9,48,9,10,84,73,9,84,73,48,48,48,48,48,9,48,48,48,48,48,48,48,48,48,48,48,9,57,48,48,48,48,48,48,48,66,9,80,82,85,69,66,65,32,67,32,79,80,69,78,9,9,9,48,49,47,48,49,47,49,57,52,56,9,72,9,9,9,49,50,9,9,9,9,9,48,44,48,48,9,9,9,9,10",
+          "sha256": "a4b6d7517b653d0db7206e43910857861282d9bac575097e89f2efab557e8400"
+        },
+        {
+          "text": "DG\tDG00000\t1\t0\t0\t\nTI\tTI00000\t00000000000\t90000000B\tPRUEBA C OPEN\t\t\t01/01/1948\tH\t\t\t12\t\t\t\t\t0,00\t\t\t\t\n",
+          "sha256": "f2b1582cee89a9db6405c1c30ac84f7f280e66386b9e30d2645d374cefc85b15"
+        }
+      ],
+      "why": "Descompresión completa y comparación de todas las columnas DG/TI con la identidad previamente vinculada a H; DF_AVISOS sólo [dg1]. No son nuevos ingresos.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025",
+        "scope": 12,
+        "key": "DF_DATOS_SI",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "entrada-o-hecho",
+      "source": "H/hechos/nacimiento",
+      "numeric": false,
+      "why": "Correspondencia con hecho sintético preregistrado; conservar ámbito y flag.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025",
+        "scope": 12,
+        "key": "ZFNAC_D",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "salida-observada",
+      "box": "0595",
+      "why": "Correspondencia SES/PDF. No se usa como entrada ni como esperado del motor; las discrepancias con la predicción se conservan separadas.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025",
+        "scope": 12,
+        "key": "CAUTLIQ",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "transporte-completo",
+      "stages": [
+        {
+          "text": "91,100,103,49,93",
+          "sha256": "df5d3df96adaaf230a8eb1c7272e745c6289494e83ac19a6da301869ba19c3f6"
+        },
+        {
+          "text": "[dg1]",
+          "sha256": "48cbeaa6d03d19a4053d079ea8b45d5e70cfa0f9c71e5c35fc68d163a94f8165"
+        }
+      ],
+      "why": "Descompresión completa y comparación de todas las columnas DG/TI con la identidad previamente vinculada a H; DF_AVISOS sólo [dg1]. No son nuevos ingresos.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025",
+        "scope": 12,
+        "key": "DF_AVISOS",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "salida-observada",
+      "box": "0570",
+      "why": "Correspondencia SES/PDF. No se usa como entrada ni como esperado del motor; las discrepancias con la predicción se conservan separadas.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025",
+        "scope": 12,
+        "key": "CLIQEST",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "plantilla-exacta",
+      "literal": "true",
+      "why": "Rol s-1 no casado, sin familiares, H.entrada.familiares y régimen no-casado.",
+      "priorReference": {
+        "path": "tools/procedencia/simuladores/prospectivos-censo.json",
+        "sha256": "ff48dcade311f35873670e790fd044e15ddab4ec09eb97874931cccbdc30686f",
+        "row": {
+          "scope": 12,
+          "path": "DECLARACIONES/IRPF2025",
+          "key": "SOLTERO_D",
+          "type": "1",
+          "flag": null
+        }
+      },
+      "context": "H: pension individual, sin pareja ni familiares; seis plantillas ACTIVIDADES sólo contienen titular, no importes.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025",
+        "scope": 12,
+        "key": "SOLTERO_D",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "salida-observada",
+      "box": "0520",
+      "why": "Correspondencia SES/PDF. No se usa como entrada ni como esperado del motor; las discrepancias con la predicción se conservan separadas.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025",
+        "scope": 12,
+        "key": "MPERFAAU",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "plantilla-exacta",
+      "literal": "DECLARANTE",
+      "why": "Titular único s-1, rol declarante individual.",
+      "priorReference": {
+        "path": "tools/procedencia/simuladores/prospectivos-censo.json",
+        "sha256": "ff48dcade311f35873670e790fd044e15ddab4ec09eb97874931cccbdc30686f",
+        "row": {
+          "scope": 12,
+          "path": "DECLARACIONES/IRPF2025",
+          "key": "TITULAR",
+          "type": "1",
+          "flag": null
+        }
+      },
+      "context": "H: pension individual, sin pareja ni familiares; seis plantillas ACTIVIDADES sólo contienen titular, no importes.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025",
+        "scope": 12,
+        "key": "TITULAR",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "salida-observada",
+      "box": "0571",
+      "why": "Correspondencia SES/PDF. No se usa como entrada ni como esperado del motor; las discrepancias con la predicción se conservan separadas.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025",
+        "scope": 12,
+        "key": "CLIQAUT",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "plantilla-exacta",
+      "literal": "true",
+      "why": "Estado técnico de interfaz persistida; no prueba de secuencia, aprobación fiscal o cronología.",
+      "priorReference": {
+        "path": "tools/procedencia/simuladores/prospectivos-censo.json",
+        "sha256": "ff48dcade311f35873670e790fd044e15ddab4ec09eb97874931cccbdc30686f",
+        "row": {
+          "scope": 12,
+          "path": "DECLARACIONES/IRPF2025",
+          "key": "ZQ1",
+          "type": "1",
+          "flag": null
+        }
+      },
+      "context": "H: pension individual, sin pareja ni familiares; seis plantillas ACTIVIDADES sólo contienen titular, no importes.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025",
+        "scope": 12,
+        "key": "ZQ1",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "plantilla-exacta",
+      "literal": "true",
+      "why": "Sexo nominal del contribuyente sintético, H en TI; no inferido del nombre.",
+      "priorReference": {
+        "path": "tools/procedencia/simuladores/prospectivos-censo.json",
+        "sha256": "ff48dcade311f35873670e790fd044e15ddab4ec09eb97874931cccbdc30686f",
+        "row": {
+          "scope": 12,
+          "path": "DECLARACIONES/IRPF2025",
+          "key": "ZHOMBRE_D",
+          "type": "1",
+          "flag": null
+        }
+      },
+      "context": "H: pension individual, sin pareja ni familiares; seis plantillas ACTIVIDADES sólo contienen titular, no importes.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025",
+        "scope": 12,
+        "key": "ZHOMBRE_D",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "salida-observada",
+      "box": "0533",
+      "why": "Correspondencia SES/PDF. No se usa como entrada ni como esperado del motor; las discrepancias con la predicción se conservan separadas.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025",
+        "scope": 12,
+        "key": "CIGAUT",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "salida-observada",
+      "box": "0670",
+      "why": "Correspondencia SES/PDF. No se usa como entrada ni como esperado del motor; las discrepancias con la predicción se conservan separadas.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025",
+        "scope": 12,
+        "key": "RESINGDEV",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "salida-observada",
+      "box": "0609",
+      "why": "Correspondencia SES/PDF. No se usa como entrada ni como esperado del motor; las discrepancias con la predicción se conservan separadas.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025",
+        "scope": 12,
+        "key": "PAGOS",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "salida-observada",
+      "box": "0531",
+      "why": "Correspondencia SES/PDF. No se usa como entrada ni como esperado del motor; las discrepancias con la predicción se conservan separadas.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025",
+        "scope": 12,
+        "key": "CEXGA2",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "salida-observada",
+      "box": "0529",
+      "why": "Correspondencia SES/PDF. No se usa como entrada ni como esperado del motor; las discrepancias con la predicción se conservan separadas.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025",
+        "scope": 12,
+        "key": "CEXGA1",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "salida-observada",
+      "box": "0587",
+      "why": "Correspondencia SES/PDF. No se usa como entrada ni como esperado del motor; las discrepancias con la predicción se conservan separadas.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025",
+        "scope": 12,
+        "key": "CLIQT",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "salida-observada",
+      "box": "0585",
+      "why": "Correspondencia SES/PDF. No se usa como entrada ni como esperado del motor; las discrepancias con la predicción se conservan separadas.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025",
+        "scope": 12,
+        "key": "CLEIN",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "salida-observada",
+      "box": "0610",
+      "why": "Correspondencia SES/PDF. No se usa como entrada ni como esperado del motor; las discrepancias con la predicción se conservan separadas.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025",
+        "scope": 12,
+        "key": "CDIF",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "salida-observada",
+      "box": "0432",
+      "why": "Correspondencia SES/PDF. No se usa como entrada ni como esperado del motor; las discrepancias con la predicción se conservan separadas.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025",
+        "scope": 12,
+        "key": "SUMARDTO",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "salida-observada",
+      "box": "0523",
+      "why": "Correspondencia SES/PDF. No se usa como entrada ni como esperado del motor; las discrepancias con la predicción se conservan separadas.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025",
+        "scope": 12,
+        "key": "MBGRALAU",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "salida-observada",
+      "box": "0530",
+      "why": "Correspondencia SES/PDF. No se usa como entrada ni como esperado del motor; las discrepancias con la predicción se conservan separadas.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025",
+        "scope": 12,
+        "key": "CEXGE2",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "salida-observada",
+      "box": "0528",
+      "why": "Correspondencia SES/PDF. No se usa como entrada ni como esperado del motor; las discrepancias con la predicción se conservan separadas.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025",
+        "scope": 12,
+        "key": "CEXGE1",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "salida-observada",
+      "box": "0519",
+      "why": "Correspondencia SES/PDF. No se usa como entrada ni como esperado del motor; las discrepancias con la predicción se conservan separadas.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025",
+        "scope": 12,
+        "key": "MPERFA",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "254",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025",
+        "scope": 12,
+        "key": "DF_CAT2VA4",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "plantilla-exacta",
+      "literal": "1",
+      "why": "Selector inicial de bloque sin prestación/vehículo material; no importe. H completitud sin maternidad ni vehículos, bloques sin importes.",
+      "priorReference": {
+        "path": "tools/procedencia/simuladores/prospectivos-censo.json",
+        "sha256": "ff48dcade311f35873670e790fd044e15ddab4ec09eb97874931cccbdc30686f",
+        "row": {
+          "scope": 12,
+          "path": "DECLARACIONES/IRPF2025",
+          "key": "OBLMATERSN",
+          "type": "1",
+          "flag": null
+        }
+      },
+      "context": "H: pension individual, sin pareja ni familiares; seis plantillas ACTIVIDADES sólo contienen titular, no importes.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025",
+        "scope": 12,
+        "key": "OBLMATERSN",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "salida-observada",
+      "box": "0512",
+      "why": "Correspondencia SES/PDF. No se usa como entrada ni como esperado del motor; las discrepancias con la predicción se conservan separadas.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025",
+        "scope": 12,
+        "key": "MPERAU",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "salida-observada",
+      "box": "0521",
+      "why": "Correspondencia SES/PDF. No se usa como entrada ni como esperado del motor; las discrepancias con la predicción se conservan separadas.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025",
+        "scope": 12,
+        "key": "MBGRAL",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "entrada-o-hecho",
+      "source": "H/entrada/comunidadAutonoma",
+      "table": {
+        "andalucia": "01",
+        "madrid": "12"
+      },
+      "why": "Código y etiqueta del catálogo territorial de Open conciliados; sin inferir territorio del resultado.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025",
+        "scope": 12,
+        "key": "ZCCAD",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "plantilla-exacta",
+      "literal": "90000000B",
+      "why": "Alias nominal sintético del rol contribuyente s-1, no identificador real ni segunda renta.",
+      "priorReference": {
+        "path": "tools/procedencia/simuladores/prospectivos-censo.json",
+        "sha256": "ff48dcade311f35873670e790fd044e15ddab4ec09eb97874931cccbdc30686f",
+        "row": {
+          "scope": 12,
+          "path": "DECLARACIONES/IRPF2025",
+          "key": "SPNIF",
+          "type": "1",
+          "flag": null
+        }
+      },
+      "context": "H: pension individual, sin pareja ni familiares; seis plantillas ACTIVIDADES sólo contienen titular, no importes.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025",
+        "scope": 12,
+        "key": "SPNIF",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "salida-observada",
+      "box": "0025",
+      "why": "Correspondencia SES/PDF. No se usa como entrada ni como esperado del motor; las discrepancias con la predicción se conservan separadas.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025",
+        "scope": 12,
+        "key": "TPTOTAL",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "salida-observada",
+      "box": "0022",
+      "why": "Correspondencia SES/PDF. No se usa como entrada ni como esperado del motor; las discrepancias con la predicción se conservan separadas.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025",
+        "scope": 12,
+        "key": "TPRDTO",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "salida-observada",
+      "box": "0532",
+      "why": "Correspondencia SES/PDF. No se usa como entrada ni como esperado del motor; las discrepancias con la predicción se conservan separadas.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025",
+        "scope": 12,
+        "key": "CIGEST",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "plantilla-exacta",
+      "literal": "PRUEBA C OPEN",
+      "why": "Nombre nominal sintético del contribuyente s-1 en todos sus alias.",
+      "priorReference": {
+        "path": "tools/procedencia/simuladores/prospectivos-censo.json",
+        "sha256": "ff48dcade311f35873670e790fd044e15ddab4ec09eb97874931cccbdc30686f",
+        "row": {
+          "scope": 12,
+          "path": "DECLARACIONES/IRPF2025",
+          "key": "SPNOM",
+          "type": "1",
+          "flag": null
+        }
+      },
+      "context": "H: pension individual, sin pareja ni familiares; seis plantillas ACTIVIDADES sólo contienen titular, no importes.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025",
+        "scope": 12,
+        "key": "SPNOM",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "plantilla-exacta",
+      "literal": "3",
+      "why": "Selector persistido de fraccionamiento; exige vincular aparte PF1/PF2 a diferencial.",
+      "priorReference": {
+        "path": "tools/procedencia/simuladores/prospectivos-censo.json",
+        "sha256": "ff48dcade311f35873670e790fd044e15ddab4ec09eb97874931cccbdc30686f",
+        "row": {
+          "scope": 12,
+          "path": "DECLARACIONES/IRPF2025",
+          "key": "FPAGOC",
+          "type": "3",
+          "flag": "255"
+        }
+      },
+      "context": "H: pension individual, sin pareja ni familiares; seis plantillas ACTIVIDADES sólo contienen titular, no importes.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025",
+        "scope": 12,
+        "key": "FPAGOC",
+        "type": "3",
+        "flag": "255"
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "254",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025/ARAGON",
+        "scope": 13,
+        "key": "TITAR19",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "entrada-o-hecho",
+      "source": "H/entrada/trabajo/rendimientos/0/integro",
+      "numeric": true,
+      "why": "Correspondencia con hecho sintético preregistrado; conservar ámbito y flag.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025/ATRABAJO",
+        "scope": 14,
+        "key": "TPING",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "plantilla-exacta",
+      "literal": "DECLARANTE",
+      "why": "Titular único s-1, rol declarante individual.",
+      "priorReference": {
+        "path": "tools/procedencia/simuladores/prospectivos-censo.json",
+        "sha256": "ff48dcade311f35873670e790fd044e15ddab4ec09eb97874931cccbdc30686f",
+        "row": {
+          "scope": 17,
+          "path": "DECLARACIONES/IRPF2025/ATRABAJO",
+          "key": "TITA",
+          "type": "1",
+          "flag": null
+        },
+        "observation": "madrid-01"
+      },
+      "context": "H: pension individual, sin pareja ni familiares; seis plantillas ACTIVIDADES sólo contienen titular, no importes.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025/ATRABAJO",
+        "scope": 14,
+        "key": "TITA",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "255",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025/ATRABAJO",
+        "scope": 14,
+        "key": "TPVA_CREGLAS_CASILLAEXT",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "entrada-o-hecho",
+      "source": "H/entrada/trabajo/rendimientos/0/integro",
+      "numeric": true,
+      "why": "Correspondencia con hecho sintético preregistrado; conservar ámbito y flag.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025/ATRABAJO",
+        "scope": 14,
+        "key": "TPDIN_CREGLAS_CASILLAEXT",
+        "type": "3",
+        "flag": "255"
+      }
+    },
+    {
+      "kind": "entrada-o-hecho",
+      "source": "H/entrada/trabajo/rendimientos/0/integro",
+      "numeric": true,
+      "why": "Correspondencia con hecho sintético preregistrado; conservar ámbito y flag.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025/ATRABAJO",
+        "scope": 14,
+        "key": "TPDIN",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "255",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025/ATRABAJO",
+        "scope": 14,
+        "key": "TPICR_CREGLAS_CASILLAEXT",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "255",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025/ATRABAJO",
+        "scope": 14,
+        "key": "TPGSS_CAPA001_CASILLAEXT",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "255",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025/ATRABAJO",
+        "scope": 14,
+        "key": "TPICR_CAPA001_CASILLAEXT",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "255",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025/ATRABAJO",
+        "scope": 14,
+        "key": "TPDIN_CAPA001_CASILLAEXT",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "255",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025/ATRABAJO",
+        "scope": 14,
+        "key": "TPIC_CREGLAS_CASILLAEXT",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "255",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025/ATRABAJO",
+        "scope": 14,
+        "key": "TPIC_CAPA001_CASILLAEXT",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "entrada-o-hecho",
+      "source": "H/entrada/trabajo/rendimientos/0/integro",
+      "numeric": true,
+      "why": "Neto previo igual a bruto sólo en este contexto con todos los gastos efectivos cero; alias, no segunda renta.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025/ATRABAJO",
+        "scope": 14,
+        "key": "TPRNP",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "255",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025/ATRABAJO",
+        "scope": 14,
+        "key": "TPGSS_CREGLAS_CASILLAEXT",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "255",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025/ATRABAJO",
+        "scope": 14,
+        "key": "TPVA_CAPA001_CASILLAEXT",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "entrada-o-hecho",
+      "source": "H/entrada/retenciones/0/importe",
+      "numeric": true,
+      "why": "Correspondencia con hecho sintético preregistrado; conservar ámbito y flag.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025/ATRABAJO/DLGTRABAJO",
+        "scope": 15,
+        "key": "IDRE_CREGLAS_CASILLAEXT",
+        "type": "3",
+        "flag": "255"
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "255",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025/ATRABAJO/DLGTRABAJO",
+        "scope": 15,
+        "key": "IEVA_CREGLAS_CASILLAEXT",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "255",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025/ATRABAJO/DLGTRABAJO",
+        "scope": 15,
+        "key": "GSS_CAPA001_CASILLAEXT",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "255",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025/ATRABAJO/DLGTRABAJO",
+        "scope": 15,
+        "key": "IEIR_CAPA001_CASILLAEXT",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "255",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025/ATRABAJO/DLGTRABAJO",
+        "scope": 15,
+        "key": "IEIC_CREGLAS_CASILLAEXT",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "entrada-o-hecho",
+      "source": "H/entrada/trabajo/rendimientos/0/integro",
+      "numeric": true,
+      "why": "Correspondencia con hecho sintético preregistrado; conservar ámbito y flag.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025/ATRABAJO/DLGTRABAJO",
+        "scope": 15,
+        "key": "IDII",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "255",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025/ATRABAJO/DLGTRABAJO",
+        "scope": 15,
+        "key": "IEIC_CAPA001_CASILLAEXT",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "255",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025/ATRABAJO/DLGTRABAJO",
+        "scope": 15,
+        "key": "IDRE_CAPA001_CASILLAEXT",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "255",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025/ATRABAJO/DLGTRABAJO",
+        "scope": 15,
+        "key": "GSS_CREGLAS_CASILLAEXT",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "entrada-o-hecho",
+      "source": "H/entrada/retenciones/0/importe",
+      "numeric": true,
+      "why": "Correspondencia con hecho sintético preregistrado; conservar ámbito y flag.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025/ATRABAJO/DLGTRABAJO",
+        "scope": 15,
+        "key": "IDRE",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "255",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025/ATRABAJO/DLGTRABAJO",
+        "scope": 15,
+        "key": "IEVA_CAPA001_CASILLAEXT",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "255",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025/ATRABAJO/DLGTRABAJO",
+        "scope": 15,
+        "key": "IEIR_CREGLAS_CASILLAEXT",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "entrada-o-hecho",
+      "source": "H/entrada/trabajo/rendimientos/0/integro",
+      "numeric": true,
+      "why": "Correspondencia con hecho sintético preregistrado; conservar ámbito y flag.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025/ATRABAJO/DLGTRABAJO",
+        "scope": 15,
+        "key": "IDII_CREGLAS_CASILLAEXT",
+        "type": "3",
+        "flag": "255"
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "255",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025/ATRABAJO/DLGTRABAJO",
+        "scope": 15,
+        "key": "IDII_CAPA001_CASILLAEXT",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "plantilla-exacta",
+      "literal": "365",
+      "why": "Días iniciales de plantilla Castilla-La Mancha inactiva en H Andalucía/Madrid; no días de residencia regional ni deducción. Ausencia de importes regionales y censo cerrado obligatorios.",
+      "priorReference": {
+        "path": "tools/procedencia/simuladores/prospectivos-censo.json",
+        "sha256": "ff48dcade311f35873670e790fd044e15ddab4ec09eb97874931cccbdc30686f",
+        "row": {
+          "scope": 19,
+          "path": "DECLARACIONES/IRPF2025/CASTILLA_LA_MANCHA",
+          "key": "DIASCM",
+          "type": "1",
+          "flag": null
+        },
+        "observation": "madrid-01"
+      },
+      "context": "H: pension individual, sin pareja ni familiares; seis plantillas ACTIVIDADES sólo contienen titular, no importes.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025/CASTILLA_LA_MANCHA",
+        "scope": 16,
+        "key": "DIASCM",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "254",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025/TDAFAS5",
+        "scope": 17,
+        "key": "TODODAFAS5",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "plantilla-exacta",
+      "literal": "1",
+      "why": "Selector inicial de bloque sin prestación/vehículo material; no importe. H completitud sin maternidad ni vehículos, bloques sin importes.",
+      "priorReference": {
+        "path": "tools/procedencia/simuladores/prospectivos-censo.json",
+        "sha256": "ff48dcade311f35873670e790fd044e15ddab4ec09eb97874931cccbdc30686f",
+        "row": {
+          "scope": 22,
+          "path": "DECLARACIONES/IRPF2025/TVEHELEC",
+          "key": "INDVEHELEC",
+          "type": "1",
+          "flag": null
+        },
+        "observation": "madrid-01"
+      },
+      "context": "H: pension individual, sin pareja ni familiares; seis plantillas ACTIVIDADES sólo contienen titular, no importes.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025/TVEHELEC",
+        "scope": 18,
+        "key": "INDVEHELEC",
+        "type": "1",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "254",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES/IRPF2025/CATALUNYA",
+        "scope": 19,
+        "key": "DECCT6",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "254",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES/RIOJA_COMUN",
+        "scope": 20,
+        "key": "DIASCLR8",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "254",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES/RIOJA_COMUN",
+        "scope": 20,
+        "key": "C02LR8",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "254",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES/RIOJA_COMUN",
+        "scope": 20,
+        "key": "C01LR8",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "254",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES/VALENCIA_COMUN",
+        "scope": 21,
+        "key": "DIASOVA1",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "254",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES/ANDALUCIA_COMUN",
+        "scope": 22,
+        "key": "CAT1A16",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "254",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES/ANDALUCIA_COMUN",
+        "scope": 22,
+        "key": "CAT2A16",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "254",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES/CANTABRIA_COMUN",
+        "scope": 23,
+        "key": "IMP3ACANT8",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "254",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES/CANTABRIA_COMUN",
+        "scope": 23,
+        "key": "IMP2ACANT8",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "254",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES/CANTABRIA_COMUN",
+        "scope": 23,
+        "key": "IMP1ACANT8",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "254",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES/CANTABRIA_COMUN",
+        "scope": 23,
+        "key": "IMP4ACANT8",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "254",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES/MADRID_COMUN",
+        "scope": 24,
+        "key": "CAT1M21",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "254",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES/MADRID_COMUN",
+        "scope": 24,
+        "key": "CAT2M21",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "254",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES/ARAGON_COMUN",
+        "scope": 25,
+        "key": "COM2AR3",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "254",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES/ARAGON_COMUN",
+        "scope": 25,
+        "key": "COM1AR3",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "254",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES/ARAGON_COMUN",
+        "scope": 25,
+        "key": "COMAR19",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "254",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES/CANARIAS_COMUN",
+        "scope": 26,
+        "key": "IMPA2CAN18",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "254",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES/CANARIAS_COMUN",
+        "scope": 26,
+        "key": "IMPA5CAN18",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "254",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES/CANARIAS_COMUN",
+        "scope": 26,
+        "key": "COM1CAN23",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "254",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES/CANARIAS_COMUN",
+        "scope": 26,
+        "key": "IMPA4CAN18",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "254",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES/CANARIAS_COMUN",
+        "scope": 26,
+        "key": "IMPA1CAN18",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "254",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES/CANARIAS_COMUN",
+        "scope": 26,
+        "key": "CON2CAN4",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "254",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES/CANARIAS_COMUN",
+        "scope": 26,
+        "key": "COM2CAN23",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "254",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES/CANARIAS_COMUN",
+        "scope": 26,
+        "key": "IMPA3CAN18",
+        "type": "2",
+        "flag": null
+      }
+    },
+    {
+      "kind": "ausencia-exacta",
+      "literal": "254",
+      "source": "H/entrada",
+      "why": "Marcador tipo2 en ámbito y celda concretos. Contexto sintético cerrado sin familiares, otras rentas ni deducciones; no es un cero universal ni un booleano. Si se añade valor, alias o instancia, rechazar.",
+      "row": {
+        "path": "DECLARACIONES/CANARIAS_COMUN",
+        "scope": 26,
+        "key": "IMPA6CAN18",
+        "type": "2",
+        "flag": null
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": 0,
+      "name": "DECLARACIONES",
+      "indent": 0,
+      "parent": null,
+      "path": "DECLARACIONES"
+    },
+    {
+      "id": 1,
+      "name": "DP",
+      "indent": 2,
+      "parent": 0,
+      "path": "DECLARACIONES/DP"
+    },
+    {
+      "id": 2,
+      "name": "ASCENDIENTES",
+      "indent": 4,
+      "parent": 1,
+      "path": "DECLARACIONES/DP/ASCENDIENTES"
+    },
+    {
+      "id": 3,
+      "name": "RWHIJOSMAYOR18",
+      "indent": 4,
+      "parent": 1,
+      "path": "DECLARACIONES/DP/RWHIJOSMAYOR18"
+    },
+    {
+      "id": 4,
+      "name": "RESUMEN",
+      "indent": 2,
+      "parent": 0,
+      "path": "DECLARACIONES/RESUMEN"
+    },
+    {
+      "id": 5,
+      "name": "ACTIVIDADES",
+      "indent": 2,
+      "parent": 0,
+      "path": "DECLARACIONES/ACTIVIDADES"
+    },
+    {
+      "id": 6,
+      "name": "ACTIVIDADES",
+      "indent": 2,
+      "parent": 0,
+      "path": "DECLARACIONES/ACTIVIDADES"
+    },
+    {
+      "id": 7,
+      "name": "ACTIVIDADES",
+      "indent": 2,
+      "parent": 0,
+      "path": "DECLARACIONES/ACTIVIDADES"
+    },
+    {
+      "id": 8,
+      "name": "ACTIVIDADES",
+      "indent": 2,
+      "parent": 0,
+      "path": "DECLARACIONES/ACTIVIDADES"
+    },
+    {
+      "id": 9,
+      "name": "ACTIVIDADES",
+      "indent": 2,
+      "parent": 0,
+      "path": "DECLARACIONES/ACTIVIDADES"
+    },
+    {
+      "id": 10,
+      "name": "ACTIVIDADES",
+      "indent": 2,
+      "parent": 0,
+      "path": "DECLARACIONES/ACTIVIDADES"
+    },
+    {
+      "id": 11,
+      "name": "INFO",
+      "indent": 2,
+      "parent": 0,
+      "path": "DECLARACIONES/INFO"
+    },
+    {
+      "id": 12,
+      "name": "IRPF2025",
+      "indent": 2,
+      "parent": 0,
+      "path": "DECLARACIONES/IRPF2025"
+    },
+    {
+      "id": 13,
+      "name": "ARAGON",
+      "indent": 4,
+      "parent": 12,
+      "path": "DECLARACIONES/IRPF2025/ARAGON"
+    },
+    {
+      "id": 14,
+      "name": "ATRABAJO",
+      "indent": 4,
+      "parent": 12,
+      "path": "DECLARACIONES/IRPF2025/ATRABAJO"
+    },
+    {
+      "id": 15,
+      "name": "DLGTRABAJO",
+      "indent": 6,
+      "parent": 14,
+      "path": "DECLARACIONES/IRPF2025/ATRABAJO/DLGTRABAJO"
+    },
+    {
+      "id": 16,
+      "name": "CASTILLA_LA_MANCHA",
+      "indent": 4,
+      "parent": 12,
+      "path": "DECLARACIONES/IRPF2025/CASTILLA_LA_MANCHA"
+    },
+    {
+      "id": 17,
+      "name": "TDAFAS5",
+      "indent": 4,
+      "parent": 12,
+      "path": "DECLARACIONES/IRPF2025/TDAFAS5"
+    },
+    {
+      "id": 18,
+      "name": "TVEHELEC",
+      "indent": 4,
+      "parent": 12,
+      "path": "DECLARACIONES/IRPF2025/TVEHELEC"
+    },
+    {
+      "id": 19,
+      "name": "CATALUNYA",
+      "indent": 4,
+      "parent": 12,
+      "path": "DECLARACIONES/IRPF2025/CATALUNYA"
+    },
+    {
+      "id": 20,
+      "name": "RIOJA_COMUN",
+      "indent": 2,
+      "parent": 0,
+      "path": "DECLARACIONES/RIOJA_COMUN"
+    },
+    {
+      "id": 21,
+      "name": "VALENCIA_COMUN",
+      "indent": 2,
+      "parent": 0,
+      "path": "DECLARACIONES/VALENCIA_COMUN"
+    },
+    {
+      "id": 22,
+      "name": "ANDALUCIA_COMUN",
+      "indent": 2,
+      "parent": 0,
+      "path": "DECLARACIONES/ANDALUCIA_COMUN"
+    },
+    {
+      "id": 23,
+      "name": "CANTABRIA_COMUN",
+      "indent": 2,
+      "parent": 0,
+      "path": "DECLARACIONES/CANTABRIA_COMUN"
+    },
+    {
+      "id": 24,
+      "name": "MADRID_COMUN",
+      "indent": 2,
+      "parent": 0,
+      "path": "DECLARACIONES/MADRID_COMUN"
+    },
+    {
+      "id": 25,
+      "name": "ARAGON_COMUN",
+      "indent": 2,
+      "parent": 0,
+      "path": "DECLARACIONES/ARAGON_COMUN"
+    },
+    {
+      "id": 26,
+      "name": "CANARIAS_COMUN",
+      "indent": 2,
+      "parent": 0,
+      "path": "DECLARACIONES/CANARIAS_COMUN"
+    }
+  ],
+  "pdfSHA256": "a526863c5758cd2ca251abbf08437ded47ca0449c95ade85c8778e8663be226f",
+  "pdfRows": [
+    {
+      "page": 0,
+      "y": 788,
+      "text": "Agencia Tributaria",
+      "segments": [
+        {
+          "x": 48.1,
+          "value": "Agencia Tributaria"
+        }
+      ]
+    },
+    {
+      "page": 0,
+      "y": 780,
+      "text": "Teléfono: 91 333 53 33",
+      "segments": [
+        {
+          "x": 61.145,
+          "value": "Teléfono: 91 333 53 33"
+        }
+      ]
+    },
+    {
+      "page": 0,
+      "y": 772,
+      "text": "sede.agenciatributaria.gob.es",
+      "segments": [
+        {
+          "x": 49.652,
+          "value": "sede.agenciatributaria.gob.es"
+        }
+      ]
+    },
+    {
+      "page": 0,
+      "y": 791,
+      "text": "Modelo",
+      "segments": [
+        {
+          "x": 535.60498,
+          "value": "Modelo"
+        }
+      ]
+    },
+    {
+      "page": 0,
+      "y": 773,
+      "text": "100",
+      "segments": [
+        {
+          "x": 536.98798,
+          "value": "100"
+        }
+      ]
+    },
+    {
+      "page": 0,
+      "y": 787,
+      "text": "Impuesto sobre la Renta de las Personas Físicas",
+      "segments": [
+        {
+          "x": 176,
+          "value": "Impuesto sobre la Renta de las Personas Físicas"
+        }
+      ]
+    },
+    {
+      "page": 0,
+      "y": 774,
+      "text": "Ejercicio 2025",
+      "segments": [
+        {
+          "x": 176,
+          "value": "Ejercicio 2025"
+        }
+      ]
+    },
+    {
+      "page": 0,
+      "y": 743.88977,
+      "text": "Primer declarante y cónyuge, en caso de matrimonio no separado legalmente",
+      "segments": [
+        {
+          "x": 38,
+          "value": "Primer declarante y cónyuge, en caso de matrimonio no separado legalmente"
+        }
+      ]
+    },
+    {
+      "page": 0,
+      "y": 731.88977,
+      "text": "Primer declarante",
+      "segments": [
+        {
+          "x": 48,
+          "value": "Primer declarante"
+        }
+      ]
+    },
+    {
+      "page": 0,
+      "y": 719.88977,
+      "text": "NIF 90000000B 0001",
+      "segments": [
+        {
+          "x": 58,
+          "value": "NIF"
+        },
+        {
+          "x": 503.24063,
+          "value": "90000000B"
+        },
+        {
+          "x": 553.43164,
+          "value": "0001"
+        }
+      ]
+    },
+    {
+      "page": 0,
+      "y": 707.88977,
+      "text": "Apellidos y nombre PRUEBA C OPEN 0002",
+      "segments": [
+        {
+          "x": 58,
+          "value": "Apellidos y nombre"
+        },
+        {
+          "x": 475.25964,
+          "value": "PRUEBA C OPEN"
+        },
+        {
+          "x": 553.43164,
+          "value": "0002"
+        }
+      ]
+    },
+    {
+      "page": 0,
+      "y": 695.88977,
+      "text": "Sexo del primer declarante Hombre 0005",
+      "segments": [
+        {
+          "x": 58,
+          "value": "Sexo del primer declarante"
+        },
+        {
+          "x": 517.27161,
+          "value": "Hombre"
+        },
+        {
+          "x": 553.43164,
+          "value": "0005"
+        }
+      ]
+    },
+    {
+      "page": 0,
+      "y": 683.88977,
+      "text": "Estado civil (el 31-12-2025) (1) Soltero/a 0006",
+      "segments": [
+        {
+          "x": 58,
+          "value": "Estado civil (el 31-12-2025)"
+        },
+        {
+          "x": 499.75763,
+          "value": "(1) Soltero/a"
+        },
+        {
+          "x": 553.43164,
+          "value": "0006"
+        }
+      ]
+    },
+    {
+      "page": 0,
+      "y": 671.88977,
+      "text": "Fecha de nacimiento 01/01/1948 0010",
+      "segments": [
+        {
+          "x": 58,
+          "value": "Fecha de nacimiento"
+        },
+        {
+          "x": 504.23962,
+          "value": "01/01/1948"
+        },
+        {
+          "x": 553.43164,
+          "value": "0010"
+        }
+      ]
+    },
+    {
+      "page": 0,
+      "y": 653.88977,
+      "text": "Comunidad o Ciudad Autónoma de residencia en el ejercicio 2025",
+      "segments": [
+        {
+          "x": 38,
+          "value": "Comunidad o Ciudad Autónoma de residencia en el ejercicio 2025"
+        }
+      ]
+    },
+    {
+      "page": 0,
+      "y": 641.88977,
+      "text": "Comunidad Autónoma o de la Ciudad con Estatuto de Autonomía en la que tuvo/tuvieron su residencia habitual en 2025 MADRID 0070",
+      "segments": [
+        {
+          "x": 48,
+          "value": "Comunidad Autónoma o de la Ciudad con Estatuto de Autonomía en la que tuvo/tuvieron su residencia habitual en 2025"
+        },
+        {
+          "x": 513.77966,
+          "value": "MADRID"
+        },
+        {
+          "x": 553.43164,
+          "value": "0070"
+        }
+      ]
+    },
+    {
+      "page": 0,
+      "y": 623.88977,
+      "text": "Opción de tributación",
+      "segments": [
+        {
+          "x": 38,
+          "value": "Opción de tributación"
+        }
+      ]
+    },
+    {
+      "page": 0,
+      "y": 611.88977,
+      "text": "Tributación individual X 0068",
+      "segments": [
+        {
+          "x": 48,
+          "value": "Tributación individual"
+        },
+        {
+          "x": 543.27264,
+          "value": "X"
+        },
+        {
+          "x": 553.43164,
+          "value": "0068"
+        }
+      ]
+    },
+    {
+      "page": 0,
+      "y": 593.88977,
+      "text": "Rendimientos del trabajo",
+      "segments": [
+        {
+          "x": 38,
+          "value": "Rendimientos del trabajo"
+        }
+      ]
+    },
+    {
+      "page": 0,
+      "y": 581.88977,
+      "text": "Contribuyente que obtiene los rendimientos DECLARANTE 0001",
+      "segments": [
+        {
+          "x": 48,
+          "value": "Contribuyente que obtiene los rendimientos"
+        },
+        {
+          "x": 488.76865,
+          "value": "DECLARANTE"
+        },
+        {
+          "x": 553.43164,
+          "value": "0001"
+        }
+      ]
+    },
+    {
+      "page": 0,
+      "y": 569.88977,
+      "text": "Retribuciones dinerarias 30.000,00 0003",
+      "segments": [
+        {
+          "x": 48,
+          "value": "Retribuciones dinerarias"
+        },
+        {
+          "x": 509.24362,
+          "value": "30.000,00"
+        },
+        {
+          "x": 553.43164,
+          "value": "0003"
+        }
+      ]
+    },
+    {
+      "page": 0,
+      "y": 557.88977,
+      "text": "Total ingresos íntegros computables [(03)+(07)+(08)+(24)+(09)+(10)-(11)-(58)] 30.000,00 0012",
+      "segments": [
+        {
+          "x": 48,
+          "value": "Total ingresos íntegros computables [(03)+(07)+(08)+(24)+(09)+(10)-(11)-(58)]"
+        },
+        {
+          "x": 509.24362,
+          "value": "30.000,00"
+        },
+        {
+          "x": 553.43164,
+          "value": "0012"
+        }
+      ]
+    },
+    {
+      "page": 0,
+      "y": 545.88977,
+      "text": "Rendimiento neto previo [(12)-(13)-(14)-(15)-(16)] 30.000,00 0017",
+      "segments": [
+        {
+          "x": 48,
+          "value": "Rendimiento neto previo [(12)-(13)-(14)-(15)-(16)]"
+        },
+        {
+          "x": 509.24362,
+          "value": "30.000,00"
+        },
+        {
+          "x": 553.43164,
+          "value": "0017"
+        }
+      ]
+    },
+    {
+      "page": 0,
+      "y": 533.88977,
+      "text": "Suma de rendimientos netos previos 30.000,00 0018",
+      "segments": [
+        {
+          "x": 48,
+          "value": "Suma de rendimientos netos previos"
+        },
+        {
+          "x": 509.24362,
+          "value": "30.000,00"
+        },
+        {
+          "x": 553.43164,
+          "value": "0018"
+        }
+      ]
+    },
+    {
+      "page": 0,
+      "y": 521.88977,
+      "text": "Otros gastos deducibles 2.000,00 0019",
+      "segments": [
+        {
+          "x": 48,
+          "value": "Otros gastos deducibles"
+        },
+        {
+          "x": 514.24762,
+          "value": "2.000,00"
+        },
+        {
+          "x": 553.43164,
+          "value": "0019"
+        }
+      ]
+    },
+    {
+      "page": 0,
+      "y": 509.88977,
+      "text": "Rendimiento neto [(18)-(19)-(20)-(21)] 28.000,00 0022",
+      "segments": [
+        {
+          "x": 48,
+          "value": "Rendimiento neto [(18)-(19)-(20)-(21)]"
+        },
+        {
+          "x": 509.24362,
+          "value": "28.000,00"
+        },
+        {
+          "x": 553.43164,
+          "value": "0022"
+        }
+      ]
+    },
+    {
+      "page": 0,
+      "y": 497.88977,
+      "text": "Rendimiento neto reducido [(22)-(23)] 28.000,00 0025",
+      "segments": [
+        {
+          "x": 48,
+          "value": "Rendimiento neto reducido [(22)-(23)]"
+        },
+        {
+          "x": 509.24362,
+          "value": "28.000,00"
+        },
+        {
+          "x": 553.43164,
+          "value": "0025"
+        }
+      ]
+    },
+    {
+      "page": 0,
+      "y": 479.88977,
+      "text": "Base imponible general y base imponible del ahorro",
+      "segments": [
+        {
+          "x": 38,
+          "value": "Base imponible general y base imponible del ahorro"
+        }
+      ]
+    },
+    {
+      "page": 0,
+      "y": 467.88977,
+      "text": "BASE IMPONIBLE GENERAL",
+      "segments": [
+        {
+          "x": 48,
+          "value": "BASE IMPONIBLE GENERAL"
+        }
+      ]
+    },
+    {
+      "page": 0,
+      "y": 455.88977,
+      "text": "Saldo neto de rendimientos a integrar en la base imponible general y de las imputaciones de renta 28.000,00 0432",
+      "segments": [
+        {
+          "x": 58,
+          "value": "Saldo neto de rendimientos a integrar en la base imponible general y de las imputaciones de renta"
+        },
+        {
+          "x": 509.24362,
+          "value": "28.000,00"
+        },
+        {
+          "x": 553.43164,
+          "value": "0432"
+        }
+      ]
+    },
+    {
+      "page": 0,
+      "y": 443.88977,
+      "text": "Base imponible general [(420)-(431)+(432)-(433)-(434)] 28.000,00 0435",
+      "segments": [
+        {
+          "x": 58,
+          "value": "Base imponible general [(420)-(431)+(432)-(433)-(434)]"
+        },
+        {
+          "x": 509.24362,
+          "value": "28.000,00"
+        },
+        {
+          "x": 553.43164,
+          "value": "0435"
+        }
+      ]
+    },
+    {
+      "page": 0,
+      "y": 431.88977,
+      "text": "BASE IMPONIBLE DEL AHORRO",
+      "segments": [
+        {
+          "x": 48,
+          "value": "BASE IMPONIBLE DEL AHORRO"
+        }
+      ]
+    },
+    {
+      "page": 0,
+      "y": 419.88977,
+      "text": "Base imponible del ahorro 0,00 0460",
+      "segments": [
+        {
+          "x": 58,
+          "value": "Base imponible del ahorro"
+        },
+        {
+          "x": 531.76166,
+          "value": "0,00"
+        },
+        {
+          "x": 553.43164,
+          "value": "0460"
+        }
+      ]
+    },
+    {
+      "page": 0,
+      "y": 401.88977,
+      "text": "Base liquidable general y base liquidable del ahorro",
+      "segments": [
+        {
+          "x": 38,
+          "value": "Base liquidable general y base liquidable del ahorro"
+        }
+      ]
+    },
+    {
+      "page": 0,
+      "y": 389.88977,
+      "text": "DETERMINACIÓN DE LA BASE LIQUIDABLE GENERAL",
+      "segments": [
+        {
+          "x": 48,
+          "value": "DETERMINACIÓN DE LA BASE LIQUIDABLE GENERAL"
+        }
+      ]
+    },
+    {
+      "page": 0,
+      "y": 377.88977,
+      "text": "Base imponible general [(420)-(431)+(432)-(433)-(434)] 28.000,00 0435",
+      "segments": [
+        {
+          "x": 58,
+          "value": "Base imponible general [(420)-(431)+(432)-(433)-(434)]"
+        },
+        {
+          "x": 509.24362,
+          "value": "28.000,00"
+        },
+        {
+          "x": 553.43164,
+          "value": "0435"
+        }
+      ]
+    },
+    {
+      "page": 0,
+      "y": 365.88977,
+      "text": "Base liquidable general [(435)-(491)-(492)-(493)-(494)-(495)-(496)-(497)] 28.000,00 0500",
+      "segments": [
+        {
+          "x": 58,
+          "value": "Base liquidable general [(435)-(491)-(492)-(493)-(494)-(495)-(496)-(497)]"
+        },
+        {
+          "x": 509.24362,
+          "value": "28.000,00"
+        },
+        {
+          "x": 553.43164,
+          "value": "0500"
+        }
+      ]
+    },
+    {
+      "page": 0,
+      "y": 353.88977,
+      "text": "Base liquidable general sometida a gravamen [(500)-(501)] 28.000,00 0505",
+      "segments": [
+        {
+          "x": 58,
+          "value": "Base liquidable general sometida a gravamen [(500)-(501)]"
+        },
+        {
+          "x": 509.24362,
+          "value": "28.000,00"
+        },
+        {
+          "x": 553.43164,
+          "value": "0505"
+        }
+      ]
+    },
+    {
+      "page": 0,
+      "y": 341.88977,
+      "text": "DETERMINACIÓN DE LA BASE LIQUIDABLE DEL AHORRO",
+      "segments": [
+        {
+          "x": 48,
+          "value": "DETERMINACIÓN DE LA BASE LIQUIDABLE DEL AHORRO"
+        }
+      ]
+    },
+    {
+      "page": 0,
+      "y": 329.88977,
+      "text": "Base imponible del ahorro 0,00 0460",
+      "segments": [
+        {
+          "x": 58,
+          "value": "Base imponible del ahorro"
+        },
+        {
+          "x": 531.76166,
+          "value": "0,00"
+        },
+        {
+          "x": 553.43164,
+          "value": "0460"
+        }
+      ]
+    },
+    {
+      "page": 0,
+      "y": 317.88977,
+      "text": "Base liquidable del ahorro [(460)-(506)-(507)] 0,00 0510",
+      "segments": [
+        {
+          "x": 58,
+          "value": "Base liquidable del ahorro [(460)-(506)-(507)]"
+        },
+        {
+          "x": 531.76166,
+          "value": "0,00"
+        },
+        {
+          "x": 553.43164,
+          "value": "0510"
+        }
+      ]
+    },
+    {
+      "page": 0,
+      "y": 299.88977,
+      "text": "Adecuación del impuesto a las circunstancias personales y familiares",
+      "segments": [
+        {
+          "x": 38,
+          "value": "Adecuación del impuesto a las circunstancias personales y familiares"
+        }
+      ]
+    },
+    {
+      "page": 0,
+      "y": 287.88977,
+      "text": "Mínimo contribuyente. Importe estatal 8.100,00 0511",
+      "segments": [
+        {
+          "x": 48,
+          "value": "Mínimo contribuyente. Importe estatal"
+        },
+        {
+          "x": 514.24762,
+          "value": "8.100,00"
+        },
+        {
+          "x": 553.43164,
+          "value": "0511"
+        }
+      ]
+    },
+    {
+      "page": 0,
+      "y": 275.88977,
+      "text": "Mínimo contribuyente. Importe autonómico 8.693,49 0512",
+      "segments": [
+        {
+          "x": 48,
+          "value": "Mínimo contribuyente. Importe autonómico"
+        },
+        {
+          "x": 514.24762,
+          "value": "8.693,49"
+        },
+        {
+          "x": 553.43164,
+          "value": "0512"
+        }
+      ]
+    },
+    {
+      "page": 0,
+      "y": 263.88977,
+      "text": "Mínimo personal y familiar para calcular el gravamen estatal 8.100,00 0519",
+      "segments": [
+        {
+          "x": 48,
+          "value": "Mínimo personal y familiar para calcular el gravamen estatal"
+        },
+        {
+          "x": 514.24762,
+          "value": "8.100,00"
+        },
+        {
+          "x": 553.43164,
+          "value": "0519"
+        }
+      ]
+    },
+    {
+      "page": 0,
+      "y": 251.88977,
+      "text": "Mínimo personal y familiar para calcular el gravamen autonómico 8.693,49 0520",
+      "segments": [
+        {
+          "x": 48,
+          "value": "Mínimo personal y familiar para calcular el gravamen autonómico"
+        },
+        {
+          "x": 514.24762,
+          "value": "8.693,49"
+        },
+        {
+          "x": 553.43164,
+          "value": "0520"
+        }
+      ]
+    },
+    {
+      "page": 0,
+      "y": 239.88977,
+      "text": "Mínimo personal y familiar de la base liquidable general para calcular el gravamen estatal 8.100,00 0521",
+      "segments": [
+        {
+          "x": 48,
+          "value": "Mínimo personal y familiar de la base liquidable general para calcular el gravamen estatal"
+        },
+        {
+          "x": 514.24762,
+          "value": "8.100,00"
+        },
+        {
+          "x": 553.43164,
+          "value": "0521"
+        }
+      ]
+    },
+    {
+      "page": 0,
+      "y": 227.88977,
+      "text": "Mínimo personal y familiar de la base liquidable del ahorro para calcular el gravamen estatal 0,00 0522",
+      "segments": [
+        {
+          "x": 48,
+          "value": "Mínimo personal y familiar de la base liquidable del ahorro para calcular el gravamen estatal"
+        },
+        {
+          "x": 531.76166,
+          "value": "0,00"
+        },
+        {
+          "x": 553.43164,
+          "value": "0522"
+        }
+      ]
+    },
+    {
+      "page": 0,
+      "y": 215.88977,
+      "text": "Mínimo personal y familiar de la base liquidable general para calcular el gravamen autonómico 8.693,49 0523",
+      "segments": [
+        {
+          "x": 48,
+          "value": "Mínimo personal y familiar de la base liquidable general para calcular el gravamen autonómico"
+        },
+        {
+          "x": 514.24762,
+          "value": "8.693,49"
+        },
+        {
+          "x": 553.43164,
+          "value": "0523"
+        }
+      ]
+    },
+    {
+      "page": 0,
+      "y": 203.88977,
+      "text": "Mínimo personal y familiar de la base liquidable del ahorro para calcular el gravamen autonómico 0,00 0524",
+      "segments": [
+        {
+          "x": 48,
+          "value": "Mínimo personal y familiar de la base liquidable del ahorro para calcular el gravamen autonómico"
+        },
+        {
+          "x": 531.76166,
+          "value": "0,00"
+        },
+        {
+          "x": 553.43164,
+          "value": "0524"
+        }
+      ]
+    },
+    {
+      "page": 0,
+      "y": 185.88977,
+      "text": "Cálculo del impuesto y resultado de la declaración",
+      "segments": [
+        {
+          "x": 38,
+          "value": "Cálculo del impuesto y resultado de la declaración"
+        }
+      ]
+    },
+    {
+      "page": 0,
+      "y": 173.88977,
+      "text": "Cuota estatal correspondiente a la base liquidable general sometida a gravamen 3.282,75 0528",
+      "segments": [
+        {
+          "x": 48,
+          "value": "Cuota estatal correspondiente a la base liquidable general sometida a gravamen"
+        },
+        {
+          "x": 514.24762,
+          "value": "3.282,75"
+        },
+        {
+          "x": 553.43164,
+          "value": "0528"
+        }
+      ]
+    },
+    {
+      "page": 0,
+      "y": 161.88977,
+      "text": "Cuota autonómica correspondiente a la base liquidable general sometida a gravamen 2.890,94 0529",
+      "segments": [
+        {
+          "x": 48,
+          "value": "Cuota autonómica correspondiente a la base liquidable general sometida a gravamen"
+        },
+        {
+          "x": 514.24762,
+          "value": "2.890,94"
+        },
+        {
+          "x": 553.43164,
+          "value": "0529"
+        }
+      ]
+    },
+    {
+      "page": 0,
+      "y": 149.88977,
+      "text": "Cuota estatal correspondiente al mínimo personal y familiar de B.L. general 769,50 0530",
+      "segments": [
+        {
+          "x": 48,
+          "value": "Cuota estatal correspondiente al mínimo personal y familiar de B.L. general"
+        },
+        {
+          "x": 521.75366,
+          "value": "769,50"
+        },
+        {
+          "x": 553.43164,
+          "value": "0530"
+        }
+      ]
+    },
+    {
+      "page": 0,
+      "y": 137.88977,
+      "text": "Cuota autonómica correspondiente al mínimo personal y familiar de la B.L. general 738,95 0531",
+      "segments": [
+        {
+          "x": 48,
+          "value": "Cuota autonómica correspondiente al mínimo personal y familiar de la B.L. general"
+        },
+        {
+          "x": 521.75366,
+          "value": "738,95"
+        },
+        {
+          "x": 553.43164,
+          "value": "0531"
+        }
+      ]
+    },
+    {
+      "page": 0,
+      "y": 125.88977,
+      "text": "Cuota estatal correspondiente a la base liquidable general 2.513,25 0532",
+      "segments": [
+        {
+          "x": 48,
+          "value": "Cuota estatal correspondiente a la base liquidable general"
+        },
+        {
+          "x": 514.24762,
+          "value": "2.513,25"
+        },
+        {
+          "x": 553.43164,
+          "value": "0532"
+        }
+      ]
+    },
+    {
+      "page": 0,
+      "y": 113.88977,
+      "text": "Cuota autonómica correspondiente a la base liquidable general 2.151,99 0533",
+      "segments": [
+        {
+          "x": 48,
+          "value": "Cuota autonómica correspondiente a la base liquidable general"
+        },
+        {
+          "x": 514.24762,
+          "value": "2.151,99"
+        },
+        {
+          "x": 553.43164,
+          "value": "0533"
+        }
+      ]
+    },
+    {
+      "page": 0,
+      "y": 101.88977,
+      "text": "Tipo medio estatal 8,97 0534",
+      "segments": [
+        {
+          "x": 48,
+          "value": "Tipo medio estatal"
+        },
+        {
+          "x": 531.76166,
+          "value": "8,97"
+        },
+        {
+          "x": 553.43164,
+          "value": "0534"
+        }
+      ]
+    },
+    {
+      "page": 0,
+      "y": 89.88977,
+      "text": "Tipo medio autonómico 7,68 0535",
+      "segments": [
+        {
+          "x": 48,
+          "value": "Tipo medio autonómico"
+        },
+        {
+          "x": 531.76166,
+          "value": "7,68"
+        },
+        {
+          "x": 553.43164,
+          "value": "0535"
+        }
+      ]
+    },
+    {
+      "page": 0,
+      "y": 77.88977,
+      "text": "Cuota estatal correspondiente a la base liquidable del ahorro sometida a gravamen 0,00 0536",
+      "segments": [
+        {
+          "x": 48,
+          "value": "Cuota estatal correspondiente a la base liquidable del ahorro sometida a gravamen"
+        },
+        {
+          "x": 531.76166,
+          "value": "0,00"
+        },
+        {
+          "x": 553.43164,
+          "value": "0536"
+        }
+      ]
+    },
+    {
+      "page": 0,
+      "y": 65.88977,
+      "text": "Cuota autonómica correspondiente a la base liquidable del ahorro sometida a gravamen 0,00 0537",
+      "segments": [
+        {
+          "x": 48,
+          "value": "Cuota autonómica correspondiente a la base liquidable del ahorro sometida a gravamen"
+        },
+        {
+          "x": 531.76166,
+          "value": "0,00"
+        },
+        {
+          "x": 553.43164,
+          "value": "0537"
+        }
+      ]
+    },
+    {
+      "page": 0,
+      "y": 0,
+      "text": "BORRADOR NO VÁLIDO PARA SU PRESENTACIÓN",
+      "segments": [
+        {
+          "x": 77.45731,
+          "value": "BORRADOR NO VÁLIDO PARA SU PRESENTACIÓN"
+        }
+      ]
+    },
+    {
+      "page": 0,
+      "y": 20,
+      "text": "SIN VALIDAR",
+      "segments": [
+        {
+          "x": 272.74182,
+          "value": "SIN VALIDAR"
+        }
+      ]
+    },
+    {
+      "page": 0,
+      "y": 16,
+      "text": "1",
+      "segments": [
+        {
+          "x": 559.71564,
+          "value": "1"
+        }
+      ]
+    },
+    {
+      "page": 1,
+      "y": 788,
+      "text": "Agencia Tributaria",
+      "segments": [
+        {
+          "x": 48.1,
+          "value": "Agencia Tributaria"
+        }
+      ]
+    },
+    {
+      "page": 1,
+      "y": 780,
+      "text": "Teléfono: 91 333 53 33",
+      "segments": [
+        {
+          "x": 61.145,
+          "value": "Teléfono: 91 333 53 33"
+        }
+      ]
+    },
+    {
+      "page": 1,
+      "y": 772,
+      "text": "sede.agenciatributaria.gob.es",
+      "segments": [
+        {
+          "x": 49.652,
+          "value": "sede.agenciatributaria.gob.es"
+        }
+      ]
+    },
+    {
+      "page": 1,
+      "y": 791,
+      "text": "Modelo",
+      "segments": [
+        {
+          "x": 535.60498,
+          "value": "Modelo"
+        }
+      ]
+    },
+    {
+      "page": 1,
+      "y": 773,
+      "text": "100",
+      "segments": [
+        {
+          "x": 536.98798,
+          "value": "100"
+        }
+      ]
+    },
+    {
+      "page": 1,
+      "y": 787,
+      "text": "Impuesto sobre la Renta de las Personas Físicas",
+      "segments": [
+        {
+          "x": 176,
+          "value": "Impuesto sobre la Renta de las Personas Físicas"
+        }
+      ]
+    },
+    {
+      "page": 1,
+      "y": 774,
+      "text": "Ejercicio 2025",
+      "segments": [
+        {
+          "x": 176,
+          "value": "Ejercicio 2025"
+        }
+      ]
+    },
+    {
+      "page": 1,
+      "y": 749.88977,
+      "text": "Cuota estatal correspondiente al mínimo personal y familiar de B.L. del ahorro 0,00 0538",
+      "segments": [
+        {
+          "x": 48,
+          "value": "Cuota estatal correspondiente al mínimo personal y familiar de B.L. del ahorro"
+        },
+        {
+          "x": 531.76166,
+          "value": "0,00"
+        },
+        {
+          "x": 553.43164,
+          "value": "0538"
+        }
+      ]
+    },
+    {
+      "page": 1,
+      "y": 737.88977,
+      "text": "Cuota autonómica correspondiente al mínimo personal y familiar de la B.L. del ahorro 0,00 0539",
+      "segments": [
+        {
+          "x": 48,
+          "value": "Cuota autonómica correspondiente al mínimo personal y familiar de la B.L. del ahorro"
+        },
+        {
+          "x": 531.76166,
+          "value": "0,00"
+        },
+        {
+          "x": 553.43164,
+          "value": "0539"
+        }
+      ]
+    },
+    {
+      "page": 1,
+      "y": 725.88977,
+      "text": "Cuota estatal correspondiente a la base liquidable del ahorro 0,00 0540",
+      "segments": [
+        {
+          "x": 48,
+          "value": "Cuota estatal correspondiente a la base liquidable del ahorro"
+        },
+        {
+          "x": 531.76166,
+          "value": "0,00"
+        },
+        {
+          "x": 553.43164,
+          "value": "0540"
+        }
+      ]
+    },
+    {
+      "page": 1,
+      "y": 713.88977,
+      "text": "Cuota autonómica correspondiente a la base liquidable del ahorro 0,00 0541",
+      "segments": [
+        {
+          "x": 48,
+          "value": "Cuota autonómica correspondiente a la base liquidable del ahorro"
+        },
+        {
+          "x": 531.76166,
+          "value": "0,00"
+        },
+        {
+          "x": 553.43164,
+          "value": "0541"
+        }
+      ]
+    },
+    {
+      "page": 1,
+      "y": 701.88977,
+      "text": "Tipo medio estatal 0,00 0542",
+      "segments": [
+        {
+          "x": 48,
+          "value": "Tipo medio estatal"
+        },
+        {
+          "x": 531.76166,
+          "value": "0,00"
+        },
+        {
+          "x": 553.43164,
+          "value": "0542"
+        }
+      ]
+    },
+    {
+      "page": 1,
+      "y": 689.88977,
+      "text": "Tipo medio autonómico 0,00 0543",
+      "segments": [
+        {
+          "x": 48,
+          "value": "Tipo medio autonómico"
+        },
+        {
+          "x": 531.76166,
+          "value": "0,00"
+        },
+        {
+          "x": 553.43164,
+          "value": "0543"
+        }
+      ]
+    },
+    {
+      "page": 1,
+      "y": 677.88977,
+      "text": "Cuota íntegra estatal [(532)+(540)] 2.513,25 0545",
+      "segments": [
+        {
+          "x": 48,
+          "value": "Cuota íntegra estatal [(532)+(540)]"
+        },
+        {
+          "x": 514.24762,
+          "value": "2.513,25"
+        },
+        {
+          "x": 553.43164,
+          "value": "0545"
+        }
+      ]
+    },
+    {
+      "page": 1,
+      "y": 665.88977,
+      "text": "Cuota íntegra autonómica [(533)+(541)] 2.151,99 0546",
+      "segments": [
+        {
+          "x": 48,
+          "value": "Cuota íntegra autonómica [(533)+(541)]"
+        },
+        {
+          "x": 514.24762,
+          "value": "2.151,99"
+        },
+        {
+          "x": 553.43164,
+          "value": "0546"
+        }
+      ]
+    },
+    {
+      "page": 1,
+      "y": 647.88977,
+      "text": "Deducciones",
+      "segments": [
+        {
+          "x": 38,
+          "value": "Deducciones"
+        }
+      ]
+    },
+    {
+      "page": 1,
+      "y": 635.88977,
+      "text": "Deducciones autonómicas de la Comunidad de Madrid",
+      "segments": [
+        {
+          "x": 48,
+          "value": "Deducciones autonómicas de la Comunidad de Madrid"
+        }
+      ]
+    },
+    {
+      "page": 1,
+      "y": 623.88977,
+      "text": "Suma de deducciones autonómicas 0,00 0564",
+      "segments": [
+        {
+          "x": 58,
+          "value": "Suma de deducciones autonómicas"
+        },
+        {
+          "x": 531.76166,
+          "value": "0,00"
+        },
+        {
+          "x": 553.43164,
+          "value": "0564"
+        }
+      ]
+    },
+    {
+      "page": 1,
+      "y": 605.88977,
+      "text": "Determinación de cuotas líquidas y resultados",
+      "segments": [
+        {
+          "x": 38,
+          "value": "Determinación de cuotas líquidas y resultados"
+        }
+      ]
+    },
+    {
+      "page": 1,
+      "y": 593.88977,
+      "text": "CUOTAS LÍQUIDAS",
+      "segments": [
+        {
+          "x": 48,
+          "value": "CUOTAS LÍQUIDAS"
+        }
+      ]
+    },
+    {
+      "page": 1,
+      "y": 581.88977,
+      "text": "Cuota líquida estatal 2.513,25 0570",
+      "segments": [
+        {
+          "x": 58,
+          "value": "Cuota líquida estatal"
+        },
+        {
+          "x": 514.24762,
+          "value": "2.513,25"
+        },
+        {
+          "x": 553.43164,
+          "value": "0570"
+        }
+      ]
+    },
+    {
+      "page": 1,
+      "y": 569.88977,
+      "text": "Cuota líquida autonómica 2.151,99 0571",
+      "segments": [
+        {
+          "x": 58,
+          "value": "Cuota líquida autonómica"
+        },
+        {
+          "x": 514.24762,
+          "value": "2.151,99"
+        },
+        {
+          "x": 553.43164,
+          "value": "0571"
+        }
+      ]
+    },
+    {
+      "page": 1,
+      "y": 557.88977,
+      "text": "Cuota líquida estatal incrementada [(570)+(568)+(582)+(572)+(573)+(574)+(576)] 2.513,25 0585",
+      "segments": [
+        {
+          "x": 58,
+          "value": "Cuota líquida estatal incrementada [(570)+(568)+(582)+(572)+(573)+(574)+(576)]"
+        },
+        {
+          "x": 514.24762,
+          "value": "2.513,25"
+        },
+        {
+          "x": 553.43164,
+          "value": "0585"
+        }
+      ]
+    },
+    {
+      "page": 1,
+      "y": 545.88977,
+      "text": "Cuota líquida autonómica incrementada [(571)+(569)+(583)+(577)+(578)+(579)+(581)+(504)] 2.151,99 0586",
+      "segments": [
+        {
+          "x": 58,
+          "value": "Cuota líquida autonómica incrementada [(571)+(569)+(583)+(577)+(578)+(579)+(581)+(504)]"
+        },
+        {
+          "x": 514.24762,
+          "value": "2.151,99"
+        },
+        {
+          "x": 553.43164,
+          "value": "0586"
+        }
+      ]
+    },
+    {
+      "page": 1,
+      "y": 533.88977,
+      "text": "CUOTA RESULTANTE DE LA AUTOLIQUIDACIÓN",
+      "segments": [
+        {
+          "x": 48,
+          "value": "CUOTA RESULTANTE DE LA AUTOLIQUIDACIÓN"
+        }
+      ]
+    },
+    {
+      "page": 1,
+      "y": 521.88977,
+      "text": "Cuota líquida incrementada total [(585)+(586)] 4.665,24 0587",
+      "segments": [
+        {
+          "x": 58,
+          "value": "Cuota líquida incrementada total [(585)+(586)]"
+        },
+        {
+          "x": 514.24762,
+          "value": "4.665,24"
+        },
+        {
+          "x": 553.43164,
+          "value": "0587"
+        }
+      ]
+    },
+    {
+      "page": 1,
+      "y": 509.88977,
+      "text": "Cuota resultante de la autoliquidación [(587)-(588)-(414)-(589)-(590)-(591)] 4.665,24 0595",
+      "segments": [
+        {
+          "x": 58,
+          "value": "Cuota resultante de la autoliquidación [(587)-(588)-(414)-(589)-(590)-(591)]"
+        },
+        {
+          "x": 514.24762,
+          "value": "4.665,24"
+        },
+        {
+          "x": 553.43164,
+          "value": "0595"
+        }
+      ]
+    },
+    {
+      "page": 1,
+      "y": 497.88977,
+      "text": "RETENCIONES Y DEMÁS PAGOS A CUENTA",
+      "segments": [
+        {
+          "x": 48,
+          "value": "RETENCIONES Y DEMÁS PAGOS A CUENTA"
+        }
+      ]
+    },
+    {
+      "page": 1,
+      "y": 485.88977,
+      "text": "Por rendimientos del trabajo 4.200,00 0596",
+      "segments": [
+        {
+          "x": 58,
+          "value": "Por rendimientos del trabajo"
+        },
+        {
+          "x": 514.24762,
+          "value": "4.200,00"
+        },
+        {
+          "x": 553.43164,
+          "value": "0596"
+        }
+      ]
+    },
+    {
+      "page": 1,
+      "y": 473.88977,
+      "text": "Total pagos a cuenta [suma de (592) + (593)+ (594) + (596) a (606)] 4.200,00 0609",
+      "segments": [
+        {
+          "x": 58,
+          "value": "Total pagos a cuenta [suma de (592) + (593)+ (594) + (596) a (606)]"
+        },
+        {
+          "x": 514.24762,
+          "value": "4.200,00"
+        },
+        {
+          "x": 553.43164,
+          "value": "0609"
+        }
+      ]
+    },
+    {
+      "page": 1,
+      "y": 461.88977,
+      "text": "RESULTADO DE LA DECLARACIÓN",
+      "segments": [
+        {
+          "x": 48,
+          "value": "RESULTADO DE LA DECLARACIÓN"
+        }
+      ]
+    },
+    {
+      "page": 1,
+      "y": 449.88977,
+      "text": "Cuota diferencial [(595)-(609)] 465,24 0610",
+      "segments": [
+        {
+          "x": 58,
+          "value": "Cuota diferencial [(595)-(609)]"
+        },
+        {
+          "x": 521.75366,
+          "value": "465,24"
+        },
+        {
+          "x": 553.43164,
+          "value": "0610"
+        }
+      ]
+    },
+    {
+      "page": 1,
+      "y": 437.88977,
+      "text": "Resultado de la declaración 465,24 0670",
+      "segments": [
+        {
+          "x": 58,
+          "value": "Resultado de la declaración"
+        },
+        {
+          "x": 521.75366,
+          "value": "465,24"
+        },
+        {
+          "x": 553.43164,
+          "value": "0670"
+        }
+      ]
+    },
+    {
+      "page": 1,
+      "y": 419.88977,
+      "text": "Importe del IRPF que corresponde a la Comunidad Autónoma de residencia del contribuyente",
+      "segments": [
+        {
+          "x": 38,
+          "value": "Importe del IRPF que corresponde a la Comunidad Autónoma de residencia del contribuyente"
+        }
+      ]
+    },
+    {
+      "page": 1,
+      "y": 407.88977,
+      "text": "Cuota líquida autonómica incrementada 2.151,99 0671",
+      "segments": [
+        {
+          "x": 48,
+          "value": "Cuota líquida autonómica incrementada"
+        },
+        {
+          "x": 514.24762,
+          "value": "2.151,99"
+        },
+        {
+          "x": 553.43164,
+          "value": "0671"
+        }
+      ]
+    },
+    {
+      "page": 1,
+      "y": 395.88977,
+      "text": "Importe del IRPF que corresponde a la Comunidad Autónoma de residencia del contribuyente 2.151,99 0675",
+      "segments": [
+        {
+          "x": 48,
+          "value": "Importe del IRPF que corresponde a la Comunidad Autónoma de residencia del contribuyente"
+        },
+        {
+          "x": 514.24762,
+          "value": "2.151,99"
+        },
+        {
+          "x": 553.43164,
+          "value": "0675"
+        }
+      ]
+    },
+    {
+      "page": 1,
+      "y": 0,
+      "text": "BORRADOR NO VÁLIDO PARA SU PRESENTACIÓN",
+      "segments": [
+        {
+          "x": 77.45731,
+          "value": "BORRADOR NO VÁLIDO PARA SU PRESENTACIÓN"
+        }
+      ]
+    },
+    {
+      "page": 1,
+      "y": 20,
+      "text": "SIN VALIDAR",
+      "segments": [
+        {
+          "x": 272.74182,
+          "value": "SIN VALIDAR"
+        }
+      ]
+    },
+    {
+      "page": 1,
+      "y": 16,
+      "text": "2",
+      "segments": [
+        {
+          "x": 559.71564,
+          "value": "2"
+        }
+      ]
+    },
+    {
+      "page": 2,
+      "y": 788,
+      "text": "Agencia Tributaria",
+      "segments": [
+        {
+          "x": 48.1,
+          "value": "Agencia Tributaria"
+        }
+      ]
+    },
+    {
+      "page": 2,
+      "y": 780,
+      "text": "Teléfono: 91 333 53 33",
+      "segments": [
+        {
+          "x": 61.145,
+          "value": "Teléfono: 91 333 53 33"
+        }
+      ]
+    },
+    {
+      "page": 2,
+      "y": 772,
+      "text": "sede.agenciatributaria.gob.es",
+      "segments": [
+        {
+          "x": 49.652,
+          "value": "sede.agenciatributaria.gob.es"
+        }
+      ]
+    },
+    {
+      "page": 2,
+      "y": 791,
+      "text": "Modelo",
+      "segments": [
+        {
+          "x": 535.60498,
+          "value": "Modelo"
+        }
+      ]
+    },
+    {
+      "page": 2,
+      "y": 773,
+      "text": "Ejercicio 2025 - Documento de ingreso o devolución 100",
+      "segments": [
+        {
+          "x": 176,
+          "value": "Ejercicio 2025 - Documento de ingreso o devolución"
+        },
+        {
+          "x": 536.98798,
+          "value": "100"
+        }
+      ]
+    },
+    {
+      "page": 2,
+      "y": 787,
+      "text": "Impuesto sobre la Renta de las Personas Físicas",
+      "segments": [
+        {
+          "x": 176,
+          "value": "Impuesto sobre la Renta de las Personas Físicas"
+        }
+      ]
+    },
+    {
+      "page": 2,
+      "y": 703.88977,
+      "text": "Primer declarante",
+      "segments": [
+        {
+          "x": 38,
+          "value": "Primer declarante"
+        }
+      ]
+    },
+    {
+      "page": 2,
+      "y": 688.88977,
+      "text": "NIF : 90000000B",
+      "segments": [
+        {
+          "x": 48,
+          "value": "NIF"
+        },
+        {
+          "x": 60.888,
+          "value": ":"
+        },
+        {
+          "x": 519.24066,
+          "value": "90000000B"
+        }
+      ]
+    },
+    {
+      "page": 2,
+      "y": 676.88977,
+      "text": "Apellidos y nombre : PRUEBA C OPEN",
+      "segments": [
+        {
+          "x": 48,
+          "value": "Apellidos y nombre"
+        },
+        {
+          "x": 116.024,
+          "value": ":"
+        },
+        {
+          "x": 491.25964,
+          "value": "PRUEBA C OPEN"
+        }
+      ]
+    },
+    {
+      "page": 2,
+      "y": 628.88977,
+      "text": "Datos de la autoliquidación",
+      "segments": [
+        {
+          "x": 38,
+          "value": "Datos de la autoliquidación"
+        }
+      ]
+    },
+    {
+      "page": 2,
+      "y": 613.88977,
+      "text": "Resultado a ingresar o devolver : 465,24",
+      "segments": [
+        {
+          "x": 48,
+          "value": "Resultado a ingresar o devolver"
+        },
+        {
+          "x": 160.936,
+          "value": ":"
+        },
+        {
+          "x": 537.75366,
+          "value": "465,24"
+        }
+      ]
+    },
+    {
+      "page": 2,
+      "y": 601.88977,
+      "text": "Tributación individual  ",
+      "segments": [
+        {
+          "x": 48,
+          "value": "Tributación individual"
+        },
+        {
+          "x": 562.77362,
+          "value": " "
+        }
+      ]
+    },
+    {
+      "page": 2,
+      "y": 553.88977,
+      "text": "Casilla 505",
+      "segments": [
+        {
+          "x": 38,
+          "value": "Casilla 505"
+        }
+      ]
+    },
+    {
+      "page": 2,
+      "y": 538.88977,
+      "text": "Importe de la casilla 505 para solicitar el número de referencia el próximo año : 28.000,00",
+      "segments": [
+        {
+          "x": 48,
+          "value": "Importe de la casilla 505 para solicitar el número de referencia el próximo año"
+        },
+        {
+          "x": 323.664,
+          "value": ":"
+        },
+        {
+          "x": 525.24365,
+          "value": "28.000,00"
+        }
+      ]
+    },
+    {
+      "page": 2,
+      "y": 0,
+      "text": "BORRADOR NO VÁLIDO PARA SU PRESENTACIÓN",
+      "segments": [
+        {
+          "x": 77.45731,
+          "value": "BORRADOR NO VÁLIDO PARA SU PRESENTACIÓN"
+        }
+      ]
+    },
+    {
+      "page": 2,
+      "y": 20,
+      "text": "SIN VALIDAR",
+      "segments": [
+        {
+          "x": 272.74182,
+          "value": "SIN VALIDAR"
+        }
+      ]
+    },
+    {
+      "page": 2,
+      "y": 16,
+      "text": "3",
+      "segments": [
+        {
+          "x": 559.71564,
+          "value": "3"
+        }
+      ]
+    }
+  ],
+  "cells": [
+    {
+      "box": "0003",
+      "value": "30000.00",
+      "page": 0,
+      "y": 569.88977,
+      "label": "Retribuciones dinerarias"
+    },
+    {
+      "box": "0012",
+      "value": "30000.00",
+      "page": 0,
+      "y": 557.88977,
+      "label": "Total ingresos íntegros computables [(03)+(07)+(08)+(24)+(09)+(10)-(11)-(58)]"
+    },
+    {
+      "box": "0017",
+      "value": "30000.00",
+      "page": 0,
+      "y": 545.88977,
+      "label": "Rendimiento neto previo [(12)-(13)-(14)-(15)-(16)]"
+    },
+    {
+      "box": "0018",
+      "value": "30000.00",
+      "page": 0,
+      "y": 533.88977,
+      "label": "Suma de rendimientos netos previos"
+    },
+    {
+      "box": "0019",
+      "value": "2000.00",
+      "page": 0,
+      "y": 521.88977,
+      "label": "Otros gastos deducibles"
+    },
+    {
+      "box": "0022",
+      "value": "28000.00",
+      "page": 0,
+      "y": 509.88977,
+      "label": "Rendimiento neto [(18)-(19)-(20)-(21)]"
+    },
+    {
+      "box": "0025",
+      "value": "28000.00",
+      "page": 0,
+      "y": 497.88977,
+      "label": "Rendimiento neto reducido [(22)-(23)]"
+    },
+    {
+      "box": "0432",
+      "value": "28000.00",
+      "page": 0,
+      "y": 455.88977,
+      "label": "Saldo neto de rendimientos a integrar en la base imponible general y de las imputaciones de renta"
+    },
+    {
+      "box": "0435",
+      "value": "28000.00",
+      "page": 0,
+      "y": 443.88977,
+      "label": "Base imponible general [(420)-(431)+(432)-(433)-(434)]"
+    },
+    {
+      "box": "0460",
+      "value": "0.00",
+      "page": 0,
+      "y": 419.88977,
+      "label": "Base imponible del ahorro"
+    },
+    {
+      "box": "0435",
+      "value": "28000.00",
+      "page": 0,
+      "y": 377.88977,
+      "label": "Base imponible general [(420)-(431)+(432)-(433)-(434)]"
+    },
+    {
+      "box": "0500",
+      "value": "28000.00",
+      "page": 0,
+      "y": 365.88977,
+      "label": "Base liquidable general [(435)-(491)-(492)-(493)-(494)-(495)-(496)-(497)]"
+    },
+    {
+      "box": "0505",
+      "value": "28000.00",
+      "page": 0,
+      "y": 353.88977,
+      "label": "Base liquidable general sometida a gravamen [(500)-(501)]"
+    },
+    {
+      "box": "0460",
+      "value": "0.00",
+      "page": 0,
+      "y": 329.88977,
+      "label": "Base imponible del ahorro"
+    },
+    {
+      "box": "0510",
+      "value": "0.00",
+      "page": 0,
+      "y": 317.88977,
+      "label": "Base liquidable del ahorro [(460)-(506)-(507)]"
+    },
+    {
+      "box": "0511",
+      "value": "8100.00",
+      "page": 0,
+      "y": 287.88977,
+      "label": "Mínimo contribuyente. Importe estatal"
+    },
+    {
+      "box": "0512",
+      "value": "8693.49",
+      "page": 0,
+      "y": 275.88977,
+      "label": "Mínimo contribuyente. Importe autonómico"
+    },
+    {
+      "box": "0519",
+      "value": "8100.00",
+      "page": 0,
+      "y": 263.88977,
+      "label": "Mínimo personal y familiar para calcular el gravamen estatal"
+    },
+    {
+      "box": "0520",
+      "value": "8693.49",
+      "page": 0,
+      "y": 251.88977,
+      "label": "Mínimo personal y familiar para calcular el gravamen autonómico"
+    },
+    {
+      "box": "0521",
+      "value": "8100.00",
+      "page": 0,
+      "y": 239.88977,
+      "label": "Mínimo personal y familiar de la base liquidable general para calcular el gravamen estatal"
+    },
+    {
+      "box": "0522",
+      "value": "0.00",
+      "page": 0,
+      "y": 227.88977,
+      "label": "Mínimo personal y familiar de la base liquidable del ahorro para calcular el gravamen estatal"
+    },
+    {
+      "box": "0523",
+      "value": "8693.49",
+      "page": 0,
+      "y": 215.88977,
+      "label": "Mínimo personal y familiar de la base liquidable general para calcular el gravamen autonómico"
+    },
+    {
+      "box": "0524",
+      "value": "0.00",
+      "page": 0,
+      "y": 203.88977,
+      "label": "Mínimo personal y familiar de la base liquidable del ahorro para calcular el gravamen autonómico"
+    },
+    {
+      "box": "0528",
+      "value": "3282.75",
+      "page": 0,
+      "y": 173.88977,
+      "label": "Cuota estatal correspondiente a la base liquidable general sometida a gravamen"
+    },
+    {
+      "box": "0529",
+      "value": "2890.94",
+      "page": 0,
+      "y": 161.88977,
+      "label": "Cuota autonómica correspondiente a la base liquidable general sometida a gravamen"
+    },
+    {
+      "box": "0530",
+      "value": "769.50",
+      "page": 0,
+      "y": 149.88977,
+      "label": "Cuota estatal correspondiente al mínimo personal y familiar de B.L. general"
+    },
+    {
+      "box": "0531",
+      "value": "738.95",
+      "page": 0,
+      "y": 137.88977,
+      "label": "Cuota autonómica correspondiente al mínimo personal y familiar de la B.L. general"
+    },
+    {
+      "box": "0532",
+      "value": "2513.25",
+      "page": 0,
+      "y": 125.88977,
+      "label": "Cuota estatal correspondiente a la base liquidable general"
+    },
+    {
+      "box": "0533",
+      "value": "2151.99",
+      "page": 0,
+      "y": 113.88977,
+      "label": "Cuota autonómica correspondiente a la base liquidable general"
+    },
+    {
+      "box": "0534",
+      "value": "8.97",
+      "page": 0,
+      "y": 101.88977,
+      "label": "Tipo medio estatal"
+    },
+    {
+      "box": "0535",
+      "value": "7.68",
+      "page": 0,
+      "y": 89.88977,
+      "label": "Tipo medio autonómico"
+    },
+    {
+      "box": "0536",
+      "value": "0.00",
+      "page": 0,
+      "y": 77.88977,
+      "label": "Cuota estatal correspondiente a la base liquidable del ahorro sometida a gravamen"
+    },
+    {
+      "box": "0537",
+      "value": "0.00",
+      "page": 0,
+      "y": 65.88977,
+      "label": "Cuota autonómica correspondiente a la base liquidable del ahorro sometida a gravamen"
+    },
+    {
+      "box": "0538",
+      "value": "0.00",
+      "page": 1,
+      "y": 749.88977,
+      "label": "Cuota estatal correspondiente al mínimo personal y familiar de B.L. del ahorro"
+    },
+    {
+      "box": "0539",
+      "value": "0.00",
+      "page": 1,
+      "y": 737.88977,
+      "label": "Cuota autonómica correspondiente al mínimo personal y familiar de la B.L. del ahorro"
+    },
+    {
+      "box": "0540",
+      "value": "0.00",
+      "page": 1,
+      "y": 725.88977,
+      "label": "Cuota estatal correspondiente a la base liquidable del ahorro"
+    },
+    {
+      "box": "0541",
+      "value": "0.00",
+      "page": 1,
+      "y": 713.88977,
+      "label": "Cuota autonómica correspondiente a la base liquidable del ahorro"
+    },
+    {
+      "box": "0542",
+      "value": "0.00",
+      "page": 1,
+      "y": 701.88977,
+      "label": "Tipo medio estatal"
+    },
+    {
+      "box": "0543",
+      "value": "0.00",
+      "page": 1,
+      "y": 689.88977,
+      "label": "Tipo medio autonómico"
+    },
+    {
+      "box": "0545",
+      "value": "2513.25",
+      "page": 1,
+      "y": 677.88977,
+      "label": "Cuota íntegra estatal [(532)+(540)]"
+    },
+    {
+      "box": "0546",
+      "value": "2151.99",
+      "page": 1,
+      "y": 665.88977,
+      "label": "Cuota íntegra autonómica [(533)+(541)]"
+    },
+    {
+      "box": "0564",
+      "value": "0.00",
+      "page": 1,
+      "y": 623.88977,
+      "label": "Suma de deducciones autonómicas"
+    },
+    {
+      "box": "0570",
+      "value": "2513.25",
+      "page": 1,
+      "y": 581.88977,
+      "label": "Cuota líquida estatal"
+    },
+    {
+      "box": "0571",
+      "value": "2151.99",
+      "page": 1,
+      "y": 569.88977,
+      "label": "Cuota líquida autonómica"
+    },
+    {
+      "box": "0585",
+      "value": "2513.25",
+      "page": 1,
+      "y": 557.88977,
+      "label": "Cuota líquida estatal incrementada [(570)+(568)+(582)+(572)+(573)+(574)+(576)]"
+    },
+    {
+      "box": "0586",
+      "value": "2151.99",
+      "page": 1,
+      "y": 545.88977,
+      "label": "Cuota líquida autonómica incrementada [(571)+(569)+(583)+(577)+(578)+(579)+(581)+(504)]"
+    },
+    {
+      "box": "0587",
+      "value": "4665.24",
+      "page": 1,
+      "y": 521.88977,
+      "label": "Cuota líquida incrementada total [(585)+(586)]"
+    },
+    {
+      "box": "0595",
+      "value": "4665.24",
+      "page": 1,
+      "y": 509.88977,
+      "label": "Cuota resultante de la autoliquidación [(587)-(588)-(414)-(589)-(590)-(591)]"
+    },
+    {
+      "box": "0596",
+      "value": "4200.00",
+      "page": 1,
+      "y": 485.88977,
+      "label": "Por rendimientos del trabajo"
+    },
+    {
+      "box": "0609",
+      "value": "4200.00",
+      "page": 1,
+      "y": 473.88977,
+      "label": "Total pagos a cuenta [suma de (592) + (593)+ (594) + (596) a (606)]"
+    },
+    {
+      "box": "0610",
+      "value": "465.24",
+      "page": 1,
+      "y": 449.88977,
+      "label": "Cuota diferencial [(595)-(609)]"
+    },
+    {
+      "box": "0670",
+      "value": "465.24",
+      "page": 1,
+      "y": 437.88977,
+      "label": "Resultado de la declaración"
+    },
+    {
+      "box": "0671",
+      "value": "2151.99",
+      "page": 1,
+      "y": 407.88977,
+      "label": "Cuota líquida autonómica incrementada"
+    },
+    {
+      "box": "0675",
+      "value": "2151.99",
+      "page": 1,
+      "y": 395.88977,
+      "label": "Importe del IRPF que corresponde a la Comunidad Autónoma de residencia del contribuyente"
+    }
+  ],
+  "contextSources": {
+    "hechos": "HECHOS.json",
+    "prediction": "PREDICCIONES.json"
+  },
+  "pending": [
+    "Integrar y probar un comprobador independiente de los valores observados; rechazos por mutación de H, aliases, columnas internas y censo.",
+    "Conciliar readbacks completos y ausencias de DA61 con el contexto externo, no inferir clase pensión de edad.",
+    "Mantener diferencia Andalucía0.01 y política original sin cambios."
+  ],
+  "metricChanged": false
+}
