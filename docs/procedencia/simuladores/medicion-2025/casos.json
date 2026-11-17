@@ -6991,14 +6991,136 @@
         "familia": "tests/fixtures/c300-variantes.json#extension-familia-1-renta-propia-v1",
         "conciliacion": "renta propia art19 = bruto - cotizaciones efectivas - 2000; sin otros gastos; bruto familiar >=30000, sin reduccion art20 en este diseño; otros titulares y menores conservados del fixture corregido"
       },
-      "estado": "pendiente-contrato-conjunta",
-      "entradaAPI": null,
+      "estado": "conjunta-sintetica-capturada",
+      "entradaAPI": {
+        "perfil": "conjunta-trabajo-ordinario-2025",
+        "modalidad": "conjunta",
+        "ejercicio": 2025,
+        "devengo": "2025-12-31",
+        "comunidadAutonoma": "madrid",
+        "unidadId": "open2025-madrid-02",
+        "tipoUnidad": "monoparental",
+        "declarante": {
+          "id": "s-1",
+          "fechaNacimiento": "1985-01-01",
+          "residenteIrpfTodo2025": true,
+          "vivoTodo2025": true,
+          "discapacidad": "ninguna",
+          "opcion": "conjunta",
+          "unidadId": "open2025-madrid-02",
+          "declaracionSeparada": "ninguna",
+          "otraUnidad": false,
+          "estadoCivil": "sin-vinculo"
+        },
+        "conyuge": null,
+        "hijos": [
+          {
+            "id": "s-3",
+            "fechaNacimiento": "2023-01-01",
+            "residenteIrpfTodo2025": true,
+            "vivoTodo2025": true,
+            "discapacidad": "ninguna",
+            "opcion": "conjunta",
+            "unidadId": "open2025-madrid-02",
+            "declaracionSeparada": "ninguna",
+            "otraUnidad": false,
+            "rentaNoExenta": "0.00",
+            "independienteConConsentimiento": false,
+            "apoyoJudicial": "ninguno",
+            "progenitoresTitulares": [
+              "s-1"
+            ],
+            "titularesCompletos": true,
+            "alimentosJudiciales": false,
+            "guardaCustodia": "exclusiva-declarante-todo2025"
+          }
+        ],
+        "miembros": [
+          "s-1",
+          "s-3"
+        ],
+        "convivientesTodo2025": [
+          "s-1",
+          "s-3"
+        ],
+        "censoAlDevengoCompleto": true,
+        "opcionTodos": true,
+        "otrosHijosAscendientesConvivientes": "ninguno",
+        "otroProgenitorExterno": {
+          "convive": false,
+          "incluyeHijoOtraConjunta": false,
+          "derechoMinimo": false,
+          "dependenciaEconomica": false,
+          "alimentosJudiciales": false
+        },
+        "economia": {
+          "censoCompleto": true,
+          "perceptorId": "s-1",
+          "miembrosSinRentas": [
+            "s-3"
+          ],
+          "otrasRentasIncluidasExentas": "ninguna",
+          "actividadesAhorroInmueblesGanancias": "ninguno",
+          "reduccionesPersonalesSaldosAnteriores": "ninguno",
+          "deducciones": "solo-da61-si-procede",
+          "trabajo": {
+            "ejercicio": 2025,
+            "territorio": "comun",
+            "reduccionesArt18": "ninguna",
+            "movilidad": "ninguna",
+            "discapacidadActiva": "ninguna",
+            "rendimientos": [
+              {
+                "id": "a",
+                "clase": "empleo-laboral",
+                "integro": "60000.00",
+                "cotizaciones": {
+                  "clase": "efectivas",
+                  "seguridadSocial": "3900.00",
+                  "derechosPasivos": "0",
+                  "colegiosHuerfanos": "0"
+                },
+                "sindicato": {
+                  "importe": "0",
+                  "satisfecho": "si"
+                },
+                "colegio": {
+                  "importe": "0",
+                  "satisfecho": "si",
+                  "obligatorio": "si",
+                  "finesEsenciales": "si"
+                },
+                "defensa": {
+                  "importe": "0",
+                  "satisfecho": "si",
+                  "litigioDirectoPagador": "si"
+                }
+              }
+            ]
+          },
+          "conciliacion": {
+            "ejercicio": 2025,
+            "estado": "totales-anuales-sin-duplicados",
+            "procedencia": [
+              "sintetico:datos-fiscales-2025",
+              "sintetico:certificados-pagadores"
+            ]
+          },
+          "retenciones": [
+            {
+              "operacionId": "ret-0",
+              "procedencia": "sintetico:certificado-0",
+              "ejercicio": 2025,
+              "importe": "14000.00",
+              "efectiva": true
+            }
+          ]
+        }
+      },
       "resultadoOpenEUR": null,
       "componentesOpenEUR": null,
       "pendientes": [
-        "CasoFiscalAnualExplicito y DerechosMinimosAnuales exigen individual; definir unidad familiar, agregacion y reduccion conjunta antes de generar entradaAPI; referencia individual no es sustituto",
-        "captura Open2025 e integridad de referencias de esa misma entrada",
-        "comparacion futura con API; no ejecutada"
+        "Hechos anuales externos sintéticos; sin autenticación jurídica"
       ],
       "modalidadObjetivo": "conjunta",
       "entradaTrabajoIndividualReferencia": {
@@ -8176,14 +8298,136 @@
         "familia": "tests/fixtures/c300-variantes.json#extension-familia-1-renta-propia-v1",
         "conciliacion": "renta propia art19 = bruto - cotizaciones efectivas - 2000; sin otros gastos; bruto familiar >=30000, sin reduccion art20 en este diseño; otros titulares y menores conservados del fixture corregido"
       },
-      "estado": "pendiente-contrato-conjunta",
-      "entradaAPI": null,
+      "estado": "conjunta-sintetica-capturada",
+      "entradaAPI": {
+        "perfil": "conjunta-trabajo-ordinario-2025",
+        "modalidad": "conjunta",
+        "ejercicio": 2025,
+        "devengo": "2025-12-31",
+        "comunidadAutonoma": "castilla-y-leon",
+        "unidadId": "open2025-castilla-y-leon-03",
+        "tipoUnidad": "monoparental",
+        "declarante": {
+          "id": "s-1",
+          "fechaNacimiento": "1985-01-01",
+          "residenteIrpfTodo2025": true,
+          "vivoTodo2025": true,
+          "discapacidad": "ninguna",
+          "opcion": "conjunta",
+          "unidadId": "open2025-castilla-y-leon-03",
+          "declaracionSeparada": "ninguna",
+          "otraUnidad": false,
+          "estadoCivil": "sin-vinculo"
+        },
+        "conyuge": null,
+        "hijos": [
+          {
+            "id": "s-3",
+            "fechaNacimiento": "2023-01-01",
+            "residenteIrpfTodo2025": true,
+            "vivoTodo2025": true,
+            "discapacidad": "ninguna",
+            "opcion": "conjunta",
+            "unidadId": "open2025-castilla-y-leon-03",
+            "declaracionSeparada": "ninguna",
+            "otraUnidad": false,
+            "rentaNoExenta": "0.00",
+            "independienteConConsentimiento": false,
+            "apoyoJudicial": "ninguno",
+            "progenitoresTitulares": [
+              "s-1"
+            ],
+            "titularesCompletos": true,
+            "alimentosJudiciales": false,
+            "guardaCustodia": "exclusiva-declarante-todo2025"
+          }
+        ],
+        "miembros": [
+          "s-1",
+          "s-3"
+        ],
+        "convivientesTodo2025": [
+          "s-1",
+          "s-3"
+        ],
+        "censoAlDevengoCompleto": true,
+        "opcionTodos": true,
+        "otrosHijosAscendientesConvivientes": "ninguno",
+        "otroProgenitorExterno": {
+          "convive": false,
+          "incluyeHijoOtraConjunta": false,
+          "derechoMinimo": false,
+          "dependenciaEconomica": false,
+          "alimentosJudiciales": false
+        },
+        "economia": {
+          "censoCompleto": true,
+          "perceptorId": "s-1",
+          "miembrosSinRentas": [
+            "s-3"
+          ],
+          "otrasRentasIncluidasExentas": "ninguna",
+          "actividadesAhorroInmueblesGanancias": "ninguno",
+          "reduccionesPersonalesSaldosAnteriores": "ninguno",
+          "deducciones": "solo-da61-si-procede",
+          "trabajo": {
+            "ejercicio": 2025,
+            "territorio": "comun",
+            "reduccionesArt18": "ninguna",
+            "movilidad": "ninguna",
+            "discapacidadActiva": "ninguna",
+            "rendimientos": [
+              {
+                "id": "a",
+                "clase": "empleo-laboral",
+                "integro": "45000.00",
+                "cotizaciones": {
+                  "clase": "efectivas",
+                  "seguridadSocial": "2925.00",
+                  "derechosPasivos": "0",
+                  "colegiosHuerfanos": "0"
+                },
+                "sindicato": {
+                  "importe": "0",
+                  "satisfecho": "si"
+                },
+                "colegio": {
+                  "importe": "0",
+                  "satisfecho": "si",
+                  "obligatorio": "si",
+                  "finesEsenciales": "si"
+                },
+                "defensa": {
+                  "importe": "0",
+                  "satisfecho": "si",
+                  "litigioDirectoPagador": "si"
+                }
+              }
+            ]
+          },
+          "conciliacion": {
+            "ejercicio": 2025,
+            "estado": "totales-anuales-sin-duplicados",
+            "procedencia": [
+              "sintetico:datos-fiscales-2025",
+              "sintetico:certificados-pagadores"
+            ]
+          },
+          "retenciones": [
+            {
+              "operacionId": "ret-0",
+              "procedencia": "sintetico:certificado-0",
+              "ejercicio": 2025,
+              "importe": "8500.00",
+              "efectiva": true
+            }
+          ]
+        }
+      },
       "resultadoOpenEUR": null,
       "componentesOpenEUR": null,
       "pendientes": [
-        "CasoFiscalAnualExplicito y DerechosMinimosAnuales exigen individual; definir unidad familiar, agregacion y reduccion conjunta antes de generar entradaAPI; referencia individual no es sustituto",
-        "captura Open2025 e integridad de referencias de esa misma entrada",
-        "comparacion futura con API; no ejecutada"
+        "Hechos anuales externos sintéticos; sin autenticación jurídica"
       ],
       "modalidadObjetivo": "conjunta",
       "entradaTrabajoIndividualReferencia": {

@@ -48,10 +48,10 @@ for(const pin of index.cases)test('replay y adversas '+pin.id,()=>{
   assert.deepEqual(linked.pendientesOriginales,['GCS','GCC','GDJ','IDICLDED2','GSSCLDED2']);
   assert.deepEqual(linked.pendientes,linked.pendientesOriginales);
   const changedInput=structuredClone(caso);
-  changedInput.entradaAPI.conyuge.fechaNacimiento='1984-01-01';
+  changedInput.entradaAPI.declarante.fechaNacimiento='1984-01-01';
   assert.equal(vincularConjuntaOpen(changedInput,base).motivo,'open-entrada-distinta');
   assert.equal(vincularConjuntaOpen({...caso,resultadoOpenEUR:'999999999.00'},base).motivo,'open-resultado-distinto');
-  assert.equal(vincularConjuntaOpen({...caso,id:'open2025-madrid-02'},base).motivo,'open-caso-no-admitido');
+  assert.equal(vincularConjuntaOpen({...caso,id:'open2025-no-admitido'},base).motivo,'open-caso-no-admitido');
   const source = JSON.parse(gunzipSync(original));
   const encode = p => gzipSync(Buffer.from(canonical(p)), {level:9});
   const changed = fn => {const p = structuredClone(source); fn(p); return encode(p);};

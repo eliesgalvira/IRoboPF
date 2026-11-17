@@ -1,3 +1,4 @@
+import { seleccionarCuantizacionConjunta, cuantizarComponenteConjunto } from "../conjunta-2025/politica-cuantizacion"
 import { MINIMOS_ESTATALES_2025 } from "../../normativa/datos/minimos-autonomicos-2025"
 import { prepararConjunta2025, reducirBaseConjunta2025 } from "../conjunta-2025/preparar"
 import type { CasoConjunta2025 } from "../conjunta-2025/contrato"
@@ -274,7 +275,9 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
         return yield* Effect.fail(errorDerechosMinimos({ motivo: "Etapas Open2023/24: neto, base, gastos producidos o mínimo5550 contradictorios con el productor común" }))
     }
     const gravar = (args: Parameters<typeof calcularCuotaPorEscala>[0]) =>
-      cuantizar(calcularCuotaPorEscala({ ...args, aritmetica: A }))
+      politicaCuantizacionConjunta === undefined
+        ? cuantizar(calcularCuotaPorEscala({ ...args, aritmetica: A }))
+        : cuantizarComponenteConjunto(calcularCuotaPorEscala({ ...args, aritmetica: A }))
     if (
       entrada.politica === "open-empleo-madrid-2025" &&
       (caso.anio !== 2025 ||
@@ -417,12 +420,12 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
     if (seleccion._tag === "ComunidadAutonomaNoSoportada")
       return yield* Effect.fail(errorDerechosMinimos(seleccion))
     const parametrosComunidad = seleccion
-    const escalasPublicadasEstatales =
+    let escalasPublicadasEstatales =
       caso.anio <= 2014 && caso.comunidadAutonoma !== "simulada-estatal"
         ? [ESTATAL_ORDINARIA_2012_2014, ESTATAL_COMPLEMENTARIA_2012_2014]
         : undefined
-    const escalaPublicadaAutonomica = obtenerEscalaAutonomicaPublicada(caso)
-    const escalasPublicadasAutonomicas =
+    let escalaPublicadaAutonomica = obtenerEscalaAutonomicaPublicada(caso)
+    let escalasPublicadasAutonomicas =
       escalaPublicadaAutonomica === undefined
         ? undefined
         : [escalaPublicadaAutonomica]
@@ -435,47 +438,6 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
       : parametrosComunidad.escalaEstatalGeneral.map(
           ([limite, tipo]) => [limite, new A(tipo).mul(2)] as const
         )
-    const cuotaIntegraGeneralEstatal = gravar({
-      base: baseLiquidableGeneral,
-      tramos: tramosIrpfEstatalGeneral,
-      escalasPublicadas: escalasPublicadasEstatales,
-      representacion: estatalOpen2018 || estatalOpen2019 || estatalOpen2020A2022 || estatalOpen2023A2024 ? "binary64-corto" : "decimal",
-    })
-    const cuotaIntegraGeneralAutonomica = usaEscalaAutonomicaReal
-      ? gravar({
-          base: baseLiquidableGeneral,
-          tramos: parametrosComunidad.escalaAutonomica.tramos,
-          escalasPublicadas: escalasPublicadasAutonomicas,
-        })
-      : baseLiquidableGeneral.mul(0)
-    const cuotaIntegraGeneral = cuotaIntegraGeneralEstatal.plus(
-      cuotaIntegraGeneralAutonomica
-    )
-    const cuotaIntegraAhorro = calcularCuotaPorEscalaAhorro({
-      aritmetica: A,
-      anio: caso.anio,
-      base: baseLiquidableAhorro,
-    })
-    const desgloseCuotaIntegraGeneralEstatal = calcularDesgloseCuotaPorEscala({
-      aritmetica: A,
-      base: baseLiquidableGeneral,
-      tramos: tramosIrpfEstatalGeneral,
-      escalasPublicadas: escalasPublicadasEstatales,
-      representacion: estatalOpen2018 || estatalOpen2019 || estatalOpen2020A2022 || estatalOpen2023A2024 ? "binary64-corto" : "decimal",
-    })
-    const desgloseCuotaIntegraGeneralAutonomica = usaEscalaAutonomicaReal
-      ? calcularDesgloseCuotaPorEscala({
-          aritmetica: A,
-          base: baseLiquidableGeneral,
-          tramos: parametrosComunidad.escalaAutonomica.tramos,
-          escalasPublicadas: escalasPublicadasAutonomicas,
-        })
-      : []
-    const desgloseCuotaIntegraAhorro = calcularDesgloseCuotaPorEscalaAhorro({
-      aritmetica: A,
-      anio: caso.anio,
-      base: baseLiquidableAhorro,
-    })
     const derechosEstatales =
       caso.derechosMinimos === undefined
         ? undefined
@@ -524,6 +486,55 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
         anio: caso.anio,
         minimos: parametrosComunidad.minimosAutonomicos,
       })
+    const politicaCuantizacionConjunta = seleccionarCuantizacionConjunta(
+      conjunta, baseLiquidableGeneral, minimoPersonalYFamiliar, minimoPersonalYFamiliarAutonomico
+    )
+    if (politicaCuantizacionConjunta !== undefined) {
+      escalasPublicadasEstatales = [politicaCuantizacionConjunta.estatal]
+      escalaPublicadaAutonomica = politicaCuantizacionConjunta.autonomica
+      escalasPublicadasAutonomicas = [escalaPublicadaAutonomica]
+    }
+    const cuotaIntegraGeneralEstatal = gravar({
+      base: baseLiquidableGeneral,
+      tramos: tramosIrpfEstatalGeneral,
+      escalasPublicadas: escalasPublicadasEstatales,
+      representacion: estatalOpen2018 || estatalOpen2019 || estatalOpen2020A2022 || estatalOpen2023A2024 ? "binary64-corto" : "decimal",
+    })
+    const cuotaIntegraGeneralAutonomica = usaEscalaAutonomicaReal
+      ? gravar({
+          base: baseLiquidableGeneral,
+          tramos: parametrosComunidad.escalaAutonomica.tramos,
+          escalasPublicadas: escalasPublicadasAutonomicas,
+        })
+      : baseLiquidableGeneral.mul(0)
+    const cuotaIntegraGeneral = cuotaIntegraGeneralEstatal.plus(
+      cuotaIntegraGeneralAutonomica
+    )
+    const cuotaIntegraAhorro = calcularCuotaPorEscalaAhorro({
+      aritmetica: A,
+      anio: caso.anio,
+      base: baseLiquidableAhorro,
+    })
+    const desgloseCuotaIntegraGeneralEstatal = calcularDesgloseCuotaPorEscala({
+      aritmetica: A,
+      base: baseLiquidableGeneral,
+      tramos: tramosIrpfEstatalGeneral,
+      escalasPublicadas: escalasPublicadasEstatales,
+      representacion: estatalOpen2018 || estatalOpen2019 || estatalOpen2020A2022 || estatalOpen2023A2024 ? "binary64-corto" : "decimal",
+    })
+    const desgloseCuotaIntegraGeneralAutonomica = usaEscalaAutonomicaReal
+      ? calcularDesgloseCuotaPorEscala({
+          aritmetica: A,
+          base: baseLiquidableGeneral,
+          tramos: parametrosComunidad.escalaAutonomica.tramos,
+          escalasPublicadas: escalasPublicadasAutonomicas,
+        })
+      : []
+    const desgloseCuotaIntegraAhorro = calcularDesgloseCuotaPorEscalaAhorro({
+      aritmetica: A,
+      anio: caso.anio,
+      base: baseLiquidableAhorro,
+    })
     const cuotaMinimoPersonalEstatal = gravar({
       base: A.min(minimoPersonalYFamiliar, baseLiquidableGeneral),
       tramos: tramosIrpfEstatalGeneral,
@@ -1028,6 +1039,7 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
     }
     const cuotaPosterior = cuotaLiquida.minus(deduccionTrabajo)
     return {
+      politicaCuantizacionConjunta: politicaCuantizacionConjunta?.nombre,
       reduccionConjunta,
       baseLiquidableGeneral,
       baseLiquidableAhorro,

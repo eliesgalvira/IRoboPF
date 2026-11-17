@@ -20,9 +20,8 @@ export function cents(s) {
 }
 const fromUI = s => s.replaceAll('.','').replace(',','.');
 const iso = s => s.split('-').reverse().join('/');
-const holders = ['CONJUNTA','CONYUGE','DECLARANTE'];
 const opaque = new Set(['COD_TRAMITE','DF_DATOS_SI','DF_AVISOS']);
-const regionCodes = {'aragon':'02','illes-balears':'04','castilla-la-mancha':'07','castilla-y-leon':'08','galicia':'11','murcia':'13','comunitat-valenciana':'17'};
+const regionCodes = {'madrid':'12','aragon':'02','illes-balears':'04','castilla-la-mancha':'07','castilla-y-leon':'08','galicia':'11','murcia':'13','comunitat-valenciana':'17'};
 // Árbol completo: conserva duplicados, tipos, flags y secciones vacías. Sólo los
 // tres campos opacos de transporte omiten valor; nunca se omite dinero.
 export function census(text) {
@@ -32,8 +31,37 @@ export function census(text) {
     children:p.sections.filter(c=>c.parent===s.id).map(visit).sort((a,b)=>canonical(a).localeCompare(canonical(b)))});
   return visit(p.sections[0]);
 }
+// Corte exclusivamente sintético acreditado por las dos capturas; no regla fiscal general.
+export function validateMonoparentalEntry(entry) {
+  need(entry.tipoUnidad==='monoparental' && entry.conyuge===null && entry.declarante.estadoCivil==='sin-vinculo','monoparental-conyuge');
+  need(entry.modalidad==='conjunta' && entry.ejercicio===2025 && entry.devengo==='2025-12-31','monoparental-alcance');
+  need(entry.hijos.length===1,'monoparental-hijos');
+  equal(entry.miembros,[entry.declarante.id,entry.hijos[0].id],'monoparental-miembros');
+  need(entry.miembros.every(id=>Schema.is(Schema.String)(id)&&id.length>0)&&new Set(entry.miembros).size===2,'monoparental-identidades');
+  equal(entry.convivientesTodo2025,entry.miembros,'monoparental-convivencia');
+  need(entry.censoAlDevengoCompleto===true&&entry.opcionTodos===true&&entry.otrosHijosAscendientesConvivientes==='ninguno','monoparental-censo');
+  equal(entry.otroProgenitorExterno,{convive:false,incluyeHijoOtraConjunta:false,derechoMinimo:false,dependenciaEconomica:false,alimentosJudiciales:false},'monoparental-progenitor');
+  const child=entry.hijos[0];
+  equal(child.progenitoresTitulares,[entry.declarante.id],'monoparental-titulares');
+  need(child.titularesCompletos===true&&child.guardaCustodia==='exclusiva-declarante-todo2025'&&child.alimentosJudiciales===false&&child.independienteConConsentimiento===false&&child.apoyoJudicial==='ninguno','monoparental-custodia');
+}
+export function validateMonoparentalUI(readbacks) {
+  for(const [css,expected,title] of [
+    ['[role=dialog] .z-combobox[title="Vinculación"] input','B','Vinculación'],
+    ['[role=dialog] .estiloSiNo input','SI','Hijo que forma parte de la unidad familiar (Si/No)']
+  ]) {
+    const observations=readbacks.filter(r=>r.action?.op==='assert'&&r.action.css===css);
+    need(observations.length===1&&observations[0].action.expected===expected&&observations[0].observed===expected,'monoparental-ui-solicitud');
+    const index=readbacks.indexOf(observations[0]),inventory=readbacks[index+1];
+    need(Array.isArray(inventory?.controls),'monoparental-ui-inventario');
+    const controls=inventory.controls.filter(c=>c.containerTitle===title&&!c.disabled);
+    need(controls.length===1&&controls[0].value===expected,'monoparental-ui-pertenencia');
+  }
+}
 export function validateSES(text, reference, entry) {
-  need(entry.tipoUnidad==='matrimonial','monoparental-sin-evidencia');
+  const mono=entry.tipoUnidad==='monoparental';
+  if(mono)validateMonoparentalEntry(entry);else need(entry.tipoUnidad==='matrimonial','unidad-sin-evidencia');
+  const holders=mono?['CONJUNTA','DECLARANTE']:['CONJUNTA','CONYUGE','DECLARANTE'];
   const p=accessSES(text), root=p.path('DECLARACIONES'), dp=p.path('DECLARACIONES/DP');
   equal(versionMetadata(p),reference.metadata,'ses-version');
   for(const [name,key] of [['IRPF2025','TITULAR'],['RESUMEN','R_TIT']]) {
@@ -43,17 +71,17 @@ export function validateSES(text, reference, entry) {
   equal(census(text),reference.census,'ses-censo-cerrado');
   const instances=Object.fromEntries(holders.map(h=>[h,p.instance('IRPF2025','TITULAR',h)]));
   const summaries=Object.fromEntries(holders.map(h=>[h,p.instance('RESUMEN','R_TIT',h)]));
-  const check=(s,k,v)=>equal(p.row(s,k),v,'ses-correspondencia-'+k.toLowerCase());
+  const check=(s,k,v,type='1')=>equal(p.row(s,k,type),v,'ses-correspondencia-'+k.toLowerCase());
   need(entry.modalidad==='conjunta' && entry.ejercicio===2025 && entry.hijos.length===1,'entrada-alcance');
-  equal(entry.miembros,[entry.declarante.id,entry.conyuge.id,entry.hijos[0].id],'entrada-miembros');
-  need(entry.miembros.every(x=>Schema.is(Schema.String)(x)&&x.length>0)&&new Set(entry.miembros).size===3,'entrada-identidades');
+  equal(entry.miembros,mono?[entry.declarante.id,entry.hijos[0].id]:[entry.declarante.id,entry.conyuge.id,entry.hijos[0].id],'entrada-miembros');
+  need(entry.miembros.every(x=>Schema.is(Schema.String)(x)&&x.length>0)&&new Set(entry.miembros).size===(mono?2:3),'entrada-identidades');
   const region=regionCodes[entry.comunidadAutonoma];
   need(region!==undefined,'entrada-territorio');
-  for(const key of ['CAC_D','CAC_C'])check(dp,key,region);
+  for(const key of mono?['CAC_D']:['CAC_D','CAC_C'])check(dp,key,region);
   for(const node of Object.values(instances))check(node,'ZCCAD',region);
   need(entry.economia.perceptorId===entry.declarante.id,'perceptor');
   need(entry.economia.censoCompleto===true&&entry.economia.otrasRentasIncluidasExentas==='ninguna'&&entry.economia.actividadesAhorroInmueblesGanancias==='ninguno','economia-corte');
-  equal([...entry.economia.miembrosSinRentas].sort(),[entry.conyuge.id,entry.hijos[0].id].sort(),'economia-miembros-sin-rentas');
+  equal([...entry.economia.miembrosSinRentas].sort(),(mono?[entry.hijos[0].id]:[entry.conyuge.id,entry.hijos[0].id]).sort(),'economia-miembros-sin-rentas');
   need(cents(entry.hijos[0].rentaNoExenta)===0n,'hijo-rentas');
   need(entry.economia.trabajo.ejercicio===2025&&entry.economia.trabajo.territorio==='comun','trabajo-corte');
   const wages=entry.economia.trabajo.rendimientos, ret=entry.economia.retenciones;
@@ -65,7 +93,7 @@ export function validateSES(text, reference, entry) {
   const d=instances.DECLARANTE,c=instances.CONYUGE,j=instances.CONJUNTA;
   const children=(s,n)=>p.sections.filter(x=>x.parent===s.id && x.name===n);
   const unique=(s,n)=>{const xs=children(s,n);need(xs.length===1,'ses-cardinalidad-'+n.toLowerCase());return xs[0];};
-  need(children(c,'ATRABAJO').length===0,'conyuge-trabajo-extra');
+  need(!c||children(c,'ATRABAJO').length===0,'conyuge-trabajo-extra');
   const original=unique(d,'ATRABAJO'), aggregate=unique(j,'ATRABAJO'), dialog=unique(original,'DLGTRABAJO');
   need(children(aggregate,'DLGTRABAJO').length===0,'conjunta-dialogo-extra');
   for(const work of [original,aggregate]) {
@@ -81,7 +109,7 @@ export function validateSES(text, reference, entry) {
   }
   for(const node of [d,j]) need(cents(p.row(node,'RET1'))===cents(amounts.IDRE),'retenciones');
   const desc=unique(dp,'DESCENDIENTES'), minor=unique(dp,'RWHIJOSMENOR18');
-  for(const [person,suffix,node] of [[entry.declarante,'D',d],[entry.conyuge,'C',c]]) {
+  for(const [person,suffix,node] of (mono?[[entry.declarante,'D',d]]:[[entry.declarante,'D',d],[entry.conyuge,'C',c]])) {
     check(dp,'DPFNAC_'+suffix,iso(person.fechaNacimiento));
     equal(p.row(dp,'DPNIF_'+suffix,'3','254'),p.row(node,'SPNIF'),'identidad-persona');
     equal(p.row(dp,'DP_APENOM_'+suffix),p.row(node,'SPNOM'),'nombre-persona');
@@ -92,11 +120,17 @@ export function validateSES(text, reference, entry) {
   for(const key of ['NIFDLG']) check(desc,key,p.row(desc,'NIFH'));
   check(minor,'NIFHMEN',p.row(desc,'NIFH'));check(j,'ZDNIU1',p.row(desc,'NIFH'));
   check(j,'ZAPENU1',p.row(desc,'APENOMDLG_SR'));check(j,'ZANOU1',p.row(desc,'FNAC'));
-  check(j,'SPNIF',p.row(d,'SPNIF'));check(j,'ZNIF_C',p.row(c,'SPNIF'));check(c,'ZNIF_C',p.row(d,'SPNIF'));
+  check(j,'SPNIF',p.row(d,'SPNIF'));
+  if(mono) {
+    check(dp,'DPNIF_C','254','2'); // Ausencia tipada: no identidad de cónyuge.
+    for(const [node,key,value] of [[dp,'PH18','1'],[desc,'VINCU','B'],[desc,'VINCUDLG','B'],[minor,'VINCUHMENDLG','B'],[minor,'UFHMEN','1'],[minor,'UFHMENDLG','1'],[j,'VINCU1','B'],[j,'ZQ2','true']])
+      key==='PH18'?equal(p.row(node,key,'3','254'),value,'monoparental-ses-pertenencia'):check(node,key,value);
+    need(!p.records.some(r=>['DPFNAC_C','DP_APENOM_C','ZNIF_C','ZAPENOM_C','ZFNAC_C'].includes(r.key)),'monoparental-ses-conyuge');
+  }else {check(j,'ZNIF_C',p.row(c,'SPNIF'));check(c,'ZNIF_C',p.row(d,'SPNIF'));}
   check(j,'ZCCAD',p.row(dp,'CAC_D'));check(minor,'CACHMEN',p.row(dp,'CAC_D'));
   for(const name of ['ASCENDIENTES','RWHIJOSMAYOR18']) {const s=unique(dp,name);need(!p.records.some(r=>r.scope===s.id),'familia-extra');}
   const other=unique(root,'OTROSPROGENITORES');need(!p.records.some(r=>r.scope===other.id),'progenitor-extra');
-  return {p,joint:j,summary:summaries.CONJUNTA,amounts};
+  return {p,joint:j,summary:summaries.CONJUNTA,amounts,monoparental:mono};
 }
 export function controlsProjection(controls) {
   return controls.map(c=>({title:c.title,containerTitle:c.containerTitle,type:c.type,value:c.value,
@@ -114,10 +148,12 @@ export function validatePdf(bytes,ses) {
   const field=(scope,box,value)=>{const rows=scope.filter(l=>l.endsWith(' '+box));need(rows.length===1&&rows[0].endsWith(' '+value+' '+box),'pdf-identidad-'+box);};
   const {p,joint:j}=ses, dp=p.path('DECLARACIONES/DP'), desc=p.path('DECLARACIONES/DP/DESCENDIENTES');
   const header=text.split('Opción de tributación')[0].split('\n');
-  for(const [box,key,type,flag] of [['0001','DPNIF_D','3','254'],['0002','DP_APENOM_D'],['0010','DPFNAC_D'],['0013','DPNIF_C','3','254'],['0014','DP_APENOM_C'],['0060','DPFNAC_C']]) field(header,box,p.row(dp,key,type,flag));
+  for(const [box,key,type,flag] of (ses.monoparental?[['0001','DPNIF_D','3','254'],['0002','DP_APENOM_D'],['0010','DPFNAC_D']]:[['0001','DPNIF_D','3','254'],['0002','DP_APENOM_D'],['0010','DPFNAC_D'],['0013','DPNIF_C','3','254'],['0014','DP_APENOM_C'],['0060','DPFNAC_C']])) field(header,box,p.row(dp,key,type,flag));
+  if(ses.monoparental)need(!header.some(l=>/ (0013|0014|0060)$/.test(l)),'pdf-conyuge-extra');
   field(lines,'0069','X'); need(!lines.some(l=>l.endsWith(' 0068')),'pdf-modalidad');
   const family=text.split('Situación familiar')[1]?.split('Rendimientos del trabajo')[0]?.split('\n');need(family,'pdf-familia');
   for(const [box,key] of [['0075','NIFH'],['0076','APENOMDLG_SR'],['0077','FNAC']])field(family,box,p.row(desc,key));
+  if(ses.monoparental)field(family,'0080','(B) Hijo del primer declarante si no conviven con el otro progenitor');
   const work=text.split('Rendimientos del trabajo')[1]?.split('Base imponible general y base imponible del ahorro')[0]?.split('\n');need(work,'pdf-trabajo');field(work,'0001','DECLARANTE');
   const amount=(scope,box,expected)=>{const rows=scope.filter(l=>l.endsWith(' '+box));const m=rows.length===1&&/ (-?(?:\d{1,3}(?:\.\d{3})+|\d+),\d{2}) \d{4}$/.exec(rows[0]);need(m&&cents(fromUI(m[1]))===cents(expected),'pdf-dinero-'+box);};
   amount(work,'0003',ses.amounts.IDII);amount(work,'0013',ses.amounts.GSS);
@@ -155,14 +191,15 @@ export function moneyEvidence(records,amounts,sourceHash,sources={},context={}) 
   return [];
 }
 export function validateHouseholdExpediente(expediente,entry) {
-  const h=expediente.hogar;
+  const h=expediente.hogar,mono=entry.tipoUnidad==='monoparental';
+  if(mono)validateMonoparentalEntry(entry);
   need(expediente.id===entry.unidadId&&expediente.ejercicio===entry.ejercicio&&expediente.territorio===entry.comunidadAutonoma&&expediente.modalidadObjetivo===entry.modalidad,'expediente-ambito');
-  need(h.devengo===entry.devengo&&h.tipoUnidad===entry.tipoUnidad&&h.conyugeId===entry.conyuge.id,'expediente-unidad');
+  need(h.devengo===entry.devengo&&h.tipoUnidad===entry.tipoUnidad&&h.conyugeId===(mono?null:entry.conyuge.id),'expediente-unidad');
   equal(h.miembros,entry.miembros,'expediente-miembros');
   equal(h.convivenciaTodo2025,entry.convivientesTodo2025,'expediente-convivencia');
   need(h.fallecimientos==='ninguno'&&h.otrosConvivientes==='ninguno'&&h.otrosHijosOAscendientes==='ninguno'&&h.nadieEnOtraUnidad===true&&h.opcionConjuntaTodosMiembros===true&&h.declaracionesIndividualesMiembros==='ninguna','expediente-corte-familiar');
   equal(h.personas.map(p=>p.sujetoId).sort(),[...entry.miembros].sort(),'expediente-censo-personas');
-  for(const person of [entry.declarante,entry.conyuge,...entry.hijos]) {
+  for(const person of [entry.declarante,...(mono?[]:[entry.conyuge]),...entry.hijos]) {
     const p=h.personas.find(p=>p.sujetoId===person.id);
     need(p.fechaNacimiento===person.fechaNacimiento&&p.vivoTodo2025===person.vivoTodo2025&&p.residenteIrpf===person.residenteIrpfTodo2025&&p.residenciaTodo2025===entry.comunidadAutonoma&&p.discapacidad._tag==='SinDiscapacidad'&&person.discapacidad==='ninguna','expediente-persona');
     need(p.declaracionObjetivo.modalidad===person.opcion&&p.declaracionObjetivo.unidadFamiliar===person.unidadId&&p.declaracionObjetivo.presentaIndividual===false&&person.declaracionSeparada==='ninguna'&&person.otraUnidad===false,'expediente-opcion');
@@ -174,6 +211,14 @@ export function validateHouseholdExpediente(expediente,entry) {
     }else need(p.economia.perfil==='sin-rentas'&&cents(p.economia.rentasNoExentasEUR)===0n&&p.economia.retenciones.length===0,'expediente-sin-rentas');
   }
   need(h.alcanceEconomico.rentasOtrosMiembros==='ninguna'&&h.alcanceEconomico.capitalAhorroInmueblesActividadesGanancias==='ninguno'&&h.alcanceEconomico.deduccionesSolicitadas===entry.economia.deducciones,'expediente-alcance-economico');
+  if(mono) {
+    const o=h.otroProgenitor;
+    need(o?.estado==='no-convive'&&o.perteneceUnidad===false&&o.sujetoId===null&&o.incluyeAlHijoEnOtraConjunta===false&&o.derechoMinimoEnEsteExpediente===false&&o.dependenciaEconomicaAdicional===false&&o.alimentosJudiciales===false,'expediente-progenitor');
+    need(h.hijos.length===1&&h.relaciones.length===1,'expediente-hijos');
+    const child=h.hijos[0],relation=h.relaciones[0],t=child.titulares;
+    need(child.sujetoId===entry.hijos[0].id&&child.fechaNacimiento===entry.hijos[0].fechaNacimiento&&child.titularesCompletos===true&&t.length===1&&t[0].titularId===entry.declarante.id&&t[0].custodia==='exclusiva'&&t[0].alimentosJudiciales===false,'expediente-custodia');
+    need(relation.hijoId===child.sujetoId&&relation.progenitorId===entry.declarante.id&&relation.convivencia==='todo-2025'&&relation.custodiaOriginal==='exclusiva'&&relation.alimentosJudiciales===false,'expediente-relacion');
+  }
   return true;
 }
 export function validateAuthorityAddition({fixtureBytes,expedienteBytes,authorityBytes,authoritySha256,authoritySources}) {
@@ -213,7 +258,12 @@ export function validateReconciledHousehold(expediente,entry,cambio) {
 export function bindStrict({fixtureBytes,expedienteBytes,sesBytes,pdfBytes,referenceBytes,referenceSha256,readbacks,htmlByStep,money,moneySources,authorityBytes,authoritySources}) {
   need(hash(referenceBytes)===referenceSha256,'referencia-integridad');
   const ref=JSON.parse(referenceBytes), fixture=JSON.parse(fixtureBytes), entry=fixture.entradaCandidata;
-  need(entry.tipoUnidad==='matrimonial','monoparental-sin-evidencia');
+  if(entry.tipoUnidad==='monoparental') {
+    validateMonoparentalEntry(entry);
+    need(ref.casePlan,'monoparental-plan-ausente');
+    equal(ref.casePlan.fixture,fixture,'monoparental-plan-fixture');
+    validateMonoparentalUI(readbacks);
+  }else need(entry.tipoUnidad==='matrimonial','unidad-sin-evidencia');
   need(ref.authority?.estado!=='conflicto-pendiente','autoridad-expediente-conflicto');
   need(hash(fixtureBytes)===ref.fixtureSha256 && hash(expedienteBytes)===fixture.sha256Expediente,'contrato-externo-integridad');
   const expediente=JSON.parse(expedienteBytes);

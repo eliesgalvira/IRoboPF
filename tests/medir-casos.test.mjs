@@ -24,9 +24,10 @@ describe("medidor C2025 por API real", () => {
     const contenido = readFileSync(archivo), entrada = JSON.parse(contenido).casos[0].entradaCandidata
     const r = medir(caso({ id: "conjunta-exploratoria", entradaAPI: entrada, resultadoOpenEUR: "-1368.73",
       integridadReferencias: { referencias: [{ archivo: fileURLToPath(archivo), sha256: createHash("sha256").update(contenido).digest("hex") }] } }))
-    expect(r.medicion).toMatchObject({ N: 1, comparables: 1, igualesExploratorias: 0, iguales: 0 })
-    // El instrumento conserva el céntimo observado; no adapta Open al motor.
-    expect(r.resultados[0]).toMatchObject({ estado: "discrepante", resultadoOpenEUR: "-1368.73", discrepanciaEUR: "-0.01" })
+    expect(r.medicion).toMatchObject({ N: 1, comparables: 1, igualesExploratorias: 1, iguales: 0 })
+    // La cuantización coincide; unas referencias de bytes no acreditan el vínculo Open.
+    expect(r.resultados[0]).toMatchObject({ estado: "igual-al-centimo", resultadoOpenEUR: "-1368.73", resultadoMotorEUR: "-1368.73", discrepanciaEUR: "0.00", coincidenciaVerificada: false })
+    expect(r.resultados[0].vinculacion).toMatchObject({ estado: "no-verificado", motivo: "sin-evidencia-vinculada" })
   })
 
   it("proyecta Decimal mixto sin redondear la magnitud y exige vínculo independiente", () => {

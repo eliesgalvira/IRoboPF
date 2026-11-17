@@ -19,7 +19,7 @@ const keys=[...Object.keys(labels),...Object.keys(detail)];
 // The descriptor pins original bytes. Derived events never substitute for raw evidence.
 export function adaptMoney11({casePlan,receiptBytes,files}) {
   const receipt=JSON.parse(receiptBytes),entry=casePlan.fixture.entradaCandidata;
-  need(entry.tipoUnidad==='matrimonial','monoparental-sin-evidencia');
+  need(entry.tipoUnidad==='matrimonial'||entry.tipoUnidad==='monoparental'&&entry.conyuge===null,'monoparental-sin-evidencia');
   need(receipt.id===casePlan.id&&receipt.captura==='conservada','recibo-no-final');
   need(receipt.fixtureSha256===hash(JSON.stringify(casePlan.fixture)),'fixture-recibo');
   const pins=new Map();

@@ -12,13 +12,18 @@ export const schemaOpen = 'conjunta-open-lossless-v2';
 const maxExpanded = 96 * 1024 * 1024;
 const nameOK = n => Schema.is(Schema.String)(n) && /^[a-zA-Z0-9_.-]+$/.test(n) && n !== '.' && n !== '..';
 const json = b => JSON.parse(b.toString('utf8'));
-function originalCompression(latin1,expectedHash) {
-  const native=deflateSync(latin1,{level:6});
+// La interfaz del compresor permite contrastar bibliotecas incompatibles sin
+// sustituir módulos. Replay siempre utiliza las dependencias reales por defecto.
+export function originalCompression(latin1,expectedHash, compressor = {
+  native: deflateSync, execute: spawnSync, executable: process.env.C_SES_NODE ?? 'node',
+}) {
+  const native=compressor.native(latin1,{level:6});
   if(hash(native)===expectedHash)return native;
-  // Bun y Node usan compresores distintos. La reproducción está fijada a Node
-  // 24.20.0 por CI; stdin sólo aporta bytes y nunca código ni argumentos.
-  const program="import{readFileSync}from'node:fs';import{deflateSync}from'node:zlib';if(process.version!=='v24.20.0')process.exit(2);process.stdout.write(deflateSync(readFileSync(0),{level:6}));";
-  const run=spawnSync('node',['--input-type=module','-e',program],{input:latin1,timeout:10000,maxBuffer:4194304});
+  // La versión de Node no fija su biblioteca de compresión. El entorno Nix
+  // aporta una derivación exacta; stdin sólo contiene datos, nunca código.
+  // Fuera de Nix, un compresor distinto sólo se acepta si reconstruye el SHA.
+  const program="import{readFileSync}from'node:fs';import{deflateSync}from'node:zlib';process.stdout.write(deflateSync(readFileSync(0),{level:6}));";
+  const run=compressor.execute(compressor.executable,['--input-type=module','-e',program],{input:latin1,timeout:10000,maxBuffer:4194304});
   need(!run.error&&run.status===0&&hash(run.stdout)===expectedHash,'open-ses-recompresion-no-exacta');
   return run.stdout;
 }
