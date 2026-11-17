@@ -1,0 +1,68 @@
+{
+  "naturaleza": "fixture-exclusivamente-sintetico",
+  "id": "madrid-01",
+  "archivos": [
+    {
+      "archivo": "madrid-01/escenario-previo.json",
+      "bytes": 16726,
+      "sha256": "ffb0d6052b27e2cdd2b1c45fe3b3f2151a29544263428269e41d1b7a6fbea03a"
+    },
+    {
+      "archivo": "madrid-01/prediccion-previa.json",
+      "bytes": 128443,
+      "sha256": "008d4123ea87cc83ef7eac871a291a9a352901bf20edec93e4ce0dbb18470255"
+    },
+    {
+      "archivo": "madrid-01/captura.pdf",
+      "bytes": 173140,
+      "sha256": "313e832ffedb35be05adaff5a1027161d7e542db0b4a131a0f1739b7874570f3"
+    },
+    {
+      "archivo": "madrid-01/captura-ses.json",
+      "sha256": "fc209c03bdde767232456a141481ce1e4d82001f3e187539edb63a23263bdecc",
+      "bytes": 10671,
+      "originalReconstruido": {
+        "archivo": "madrid-01/captura.ses",
+        "bytes": 2806,
+        "sha256": "d6c520feca359dd4c9a206cfaba03a051700020e6031d871c242091a8e9b812e"
+      }
+    }
+  ],
+  "resultadoEUR": "1973.14",
+  "costeIntermedio": {
+    "racional": [
+      "80000160000",
+      "1000000"
+    ],
+    "persistidoOpen": "80000.16",
+    "igualdadExacta": true,
+    "diferencia": [
+      "0",
+      "100000000"
+    ]
+  },
+  "cotaHistorica": {
+    "C": [
+      "799951599900000000",
+      "10000000000000"
+    ],
+    "Hmax": [
+      "930001860",
+      "3660000"
+    ],
+    "allD": "0 <= D <= Hmax; dos desigualdades uniformes verificadas"
+  },
+  "estado": "concordancia-condicionada",
+  "contadorOriginal": {
+    "coincidentes": 76,
+    "total": 80,
+    "modificado": false
+  },
+  "peso": null,
+  "reservas": [
+    "hechos-externos-estipulados",
+    "sin-gate-publico-de-conteo",
+    "tentativa-unica-no-cumplida",
+    "enmienda-previa-con-derecho-madrileno"
+  ]
+}

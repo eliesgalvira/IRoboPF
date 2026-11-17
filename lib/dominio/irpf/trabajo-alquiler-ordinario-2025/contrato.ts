@@ -2,6 +2,18 @@ import { Schema } from "effect"
 import { InmuebleP4a } from "../inmobiliario-2025/contrato"
 import { GastosTrabajo } from "../trabajo-anual/contrato"
 const Texto = Schema.String.check(Schema.isPattern(/\S/))
+export const MadridArrendador2025 = Schema.Struct({
+ inmuebleId: Texto, catastro: Texto, propietario: Texto, titulo: Texto,
+ contratoId: Texto, documentoContrato: Texto,
+ localizacion: Schema.Struct({ comunidad: Schema.Literal("madrid"), documento: Texto }),
+ resguardo: Schema.Struct({ referencia: Texto,
+  organismo: Schema.Literal("agencia-vivienda-social-comunidad-madrid"),
+  inmuebleId: Texto, catastro: Texto, contratoId: Texto, arrendador: Texto, arrendatario: Texto,
+  fechaDeposito: Schema.String, fechaResguardo: Schema.String,
+  posesion: Schema.Literals(["original", "copia"]),
+ }),
+ pagos: Schema.Array(Schema.Struct({ gastoId: Texto, pagador: Texto, soportePago: Texto })),
+})
 /** Censo completo de derechos; ningún neto, base, cuota ni deducción son entradas. */
 export const CasoTrabajoAlquilerOrdinario2025 = Schema.Struct({
  perfil: Schema.Literal("trabajo-alquiler-ordinario-2025"), ejercicio: Schema.Literal(2025),
@@ -11,7 +23,8 @@ export const CasoTrabajoAlquilerOrdinario2025 = Schema.Struct({
  edad: Schema.Number.check(Schema.isInt(), Schema.isBetween({ minimum:18, maximum:64 })),
  familiares: Schema.Literal("ninguno"), discapacidad: Schema.Literal("ninguna"),
  otrasRentas: Schema.Literal("ninguna"), reduccionesBase: Schema.Literal("ninguna"),
- compensaciones: Schema.Literal("ninguna"), otrasDeducciones: Schema.Literal("ninguna"),
+ compensaciones: Schema.Literal("ninguna"), otrasDeducciones: Schema.Literals(["ninguna", "solo-madrid-gastos-arrendamiento-viviendas"]),
+ madridArrendador2025: Schema.optionalKey(MadridArrendador2025),
  censoInmobiliario: Schema.Struct({ documento: Texto,
   cobertura: Schema.Literal("mundial-propiedad-usufructo-cualquier-porcentaje-todo-2025"),
   inmuebles: Schema.Array(Texto).check(Schema.isMinLength(1), Schema.isMaxLength(1)) }),

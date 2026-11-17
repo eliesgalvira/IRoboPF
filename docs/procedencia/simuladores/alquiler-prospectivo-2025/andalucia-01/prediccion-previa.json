@@ -1,0 +1,1533 @@
+{
+  "at": "2026-11-17T11:18:21.007Z",
+  "revision": "d1a8673f4c2977905f88a32f49bfa20c01ff00f7",
+  "escenarioSHA256": "56a2ba5cac81c3497e51ecb000b9a36881236c6d4e9a773f23c856858cd463f0",
+  "result": {
+    "_tag": "LiquidacionTrabajoAlquilerOrdinario2025",
+    "perfil": "trabajo-alquiler-ordinario-2025",
+    "ejercicio": 2025,
+    "contribuyenteId": "s-1",
+    "liquidacionId": "open2025-andalucia-04-suelo-desconocido-v1",
+    "politicaOpen": {
+      "nombre": "open-alquiler-suelo-desconocido-cuatro-gravamenes-2025",
+      "costeLegal": {
+        "n": "135009000000000",
+        "d": "1000000000"
+      },
+      "totalAdquisicion": "180000",
+      "construccionCatastral": "75005",
+      "totalCatastro": "100000",
+      "porcentaje": "75.01",
+      "costeOperativo": "135018",
+      "baseAmortizacion": "135018",
+      "amortizacion": "4050.54",
+      "ingresos": "12000",
+      "gastos": "1000",
+      "neto": "6949.46",
+      "reduccion": "3474.73",
+      "netoReducido": "3474.73",
+      "historia": "declarada-no-acreditada-por-originales-open"
+    },
+    "rastro": {
+      "titulo": "open-alquiler-suelo-desconocido-cuatro-gravamenes-2025",
+      "pasos": [
+        {
+          "_tag": "PasoExplicacion",
+          "titulo": "Política operativa de alquiler ordinario",
+          "descripcion": "Porcentaje HALF_UP2 antes del coste sin cuantizar; amortización anual HALF_UP2; 50% exacto a céntimos; cuatro gravámenes HALF_UP2 antes de diferencias. Historia declarada pendiente de acreditación independiente.",
+          "lineasCalculo": [
+            {
+              "etiqueta": "Porcentaje catastral operativo",
+              "formula": "HALF_UP2(100 × construcción / total catastral)",
+              "resultado": "75.01%",
+              "origen": {
+                "siteId": "alquiler.open.porcentaje",
+                "instanceId": "alquiler.open.porcentaje.0",
+                "decimal": "75.01",
+                "unidad": "percent"
+              }
+            },
+            {
+              "etiqueta": "adquisicion",
+              "formula": "Operando producido por la preparación y composición común; véase libro operativo",
+              "resultado": "180000.00 euros",
+              "origen": {
+                "siteId": "alquiler.open.adquisicion",
+                "instanceId": "alquiler.open.adquisicion.0",
+                "decimal": "180000",
+                "unidad": "EUR"
+              }
+            },
+            {
+              "etiqueta": "catastro-total",
+              "formula": "Operando producido por la preparación y composición común; véase libro operativo",
+              "resultado": "100000.00 euros",
+              "origen": {
+                "siteId": "alquiler.open.catastro-total",
+                "instanceId": "alquiler.open.catastro-total.0",
+                "decimal": "100000",
+                "unidad": "EUR"
+              }
+            },
+            {
+              "etiqueta": "catastro-construccion",
+              "formula": "Operando producido por la preparación y composición común; véase libro operativo",
+              "resultado": "75005.00 euros",
+              "origen": {
+                "siteId": "alquiler.open.catastro-construccion",
+                "instanceId": "alquiler.open.catastro-construccion.0",
+                "decimal": "75005",
+                "unidad": "EUR"
+              }
+            },
+            {
+              "etiqueta": "coste-operativo",
+              "formula": "Operando producido por la preparación y composición común; véase libro operativo",
+              "resultado": "135018.00 euros",
+              "origen": {
+                "siteId": "alquiler.open.coste-operativo",
+                "instanceId": "alquiler.open.coste-operativo.0",
+                "decimal": "135018",
+                "unidad": "EUR"
+              }
+            },
+            {
+              "etiqueta": "amortizacion",
+              "formula": "Operando producido por la preparación y composición común; véase libro operativo",
+              "resultado": "4050.54 euros",
+              "origen": {
+                "siteId": "alquiler.open.amortizacion",
+                "instanceId": "alquiler.open.amortizacion.0",
+                "decimal": "4050.54",
+                "unidad": "EUR"
+              }
+            },
+            {
+              "etiqueta": "ingresos",
+              "formula": "Operando producido por la preparación y composición común; véase libro operativo",
+              "resultado": "12000.00 euros",
+              "origen": {
+                "siteId": "alquiler.open.ingresos",
+                "instanceId": "alquiler.open.ingresos.0",
+                "decimal": "12000",
+                "unidad": "EUR"
+              }
+            },
+            {
+              "etiqueta": "gastos",
+              "formula": "Operando producido por la preparación y composición común; véase libro operativo",
+              "resultado": "1000.00 euros",
+              "origen": {
+                "siteId": "alquiler.open.gastos",
+                "instanceId": "alquiler.open.gastos.0",
+                "decimal": "1000",
+                "unidad": "EUR"
+              }
+            },
+            {
+              "etiqueta": "neto-inmobiliario",
+              "formula": "Operando producido por la preparación y composición común; véase libro operativo",
+              "resultado": "6949.46 euros",
+              "origen": {
+                "siteId": "alquiler.open.neto-inmobiliario",
+                "instanceId": "alquiler.open.neto-inmobiliario.0",
+                "decimal": "6949.46",
+                "unidad": "EUR"
+              }
+            },
+            {
+              "etiqueta": "reduccion",
+              "formula": "Operando producido por la preparación y composición común; véase libro operativo",
+              "resultado": "3474.73 euros",
+              "origen": {
+                "siteId": "alquiler.open.reduccion",
+                "instanceId": "alquiler.open.reduccion.0",
+                "decimal": "3474.73",
+                "unidad": "EUR"
+              }
+            },
+            {
+              "etiqueta": "neto-reducido",
+              "formula": "Operando producido por la preparación y composición común; véase libro operativo",
+              "resultado": "3474.73 euros",
+              "origen": {
+                "siteId": "alquiler.open.neto-reducido",
+                "instanceId": "alquiler.open.neto-reducido.0",
+                "decimal": "3474.73",
+                "unidad": "EUR"
+              }
+            },
+            {
+              "etiqueta": "trabajo-bruto",
+              "formula": "Operando producido por la preparación y composición común; véase libro operativo",
+              "resultado": "36000.00 euros",
+              "origen": {
+                "siteId": "alquiler.open.trabajo-bruto",
+                "instanceId": "alquiler.open.trabajo-bruto.0",
+                "decimal": "36000",
+                "unidad": "EUR"
+              }
+            },
+            {
+              "etiqueta": "cotizaciones-efectivas",
+              "formula": "Operando producido por la preparación y composición común; véase libro operativo",
+              "resultado": "2340.00 euros",
+              "origen": {
+                "siteId": "alquiler.open.cotizaciones-efectivas",
+                "instanceId": "alquiler.open.cotizaciones-efectivas.0",
+                "decimal": "2340",
+                "unidad": "EUR"
+              }
+            },
+            {
+              "etiqueta": "trabajo-neto",
+              "formula": "Operando producido por la preparación y composición común; véase libro operativo",
+              "resultado": "31660.00 euros",
+              "origen": {
+                "siteId": "alquiler.open.trabajo-neto",
+                "instanceId": "alquiler.open.trabajo-neto.0",
+                "decimal": "31660",
+                "unidad": "EUR"
+              }
+            },
+            {
+              "etiqueta": "base",
+              "formula": "Operando producido por la preparación y composición común; véase libro operativo",
+              "resultado": "35134.73 euros",
+              "origen": {
+                "siteId": "alquiler.open.base",
+                "instanceId": "alquiler.open.base.0",
+                "decimal": "35134.73",
+                "unidad": "EUR"
+              }
+            },
+            {
+              "etiqueta": "general-estatal",
+              "formula": "Operando producido por la preparación y composición común; véase libro operativo",
+              "resultado": "4352.96 euros",
+              "origen": {
+                "siteId": "alquiler.open.general-estatal",
+                "instanceId": "alquiler.open.general-estatal.0",
+                "decimal": "4352.96",
+                "unidad": "EUR"
+              }
+            },
+            {
+              "etiqueta": "minimo-estatal",
+              "formula": "Operando producido por la preparación y composición común; véase libro operativo",
+              "resultado": "527.25 euros",
+              "origen": {
+                "siteId": "alquiler.open.minimo-estatal",
+                "instanceId": "alquiler.open.minimo-estatal.0",
+                "decimal": "527.25",
+                "unidad": "EUR"
+              }
+            },
+            {
+              "etiqueta": "general-autonomico",
+              "formula": "Operando producido por la preparación y composición común; véase libro operativo",
+              "resultado": "4312.21 euros",
+              "origen": {
+                "siteId": "alquiler.open.general-autonomico",
+                "instanceId": "alquiler.open.general-autonomico.0",
+                "decimal": "4312.21",
+                "unidad": "EUR"
+              }
+            },
+            {
+              "etiqueta": "minimo-autonomico",
+              "formula": "Operando producido por la preparación y composición común; véase libro operativo",
+              "resultado": "550.05 euros",
+              "origen": {
+                "siteId": "alquiler.open.minimo-autonomico",
+                "instanceId": "alquiler.open.minimo-autonomico.0",
+                "decimal": "550.05",
+                "unidad": "EUR"
+              }
+            },
+            {
+              "etiqueta": "cuota-posterior",
+              "formula": "Operando producido por la preparación y composición común; véase libro operativo",
+              "resultado": "7587.87 euros",
+              "origen": {
+                "siteId": "alquiler.open.cuota-posterior",
+                "instanceId": "alquiler.open.cuota-posterior.0",
+                "decimal": "7587.87",
+                "unidad": "EUR"
+              }
+            },
+            {
+              "etiqueta": "retenciones",
+              "formula": "Operando producido por la preparación y composición común; véase libro operativo",
+              "resultado": "5040.00 euros",
+              "origen": {
+                "siteId": "alquiler.open.retenciones",
+                "instanceId": "alquiler.open.retenciones.0",
+                "decimal": "5040",
+                "unidad": "EUR"
+              }
+            },
+            {
+              "etiqueta": "diferencial",
+              "formula": "Operando producido por la preparación y composición común; véase libro operativo",
+              "resultado": "2547.87 euros",
+              "origen": {
+                "siteId": "alquiler.open.diferencial",
+                "instanceId": "alquiler.open.diferencial.0",
+                "decimal": "2547.87",
+                "unidad": "EUR"
+              }
+            }
+          ],
+          "fuentes": []
+        }
+      ]
+    },
+    "rastroOperativo": {
+      "alquiler": {
+        "nombre": "open-alquiler-suelo-desconocido-cuatro-gravamenes-2025",
+        "costeLegal": {
+          "n": "135009000000000",
+          "d": "1000000000"
+        },
+        "totalAdquisicion": "180000",
+        "construccionCatastral": "75005",
+        "totalCatastro": "100000",
+        "porcentaje": "75.01",
+        "costeOperativo": "135018",
+        "baseAmortizacion": "135018",
+        "amortizacion": "4050.54",
+        "ingresos": "12000",
+        "gastos": "1000",
+        "neto": "6949.46",
+        "reduccion": "3474.73",
+        "netoReducido": "3474.73",
+        "historia": "declarada-no-acreditada-por-originales-open"
+      },
+      "trabajo": {
+        "bruto": "36000",
+        "cotizaciones": "2340",
+        "neto": "31660"
+      },
+      "base": "35134.73",
+      "gravamenes": {
+        "generalEstatal": "4352.96",
+        "minimoEstatal": "527.25",
+        "generalAutonomico": "4312.21",
+        "minimoAutonomico": "550.05"
+      },
+      "cuotaPosterior": "7587.87",
+      "retenciones": "5040",
+      "diferencial": "2547.87"
+    },
+    "inmuebles": [
+      {
+        "imputacion": {
+          "n": "0",
+          "d": "3650000000"
+        },
+        "diasAlquilados": 365,
+        "diasImputados": 0,
+        "seguimiento": [],
+        "inmueble": {
+          "id": "V",
+          "catastro": "sintetico:catastro",
+          "ubicacion": "resto-espana",
+          "titular": "s-1",
+          "titulo": "sintetico:titulo",
+          "derecho": "propiedad",
+          "regimenMatrimonial": "no-casado",
+          "titulares": [
+            "s-1"
+          ],
+          "adquisicion": {
+            "fecha": "2020-01-01",
+            "escritura": "sintetico:escritura",
+            "precio": "180000.00",
+            "gastosTributos": "0",
+            "costeSuelo": {
+              "estado": "desconocido"
+            }
+          },
+          "catastro2025": {
+            "documento": "sintetico:catastro2025",
+            "suelo": "24995.00",
+            "construccion": "75005.00"
+          },
+          "usosDesdeAdquisicion": [
+            {
+              "desde": "2020-01-01",
+              "hasta": "2024-11-30",
+              "uso": "personal"
+            },
+            {
+              "desde": "2024-12-01",
+              "hasta": "2025-12-31",
+              "uso": "alquiler-vivienda"
+            }
+          ],
+          "contrato": {
+            "id": "C",
+            "documento": "sintetico:contrato",
+            "firma": "2024-12-01",
+            "desde": "2024-12-01",
+            "hasta": "2028-12-01",
+            "arrendador": "s-1",
+            "arrendatario": "inquilino-ficticio",
+            "destino": "vivienda-permanente-persona-fisica",
+            "parentesco": "ninguno",
+            "fianzaDepositada": "sintetico:deposito",
+            "zonaTensionada": false,
+            "alquilerSocial": false,
+            "rehabilitacionesTresAnios": "ninguna",
+            "repercusionObras": "0"
+          },
+          "exigibilidades": [
+            {
+              "id": "R1",
+              "documento": "sintetico:exigible-1",
+              "fecha": "2025-01-01",
+              "importe": "1000.00"
+            },
+            {
+              "id": "R2",
+              "documento": "sintetico:exigible-2",
+              "fecha": "2025-02-01",
+              "importe": "1000.00"
+            },
+            {
+              "id": "R3",
+              "documento": "sintetico:exigible-3",
+              "fecha": "2025-03-01",
+              "importe": "1000.00"
+            },
+            {
+              "id": "R4",
+              "documento": "sintetico:exigible-4",
+              "fecha": "2025-04-01",
+              "importe": "1000.00"
+            },
+            {
+              "id": "R5",
+              "documento": "sintetico:exigible-5",
+              "fecha": "2025-05-01",
+              "importe": "1000.00"
+            },
+            {
+              "id": "R6",
+              "documento": "sintetico:exigible-6",
+              "fecha": "2025-06-01",
+              "importe": "1000.00"
+            },
+            {
+              "id": "R7",
+              "documento": "sintetico:exigible-7",
+              "fecha": "2025-07-01",
+              "importe": "1000.00"
+            },
+            {
+              "id": "R8",
+              "documento": "sintetico:exigible-8",
+              "fecha": "2025-08-01",
+              "importe": "1000.00"
+            },
+            {
+              "id": "R9",
+              "documento": "sintetico:exigible-9",
+              "fecha": "2025-09-01",
+              "importe": "1000.00"
+            },
+            {
+              "id": "R10",
+              "documento": "sintetico:exigible-10",
+              "fecha": "2025-10-01",
+              "importe": "1000.00"
+            },
+            {
+              "id": "R11",
+              "documento": "sintetico:exigible-11",
+              "fecha": "2025-11-01",
+              "importe": "1000.00"
+            },
+            {
+              "id": "R12",
+              "documento": "sintetico:exigible-12",
+              "fecha": "2025-12-01",
+              "importe": "1000.00"
+            }
+          ],
+          "gastos": [
+            {
+              "id": "REP",
+              "factura": "sintetico:reparacion",
+              "lineaFactura": "1",
+              "totalFactura": "1000.00",
+              "fechaOperacion": "2025-06-01",
+              "fechaFactura": "2025-06-01",
+              "fechaPago": "2025-06-01",
+              "importe": "1000.00",
+              "prestadorNif": "prestador-ficticio",
+              "clase": "reparacion"
+            }
+          ],
+          "censo": "contratos-ingresos-gastos-usos-y-titulares-completos",
+          "serviciosHospedaje": "ninguno",
+          "personalJornadaCompleta": "ninguno",
+          "ayudas": "ninguna",
+          "saldosPrevios": "ninguno",
+          "insolvencia": "ninguna",
+          "mobiliario": "ninguno",
+          "mejorasAnteriores2025": "ninguna",
+          "ingresosIrregulares": "ninguno"
+        },
+        "categoria": "capital_inmobiliario",
+        "integro": {
+          "n": "12000000000000000000000000000",
+          "d": "1000000000000000000000000"
+        },
+        "gastosLimitados": {
+          "n": "100000",
+          "d": "100"
+        },
+        "excesoNoAplicado": {
+          "n": "0",
+          "d": "10000"
+        },
+        "otrosGastos": {
+          "n": "0",
+          "d": "1"
+        },
+        "amortizacion": {
+          "n": "147834855000000000",
+          "d": "36500000000000"
+        },
+        "neto": {
+          "n": "25366514500000000000000000000000000000000000",
+          "d": "3650000000000000000000000000000000000000"
+        },
+        "reduccion": {
+          "n": "1268325725000000000000000000000000000000000000",
+          "d": "365000000000000000000000000000000000000000"
+        },
+        "netoReducido": {
+          "n": "4629388896250000000000000000000000000000000000000000000000000000000000000000000000000",
+          "d": "1332250000000000000000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "regimen": "art23-50"
+      }
+    ],
+    "rendimientoNetoTrabajo": "31660",
+    "baseImponibleGeneral": "35134.73",
+    "composicion": {
+      "politicaAlquilerOpen2025": {
+        "nombre": "open-alquiler-suelo-desconocido-cuatro-gravamenes-2025",
+        "costeLegal": {
+          "n": "135009000000000",
+          "d": "1000000000"
+        },
+        "totalAdquisicion": "180000",
+        "construccionCatastral": "75005",
+        "totalCatastro": "100000",
+        "porcentaje": "75.01",
+        "costeOperativo": "135018",
+        "baseAmortizacion": "135018",
+        "amortizacion": "4050.54",
+        "ingresos": "12000",
+        "gastos": "1000",
+        "neto": "6949.46",
+        "reduccion": "3474.73",
+        "netoReducido": "3474.73",
+        "historia": "declarada-no-acreditada-por-originales-open"
+      },
+      "baseLiquidableGeneral": "35134.73",
+      "baseLiquidableAhorro": "0",
+      "nodosFiscalesB2025": {
+        "ejercicio": 2025,
+        "contribuyente": "s-1",
+        "liquidacion": "motor-anual:2025:s-1",
+        "tiposMediosGenerales": {
+          "estatal": "10.88",
+          "autonomico": "10.70",
+          "baseLiquidableGeneral": "35134.73",
+          "cuotaGeneralEstatalArt63_1": "3825.71",
+          "cuotaGeneralAutonomicaArt74_1": "3762.16",
+          "regla": "porcentaje_dos_decimales_sin_redondeo"
+        }
+      },
+      "deduccionesGeneralesDonativosAplicadas": "0",
+      "cuotaAutonomicaDisponible": "3762.16",
+      "cotizaciones": {
+        "naturaleza": "efectivas",
+        "trabajador": "2340"
+      },
+      "cuotaEstatalDespuesMinimo": "3825.71",
+      "parametrosComunidad": {
+        "_tag": "ParametrosComunidadAutonoma",
+        "comunidadAutonoma": "andalucia",
+        "anio": 2025,
+        "minimoAutonomicoIgualEstatal": false,
+        "escalaAutonomicaIgualEstatal": false,
+        "escalaEstatalGeneral": [
+          [
+            "12450",
+            "0.095"
+          ],
+          [
+            "20200",
+            "0.12"
+          ],
+          [
+            "35200",
+            "0.15"
+          ],
+          [
+            "60000",
+            "0.185"
+          ],
+          [
+            "300000",
+            "0.225"
+          ],
+          [
+            "Infinity",
+            "0.245"
+          ]
+        ],
+        "escalaAutonomica": {
+          "comunidadAutonoma": "andalucia",
+          "nombre": "Andalucía",
+          "tramos": [
+            [
+              "13000",
+              "0.095"
+            ],
+            [
+              "21100",
+              "0.12"
+            ],
+            [
+              "35200",
+              "0.15"
+            ],
+            [
+              "60000",
+              "0.185"
+            ],
+            [
+              "Infinity",
+              "0.225"
+            ]
+          ],
+          "fuente": {
+            "titulo": "AEAT Modelo 100 IRPF 2025: cuota íntegra autonómica",
+            "referencia": "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-ayuda-presentacion/irpf-2025/8-cumplimentacion-irpf/8_4-cuota-integra/8_4_3-gravamen-base-liquidable-general/8_4_3_2-cuota-integra-autonomica.html"
+          }
+        },
+        "minimosAutonomicos": {
+          "contribuyente": {
+            "general": "5790",
+            "adicionalMayor65": "1200",
+            "adicionalMayor75": "1460"
+          },
+          "descendientes": {
+            "primero": "2510",
+            "segundo": "2820",
+            "tercero": "4170",
+            "cuartoYSiguientes": "4700",
+            "adicionalMenorTres": "2920"
+          },
+          "ascendientes": {
+            "mayor65OConDiscapacidad": "1200",
+            "adicionalMayor75": "1460"
+          },
+          "discapacidad": {
+            "contribuyente": {
+              "grado33Hasta65": "3130",
+              "grado65OMas": "9390",
+              "gastosAsistencia": "3130"
+            },
+            "descendiente": {
+              "grado33Hasta65": "3130",
+              "grado65OMas": "9390",
+              "gastosAsistencia": "3130"
+            },
+            "ascendiente": {
+              "grado33Hasta65": "3130",
+              "grado65OMas": "9390",
+              "gastosAsistencia": "3130"
+            }
+          }
+        },
+        "deduccionesAutonomicasSoportadas": [
+          {
+            "codigo": "andalucia_gastos_educativos",
+            "comunidad": "andalucia",
+            "nombre": "Por gastos educativos",
+            "normativa": "Ficha normalizada desde Manual Renta 2025 Parte 2",
+            "categoria": "otros_conceptos",
+            "cuantia": {
+              "tipo": "mixta",
+              "descripcion": "15% de gastos de enseñanza escolar o extraescolar de idiomas, informática o ambas; límite 150 euros anuales por descendiente."
+            },
+            "requisitos": [
+              "Descendiente con derecho al mínimo por descendientes.",
+              "Gastos de enseñanza escolar o extraescolar de idiomas, informática o ambas, justificados documentalmente."
+            ],
+            "limites": [
+              "Fórmula: min(15% de gastos satisfechos, 150 euros por descendiente con derecho al mínimo).",
+              "Base imponible general + ahorro: máximo 80.000 euros individual y 100.000 conjunta.",
+              "Si hay varios contribuyentes con derecho, cada uno aplica la deducción sobre las cantidades que haya satisfecho, con límite de 150 euros por descendiente.",
+              "Si el pago es ganancial, se atribuye por mitades a ambos cónyuges."
+            ],
+            "prorrateo": [],
+            "compatibilidades": [],
+            "incompatibilidades": [],
+            "entradaNecesaria": [
+              "andalucia_gastos_educativos:importe",
+              "andalucia_gastos_educativos:cumple"
+            ],
+            "fuenteManual": {
+              "documento": "ManualRenta2025Parte2",
+              "paginas": [
+                46,
+                47
+              ]
+            },
+            "estado": "implementada"
+          },
+          {
+            "codigo": "andalucia_defensa_juridica_laboral",
+            "comunidad": "andalucia",
+            "nombre": "Para gastos de defensa jurídica de la relación laboral",
+            "normativa": "Ficha normalizada desde Manual Renta 2025 Parte 2",
+            "categoria": "otros_conceptos",
+            "cuantia": {
+              "tipo": "porcentaje",
+              "porcentaje": "100",
+              "base": "gastos de defensa jurídica derivados de la relación laboral",
+              "limiteMaximoEuros": "200"
+            },
+            "requisitos": [
+              "Gasto efectivamente satisfecho y justificado por el contribuyente."
+            ],
+            "limites": [
+              "Fórmula: min(gastos satisfechos, 200 euros).",
+              "Procedimientos judiciales de despido, extinción de contrato o reclamación de cantidades.",
+              "Límite 200 euros tanto en tributación individual como conjunta."
+            ],
+            "prorrateo": [],
+            "compatibilidades": [],
+            "incompatibilidades": [],
+            "entradaNecesaria": [
+              "andalucia_defensa_juridica_laboral:base",
+              "andalucia_defensa_juridica_laboral:cumple"
+            ],
+            "fuenteManual": {
+              "documento": "ManualRenta2025Parte2",
+              "paginas": [
+                54
+              ]
+            },
+            "estado": "implementada"
+          },
+          {
+            "codigo": "andalucia_donativos_finalidad_ecologica",
+            "comunidad": "andalucia",
+            "nombre": "Por donativos con finalidad ecológica",
+            "normativa": "Ficha normalizada desde Manual Renta 2025 Parte 2",
+            "categoria": "donativos_donaciones",
+            "cuantia": {
+              "tipo": "porcentaje",
+              "porcentaje": "10",
+              "base": "donativos con finalidad ecológica",
+              "limiteMaximoEuros": "150"
+            },
+            "requisitos": [
+              "Donación acreditada mediante certificación de la entidad beneficiaria."
+            ],
+            "limites": [
+              "Fórmula: min(10% de donativos, 150 euros).",
+              "Donativos a entidades públicas andaluzas o locales andaluzas dedicadas a defensa y conservación del medio ambiente.",
+              "También donativos a entidades sin fines lucrativos o beneficiarias del mecenazgo cuyo fin exclusivo sea la defensa del medio ambiente y estén inscritas en registros andaluces."
+            ],
+            "prorrateo": [],
+            "compatibilidades": [],
+            "incompatibilidades": [],
+            "entradaNecesaria": [
+              "andalucia_donativos_finalidad_ecologica:base",
+              "andalucia_donativos_finalidad_ecologica:cumple"
+            ],
+            "fuenteManual": {
+              "documento": "ManualRenta2025Parte2",
+              "paginas": [
+                54,
+                55
+              ]
+            },
+            "estado": "implementada"
+          },
+          {
+            "codigo": "andalucia_ejercicio_fisico_deporte",
+            "comunidad": "andalucia",
+            "nombre": "Para fomentar el ejercicio físico y la práctica deportiva",
+            "normativa": "Ficha normalizada desde Manual Renta 2025 Parte 2",
+            "categoria": "otros_conceptos",
+            "cuantia": {
+              "tipo": "porcentaje",
+              "porcentaje": "15",
+              "base": "cuotas de pertenencia o adhesión a gimnasios, centros deportivos, clubes, federaciones o secciones deportivas",
+              "limiteMaximoEuros": "100"
+            },
+            "requisitos": [
+              "Cuotas efectivamente satisfechas y justificadas documentalmente."
+            ],
+            "limites": [
+              "Fórmula: min(15% de cuotas satisfechas, 100 euros por contribuyente).",
+              "Gastos satisfechos para el contribuyente, cónyuge o pareja inscrita, o personas que den derecho al mínimo por descendientes o ascendientes.",
+              "Si el gasto lo satisfacen varios contribuyentes, se aplica según las cantidades efectivamente abonadas por cada uno, respetando el límite de 100 euros por contribuyente.",
+              "Si el pago es ganancial, se atribuye por mitades a ambos cónyuges."
+            ],
+            "prorrateo": [],
+            "compatibilidades": [],
+            "incompatibilidades": [],
+            "entradaNecesaria": [
+              "andalucia_ejercicio_fisico_deporte:base",
+              "andalucia_ejercicio_fisico_deporte:cumple"
+            ],
+            "fuenteManual": {
+              "documento": "ManualRenta2025Parte2",
+              "paginas": [
+                55,
+                56
+              ]
+            },
+            "estado": "implementada"
+          },
+          {
+            "codigo": "andalucia_gastos_veterinarios_animales_compania_perros_asistencia",
+            "comunidad": "andalucia",
+            "nombre": "Por gastos veterinarios derivados de la adquisición de animales de compañía o de la tenencia de perros de asistencia",
+            "normativa": "Ficha normalizada desde Manual Renta 2025 Parte 2",
+            "categoria": "otros_conceptos",
+            "cuantia": {
+              "tipo": "porcentaje",
+              "porcentaje": "30",
+              "base": "gastos veterinarios deducibles por animales de compañía o perros de asistencia",
+              "limiteMaximoEuros": "100"
+            },
+            "requisitos": [
+              "Gastos justificados mediante factura de profesional o centro veterinario legalmente autorizado."
+            ],
+            "limites": [
+              "Fórmula: min(30% de gastos veterinarios deducibles, 100 euros por contribuyente).",
+              "Base imponible general + ahorro: máximo 80.000 euros individual y 100.000 conjunta.",
+              "Animales de compañía: gastos durante el año siguiente a la adquisición; si es adopción, durante los tres años siguientes; perros de asistencia, durante todo el período de tenencia.",
+              "Solo adquisiciones de animales de compañía formalizadas desde 1 de enero de 2025; esta limitación no aplica a perros de asistencia.",
+              "Gastos deducibles: tratamientos obligatorios, vacunación, desparasitación y esterilización preceptiva.",
+              "Si el pago es de varios titulares o ganancial, se atribuye por partes iguales salvo prueba en contrario."
+            ],
+            "prorrateo": [],
+            "compatibilidades": [],
+            "incompatibilidades": [],
+            "entradaNecesaria": [
+              "andalucia_gastos_veterinarios_animales_compania_perros_asistencia:base",
+              "andalucia_gastos_veterinarios_animales_compania_perros_asistencia:cumple"
+            ],
+            "fuenteManual": {
+              "documento": "ManualRenta2025Parte2",
+              "paginas": [
+                57,
+                58,
+                59
+              ]
+            },
+            "estado": "implementada"
+          },
+          {
+            "codigo": "andalucia_enfermedad_celiaca",
+            "comunidad": "andalucia",
+            "nombre": "Para familias con enfermedad celíaca diagnosticada",
+            "normativa": "Ficha normalizada desde Manual Renta 2025 Parte 2",
+            "categoria": "circunstancias_personales_familiares",
+            "cuantia": {
+              "tipo": "importe_fijo",
+              "euros": "100",
+              "por": "persona integrante del núcleo familiar con enfermedad celíaca diagnosticada"
+            },
+            "requisitos": [
+              "Diagnóstico acreditado por informe médico oficial conforme a los criterios reconocidos por la comunidad científica."
+            ],
+            "limites": [
+              "Fórmula: 100 euros por persona integrante del núcleo familiar con enfermedad celíaca diagnosticada.",
+              "Si dos o más contribuyentes tienen derecho por la misma persona, el importe se distribuye por partes iguales.",
+              "Núcleo familiar: contribuyente, cónyuge o pareja inscrita y personas con derecho a mínimos familiares por ascendientes o descendientes."
+            ],
+            "prorrateo": [],
+            "compatibilidades": [],
+            "incompatibilidades": [],
+            "entradaNecesaria": [
+              "andalucia_enfermedad_celiaca:unidades",
+              "andalucia_enfermedad_celiaca:cumple"
+            ],
+            "fuenteManual": {
+              "documento": "ManualRenta2025Parte2",
+              "paginas": [
+                59,
+                60
+              ]
+            },
+            "estado": "implementada"
+          },
+          {
+            "codigo": "andalucia_inversion_vivienda_habitual_protegida_jovenes",
+            "comunidad": "andalucia",
+            "nombre": "Por inversión en vivienda habitual que tenga la consideración de protegida y por las personas jóvenes",
+            "normativa": "Ficha normalizada desde Manual Renta 2025 Parte 2",
+            "categoria": "vivienda_habitual",
+            "cuantia": {
+              "tipo": "porcentaje",
+              "porcentaje": "6",
+              "base": "cantidades satisfechas por adquisición o rehabilitación de vivienda habitual",
+              "limiteMaximoEuros": "542.40"
+            },
+            "requisitos": [
+              "Cumplir los requisitos indicados en la ficha normativa normalizada"
+            ],
+            "limites": [
+              "Vivienda habitual histórica: residencia continuada al menos tres años y ocupación efectiva dentro de doce meses desde adquisición o terminación; se exceptúan fallecimiento o circunstancias que necesariamente exijan el cambio o impidan la ocupación, según artículo 54 RIRPF de 2012.",
+              "Comprobación patrimonial: el patrimonio al final del ejercicio debe exceder al inicial al menos en la inversión deducida, sin computar intereses, otros gastos de financiación ni meras variaciones de valor; artículo 70 LIRPF.",
+              "La deducción por una vivienda anterior y la ganancia exenta por reinversión reducen la nueva base conforme al artículo 68.1.2 de 2012; no duplicar las cantidades ya deducidas.",
+              "Vivienda protegida o adquirente menor de 35 años a devengo: son condiciones alternativas. En conjunta basta que cumpla la edad uno de los cónyuges o el progenitor de familia monoparental.",
+              "Conceptos de vivienda habitual, adquisición y rehabilitación, base y patrimonio conforme a la normativa estatal vigente a 31/12/2012; no se exige acceso al régimen transitorio estatal para esta deducción autonómica.",
+              "6% de las cantidades satisfechas",
+              "Base máxima anual de deducción: 9.040 euros",
+              "Deducción máxima derivada de la base máxima: 542,40 euros",
+              "Base imponible general + ahorro: máximo 25.000 euros individual y 30.000 conjunta"
+            ],
+            "prorrateo": [],
+            "compatibilidades": [],
+            "incompatibilidades": [],
+            "entradaNecesaria": [
+              "importeBase",
+              "cumpleRequisitosYLimites"
+            ],
+            "fuenteManual": {
+              "documento": "ManualRenta2025Parte2",
+              "paginas": [
+                37,
+                38,
+                39
+              ]
+            },
+            "estado": "implementada"
+          },
+          {
+            "codigo": "andalucia_alquiler_vivienda_habitual",
+            "comunidad": "andalucia",
+            "nombre": "Por cantidades invertidas en el alquiler de la vivienda habitual",
+            "normativa": "Ficha normalizada desde Manual Renta 2025 Parte 2",
+            "categoria": "vivienda_habitual",
+            "cuantia": {
+              "tipo": "mixta",
+              "descripcion": "15% del alquiler; límite 1.200 euros, o 1.500 euros si el contribuyente tiene discapacidad"
+            },
+            "requisitos": [
+              "Cumplir los requisitos indicados en la ficha normativa normalizada"
+            ],
+            "limites": [
+              "A devengo: menores de 35 años, mayores de 65 años, víctimas de violencia doméstica, víctimas del terrorismo o personas afectadas; la discapacidad habilita por sí misma el límite de 1.500 euros.",
+              "En conjunta basta que el supuesto habilitante concurra en uno de los cónyuges o en el progenitor de familia monoparental.",
+              "Identificar el NIF del arrendador. Cada declarante con derecho aplica el porcentaje a lo efectivamente pagado por él, con su límite de 1.200 o 1.500 euros.",
+              "Ley 8/2025, DF novena.1 y DF decimoctava.b: límites aplicables con efectos desde el 1 de enero de 2025.",
+              "15% de las cantidades satisfechas",
+              "Límite general: 1.200 euros anuales",
+              "Límite para contribuyente con discapacidad: 1.500 euros anuales",
+              "Base imponible general + ahorro: máximo 25.000 euros individual y 30.000 conjunta"
+            ],
+            "prorrateo": [],
+            "compatibilidades": [],
+            "incompatibilidades": [],
+            "entradaNecesaria": [
+              "importeBase",
+              "cumpleRequisitosYLimites"
+            ],
+            "fuenteManual": {
+              "documento": "ManualRenta2025Parte2",
+              "paginas": [
+                39,
+                40,
+                41
+              ]
+            },
+            "estado": "implementada"
+          },
+          {
+            "codigo": "andalucia_nacimiento_adopcion_acogimiento_menores",
+            "comunidad": "andalucia",
+            "nombre": "Por nacimiento, adopción de hijos o acogimiento familiar de menores",
+            "normativa": "Art. 11 Ley 5/2021, de Tributos Cedidos de Andalucía",
+            "categoria": "circunstancias_personales_familiares",
+            "cuantia": {
+              "tipo": "mixta",
+              "descripcion": "200 euros por hijo nacido/adoptado o menor acogido; 400 euros si el contribuyente reside en municipio con problemas de despoblación"
+            },
+            "requisitos": [
+              "Nacimiento, adopción o acogimiento en el período impositivo",
+              "En acogimiento, el menor debe convivir con el contribuyente al menos 90 días durante el período en que se produzca el acogimiento",
+              "Para aplicar 400 euros, residencia en municipio andaluz con problemas de despoblación",
+              "Si son dos los contribuyentes con derecho, el importe se distribuye por partes iguales",
+              "El acogimiento preadoptivo no genera otra deducción si la adopción se produce en el mismo ejercicio; desde 2025 se suprime el límite de renta del artículo 11.4 anterior por Ley 8/2025 DF novena.2 y decimoctava.b.",
+              "En acogimiento, no puede haber recibido ayudas de la Administración de Andalucía vinculadas con el acogimiento"
+            ],
+            "limites": [
+              "200 euros por hijo nacido/adoptado o menor acogido",
+              "400 euros por hijo nacido/adoptado o menor acogido si reside en municipio andaluz con problemas de despoblacion",
+              "Incremento de 200 euros por cada hijo o menor en partos, adopciones o acogimientos múltiples"
+            ],
+            "prorrateo": [
+              "Cuando sean dos los contribuyentes con derecho, el importe se distribuye por partes iguales"
+            ],
+            "compatibilidades": [],
+            "incompatibilidades": [
+              "Incompatible respecto de los mismos hijos con adopción internacional",
+              "Incompatible con familia numerosa"
+            ],
+            "entradaNecesaria": [
+              "numeroHijosNacidosOAdoptados",
+              "numeroMenoresAcogidos",
+              "resideMunicipioDespoblacion",
+              "datosConvivenciaAcogimiento",
+              "baseImponibleGeneral",
+              "baseImponibleAhorro"
+            ],
+            "fuenteManual": {
+              "documento": "ManualRenta2025Parte2",
+              "paginas": [
+                41,
+                42,
+                43
+              ]
+            },
+            "estado": "implementada"
+          },
+          {
+            "codigo": "andalucia_adopcion_internacional",
+            "comunidad": "andalucia",
+            "nombre": "Por adopción de hijos en el ámbito internacional",
+            "normativa": "Art. 12 Ley 5/2021, de 20 de octubre, de Tributos Cedidos de Andalucía",
+            "categoria": "circunstancias_personales_familiares",
+            "cuantia": {
+              "tipo": "importe_fijo",
+              "euros": "600",
+              "por": "hijo adoptado internacionalmente"
+            },
+            "requisitos": [
+              "Adopción internacional inscrita en el Registro Civil durante el período impositivo",
+              "La adopción debe tener carácter internacional según las normas y convenios aplicables",
+              "Base imponible general + base imponible del ahorro dentro de límites"
+            ],
+            "limites": [
+              "600 euros por cada hijo adoptado internacionalmente",
+              "Base imponible general + base imponible del ahorro: máximo 80.000 euros en tributación individual",
+              "Base imponible general + base imponible del ahorro: máximo 100.000 euros en tributación conjunta"
+            ],
+            "prorrateo": [
+              "Si dos contribuyentes tienen derecho, se distribuye por partes iguales",
+              "Si uno de los adoptantes no puede aplicar la deducción por superar los límites de base, el otro puede aplicar el importe total"
+            ],
+            "compatibilidades": [],
+            "incompatibilidades": [
+              "Incompatible respecto de los mismos hijos con la deducción andaluza por nacimiento, adopción o acogimiento familiar de menores"
+            ],
+            "entradaNecesaria": [
+              "numeroHijosAdoptadosInternacionalmente",
+              "baseImponibleGeneral",
+              "baseImponibleAhorro",
+              "numeroContribuyentesConDerecho"
+            ],
+            "fuenteManual": {
+              "documento": "ManualRenta2025Parte2",
+              "paginas": [
+                43
+              ]
+            },
+            "estado": "implementada"
+          },
+          {
+            "codigo": "andalucia_familia_monoparental_ascendientes_mayores_75",
+            "comunidad": "andalucia",
+            "nombre": "Para el padre o madre de familia monoparental y, en su caso, con ascendientes mayores de 75 años",
+            "normativa": "Ficha normalizada desde Manual Renta 2025 Parte 2",
+            "categoria": "circunstancias_personales_familiares",
+            "cuantia": {
+              "tipo": "mixta",
+              "descripcion": "100 euros para padres o madres de familia monoparental; incremento adicional de 100 euros por ascendiente mayor de 75 años que genere derecho al mínimo por ascendientes"
+            },
+            "requisitos": [
+              "Ser padre o madre de familia monoparental según la ficha autonómica",
+              "El ascendiente mayor de 75 años debe generar derecho al mínimo por ascendientes para aplicar el incremento"
+            ],
+            "limites": [
+              "100 euros por padre o madre de familia monoparental",
+              "Incremento de 100 euros por cada ascendiente mayor de 75 años que conviva y genere derecho al mínimo por ascendientes",
+              "Base imponible general + base imponible del ahorro: máximo 80.000 euros en tributación individual",
+              "Base imponible general + base imponible del ahorro: máximo 100.000 euros en tributación conjunta"
+            ],
+            "prorrateo": [
+              "Normalizar reglas de aplicación cuando existan varios contribuyentes con derecho"
+            ],
+            "compatibilidades": [],
+            "incompatibilidades": [],
+            "entradaNecesaria": [
+              "esFamiliaMonoparental",
+              "numeroAscendientesMayores75ConDerechoMinimo",
+              "baseImponibleGeneral",
+              "baseImponibleAhorro"
+            ],
+            "fuenteManual": {
+              "documento": "ManualRenta2025Parte2",
+              "paginas": [
+                44,
+                45
+              ]
+            },
+            "estado": "implementada"
+          },
+          {
+            "codigo": "andalucia_familia_numerosa",
+            "comunidad": "andalucia",
+            "nombre": "Para familia numerosa",
+            "normativa": "Arts. 14 y 5 Ley 5/2021, de 20 de octubre, de Tributos Cedidos de Andalucía",
+            "categoria": "circunstancias_personales_familiares",
+            "cuantia": {
+              "tipo": "mixta",
+              "descripcion": "200 euros para familia numerosa de categoría general; 400 euros para categoría especial"
+            },
+            "requisitos": [
+              "Ostentar el título de familia numerosa en la fecha de devengo del impuesto",
+              "Cumplir la normativa estatal sobre familias numerosas",
+              "Base imponible general + base imponible del ahorro dentro de límites"
+            ],
+            "limites": [
+              "200 euros si la familia numerosa es de categoría general",
+              "400 euros si la familia numerosa es de categoría especial",
+              "Base imponible general + base imponible del ahorro: máximo 25.000 euros en tributación individual",
+              "Base imponible general + base imponible del ahorro: máximo 30.000 euros en tributación conjunta"
+            ],
+            "prorrateo": [
+              "Si existe más de una persona con derecho y presentan declaración individual, se distribuye por partes iguales",
+              "Si uno de los cónyuges no puede aplicar la deducción por superar el límite individual o por residir en otra comunidad, el otro puede deducir íntegramente el importe que corresponda"
+            ],
+            "compatibilidades": [],
+            "incompatibilidades": [
+              "Incompatible en todo caso con la deducción andaluza por nacimiento, adopción o acogimiento familiar de menores"
+            ],
+            "entradaNecesaria": [
+              "categoriaFamiliaNumerosa",
+              "baseImponibleGeneral",
+              "baseImponibleAhorro",
+              "numeroContribuyentesConDerecho"
+            ],
+            "fuenteManual": {
+              "documento": "ManualRenta2025Parte2",
+              "paginas": [
+                45,
+                46
+              ]
+            },
+            "estado": "implementada"
+          },
+          {
+            "codigo": "andalucia_contribuyente_discapacidad",
+            "comunidad": "andalucia",
+            "nombre": "Para contribuyentes con discapacidad",
+            "normativa": "Arts. 16 y 3 y disposición adicional segunda Ley 5/2021, de 20 de octubre, de Tributos Cedidos de Andalucía",
+            "categoria": "circunstancias_personales_familiares",
+            "cuantia": {
+              "tipo": "importe_fijo",
+              "euros": "150",
+              "por": "contribuyente con discapacidad"
+            },
+            "requisitos": [
+              "El contribuyente debe tener la consideración de persona con discapacidad",
+              "Grado de discapacidad igual o superior al 33 por 100",
+              "Base imponible general + base imponible del ahorro dentro de límites"
+            ],
+            "limites": [
+              "150 euros por contribuyente con discapacidad",
+              "Base imponible general + base imponible del ahorro: máximo 25.000 euros en tributación individual",
+              "Base imponible general + base imponible del ahorro: máximo 30.000 euros en tributación conjunta"
+            ],
+            "prorrateo": [],
+            "compatibilidades": [],
+            "incompatibilidades": [
+              "En tributación conjunta, no aplicar simultáneamente con asistencia a personas con discapacidad respecto del mismo hijo integrante de la unidad familiar con discapacidad cuando proceda la deducción por asistencia"
+            ],
+            "entradaNecesaria": [
+              "gradoDiscapacidadContribuyente",
+              "baseImponibleGeneral",
+              "baseImponibleAhorro"
+            ],
+            "fuenteManual": {
+              "documento": "ManualRenta2025Parte2",
+              "paginas": [
+                47,
+                48
+              ]
+            },
+            "estado": "implementada"
+          },
+          {
+            "codigo": "andalucia_conyuge_pareja_discapacidad",
+            "comunidad": "andalucia",
+            "nombre": "Para contribuyentes con cónyuges o parejas de hecho con discapacidad",
+            "normativa": "Arts. 17 y 3 y disposición adicional segunda Ley 5/2021, de 20 de octubre, de Tributos Cedidos de Andalucía",
+            "categoria": "circunstancias_personales_familiares",
+            "cuantia": {
+              "tipo": "importe_fijo",
+              "euros": "100",
+              "por": "cónyuge o pareja de hecho con discapacidad"
+            },
+            "requisitos": [
+              "Cónyuge o pareja de hecho con discapacidad igual o superior al 65 por 100",
+              "El cónyuge o pareja no debe ser declarante por tributación individual del IRPF en el ejercicio",
+              "En parejas de hecho, inscripción en el Registro de Parejas de Hecho de Andalucía o registros análogos",
+              "Base imponible general + base imponible del ahorro del contribuyente dentro de límites"
+            ],
+            "limites": [
+              "100 euros por cónyuge o pareja de hecho que cumpla los requisitos",
+              "Base imponible general + base imponible del ahorro: máximo 25.000 euros en tributación individual",
+              "Base imponible general + base imponible del ahorro: máximo 30.000 euros en tributación conjunta"
+            ],
+            "prorrateo": [],
+            "compatibilidades": [],
+            "incompatibilidades": [
+              "No procede si el cónyuge o pareja con discapacidad ha aplicado la deducción andaluza para contribuyentes con discapacidad"
+            ],
+            "entradaNecesaria": [
+              "conyugeOParejaConDiscapacidad65",
+              "conyugeOParejaDeclaraIndividual",
+              "parejaHechoInscrita",
+              "baseImponibleGeneral",
+              "baseImponibleAhorro"
+            ],
+            "fuenteManual": {
+              "documento": "ManualRenta2025Parte2",
+              "paginas": [
+                48,
+                49
+              ]
+            },
+            "estado": "implementada"
+          },
+          {
+            "codigo": "andalucia_asistencia_personas_discapacidad",
+            "comunidad": "andalucia",
+            "nombre": "Por asistencia a personas con discapacidad",
+            "normativa": "Arts. 18 y 3 y disposición adicional segunda Ley 5/2021, de 20 de octubre, de Tributos Cedidos de Andalucía",
+            "categoria": "circunstancias_personales_familiares",
+            "cuantia": {
+              "tipo": "mixta",
+              "descripcion": "100 euros por cada persona con discapacidad que dé derecho al mínimo por discapacidad de ascendientes o descendientes; adicionalmente, 20% de la cuota fija de Seguridad Social de empleados del hogar con límite de 500 euros si precisa ayuda de terceras personas"
+            },
+            "requisitos": [
+              "La persona con discapacidad debe dar derecho al mínimo por discapacidad de ascendientes o descendientes",
+              "Para el incremento por tercera persona, debe acreditarse necesidad de ayuda de terceras personas y derecho al mínimo por gastos de asistencia",
+              "Para el incremento, el contribuyente debe ser titular del hogar familiar en la Tesorería General de la Seguridad Social",
+              "Base imponible general + base imponible del ahorro dentro de límites"
+            ],
+            "limites": [
+              "100 euros por persona con discapacidad que genere derecho",
+              "Incremento adicional: 20% del importe satisfecho a la Seguridad Social como cuota fija por cuenta del empleador",
+              "Límite del incremento adicional: 500 euros anuales por contribuyente",
+              "Base imponible general + base imponible del ahorro: máximo 80.000 euros en tributación individual",
+              "Base imponible general + base imponible del ahorro: máximo 100.000 euros en tributación conjunta"
+            ],
+            "prorrateo": [
+              "Cuando varios contribuyentes tengan derecho, aplicar reglas de prorrateo, convivencia y límites de la normativa estatal del IRPF"
+            ],
+            "compatibilidades": [],
+            "incompatibilidades": [
+              "Incompatible con la deducción andaluza por ayuda doméstica cuando sea la misma persona empleada la que dé derecho a ambas deducciones"
+            ],
+            "entradaNecesaria": [
+              "numeroAscendientesDescendientesDiscapacidadConMinimo",
+              "necesitaAyudaTercerasPersonas",
+              "cuotasSeguridadSocialEmpleadoHogar",
+              "titularHogarFamiliar",
+              "baseImponibleGeneral",
+              "baseImponibleAhorro"
+            ],
+            "fuenteManual": {
+              "documento": "ManualRenta2025Parte2",
+              "paginas": [
+                49,
+                50
+              ]
+            },
+            "estado": "implementada"
+          },
+          {
+            "codigo": "andalucia_ayuda_domestica",
+            "comunidad": "andalucia",
+            "nombre": "Por ayuda doméstica",
+            "normativa": "Arts. 19 y 4 Ley 5/2021, de 20 de octubre, de Tributos Cedidos de Andalucía",
+            "categoria": "circunstancias_personales_familiares",
+            "cuantia": {
+              "tipo": "porcentaje",
+              "porcentaje": "20",
+              "base": "cotización anual satisfecha por cuenta del empleador a la Seguridad Social por empleado del hogar familiar",
+              "limiteMaximoEuros": "500"
+            },
+            "requisitos": [
+              "La cotización debe corresponder a empleado o empleada del hogar familiar que constituya la vivienda habitual del empleador",
+              "Debe constar Código Cuenta de Cotización del Sistema Especial de Empleados de Hogar",
+              "Debe cumplir uno de los supuestos: progenitores con hijos que den derecho al mínimo por descendientes y ambos cónyuges o pareja perciben rendimientos del trabajo o de actividades económicas",
+              "También procede si la persona titular del hogar familiar, su cónyuge o pareja inscrita tiene edad igual o superior a 75 años"
+            ],
+            "limites": [
+              "20% de las cantidades satisfechas a la Seguridad Social por cuenta del empleador",
+              "Importe máximo: 500 euros"
+            ],
+            "prorrateo": [
+              "En cónyuges o parejas inscritas, puede aplicarla indistintamente el titular del hogar familiar o su cónyuge o pareja cuando se cumplan los requisitos"
+            ],
+            "compatibilidades": [],
+            "incompatibilidades": [
+              "Incompatible con la deducción andaluza por asistencia a personas con discapacidad que precisen ayuda de terceras personas cuando la misma persona empleada dé derecho a ambas deducciones"
+            ],
+            "entradaNecesaria": [
+              "cuotasSeguridadSocialEmpleadoHogar",
+              "codigoCuentaCotizacionEmpleadoHogar",
+              "titularHogarFamiliar",
+              "edadTitularConyugeOPareja",
+              "tieneDescendientesConDerechoMinimo",
+              "ambosPercibenRendimientosTrabajoOActividad"
+            ],
+            "fuenteManual": {
+              "documento": "ManualRenta2025Parte2",
+              "paginas": [
+                50,
+                51
+              ]
+            },
+            "estado": "implementada"
+          },
+          {
+            "codigo": "andalucia_inversion_acciones_participaciones_mercantiles",
+            "comunidad": "andalucia",
+            "nombre": "Por inversión en la adquisición de acciones y participaciones sociales como consecuencia de acuerdos de constitución de sociedades o ampliación de capital en sociedades mercantiles",
+            "normativa": "Art. 20 Ley 5/2021, de 20 de octubre, de Tributos Cedidos de Andalucía",
+            "categoria": "otros_conceptos",
+            "cuantia": {
+              "tipo": "mixta",
+              "descripcion": "20% de la inversión con límite de 4.000 euros; 50% con límite de 12.000 euros para sociedades creadas o participadas por universidades o centros de investigación"
+            },
+            "requisitos": [
+              "Inversión en acciones o participaciones por constitución o ampliación de capital",
+              "Entidad con forma de SA, SAL, SL, SLL o sociedad cooperativa",
+              "La participación del contribuyente junto con cónyuge y parientes hasta tercer grado no puede superar el 40% del capital social o derechos de voto durante ningún día del año natural",
+              "La participación debe mantenerse al menos tres años"
+            ],
+            "limites": [
+              "Régimen general: 20% de las cantidades invertidas, límite 4.000 euros anuales",
+              "Régimen universidades/centros de investigación: 50% de las cantidades invertidas, límite 12.000 euros anuales",
+              "El límite incrementado de 12.000 euros es independiente del límite general de 4.000 euros"
+            ],
+            "prorrateo": [],
+            "compatibilidades": [],
+            "incompatibilidades": [],
+            "entradaNecesaria": [
+              "importeInvertido",
+              "entidadCreadaOParticipadaPorUniversidadOCentroInvestigacion",
+              "porcentajeParticipacionGrupoFamiliar",
+              "mantenimientoTresAnios",
+              "formaJuridicaEntidad"
+            ],
+            "fuenteManual": {
+              "documento": "ManualRenta2025Parte2",
+              "paginas": [
+                52,
+                53
+              ]
+            },
+            "estado": "implementada"
+          }
+        ]
+      },
+      "usaEscalaAutonomicaReal": true,
+      "cuotaIntegraGeneral": "8665.17",
+      "cuotaIntegraAhorro": "0",
+      "desgloseCuotaIntegraGeneralEstatal": [
+        {
+          "limiteInferior": "0",
+          "limiteSuperior": "12450",
+          "baseAplicada": "12450",
+          "tipo": "0.095",
+          "cuota": "1182.75"
+        },
+        {
+          "limiteInferior": "12450",
+          "limiteSuperior": "20200",
+          "baseAplicada": "7750",
+          "tipo": "0.12",
+          "cuota": "930"
+        },
+        {
+          "limiteInferior": "20200",
+          "limiteSuperior": "35200",
+          "baseAplicada": "14934.73",
+          "tipo": "0.15",
+          "cuota": "2240.2095"
+        }
+      ],
+      "desgloseCuotaIntegraGeneralAutonomica": [
+        {
+          "limiteInferior": "0",
+          "limiteSuperior": "13000",
+          "baseAplicada": "13000",
+          "tipo": "0.095",
+          "cuota": "1235"
+        },
+        {
+          "limiteInferior": "13000",
+          "limiteSuperior": "21100",
+          "baseAplicada": "8100",
+          "tipo": "0.12",
+          "cuota": "972"
+        },
+        {
+          "limiteInferior": "21100",
+          "limiteSuperior": "35200",
+          "baseAplicada": "14034.73",
+          "tipo": "0.15",
+          "cuota": "2105.2095"
+        }
+      ],
+      "desgloseCuotaIntegraAhorro": [],
+      "minimoContribuyente": "5550",
+      "minimoAscendientes": "0",
+      "minimoDescendientes": "0",
+      "minimoDiscapacidadContribuyente": "0",
+      "minimoDiscapacidadFamiliares": "0",
+      "minimoPersonalYFamiliar": "5550",
+      "minimoPersonalYFamiliarAutonomico": "5790",
+      "cuotaMinimoPersonal": "1077.3",
+      "ahorroConMinimos": {
+        "estatal": {
+          "bruta": "0",
+          "remanente": "0",
+          "despuesMinimo": "0",
+          "minoracion": "0"
+        },
+        "autonomico": {
+          "bruta": "0",
+          "remanente": "0",
+          "despuesMinimo": "0",
+          "minoracion": "0"
+        }
+      },
+      "cuotaMinimoPersonalAhorro": "0",
+      "desgloseCuotaMinimoPersonalEstatal": [
+        {
+          "limiteInferior": "0",
+          "limiteSuperior": "12450",
+          "baseAplicada": "5550",
+          "tipo": "0.095",
+          "cuota": "527.25"
+        }
+      ],
+      "desgloseCuotaMinimoPersonalAutonomica": [
+        {
+          "limiteInferior": "0",
+          "limiteSuperior": "13000",
+          "baseAplicada": "5790",
+          "tipo": "0.095",
+          "cuota": "550.05"
+        }
+      ],
+      "cuotaGeneralDespuesMinimo": "7587.87",
+      "cuotaAutonomicaGeneralDespuesMinimo": "3762.16",
+      "cuotaAhorroDespuesMinimo": "0",
+      "deduccionesAutonomicasAplicadas": "0",
+      "cuotaLiquida": "7587.87",
+      "dt18Aplicada": "0",
+      "cuotaIntegraGeneralEstatal": "4352.96",
+      "cuotaIntegraGeneralAutonomica": "4312.21",
+      "cuotaMinimoPersonalEstatal": "527.25",
+      "cuotaMinimoPersonalAutonomica": "550.05",
+      "deduccionTrabajo": "0",
+      "cuotaPosterior": "7587.87"
+    },
+    "retenciones": "5040",
+    "cuotaDiferencial": "2547.87",
+    "cuotaDiferencialPresentada": "2547.87",
+    "legalRuleSelected": null,
+    "aceptacionFiscal": "pendiente"
+  },
+  "comparisons": [
+    {
+      "name": "base",
+      "actual": "35134.73",
+      "expected": "35134.73",
+      "equal": true
+    },
+    {
+      "name": "trabajo",
+      "actual": "31660",
+      "expected": "31660.00",
+      "equal": true
+    },
+    {
+      "name": "retenciones",
+      "actual": "5040",
+      "expected": "5040.00",
+      "equal": true
+    },
+    {
+      "name": "diferencial",
+      "actual": "2547.87",
+      "expected": "2547.87",
+      "equal": true
+    },
+    {
+      "name": "amortizacion",
+      "actual": "4050.54",
+      "expected": "4050.54",
+      "equal": true
+    },
+    {
+      "name": "rnr",
+      "actual": "3474.73",
+      "expected": "3474.73",
+      "equal": true
+    },
+    {
+      "name": "generalEstatal",
+      "actual": "4352.96",
+      "expected": "4352.96",
+      "equal": true
+    },
+    {
+      "name": "minimoEstatal",
+      "actual": "527.25",
+      "expected": "527.25",
+      "equal": true
+    },
+    {
+      "name": "generalAutonomico",
+      "actual": "4312.21",
+      "expected": "4312.21",
+      "equal": true
+    },
+    {
+      "name": "minimoAutonomico",
+      "actual": "550.05",
+      "expected": "550.05",
+      "equal": true
+    }
+  ],
+  "passed": true,
+  "openObserved": false,
+  "counted": false
+}

@@ -7,7 +7,7 @@ import { MINIMOS_ESTATALES_2025 } from "../../normativa/datos/minimos-autonomico
 import { crearLineaCalculo } from "../../explicacion/linea-calculo"
 /** Ambas API comparten preparación y composición; legal y operativo se conservan separados. */
 export const liquidarTrabajoAlquilerOrdinario2025 = Effect.fn("Trabajo.alquilerOrdinario2025")(function* (entrada: CasoTrabajoAlquilerOrdinario2025, cotizacionesModo: "efectivas" | "estimadas-perfil-uniforme" = "efectivas") {
- const {c,inm,neto,renta,base,bruto,cotizaciones,cero,empleo,politicaOpen}=yield* prepararTrabajoAlquilerOrdinario2025(entrada,cotizacionesModo)
+ const {c,inm,neto,renta,base,bruto,cotizaciones,cero,empleo,politicaOpen,solicitudMadrid}=yield* prepararTrabajoAlquilerOrdinario2025(entrada,cotizacionesModo)
  const composicion=yield* componerLiquidacionAnual({
   hechosAlquilerOpen2025:politicaOpen===undefined?undefined:c,
   inmueblesP4a:inm.inmuebles,
@@ -19,6 +19,7 @@ export const liquidarTrabajoAlquilerOrdinario2025 = Effect.fn("Trabajo.alquilerO
   basesImponiblesE38:{general:base,ahorro:cero},baseGeneral:base,baseAhorro:cero,
   rentasAntesReducciones:neto.plus(renta),minimosEstatales:MINIMOS_ESTATALES_2025,
   deduccionesAutonomicasCentimos:0,
+  deduccionesTerritoriales2025:solicitudMadrid,
  })
  const retenciones=c.retenciones.reduce((a,r)=>a.plus(r.importe),cero)
  const diferencial=composicion.cuotaPosterior.minus(retenciones)
@@ -31,8 +32,23 @@ export const liquidarTrabajoAlquilerOrdinario2025 = Effect.fn("Trabajo.alquilerO
   ["trabajo-bruto",bruto],["cotizaciones-efectivas",cotizaciones],["trabajo-neto",neto],["base",base],
   ["general-estatal",composicion.cuotaIntegraGeneralEstatal],["minimo-estatal",composicion.cuotaMinimoPersonalEstatal],
   ["general-autonomico",composicion.cuotaIntegraGeneralAutonomica],["minimo-autonomico",composicion.cuotaMinimoPersonalAutonomica],
+  ...(solicitudMadrid===undefined?[]:[["deduccion-autonomica",composicion.deduccionesAutonomicasAplicadas] as const]),
   ["cuota-posterior",composicion.cuotaPosterior],["retenciones",retenciones],["diferencial",diferencial],
  ] as const
+ const rastroOperativo = libro===undefined?undefined:{
+  alquiler:libro,trabajo:{bruto,cotizaciones,neto},base,
+  gravamenes:{generalEstatal:composicion.cuotaIntegraGeneralEstatal,minimoEstatal:composicion.cuotaMinimoPersonalEstatal,
+   generalAutonomico:composicion.cuotaIntegraGeneralAutonomica,minimoAutonomico:composicion.cuotaMinimoPersonalAutonomica},
+  cuotaPosterior:composicion.cuotaPosterior,retenciones,diferencial,
+ }
+ const rastroConDeducciones: (NonNullable<typeof rastroOperativo> & {
+  deducciones?: typeof composicion.deduccionesTerritoriales2025
+  deduccionesAutonomicasAplicadas?: Decimal
+ }) | undefined = rastroOperativo
+ if(solicitudMadrid!==undefined && rastroConDeducciones!==undefined) {
+  rastroConDeducciones.deducciones=composicion.deduccionesTerritoriales2025
+  rastroConDeducciones.deduccionesAutonomicasAplicadas=composicion.deduccionesAutonomicasAplicadas
+ }
  return {_tag:"LiquidacionTrabajoAlquilerOrdinario2025" as const,perfil:c.perfil,ejercicio:2025 as const,contribuyenteId:c.contribuyenteId,liquidacionId:c.liquidacionId,
   politicaOpen:composicion.politicaAlquilerOpen2025,
   rastro:libro===undefined?undefined:{titulo:libro.nombre,pasos:[{
@@ -41,12 +57,7 @@ export const liquidarTrabajoAlquilerOrdinario2025 = Effect.fn("Trabajo.alquilerO
    lineasCalculo:[crearLineaCalculo({siteId:"alquiler.open.porcentaje",instancia:0,importe:libro.porcentaje,unidad:"percent",etiqueta:"Porcentaje catastral operativo",formula:"HALF_UP2(100 × construcción / total catastral)"}),
     ...operandos.map(([etiqueta,importe])=>crearLineaCalculo({siteId:`alquiler.open.${etiqueta}`,instancia:0,importe,unidad:"EUR",etiqueta,formula:"Operando producido por la preparación y composición común; véase libro operativo"}))],fuentes:[],
   }]},
-  rastroOperativo:composicion.politicaAlquilerOpen2025===undefined?undefined:{
-   alquiler:composicion.politicaAlquilerOpen2025, trabajo:{bruto,cotizaciones,neto}, base,
-   gravamenes:{generalEstatal:composicion.cuotaIntegraGeneralEstatal,minimoEstatal:composicion.cuotaMinimoPersonalEstatal,
-    generalAutonomico:composicion.cuotaIntegraGeneralAutonomica,minimoAutonomico:composicion.cuotaMinimoPersonalAutonomica},
-   cuotaPosterior:composicion.cuotaPosterior,retenciones,diferencial,
-  },
+  rastroOperativo:composicion.politicaAlquilerOpen2025===undefined?undefined:rastroConDeducciones,
   inmuebles:inm.inmuebles,rendimientoNetoTrabajo:neto,baseImponibleGeneral:base,composicion,retenciones,
   cuotaDiferencial:diferencial,cuotaDiferencialPresentada:diferencial.toFixed(2,Decimal.ROUND_HALF_UP),legalRuleSelected:null,aceptacionFiscal:"pendiente" as const,
  }

@@ -1,4 +1,5 @@
-import { Effect, Schema } from "effect"
+import { SolicitudMadridArrendadorDerivada } from "./madrid-arrendador"
+import { Effect, Result, Schema } from "effect"
 import type { EntradaComposicionAnual } from "../liquidacion/composicion-anual"
 import { prepararTrabajoAlquilerOrdinario2025 } from "./preparar"
 import { RechazoP4a } from "../inmobiliario-2025/contrato"
@@ -58,11 +59,21 @@ export const seleccionarPoliticaAlquilerOpen2025=Effect.fn("Alquiler.seleccionar
   !e.serviciosLaborales.bruto.eq(p.bruto) || e.serviciosLaborales.netoReducido===undefined || !e.serviciosLaborales.netoReducido.eq(p.neto) ||
   e.serviciosLaborales.otrasRentas===undefined || !e.serviciosLaborales.otrasRentas.eq(p.renta) ||
   e.deduccionesAutonomicasCentimos!==0 || e.origenBaseGeneralB!==undefined || e.rentaActividadAnualB!==undefined ||
-  e.deduccionesTerritoriales2025!==undefined || e.deduccionesValencianas2025!==undefined ||
+  e.deduccionesValencianas2025!==undefined ||
   e.maternidad2025!==undefined || e.ingresosIdentificados2025!==undefined || e.basesFamiliares2025!==undefined ||
   e.conjunta2025!==undefined || e.aragonSocialMixto2025!==undefined || e.pagadoresCatalunya2025!==undefined ||
   e.hechosFamiliaOpen2025!==undefined || e.hechosOpen2020A2022!==undefined || e.hechosOpen2023A2024!==undefined)
   return yield* fail()
+ // Sólo admite la solicitud reproducida desde los hechos conciliados.
+ if(p.solicitudMadrid===undefined) {
+  if(e.deduccionesTerritoriales2025!==undefined) return yield* fail()
+ } else {
+  const decode=Schema.decodeUnknownResult(SolicitudMadridArrendadorDerivada)
+  const esperado=decode(p.solicitudMadrid,{onExcessProperty:"error"})
+  const recibido=decode(e.deduccionesTerritoriales2025,{onExcessProperty:"error"})
+  if(Result.isFailure(esperado) || Result.isFailure(recibido) ||
+   !Schema.toEquivalence(SolicitudMadridArrendadorDerivada)(esperado.success,recibido.success)) return yield* fail()
+ }
  // Comparación de contenido, no de identidad de objetos. Conserva los racionales exactos.
  if(!mismosMinimos(e.minimosEstatales,MINIMOS_ESTATALES_2025) ||
   e.inmueblesP4a===undefined || e.inmueblesP4a.length!==p.inm.inmuebles.length ||
