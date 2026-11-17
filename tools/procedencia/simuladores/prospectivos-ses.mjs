@@ -56,7 +56,7 @@ export const negativeMeaning=(row)=>row.value==='254'
 /** Guardas del dominio nominal. Los sellos y el censo completo se verifican en el comprobador. */
 export function contextSES({H,P},core){
  core.need(H.entrada.ejercicio===2025&&P.result.ejercicio===2025,'ejercicio');
- core.need(['andalucia','madrid'].includes(H.entrada.comunidadAutonoma),'territorio-dominio');
+ core.need(['andalucia','madrid','asturias'].includes(H.entrada.comunidadAutonoma),'territorio-dominio');
  core.need(H.entrada.modalidad==='individual'&&H.entrada.edad===40&&H.entrada.familiares==='ninguno'&&H.entrada.discapacidad==='ninguna','perfil-nominal');
  const i=H.entrada.inmuebles[0];
  core.need(H.entrada.inmuebles.length===1&&i.id==='V'&&i.titular===H.entrada.contribuyenteId&&i.regimenMatrimonial==='no-casado','inmueble-unico');

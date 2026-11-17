@@ -867,5 +867,411 @@
       "pdfSHA256": "3aec824daec365020d26e0c62cc8a392a28f7a560c3dadc133f105850f2fec8b"
     },
     "alcance": "Regresión de cálculo; el sello no sustituye la vinculación fiscal. No modifica la muestra ponderada original de 80 casos."
+  },
+  {
+    "id": "prospectivo-alquiler-2025-1",
+    "naturaleza": "exclusivamente-sintetico",
+    "entrada": {
+      "perfil": "trabajo-alquiler-ordinario-2025",
+      "ejercicio": 2025,
+      "comunidadAutonoma": "asturias",
+      "modalidad": "individual",
+      "periodo": "ordinario-2025",
+      "devengo": "2025-12-31",
+      "residenciaTodoElAnio": true,
+      "contribuyenteId": "s-1",
+      "liquidacionId": "open2025-asturias-02-suelo-desconocido-v1",
+      "edad": 40,
+      "familiares": "ninguno",
+      "discapacidad": "ninguna",
+      "otrasRentas": "ninguna",
+      "reduccionesBase": "ninguna",
+      "compensaciones": "ninguna",
+      "otrasDeducciones": "solo-asturias-gastos-arrendamiento-viviendas",
+      "censoInmobiliario": {
+        "documento": "sintetico:censo-mundial",
+        "cobertura": "mundial-propiedad-usufructo-cualquier-porcentaje-todo-2025",
+        "inmuebles": [
+          "V"
+        ]
+      },
+      "inmuebles": [
+        {
+          "id": "V",
+          "catastro": "sintetico:catastro",
+          "ubicacion": "resto-espana",
+          "titular": "s-1",
+          "titulo": "sintetico:titulo",
+          "derecho": "propiedad",
+          "regimenMatrimonial": "no-casado",
+          "titulares": [
+            "s-1"
+          ],
+          "adquisicion": {
+            "fecha": "2020-01-01",
+            "escritura": "sintetico:escritura",
+            "precio": "120000.00",
+            "gastosTributos": "0",
+            "costeSuelo": {
+              "estado": "desconocido"
+            }
+          },
+          "catastro2025": {
+            "documento": "sintetico:catastro2025",
+            "suelo": "37655.00",
+            "construccion": "62345.00"
+          },
+          "usosDesdeAdquisicion": [
+            {
+              "desde": "2020-01-01",
+              "hasta": "2024-11-30",
+              "uso": "personal"
+            },
+            {
+              "desde": "2024-12-01",
+              "hasta": "2025-12-31",
+              "uso": "alquiler-vivienda"
+            }
+          ],
+          "contrato": {
+            "id": "C",
+            "documento": "sintetico:contrato",
+            "firma": "2024-12-01",
+            "desde": "2024-12-01",
+            "hasta": "2028-12-01",
+            "arrendador": "s-1",
+            "arrendatario": "inquilino-ficticio",
+            "destino": "vivienda-permanente-persona-fisica",
+            "parentesco": "ninguno",
+            "fianzaDepositada": "sintetico:deposito",
+            "zonaTensionada": false,
+            "alquilerSocial": false,
+            "rehabilitacionesTresAnios": "ninguna",
+            "repercusionObras": "0"
+          },
+          "exigibilidades": [
+            {
+              "id": "R1",
+              "documento": "sintetico:exigible-1",
+              "fecha": "2025-01-01",
+              "importe": "1000.00"
+            },
+            {
+              "id": "R2",
+              "documento": "sintetico:exigible-2",
+              "fecha": "2025-02-01",
+              "importe": "1000.00"
+            },
+            {
+              "id": "R3",
+              "documento": "sintetico:exigible-3",
+              "fecha": "2025-03-01",
+              "importe": "1000.00"
+            },
+            {
+              "id": "R4",
+              "documento": "sintetico:exigible-4",
+              "fecha": "2025-04-01",
+              "importe": "1000.00"
+            },
+            {
+              "id": "R5",
+              "documento": "sintetico:exigible-5",
+              "fecha": "2025-05-01",
+              "importe": "1000.00"
+            },
+            {
+              "id": "R6",
+              "documento": "sintetico:exigible-6",
+              "fecha": "2025-06-01",
+              "importe": "1000.00"
+            },
+            {
+              "id": "R7",
+              "documento": "sintetico:exigible-7",
+              "fecha": "2025-07-01",
+              "importe": "1000.00"
+            },
+            {
+              "id": "R8",
+              "documento": "sintetico:exigible-8",
+              "fecha": "2025-08-01",
+              "importe": "1000.00"
+            },
+            {
+              "id": "R9",
+              "documento": "sintetico:exigible-9",
+              "fecha": "2025-09-01",
+              "importe": "1000.00"
+            },
+            {
+              "id": "R10",
+              "documento": "sintetico:exigible-10",
+              "fecha": "2025-10-01",
+              "importe": "1000.00"
+            },
+            {
+              "id": "R11",
+              "documento": "sintetico:exigible-11",
+              "fecha": "2025-11-01",
+              "importe": "1000.00"
+            },
+            {
+              "id": "R12",
+              "documento": "sintetico:exigible-12",
+              "fecha": "2025-12-01",
+              "importe": "1000.00"
+            }
+          ],
+          "gastos": [
+            {
+              "id": "REP",
+              "factura": "sintetico:reparacion",
+              "lineaFactura": "1",
+              "totalFactura": "1000.00",
+              "fechaOperacion": "2025-06-01",
+              "fechaFactura": "2025-06-01",
+              "fechaPago": "2025-06-01",
+              "importe": "1000.00",
+              "clase": "reparacion",
+              "prestadorNif": "prestador-ficticio"
+            }
+          ],
+          "censo": "contratos-ingresos-gastos-usos-y-titulares-completos",
+          "serviciosHospedaje": "ninguno",
+          "personalJornadaCompleta": "ninguno",
+          "ayudas": "ninguna",
+          "saldosPrevios": "ninguno",
+          "insolvencia": "ninguna",
+          "mobiliario": "ninguno",
+          "mejorasAnteriores2025": "ninguna",
+          "ingresosIrregulares": "ninguno"
+        }
+      ],
+      "historia2024": {
+        "documento": "sintetico:catastro2024",
+        "construccion": "60000.00",
+        "mejoras": "ninguna"
+      },
+      "trabajo": {
+        "ejercicio": 2025,
+        "territorio": "comun",
+        "reduccionesArt18": "ninguna",
+        "movilidad": "ninguna",
+        "discapacidadActiva": "ninguna",
+        "rendimientos": [
+          {
+            "id": "a",
+            "clase": "empleo-laboral",
+            "integro": "32000.00",
+            "cotizaciones": {
+              "clase": "efectivas",
+              "seguridadSocial": "2080.00",
+              "derechosPasivos": "0",
+              "colegiosHuerfanos": "0"
+            },
+            "sindicato": {
+              "importe": "0",
+              "satisfecho": "si"
+            },
+            "colegio": {
+              "importe": "0",
+              "satisfecho": "si",
+              "obligatorio": "si",
+              "finesEsenciales": "si"
+            },
+            "defensa": {
+              "importe": "0",
+              "satisfecho": "si",
+              "litigioDirectoPagador": "si"
+            }
+          }
+        ]
+      },
+      "conciliacion": {
+        "ejercicio": 2025,
+        "estado": "totales-anuales-sin-duplicados",
+        "procedencia": [
+          "sintetico:datos-fiscales-2025",
+          "sintetico:certificados-pagadores"
+        ],
+        "contribuyenteId": "s-1"
+      },
+      "retenciones": [
+        {
+          "id": "ret-0",
+          "documento": "sintetico:certificado-0",
+          "contribuyenteId": "s-1",
+          "ejercicio": 2025,
+          "fecha": "2025-12-31",
+          "importe": "4480.00"
+        }
+      ],
+      "declaracion": {
+        "contexto": "ordinaria-voluntaria",
+        "ingresos": "todos-los-exigibles-declarados",
+        "procedimientoPrevio": "ninguno",
+        "amortizacion": "maximo-efectivo-3-por-ciento"
+      },
+      "asturiasArrendador2025": {
+        "origen": "serpavi_excluido_tipologia",
+        "ejercicio": 2025,
+        "inmuebleId": "V",
+        "catastro": "sintetico:catastro",
+        "propietario": "s-1",
+        "titulo": "sintetico:titulo",
+        "porcentajePropiedad": "100",
+        "municipio": "33044",
+        "tipologia": "unifamiliar",
+        "documento": {
+          "referencia": "sintetico:estipulacion-exclusion",
+          "organismo": "entidad-ficticia-sin-valor-probatorio-real",
+          "fecha": "2024-12-01"
+        },
+        "acreditacion": {
+          "documento": {
+            "referencia": "sintetico:ficha-tipologica-inventada",
+            "organismo": "entidad-ficticia-sin-valor-probatorio-real",
+            "fecha": "2024-12-01"
+          },
+          "inmuebleId": "V",
+          "catastro": "sintetico:catastro",
+          "tipologia": "unifamiliar"
+        },
+        "localizacion": {
+          "comunidad": "asturias",
+          "municipio": "33044",
+          "documento": {
+            "referencia": "sintetico:localizacion-inventada",
+            "organismo": "entidad-ficticia-sin-valor-probatorio-real",
+            "fecha": "2024-12-01"
+          }
+        },
+        "contrato": {
+          "id": "C",
+          "documento": "sintetico:contrato",
+          "firma": "2024-12-01",
+          "desde": "2024-12-01",
+          "hasta": "2028-12-01",
+          "destino": "vivienda-permanente-persona-fisica",
+          "regimen": "LAU-articulo-2"
+        },
+        "precio": {
+          "rentaMensual": "1000.00",
+          "desde": "2025-01-01",
+          "hasta": "2025-12-31",
+          "gastosPropietarioRepercutidos": "0",
+          "obligacionesArrendatario": "0",
+          "cambios": "ninguno",
+          "mensualidades": [
+            {
+              "id": "R1",
+              "fecha": "2025-01-01",
+              "importe": "1000.00"
+            },
+            {
+              "id": "R2",
+              "fecha": "2025-02-01",
+              "importe": "1000.00"
+            },
+            {
+              "id": "R3",
+              "fecha": "2025-03-01",
+              "importe": "1000.00"
+            },
+            {
+              "id": "R4",
+              "fecha": "2025-04-01",
+              "importe": "1000.00"
+            },
+            {
+              "id": "R5",
+              "fecha": "2025-05-01",
+              "importe": "1000.00"
+            },
+            {
+              "id": "R6",
+              "fecha": "2025-06-01",
+              "importe": "1000.00"
+            },
+            {
+              "id": "R7",
+              "fecha": "2025-07-01",
+              "importe": "1000.00"
+            },
+            {
+              "id": "R8",
+              "fecha": "2025-08-01",
+              "importe": "1000.00"
+            },
+            {
+              "id": "R9",
+              "fecha": "2025-09-01",
+              "importe": "1000.00"
+            },
+            {
+              "id": "R10",
+              "fecha": "2025-10-01",
+              "importe": "1000.00"
+            },
+            {
+              "id": "R11",
+              "fecha": "2025-11-01",
+              "importe": "1000.00"
+            },
+            {
+              "id": "R12",
+              "fecha": "2025-12-01",
+              "importe": "1000.00"
+            }
+          ]
+        },
+        "pagos": [
+          {
+            "gastoId": "REP",
+            "pagador": "s-1",
+            "soportePago": "sintetico:transferencia-reparacion-inventada",
+            "medio": "transferencia"
+          }
+        ],
+        "censo": {
+          "documento": {
+            "referencia": "sintetico:censo-negativo-inventado",
+            "organismo": "entidad-ficticia-sin-valor-probatorio-real",
+            "fecha": "2025-12-31"
+          },
+          "ejercicio": 2025,
+          "propietario": "s-1",
+          "otrosInmuebles": "ninguno",
+          "otrosGastosElegibles": "ninguno",
+          "otrosIncentivos": "ninguno",
+          "otrosPagadores": "ninguno",
+          "cobertura": "anual-completa"
+        },
+        "rendimiento": "capital_inmobiliario"
+      }
+    },
+    "referenciaPrevia": {
+      "base": "32297.70",
+      "trabajo": "27920.00",
+      "retenciones": "4480.00",
+      "porcentaje": "62.35",
+      "amortizacion": "2244.60",
+      "rnr": "4377.70",
+      "gravamenes": {
+        "generalEstatal": "3927.41",
+        "generalAutonomico": "3794.03",
+        "minimoEstatal": "527.25",
+        "minimoAutonomico": "549.45"
+      },
+      "deduccionAutonomica": "500.00",
+      "diferencial": "1664.74"
+    },
+    "integridad": {
+      "escenarioPrevioSHA256": "ec83dc35a9764f70a9da414d33f9e08f64cd3a86c45cf714dabd83619e537eca",
+      "sesSHA256": "e893f9f7fe52eb4d84d93f17efeda546d77c691c98c3ea6131c3ceda67563629",
+      "pdfSHA256": "f5555ce2f7458119199257ad24be9fc39a0d12aa55a6783f35f72867ef42a464"
+    },
+    "alcance": "Regresión de cálculo; los hechos externos de elegibilidad son sintéticos. La vinculación completa se comprueba aparte; no modifica la muestra original de 80 casos."
   }
 ]

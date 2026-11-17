@@ -1,3 +1,4 @@
+import { SolicitudAsturiasArrendadorDerivada } from "./asturias-arrendador"
 import { SolicitudMadridArrendadorDerivada } from "./madrid-arrendador"
 import { Effect, Result, Schema } from "effect"
 import type { EntradaComposicionAnual } from "../liquidacion/composicion-anual"
@@ -68,11 +69,12 @@ export const seleccionarPoliticaAlquilerOpen2025=Effect.fn("Alquiler.seleccionar
  if(p.solicitudMadrid===undefined) {
   if(e.deduccionesTerritoriales2025!==undefined) return yield* fail()
  } else {
-  const decode=Schema.decodeUnknownResult(SolicitudMadridArrendadorDerivada)
+  const forma=Schema.Union([SolicitudMadridArrendadorDerivada,SolicitudAsturiasArrendadorDerivada])
+  const decode=Schema.decodeUnknownResult(forma)
   const esperado=decode(p.solicitudMadrid,{onExcessProperty:"error"})
   const recibido=decode(e.deduccionesTerritoriales2025,{onExcessProperty:"error"})
   if(Result.isFailure(esperado) || Result.isFailure(recibido) ||
-   !Schema.toEquivalence(SolicitudMadridArrendadorDerivada)(esperado.success,recibido.success)) return yield* fail()
+   !Schema.toEquivalence(forma)(esperado.success,recibido.success)) return yield* fail()
  }
  // Comparación de contenido, no de identidad de objetos. Conserva los racionales exactos.
  if(!mismosMinimos(e.minimosEstatales,MINIMOS_ESTATALES_2025) ||

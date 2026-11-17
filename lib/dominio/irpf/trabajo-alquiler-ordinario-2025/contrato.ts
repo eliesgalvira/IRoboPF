@@ -1,3 +1,4 @@
+import { ExclusionTipologicaAsturias2025 } from "../deducciones/asturias-cantabria-ampliacion-2025/exclusion-tipologica"
 import { Schema } from "effect"
 import { InmuebleP4a } from "../inmobiliario-2025/contrato"
 import { GastosTrabajo } from "../trabajo-anual/contrato"
@@ -23,7 +24,8 @@ export const CasoTrabajoAlquilerOrdinario2025 = Schema.Struct({
  edad: Schema.Number.check(Schema.isInt(), Schema.isBetween({ minimum:18, maximum:64 })),
  familiares: Schema.Literal("ninguno"), discapacidad: Schema.Literal("ninguna"),
  otrasRentas: Schema.Literal("ninguna"), reduccionesBase: Schema.Literal("ninguna"),
- compensaciones: Schema.Literal("ninguna"), otrasDeducciones: Schema.Literals(["ninguna", "solo-madrid-gastos-arrendamiento-viviendas"]),
+ compensaciones: Schema.Literal("ninguna"), otrasDeducciones: Schema.Literals(["ninguna", "solo-madrid-gastos-arrendamiento-viviendas", "solo-asturias-gastos-arrendamiento-viviendas"]),
+ asturiasArrendador2025: Schema.optionalKey(ExclusionTipologicaAsturias2025),
  madridArrendador2025: Schema.optionalKey(MadridArrendador2025),
  censoInmobiliario: Schema.Struct({ documento: Texto,
   cobertura: Schema.Literal("mundial-propiedad-usufructo-cualquier-porcentaje-todo-2025"),

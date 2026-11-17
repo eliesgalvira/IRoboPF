@@ -52,10 +52,11 @@ export function validatePdf(rows, contract, H, P) {
     '1396':v.gastos[0].importe,
   };
   if(h.comunidadAutonoma==='madrid')numbers['1116']=c.deduccionesAutonomicasAplicadas;
+  if(h.comunidadAutonoma==='asturias')numbers['1628']=c.deduccionesAutonomicasAplicadas;
   // Identidades de roles de esta proyección sintética, no identificadores reales.
   const text={
     '0002':'PRUEBA C OPEN','0005':'Hombre','0006':'(1) Soltero/a','0010':'01/01/1985',
-    '0070':h.comunidadAutonoma==='madrid'?'MADRID':'ANDALUCÍA','0068':'X',
+    '0070':({madrid:'MADRID',andalucia:'ANDALUCÍA',asturias:'PRINCIPADO DE ASTURIAS'})[h.comunidadAutonoma],'0068':'X',
     '0062':'DECLARANTE','0065':'1','0066':'9999999ZZ9999Z0001OI','0067':'X',
     '0069':'CALLE PRUEBA SINTETICA 1','0075':'X','0091':'90000001N',
     '0093':date(v.contrato.firma),'0100':'X','0101':'365','0118':'X',
@@ -68,7 +69,9 @@ export function validatePdf(rows, contract, H, P) {
     need(Array.isArray(ss)&&ss.length>0,'PDF-segmentos');
     const last=ss.at(-1),box=last.value;
     // Casillas a la derecha de los folios de renta: el censo fija página y ambas coordenadas.
-    if(ss.length===3 && last.x===553.43164 && /^\d{4}$/.test(box)){
+    if(h.comunidadAutonoma==='asturias' && box==='0070' && ss.length===2 && last.x===553.43164){
+      need(ss[0].value===text['0070'],'PDF-correspondencia:0070');seen.add(box);
+    }else if(ss.length===3 && last.x===553.43164 && /^\d{4}$/.test(box)){
       let expected;
       if(box==='0001')expected=ss[0].value==='NIF'?'90000000B':'DECLARANTE';
       else if(Object.hasOwn(numbers,box))expected=format(numbers[box]);

@@ -1,9 +1,10 @@
-# Tres observaciones adicionales de alquiler, renta 2025
+# Observaciones adicionales de alquiler, renta 2025
 
-La muestra ponderada original conserva **76 de 80 casos**. Estos tres casos
+La muestra ponderada original conserva **76 de 80 casos**. Estos cuatro casos
 sintéticos son adicionales, sin peso, de una selección prospectiva de cuatro.
 No sustituyen los cuatro arrendadores originales con coste del suelo conocido.
-Asturias sigue pendiente del requisito de precio socialmente sostenible.
+Asturias declara expresamente una vivienda unifamiliar excluida del rango
+individual SERPAVI, con reserva documental histórica y hechos ficticios.
 El manifiesto no habilita por sí mismo el conteo en el medidor público.
 
 Las predicciones se guardaron antes de las capturas. Los originales de cada
@@ -20,6 +21,14 @@ Andalucía arroja un diferencial de **2.547,87 euros**. Los casos madrileños
 arrojan **1.973,14** y **2.682,34 euros**, incluyendo una deducción autonómica
 de 100 euros por 1.000 euros de reparación. Se introdujo el gasto, no el
 resultado de la deducción ni una amortización calculada externamente.
+
+Asturias arroja **1.664,74 euros**, con 500 euros de deducción por 1.000 euros
+de reparación. Su predicción se selló antes de abrir una nueva declaración.
+La captura ordinaria introduce salario, retenciones, valores de adquisición y
+catastro, contrato y gastos; Open calcula la amortización y la deducción.
+Se conservan 312 registros SES, sus 31 secciones y las cinco páginas del PDF.
+La tipología, el municipio y la validez material de los documentos son hechos
+externos estipulados; la salida del simulador no los autentica.
 
 ## Revisión y límites
 
@@ -68,7 +77,7 @@ No se presenta como una entrada idéntica a la selección inicial sin otras
 deducciones. Los estados pendientes conservados dentro de los escenarios son
 antecedentes documentales, no banderas actuales de admisión.
 
-La regresión `tests/alquiler-prospectivo-2025.test.ts` conserva las tres
+La regresión `tests/alquiler-prospectivo-2025.test.ts` conserva las cuatro
 predicciones y comprueba bases, amortización, cuatro gravámenes, deducción,
 retenciones y diferencial mediante la API explícita. Es una prueba de cálculo;
 no reemplaza el vínculo documental ni modifica el contador original.
@@ -77,3 +86,9 @@ El cierre previo de la conexión madrileña está en
 `docs/procedencia/reforma-motor/revision-madrid-arrendador-cierre.txt`.
 Su reserva de que todavía no había observaciones oficiales corresponde al
 momento de aquella revisión; las presentes capturas son posteriores.
+
+Cada caso aporta una distinción: escala andaluza, gasto deducible madrileño,
+coste intermedio madrileño con subcéntimos y gasto asturiano al 100 % con tope.
+La igualdad final es 4/4; la igualdad de los intermedios contrastados es 3/4.
+No se añaden pesos sin soporte estadístico ni se sustituyen los cuatro casos
+originales cuyo suelo conocido no se pudo transmitir por esta vía ordinaria.

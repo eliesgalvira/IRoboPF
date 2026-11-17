@@ -1,3 +1,4 @@
+import { producirSolicitudAsturiasArrendador2025 } from "./asturias-arrendador"
 import { producirSolicitudMadridArrendador2025 } from "./madrid-arrendador"
 import { producirPoliticaAlquilerOpen2025 } from "./politica-open"
 import { costeConstruccion2025, historiaDesconocidaNoVinculante2025 } from "../inmobiliario-2025/coste-construccion"
@@ -20,7 +21,9 @@ export const prepararTrabajoAlquilerOrdinario2025 = Effect.fn("Trabajo.prepararA
  const c=decoded.success, v=c.inmuebles[0]!
  if(c.censoInmobiliario.inmuebles[0]!==v.id || v.ubicacion!=="resto-espana" || v.primerAlquiler2025!==undefined || v.vaciaExt2025!==undefined || v.cambioHabitual2025!==undefined || v.cambioHabitualBalears2025!==undefined || v.contrato.firma!=="2024-12-01" || v.contrato.desde!=="2024-12-01" || v.gastos.some(g=>g.clase!=="reparacion"))
   return yield* rechazo("Alquiler ordinario: censo único, contrato diciembre2024; sólo reparación corriente, sin extensiones")
- const solicitudMadrid=yield* Effect.try({try:()=>producirSolicitudMadridArrendador2025(c),catch:e=>rechazo(String(e))})
+ const solicitudAsturias=yield* Effect.try({try:()=>producirSolicitudAsturiasArrendador2025(c),catch:e=>rechazo(String(e))})
+ // Conserva el nombre interno anterior para los consumidores comunes de ambas API.
+ const solicitudMadrid=solicitudAsturias ?? (yield* Effect.try({try:()=>producirSolicitudMadridArrendador2025(c),catch:e=>rechazo(String(e))}))
  const coste=yield* Effect.try({
   try:()=>costeConstruccion2025(v.adquisicion,v.catastro2025),
   catch:e=>rechazo(e instanceof RangeError?e.message:"Coste de construcción incoherente"),

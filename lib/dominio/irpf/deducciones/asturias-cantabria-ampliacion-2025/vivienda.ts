@@ -1,3 +1,4 @@
+import { validarExclusionTipologica, type ExclusionTipologicaAsturias2025 } from "./exclusion-tipologica"
 import {
   r,
   cuenta,
@@ -90,7 +91,7 @@ export type HechosVivienda =
         readonly inmueble: Vivienda
         readonly arrendatario: string
         readonly rentaMensual: string
-        readonly referencia: {
+        readonly referencia: ExclusionTipologicaAsturias2025 | {
           readonly origen: "norma_asturiana" | "serpavi"
           readonly municipio: string
           readonly ejercicio: 2025
@@ -324,6 +325,10 @@ export function evaluarVivienda(m: MarcoB, h: HechosVivienda) {
       let sum = r("0")
       for (const c of h.contratos) {
         documento(c.referencia.documento)
+        if (c.referencia.origen === "serpavi_excluido_tipologia") {
+          exigir(h.contratos.length === 1, "Exclusión sólo para una vivienda")
+          validarExclusionTipologica(m, c.referencia, c)
+        }
         exigir(
           c.referencia.ejercicio === 2025 &&
             c.referencia.municipio === c.inmueble.municipio &&
@@ -334,7 +339,8 @@ export function evaluarVivienda(m: MarcoB, h: HechosVivienda) {
         if (
           c.inmueble.destino !== "habitual" ||
           r(c.ingresosCapitalInmobiliario).cmp(r("0")) === 0 ||
-          r(c.rentaMensual).cmp(r(c.referencia.rentaMensual)) > 0
+          (c.referencia.origen !== "serpavi_excluido_tipologia" &&
+            r(c.rentaMensual).cmp(r(c.referencia.rentaMensual)) > 0)
         )
           continue
         sum = sum.plus(
@@ -348,7 +354,7 @@ export function evaluarVivienda(m: MarcoB, h: HechosVivienda) {
         sum.min(r("500")),
         "Asturias art.14quindecies:gastos tasados y precio con sostenibilidad social",
         [
-          "Referencia normativa o SERPAVI identificada por vivienda/ejercicio, no precio libre elegido por contribuyente; su correspondencia se contrasta en el expediente",
+          "Referencia numérica documentada o exclusión material unifamiliar acreditada; en exclusión se conserva precio pactado. Reserva histórica: nota oficial15/03/2024 y corroboración posterior no certifican todas las versiones metodológicas intermedias.",
         ]
       )
     }

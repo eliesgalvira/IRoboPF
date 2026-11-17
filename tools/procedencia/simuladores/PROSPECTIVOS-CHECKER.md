@@ -1,12 +1,12 @@
 # Vínculo documental de las observaciones prospectivas
 
-El comprobador concilia las tres capturas disponibles con sus hechos H,
-predicciones P y fixtures. Son tres de cuatro observaciones seleccionadas;
-Asturias sigue pendiente. No ejecuta el motor, no modifica los originales ni
+El comprobador concilia las cuatro capturas disponibles con sus hechos H,
+predicciones P y fixtures. Asturias completa la selección prospectiva.
+No ejecuta el motor, no modifica los originales ni
 sus esperados y no incorpora casos o pesos al indicador original de 76/80.
 
 La admisión exige correspondencia completa de los resultados finales al céntimo,
-bajo los hechos externos declarados en H. La igualdad intermedia es 2/3:
+bajo los hechos externos declarados en H. La igualdad intermedia es 3/4:
 el segundo caso madrileño conserva una diferencia exacta de 0.00004 EUR entre
 el coste operativo y el coste persistido. No se aplica una tolerancia para
 ocultar esa diferencia ni se identifica el algoritmo interno de AEAT.
@@ -15,7 +15,7 @@ ocultar esa diferencia ni se identifica el algoritmo interno de AEAT.
 
 `prospectivos-censo.json` fija los bytes de H, P, fixtures, recibos, manifiesto,
 regresión y parser. La igualdad de entradas comprende la extensión madrileña.
-El inventario SES compara íntegramente los 997 registros de las tres capturas,
+El inventario SES compara íntegramente los 1.309 registros de las cuatro capturas,
 en orden, con sus instancias, padres, indentación, ámbitos, tipos, banderas
 y valores. Usa `parseSES` sin reescribir ni evaluar sus fuentes.
 
@@ -49,6 +49,11 @@ uniformes que cubren todo D entre cero y Hmax. Son condiciones externas
 de los escenarios, no hechos acreditados por la salida de Open.
 Madrid conserva gasto de 1000 EUR y deducción de 100 EUR; el coste
 persistido se comprueba por separado.
+Asturias conserva gasto de 1000 EUR y deducción de 500 EUR, con las referencias
+nominales de inmueble, titular, contrato y tipología conciliadas. La exclusión
+unifamiliar y la localización son condiciones externas, no una respuesta
+autenticada de SERPAVI. El control municipal del productor sólo comprueba
+prefijo y concordancia; esta observación fija explícitamente el municipio 33044.
 
 ## Ejecución
 
@@ -74,7 +79,7 @@ P.at acredita una fecha registrada y su vínculo con H, no anterioridad
 independiente. Los archivos públicos permiten comprobar el estado final;
 no reproducen la secuencia UI ni acreditan una tentativa única. Se conservan
 los reintentos de Andalucía y del primer caso madrileño y su enmienda previa.
-Los recibos no son atestaciones independientes. La cohorte está incompleta,
-no tiene ponderación y no amplía la cobertura fiscal del motor.
+Los recibos no son atestaciones independientes. La selección está completa,
+no tiene ponderación y no certifica otros perfiles fiscales del motor.
 
 El lector de cinco páginas y posiciones es específico de estas observaciones. El lector de las vinculaciones anteriores se conserva byte a byte: sus contratos acreditan su hash y no se resellan para admitir este cambio.
