@@ -5,6 +5,8 @@ import { fileURLToPath } from "node:url"
 import Decimal from "decimal.js"
 import { renderizarAcompanamiento } from "./acompanamiento-madrid.mjs"
 
+import { evidenciaFilas } from "./evidencia-filas-madrid.mjs"
+
 const D = Decimal.clone({ precision: 80, rounding: Decimal.ROUND_HALF_UP })
 const raiz = fileURLToPath(new URL("../", import.meta.url))
 const leer = ruta => readFileSync(new URL(ruta, import.meta.url), "utf8")
@@ -38,6 +40,7 @@ export function resumen(filas) {
 }
 
 export function renderizar(filas) {
+  const evidencias = evidenciaFilas(filas)
   let texto = `# Resultados para un asalariado en Madrid
 
 Si el salario bruto sube al ritmo de los precios, ¿conserva el asalariado lo que puede comprar después de pagar cotizaciones e impuesto? Estos tres ejemplos muestran que el neto real puede bajar. Las cifras de cada año se calculan con el mismo motor y las entradas publicadas; no describen la vida real de una persona.
@@ -60,7 +63,7 @@ El saldo no explica todo el cambio de poder adquisitivo desde 2018. «Cambio por
 
 ## Supuestos
 
-Las [24 entradas](resultados-entradas.json) conservan tres salarios iniciales de 16.000, 30.000 y 60.000 EUR anuales de 2018. Son ejemplos, no percentiles: nivel reducido para observar reducciones del trabajo, intermedio y alto para observar tramos y topes de cotización. Declaración individual en Madrid, sin otras rentas, familia con derecho a mínimos, discapacidad ni especialidades; edad de 33 años en 2018 y un año más por ejercicio. El CLI comprueba el perfil de oficina exclusiva, grupo 7, CNAE 62, contrato indefinido, jornada completa y remuneración uniforme. Las cotizaciones siguen siendo estimadas; estas filas no están contrastadas con Open.
+Las [24 entradas](resultados-entradas.json) conservan tres salarios iniciales de 16.000, 30.000 y 60.000 EUR anuales de 2018. Son ejemplos, no percentiles: nivel reducido para observar reducciones del trabajo, intermedio y alto para observar tramos y topes de cotización. Declaración individual en Madrid, sin otras rentas, familia con derecho a mínimos, discapacidad ni especialidades; edad de 33 años en 2018 y un año más por ejercicio. El CLI comprueba el perfil de oficina exclusiva, grupo 7, CNAE 62, contrato indefinido, jornada completa y remuneración uniforme. Las cotizaciones siguen siendo estimadas; el contraste por fila se acota en la columna Evidencia y en el [detalle reproducible](evidencia-filas/LECTURA.md).
 
 El salario bruto sigue el índice general nacional de precios de diciembre, de una misma edición base 2021. No se usa inflación media anual ni una cesta personal. Las tres primeras columnas monetarias indican su unidad; las cuatro comparaciones siguientes son también importes anuales en EUR de diciembre de 2018. No deben sumarse años como pérdida personal. El redondeo visible a dos decimales puede producir diferencias de un céntimo al sumar.
 
@@ -71,26 +74,27 @@ El salario bruto sigue el índice general nacional de precios de diciembre, de u
     const grupo = filas.filter(f => f.entrada.brutoBaseEUR2018 === sueldo)
     const inicial = new D(grupo[0].Hdecimal.neto)
     texto += `## ${etiquetas[i]}: ${numero(sueldo)} EUR brutos anuales de 2018\n\n${resumen(grupo)}\n\n`
-    texto += "| Año | Bruto anual (EUR del año) | Neto anual (EUR del año) | Neto anual (EUR de diciembre 2018) | Congelación de importes | Cambios de ley | Saldo de ambas comparaciones | Cambio por cotización y redondeo en la referencia |\n| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |\n"
+    texto += "| Año | Bruto anual (EUR del año) | Neto anual (EUR del año) | Neto anual (EUR de diciembre 2018) | Congelación de importes | Cambios de ley | Saldo de ambas comparaciones | Cambio por cotización y redondeo en la referencia | Evidencia Open |\n| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- |\n"
     for (const f of grupo) {
+      const e = evidencias.find(e => e.id === `madrid-${f.entrada.ejercicio}-base${f.entrada.brutoBaseEUR2018}`)
       const factor = new D(f.factor)
       const c = new D(f.X.neto).minus(f.I.neto).div(factor)
       const r = new D(f.Hdecimal.neto).minus(f.X.neto).div(factor)
       const s = new D(f.Hdecimal.neto).minus(f.I.neto).div(factor)
       const b = new D(f.I.neto).div(factor).minus(inicial)
-      texto += `| ${f.entrada.ejercicio} | ${[f.Hdecimal.bruto, f.Hdecimal.neto, f.Hdecimal.netoEUR2018, c, r, s, b].map(numero).join(" | ")} |\n`
+      texto += `| ${f.entrada.ejercicio} | ${[f.Hdecimal.bruto, f.Hdecimal.neto, f.Hdecimal.netoEUR2018, c, r, s, b].map(numero).join(" | ")} | [${e.open ? "Cuota/neto al céntimo; interno abierto" : "SS no conservada tras Tab"}](evidencia-filas/sha256/${e.extracto}.json) |\n`
     }
     texto += "\n"
   }
   return texto + `## Reproducir y comprobar
 
-Desde la raíz del proyecto, con sus dependencias disponibles, este único comando genera este documento, el [acompañamiento](ACOMPANAMIENTO.md) y la apertura del [README de análisis](README.md):
+Desde la raíz del proyecto, con sus dependencias disponibles, este único comando genera este documento, el [acompañamiento](ACOMPANAMIENTO.md) la apertura del [README de análisis](README.md) y el [detalle de evidencia](evidencia-filas/LECTURA.md):
 
 \`\`\`sh
 timeout -k 30s 3m bun scripts/resultados-madrid.mjs
 \`\`\`
 
-Añadir \`--check\` comprueba los tres documentos sin escribir. La [prueba](../../tests/resultados-madrid.test.mjs) usa el CLI real y rechaza alteraciones en tablas, narración y README; también comprueba estos enlaces. La única fuente de importes es [el CLI](../../scripts/analisis-madrid.ts), mediante su JSON. El [renderizador](../../scripts/resultados-madrid.mjs) resta y convierte unidades; no reimplementa reglas fiscales.
+Añadir \`--check\` comprueba los cuatro documentos sin escribir. La [prueba](../../tests/resultados-madrid.test.mjs) usa el CLI real y rechaza alteraciones en tablas, narración y README; también comprueba estos enlaces. Los importes de tablas y narraciones proceden exclusivamente de [el CLI](../../scripts/analisis-madrid.ts), mediante su JSON. Los importes de contraste se leen de los PDF originales, SES textuales derivados completos y extractos enlazados. El [renderizador](../../scripts/resultados-madrid.mjs) resta y convierte unidades; no reimplementa reglas fiscales.
 
 ## Apéndice técnico: fórmulas, normas y fuentes
 
@@ -109,14 +113,46 @@ Las normas y localizadores por ejercicio están en el [catálogo](catalogo.json)
 ## Evidencia y límites
 
 - 2018, 2019, 2020, 2021, 2022, 2023, 2024 y 2025: contraste acotado de ocho originales, uno por año, con 95 casillas en total entre los ocho originales; no 95 por año. Véase la [referencia técnica y el replay](README.md#referencia-técnica-original).
-- Las 24 filas de estas tablas son sintéticas y no están contrastadas con Open; no aumentan los contadores de evidencia.
+- 24 actuaciones individuales: 2 pares PDF original/SES textual derivado de 2018 coinciden en cuota y neto derivado al céntimo ya publicado; sus diferencias internas permanecen abiertas. Otras 22 lecturas de SS se truncaron tras escritura secuencial y Tab, antes de Aceptar: sin resultado Open con entrada idéntica, sin demostrar imposibilidad universal. Cero igualdades internas exactas certificadas; cero certificaciones completas de las 24 filas. Estos pares no se suman a los ocho originales históricos/95 casillas. Véase el [manifiesto por fila](evidencia-filas/filas.json).
 - Cotizaciones estimadas, sin liquidación ni redondeo mensual de la Tesorería General de la Seguridad Social; no acredita convenio ni salario legal. Precios medidos con el IPC de diciembre, cuyos índices publicados también están redondeados.
 - [2012–2017 y el escenario 2026](ACOMPANAMIENTO.md) se explican año por año, separados de estas tablas.
 `
 }
 
+
+export function renderizarEvidencia(filas) {
+  const evidencias = evidenciaFilas(filas)
+  let texto = `# Lectura de evidencia por fila
+
+24 actuaciones; 2 pares PDF original/SES textual derivado de 2018; 2 coincidencias al céntimo publicado; 22 entradas exactas no conservadas tras escritura secuencial y Tab. Cero igualdades internas exactas certificadas y cero certificaciones completas. No equivale a 24/24 contrastadas.
+
+Los extractos se transformaron seleccionando bruto, SS, nacimiento y selección regional: no son originales. Su SHA corresponde a sus propios bytes. El manifiesto conserva localizadores relativos y SHA de originales privados. Los PDF originales se guardan sin transformación en CAS base64: su SHA es de los bytes decodificados. Cada SES se publica como JSON UTF-8 declarado DERIVADO-SES-TEXTO con TODO el contenido inflado y decodificado ISO-8859-1, sin selección ni ocultación de campos. Su nombre CAS corresponde a los bytes del JSON derivado; no sustituye el SHA del SES comprimido original. Los originales comprimidos completos se conservan privados, referenciados por su hash. La preparación cotejó esos bytes con el registro de captura y verificó el roundtrip Latin1 exacto de todos los bytes antes y después de serializar. El JSON conserva el hash comprimido de procedencia y el hash del inflado Latin1. Si el texto contiene una cabecera ISO-8859-1, ésta pertenece a la representación decodificada; el JSON UTF-8 no es un SES listo para importar. Requiere revisión de privacidad antes de publicar; los tokens fiscales enteros permanecen escaneables. Los SHA fijan bytes; no certifican veracidad, identidad completa ni los negativos asumidos del escenario sintético.
+
+El comando de resultados valida todo offline con Bun, decimal.js y pdftotext (Poppler) en PATH. No necesita red. Comprueba SHA de los artefactos públicos, formato discriminado exacto del derivado, texto dentro de Latin1 y roundtrip/hash del inflado. El SHA del comprimido es procedencia declarada: sin sus bytes privados el CLI público no verifica el original comprimido ni necesita acceder a él. Comprueba entrada CLI exacta, año/ID, bruto/SS, selección regional tipada y contradicciones de las casillas PDF con SES. Si falta una fuente o cambia un byte, falla. El manifiesto queda anclado por SHA en el verificador; actualizar evidencia requiere revisar ese contrato. No se usa un comparador aritmético como certificado de identidad.
+
+H usa gasto general, reducción del trabajo, base, escalas estatal y Madrid, mínimos y composición de cuota con la implementación y normativa del catálogo. Los pares corroboran esos resultados sólo para dos entradas H de 2018 al céntimo de presentación. X comparte las operaciones fiscales y la normativa de 2018; I comparte las operaciones y transforma parámetros monetarios por IPC. Ninguna de esas formas X/I tiene salida directa Open aquí; compartir implementación o norma no extiende el contraste. Actualizar tramos, mínimos y demás parámetros por IPC y convertir netos a EUR-diciembre-2018 son transformaciones del motor no observadas en Open. Tampoco se extrapola a otros años.
+
+Cuota Open: casilla 0595 / CAUTLIQ. Neto derivado = bruto − SS − cuota; no es casilla Open. Unidad nominal del ejercicio. Diferencias = Open menos interno CLI; ninguna tolerancia de un céntimo. SS estimada, sin TGSS; no certifica empleo, naturaleza de cotización ni identidad fiscal completa. Los ocho originales históricos/95 casillas son un contador separado.
+
+`
+  for (const r of evidencias) {
+    texto += `## ${r.id}
+
+[Extracto](sha256/${r.extracto}.json). Entrada CLI SHA-256: \`${r.entradaSHA256}\`. Bruto: ${r.bruto}; SS solicitada: ${r.ss}; leída: ${r.ssLeida}; delta SS: ${r.deltaSS} EUR del ejercicio.
+
+`
+    if (r.open) texto += `Cuota PDF/SES: ${r.open.cuota}; cuota interna: ${r.open.interno.Q}; delta: ${r.open.deltaCuota}. Neto derivado Open: ${r.open.netoDerivado}; interno: ${r.open.interno.neto}; delta: ${r.open.deltaNeto}. Coinciden al céntimo ya publicado; igualdad interna no acreditada. [PDF original base64](sha256/${r.open.fuentes['captura.pdf'].sha256}.b64); [SES textual derivado completo UTF-8](sha256/${r.open.fuentes['ses-texto.json'].sha256}.json).
+
+`
+    else texto += "SS no conservada en la ruta ordinaria ensayada, antes de Aceptar. Sin SES/PDF de ese intento; persistencia no acreditada. No demuestra imposibilidad universal de entrada. No hay cuota/neto Open comparable.\n\n".replaceAll("\\n", "\n")
+    texto += r.reservas.join("; ") + ".\n\n".replaceAll("\\n", "\n")
+  }
+  return texto
+}
+
 export function aperturaREADME(filas) {
-  return `<!-- resultados-madrid:inicio -->\n## Qué puedes averiguar\n\n¿Cuánto queda del salario tras cotizaciones e impuesto? ¿Conserva su poder adquisitivo cuando el bruto sigue los precios?\n\n${resumen(filas.filter(f => f.entrada.brutoBaseEUR2018 === "30000"))}\n\nLee [los resultados anuales](RESULTADOS.md) para comparar la ley de cada año con dos referencias inventadas: la ley de 2018 sin actualizar sus importes y esa misma ley actualizada con los precios. No representan lo que ocurrió realmente. Las tablas separan las comparaciones fiscales del cambio por cotizaciones y redondeo en la referencia; explican supuestos, fuentes y límites. Son ejemplos educativos con cotizaciones estimadas, sin contraste Open para sus 24 filas.\n\nConsulta también el [acompañamiento 2012–2017 y escenario 2026](ACOMPANAMIENTO.md).\n\nDesde la raíz del proyecto, \`timeout -k 30s 3m bun scripts/resultados-madrid.mjs\` genera los tres documentos; añade \`--check\` para comprobarlos. La referencia técnica original se conserva a continuación.\n<!-- resultados-madrid:fin -->`
+  evidenciaFilas(filas)
+  return `<!-- resultados-madrid:inicio -->\n## Qué puedes averiguar\n\n¿Cuánto queda del salario tras cotizaciones e impuesto? ¿Conserva su poder adquisitivo cuando el bruto sigue los precios?\n\n${resumen(filas.filter(f => f.entrada.brutoBaseEUR2018 === "30000"))}\n\nLee [los resultados anuales](RESULTADOS.md) para comparar la ley de cada año con dos referencias inventadas: la ley de 2018 sin actualizar sus importes y esa misma ley actualizada con los precios. No representan lo que ocurrió realmente. Las tablas separan las comparaciones fiscales del cambio por cotizaciones y redondeo en la referencia; explican supuestos, fuentes y límites. Son ejemplos educativos con cotizaciones estimadas: [24 actuaciones documentadas](evidencia-filas/LECTURA.md), dos pares PDF original/SES textual derivado de 2018 coincidentes al céntimo publicado con diferencias internas abiertas y 22 SS no conservadas tras escritura secuencial y Tab. No acreditan identidad completa ni imposibilidad universal; X/I e IPC no son salidas Open.\n\nConsulta también el [acompañamiento 2012–2017 y escenario 2026](ACOMPANAMIENTO.md).\n\nDesde la raíz del proyecto, \`timeout -k 30s 3m bun scripts/resultados-madrid.mjs\` genera los cuatro documentos; añade \`--check\` para comprobarlos. La referencia técnica original se conserva a continuación.\n<!-- resultados-madrid:fin -->`
 }
 
 export function actualizarREADME(actual, filas) {
@@ -133,7 +169,7 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
   if (process.argv.slice(2).some(a => a !== "--check")) throw Error("Único argumento admitido: --check")
   const filas = ejecutarCLI()
   const readme = leer("../docs/analisis-madrid/README.md")
-  const salidas = [["docs/analisis-madrid/ACOMPANAMIENTO.md", renderizarAcompanamiento(filas)], ["docs/analisis-madrid/RESULTADOS.md", renderizar(filas)], ["docs/analisis-madrid/README.md", actualizarREADME(readme, filas)]]
+  const salidas = [["docs/analisis-madrid/evidencia-filas/LECTURA.md", renderizarEvidencia(filas)], ["docs/analisis-madrid/ACOMPANAMIENTO.md", renderizarAcompanamiento(filas)], ["docs/analisis-madrid/RESULTADOS.md", renderizar(filas)], ["docs/analisis-madrid/README.md", actualizarREADME(readme, filas)]]
   for (const [ruta, contenido] of salidas) {
     if (process.argv.includes("--check")) comprobar(readFileSync(raiz + ruta, "utf8"), contenido, ruta)
     else writeFileSync(raiz + ruta, contenido)

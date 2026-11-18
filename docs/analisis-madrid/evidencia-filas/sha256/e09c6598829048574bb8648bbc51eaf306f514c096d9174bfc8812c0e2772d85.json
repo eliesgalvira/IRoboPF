@@ -1,0 +1,61 @@
+{
+  "tipo": "extracto",
+  "id": "madrid-2018-base60000",
+  "readbacks": [
+    {
+      "key": "birth",
+      "tipo": "texto",
+      "requested": "01/01/1985",
+      "observed": "01/01/1985"
+    },
+    {
+      "key": "region",
+      "tipo": "seleccion",
+      "selected": "MADRID",
+      "options": [
+        " Borrar",
+        "ANDALUCIA",
+        "ARAGON",
+        "PRINCIPADO DE ASTURIAS",
+        "ILLES BALEARS",
+        "CANARIAS",
+        "CANTABRIA",
+        "CASTILLA-LA MANCHA",
+        "CASTILLA Y LEON",
+        "CATALUÑA",
+        "EXTREMADURA",
+        "GALICIA",
+        "MADRID",
+        "REGION DE MURCIA",
+        "LA RIOJA",
+        "COMUNITAT VALENCIANA",
+        "CIUDAD DE CEUTA",
+        "CIUDAD DE MELILLA",
+        "CONTRIBUYENTES NO RESIDENTES"
+      ]
+    },
+    {
+      "key": "IDII",
+      "tipo": "importe",
+      "requested": "60000",
+      "observed": "60.000,00"
+    },
+    {
+      "key": "GSS",
+      "tipo": "importe",
+      "requested": "2875.08315",
+      "observed": "2.875,08"
+    }
+  ],
+  "original": {
+    "localizador": "capturas/madrid-2018-base60000/readbacks.json",
+    "sha256": "4e5ef5401dee0a8641bf845268475666ffafe24cd761a2e16ceac9c645f8a5d5"
+  },
+  "ruta": "escritura secuencial de todos los dígitos con coma, Tab y lectura antes de Aceptar",
+  "reservas": [
+    "SS estimada; no acreditación TGSS ni coste laboral",
+    "Negativos parcialmente asumidos del escenario sintético; identidad completa no acreditada",
+    "X/I sin salida directa Open; IPC EUR-2018 es transformación del motor"
+  ],
+  "evidenciaCampo": "titulo exacto en contrato y DOM"
+}

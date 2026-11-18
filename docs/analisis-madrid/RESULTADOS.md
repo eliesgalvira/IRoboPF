@@ -20,7 +20,7 @@ El saldo no explica todo el cambio de poder adquisitivo desde 2018. «Cambio por
 
 ## Supuestos
 
-Las [24 entradas](resultados-entradas.json) conservan tres salarios iniciales de 16.000, 30.000 y 60.000 EUR anuales de 2018. Son ejemplos, no percentiles: nivel reducido para observar reducciones del trabajo, intermedio y alto para observar tramos y topes de cotización. Declaración individual en Madrid, sin otras rentas, familia con derecho a mínimos, discapacidad ni especialidades; edad de 33 años en 2018 y un año más por ejercicio. El CLI comprueba el perfil de oficina exclusiva, grupo 7, CNAE 62, contrato indefinido, jornada completa y remuneración uniforme. Las cotizaciones siguen siendo estimadas; estas filas no están contrastadas con Open.
+Las [24 entradas](resultados-entradas.json) conservan tres salarios iniciales de 16.000, 30.000 y 60.000 EUR anuales de 2018. Son ejemplos, no percentiles: nivel reducido para observar reducciones del trabajo, intermedio y alto para observar tramos y topes de cotización. Declaración individual en Madrid, sin otras rentas, familia con derecho a mínimos, discapacidad ni especialidades; edad de 33 años en 2018 y un año más por ejercicio. El CLI comprueba el perfil de oficina exclusiva, grupo 7, CNAE 62, contrato indefinido, jornada completa y remuneración uniforme. Las cotizaciones siguen siendo estimadas; el contraste por fila se acota en la columna Evidencia y en el [detalle reproducible](evidencia-filas/LECTURA.md).
 
 El salario bruto sigue el índice general nacional de precios de diciembre, de una misma edición base 2021. No se usa inflación media anual ni una cesta personal. Las tres primeras columnas monetarias indican su unidad; las cuatro comparaciones siguientes son también importes anuales en EUR de diciembre de 2018. No deben sumarse años como pérdida personal. El redondeo visible a dos decimales puede producir diferencias de un céntimo al sumar.
 
@@ -28,56 +28,56 @@ El salario bruto sigue el índice general nacional de precios de diciembre, de u
 
 El salario bruto acompaña a los precios: parte de 16.000,00 EUR anuales en 2018 y llega a 19.717,37 EUR anuales en 2025. Con la ley de cada año, el neto pasa de 13.864,15 a 16.685,10 EUR del año. Sin embargo, en euros de diciembre de 2018, pasa de 13.864,15 a 13.539,41 EUR anuales: el cambio de poder adquisitivo es -324,74 EUR anuales. Aunque el bruto siga los precios, el neto real puede bajar.
 
-| Año | Bruto anual (EUR del año) | Neto anual (EUR del año) | Neto anual (EUR de diciembre 2018) | Congelación de importes | Cambios de ley | Saldo de ambas comparaciones | Cambio por cotización y redondeo en la referencia |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| 2018 | 16.000,00 | 13.864,15 | 13.864,15 | 0,00 | 0,00 | 0,00 | 0,00 |
-| 2019 | 16.126,09 | 14.183,06 | 14.072,16 | -29,17 | 237,19 | 208,01 | 0,00 |
-| 2020 | 16.040,28 | 14.139,86 | 14.104,36 | -9,37 | 249,58 | 240,21 | 0,00 |
-| 2021 | 17.090,90 | 14.653,36 | 13.718,05 | -279,57 | 133,47 | -146,10 | 0,00 |
-| 2022 | 18.066,39 | 15.147,24 | 13.414,73 | -517,97 | 68,56 | -449,41 | 0,00 |
-| 2023 | 18.626,80 | 16.150,67 | 13.873,06 | -574,75 | 594,48 | 19,73 | -10,82 |
-| 2024 | 19.157,13 | 16.416,66 | 13.711,17 | -624,41 | 484,41 | -140,00 | -12,98 |
-| 2025 | 19.717,37 | 16.685,10 | 13.539,41 | -673,82 | 363,15 | -310,67 | -14,07 |
+| Año | Bruto anual (EUR del año) | Neto anual (EUR del año) | Neto anual (EUR de diciembre 2018) | Congelación de importes | Cambios de ley | Saldo de ambas comparaciones | Cambio por cotización y redondeo en la referencia | Evidencia Open |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- |
+| 2018 | 16.000,00 | 13.864,15 | 13.864,15 | 0,00 | 0,00 | 0,00 | 0,00 | [Cuota/neto al céntimo; interno abierto](evidencia-filas/sha256/2ac626e31b7c81a0bcdb6c98e69f6e60cabd87bbed04436cd684300a6c38d118.json) |
+| 2019 | 16.126,09 | 14.183,06 | 14.072,16 | -29,17 | 237,19 | 208,01 | 0,00 | [SS no conservada tras Tab](evidencia-filas/sha256/4bbf15ac92ca80e8a75491bce54188adce6390bbd03a91e40e93b161b81ef524.json) |
+| 2020 | 16.040,28 | 14.139,86 | 14.104,36 | -9,37 | 249,58 | 240,21 | 0,00 | [SS no conservada tras Tab](evidencia-filas/sha256/2ca0b4e9184a2cc04704e62ae0801fb8605aa65969e2509334c9934fa3b1832d.json) |
+| 2021 | 17.090,90 | 14.653,36 | 13.718,05 | -279,57 | 133,47 | -146,10 | 0,00 | [SS no conservada tras Tab](evidencia-filas/sha256/481cbf47b6ecd0218489127b5be30a75a8fafdac6b6b2f6b9d17d60a43c83133.json) |
+| 2022 | 18.066,39 | 15.147,24 | 13.414,73 | -517,97 | 68,56 | -449,41 | 0,00 | [SS no conservada tras Tab](evidencia-filas/sha256/cb8339e6c08cb23480e4cada5b3a462d29c613c9d268dd7380b23235558ce4b1.json) |
+| 2023 | 18.626,80 | 16.150,67 | 13.873,06 | -574,75 | 594,48 | 19,73 | -10,82 | [SS no conservada tras Tab](evidencia-filas/sha256/0508261e45b7a5057bba232afedfc17cfa104e96c6fbb0d3ca121277a045577a.json) |
+| 2024 | 19.157,13 | 16.416,66 | 13.711,17 | -624,41 | 484,41 | -140,00 | -12,98 | [SS no conservada tras Tab](evidencia-filas/sha256/88651fd113bc0f45461038b5a74eb308951758dead9c8092688f33355630d325.json) |
+| 2025 | 19.717,37 | 16.685,10 | 13.539,41 | -673,82 | 363,15 | -310,67 | -14,07 | [SS no conservada tras Tab](evidencia-filas/sha256/5c8b87e8a638548db220c51d0a4182715dfefc7fd7f2063a94c08f6f914c2ebc.json) |
 
 ## Nivel intermedio: 30.000,00 EUR brutos anuales de 2018
 
 El salario bruto acompaña a los precios: parte de 30.000,00 EUR anuales en 2018 y llega a 36.970,07 EUR anuales en 2025. Con la ley de cada año, el neto pasa de 23.299,86 a 28.162,60 EUR del año. Sin embargo, en euros de diciembre de 2018, pasa de 23.299,86 a 22.853,03 EUR anuales: el cambio de poder adquisitivo es -446,83 EUR anuales. Aunque el bruto siga los precios, el neto real puede bajar.
 
-| Año | Bruto anual (EUR del año) | Neto anual (EUR del año) | Neto anual (EUR de diciembre 2018) | Congelación de importes | Cambios de ley | Saldo de ambas comparaciones | Cambio por cotización y redondeo en la referencia |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| 2018 | 30.000,00 | 23.299,86 | 23.299,86 | 0,00 | 0,00 | 0,00 | 0,00 |
-| 2019 | 30.236,41 | 23.458,60 | 23.275,19 | -24,67 | 0,00 | -24,67 | 0,00 |
-| 2020 | 30.075,52 | 23.350,57 | 23.291,94 | -7,92 | 0,00 | -7,92 | 0,00 |
-| 2021 | 32.045,43 | 24.673,31 | 23.098,43 | -201,43 | 0,00 | -201,43 | 0,00 |
-| 2022 | 33.874,49 | 26.068,16 | 23.086,54 | -360,95 | 147,63 | -213,32 | 0,00 |
-| 2023 | 34.925,25 | 26.789,47 | 23.011,55 | -445,03 | 178,23 | -266,80 | -21,51 |
-| 2024 | 35.919,61 | 27.455,91 | 22.931,13 | -520,07 | 177,15 | -342,92 | -25,81 |
-| 2025 | 36.970,07 | 28.162,60 | 22.853,03 | -594,96 | 176,09 | -418,87 | -27,96 |
+| Año | Bruto anual (EUR del año) | Neto anual (EUR del año) | Neto anual (EUR de diciembre 2018) | Congelación de importes | Cambios de ley | Saldo de ambas comparaciones | Cambio por cotización y redondeo en la referencia | Evidencia Open |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- |
+| 2018 | 30.000,00 | 23.299,86 | 23.299,86 | 0,00 | 0,00 | 0,00 | 0,00 | [Cuota/neto al céntimo; interno abierto](evidencia-filas/sha256/faea59a8c63551a00733a2576f7eb8b98b4666f89c1502b7119823a3e8d381e1.json) |
+| 2019 | 30.236,41 | 23.458,60 | 23.275,19 | -24,67 | 0,00 | -24,67 | 0,00 | [SS no conservada tras Tab](evidencia-filas/sha256/b9967a6c1f5c00a94978261c05d91739d5d5b8fc79b6d98ef82231aacfd5ca0e.json) |
+| 2020 | 30.075,52 | 23.350,57 | 23.291,94 | -7,92 | 0,00 | -7,92 | 0,00 | [SS no conservada tras Tab](evidencia-filas/sha256/a545355d38f3d6b3b8633cbc8768dc5ba2b02f56c349fe2e3cf2d34edaf9ae57.json) |
+| 2021 | 32.045,43 | 24.673,31 | 23.098,43 | -201,43 | 0,00 | -201,43 | 0,00 | [SS no conservada tras Tab](evidencia-filas/sha256/369145cd6cf3248a48046e71dd324e4e219a07914aca87de802c3ac5fbf869e3.json) |
+| 2022 | 33.874,49 | 26.068,16 | 23.086,54 | -360,95 | 147,63 | -213,32 | 0,00 | [SS no conservada tras Tab](evidencia-filas/sha256/9608a7374165323863495180ccfaa1a9afc8a437f7332b4752bb83d33b402ab4.json) |
+| 2023 | 34.925,25 | 26.789,47 | 23.011,55 | -445,03 | 178,23 | -266,80 | -21,51 | [SS no conservada tras Tab](evidencia-filas/sha256/bcde7bdb9b192ebb089204f4f04062ec0126df22ed524b65b3391528e4971978.json) |
+| 2024 | 35.919,61 | 27.455,91 | 22.931,13 | -520,07 | 177,15 | -342,92 | -25,81 | [SS no conservada tras Tab](evidencia-filas/sha256/076cbc9ec750b675407ced33bfb5105f5c206620af092ef61cde577baef7ec2e.json) |
+| 2025 | 36.970,07 | 28.162,60 | 22.853,03 | -594,96 | 176,09 | -418,87 | -27,96 | [SS no conservada tras Tab](evidencia-filas/sha256/aa713297b08283a5bac0016b927357bf54ca9078158c67e3fb5f25ee1879f1ba.json) |
 
 ## Nivel alto: 60.000,00 EUR brutos anuales de 2018
 
 El salario bruto acompaña a los precios: parte de 60.000,00 EUR anuales en 2018 y llega a 73.940,14 EUR anuales en 2025. Con la ley de cada año, el neto pasa de 42.346,28 a 50.498,34 EUR del año. Sin embargo, en euros de diciembre de 2018, pasa de 42.346,28 a 40.977,75 EUR anuales: el cambio de poder adquisitivo es -1.368,53 EUR anuales. Aunque el bruto siga los precios, el neto real puede bajar.
 
-| Año | Bruto anual (EUR del año) | Neto anual (EUR del año) | Neto anual (EUR de diciembre 2018) | Congelación de importes | Cambios de ley | Saldo de ambas comparaciones | Cambio por cotización y redondeo en la referencia |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| 2018 | 60.000,00 | 42.346,28 | 42.346,28 | 0,00 | 0,00 | 0,00 | 0,00 |
-| 2019 | 60.472,83 | 42.495,41 | 42.163,14 | -60,88 | 0,00 | -60,88 | -122,26 |
-| 2020 | 60.151,03 | 42.300,72 | 42.194,50 | -19,55 | 0,00 | -19,55 | -132,22 |
-| 2021 | 64.090,87 | 44.684,32 | 41.832,16 | -496,95 | 0,00 | -496,95 | -17,16 |
-| 2022 | 67.748,98 | 47.222,93 | 41.821,68 | -982,43 | 408,44 | -573,99 | 49,39 |
-| 2023 | 69.850,51 | 48.373,86 | 41.552,05 | -1.248,14 | 522,73 | -725,41 | -68,81 |
-| 2024 | 71.839,23 | 49.401,71 | 41.260,23 | -1.489,37 | 515,79 | -973,57 | -112,48 |
-| 2025 | 73.940,14 | 50.498,34 | 40.977,75 | -1.730,72 | 508,94 | -1.221,77 | -146,75 |
+| Año | Bruto anual (EUR del año) | Neto anual (EUR del año) | Neto anual (EUR de diciembre 2018) | Congelación de importes | Cambios de ley | Saldo de ambas comparaciones | Cambio por cotización y redondeo en la referencia | Evidencia Open |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- |
+| 2018 | 60.000,00 | 42.346,28 | 42.346,28 | 0,00 | 0,00 | 0,00 | 0,00 | [SS no conservada tras Tab](evidencia-filas/sha256/e09c6598829048574bb8648bbc51eaf306f514c096d9174bfc8812c0e2772d85.json) |
+| 2019 | 60.472,83 | 42.495,41 | 42.163,14 | -60,88 | 0,00 | -60,88 | -122,26 | [SS no conservada tras Tab](evidencia-filas/sha256/4855c40a356c8270a770cedc78c322b0ee791f8cda4a24f01ee1063e5f8ff15e.json) |
+| 2020 | 60.151,03 | 42.300,72 | 42.194,50 | -19,55 | 0,00 | -19,55 | -132,22 | [SS no conservada tras Tab](evidencia-filas/sha256/e8c14ffbb6511d644683e251731013ce1229b455d672eee18647616435968830.json) |
+| 2021 | 64.090,87 | 44.684,32 | 41.832,16 | -496,95 | 0,00 | -496,95 | -17,16 | [SS no conservada tras Tab](evidencia-filas/sha256/980ce2cec8305954f5d16e7552fa2f8aef009fff6ddc7192dec116c5fbb4a34e.json) |
+| 2022 | 67.748,98 | 47.222,93 | 41.821,68 | -982,43 | 408,44 | -573,99 | 49,39 | [SS no conservada tras Tab](evidencia-filas/sha256/b1b2698e8a098122ea373494fea0b066accd8a53c6765d4a13655a8760bbf8b9.json) |
+| 2023 | 69.850,51 | 48.373,86 | 41.552,05 | -1.248,14 | 522,73 | -725,41 | -68,81 | [SS no conservada tras Tab](evidencia-filas/sha256/b4f63604115c0bffbca5e39c9ad85f4d1cfcb245d082d7ae689e3946695ab901.json) |
+| 2024 | 71.839,23 | 49.401,71 | 41.260,23 | -1.489,37 | 515,79 | -973,57 | -112,48 | [SS no conservada tras Tab](evidencia-filas/sha256/066284ff06698430c7da4e14ffee3a2628c845027f9a6bfb6a7be03dc961d865.json) |
+| 2025 | 73.940,14 | 50.498,34 | 40.977,75 | -1.730,72 | 508,94 | -1.221,77 | -146,75 | [SS no conservada tras Tab](evidencia-filas/sha256/8a26eacc69a6b191676b2a73d3defc640f63a12d8d637d44f2270b2110bd6593.json) |
 
 ## Reproducir y comprobar
 
-Desde la raíz del proyecto, con sus dependencias disponibles, este único comando genera este documento, el [acompañamiento](ACOMPANAMIENTO.md) y la apertura del [README de análisis](README.md):
+Desde la raíz del proyecto, con sus dependencias disponibles, este único comando genera este documento, el [acompañamiento](ACOMPANAMIENTO.md) la apertura del [README de análisis](README.md) y el [detalle de evidencia](evidencia-filas/LECTURA.md):
 
 ```sh
 timeout -k 30s 3m bun scripts/resultados-madrid.mjs
 ```
 
-Añadir `--check` comprueba los tres documentos sin escribir. La [prueba](../../tests/resultados-madrid.test.mjs) usa el CLI real y rechaza alteraciones en tablas, narración y README; también comprueba estos enlaces. La única fuente de importes es [el CLI](../../scripts/analisis-madrid.ts), mediante su JSON. El [renderizador](../../scripts/resultados-madrid.mjs) resta y convierte unidades; no reimplementa reglas fiscales.
+Añadir `--check` comprueba los cuatro documentos sin escribir. La [prueba](../../tests/resultados-madrid.test.mjs) usa el CLI real y rechaza alteraciones en tablas, narración y README; también comprueba estos enlaces. Los importes de tablas y narraciones proceden exclusivamente de [el CLI](../../scripts/analisis-madrid.ts), mediante su JSON. Los importes de contraste se leen de los PDF originales, SES textuales derivados completos y extractos enlazados. El [renderizador](../../scripts/resultados-madrid.mjs) resta y convierte unidades; no reimplementa reglas fiscales.
 
 ## Apéndice técnico: fórmulas, normas y fuentes
 
@@ -96,6 +96,6 @@ Las normas y localizadores por ejercicio están en el [catálogo](catalogo.json)
 ## Evidencia y límites
 
 - 2018, 2019, 2020, 2021, 2022, 2023, 2024 y 2025: contraste acotado de ocho originales, uno por año, con 95 casillas en total entre los ocho originales; no 95 por año. Véase la [referencia técnica y el replay](README.md#referencia-técnica-original).
-- Las 24 filas de estas tablas son sintéticas y no están contrastadas con Open; no aumentan los contadores de evidencia.
+- 24 actuaciones individuales: 2 pares PDF original/SES textual derivado de 2018 coinciden en cuota y neto derivado al céntimo ya publicado; sus diferencias internas permanecen abiertas. Otras 22 lecturas de SS se truncaron tras escritura secuencial y Tab, antes de Aceptar: sin resultado Open con entrada idéntica, sin demostrar imposibilidad universal. Cero igualdades internas exactas certificadas; cero certificaciones completas de las 24 filas. Estos pares no se suman a los ocho originales históricos/95 casillas. Véase el [manifiesto por fila](evidencia-filas/filas.json).
 - Cotizaciones estimadas, sin liquidación ni redondeo mensual de la Tesorería General de la Seguridad Social; no acredita convenio ni salario legal. Precios medidos con el IPC de diciembre, cuyos índices publicados también están redondeados.
 - [2012–2017 y el escenario 2026](ACOMPANAMIENTO.md) se explican año por año, separados de estas tablas.

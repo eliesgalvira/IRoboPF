@@ -1,0 +1,580 @@
+{
+  "version": 1,
+  "contrato": "SHA de entrada = UTF-8 JSON.stringify(entradaCLI), orden de claves incluido. CAS de extractos y SES textual DERIVADO sobre bytes UTF-8; PDF original base64 sobre bytes decodificados. SES textual completo: inflado ISO-8859-1, roundtrip Latin1 y hash inflado verificables offline. Hash comprimido declara procedencia privada, no verificación runtime sin bytes. SHA no certifica veracidad ni identidad.",
+  "filas": [
+    {
+      "id": "madrid-2018-base16000",
+      "ejercicio": 2018,
+      "entradaSHA256": "45a5eb6ca90b2a5e7a9488af92eff166898e38079e66c422242323da7ea0a49b",
+      "casoOriginal": {
+        "localizador": "capturas/madrid-2018-base16000/caso.json",
+        "sha256": "5c78c5e74d42dfc5781747926558a3a45777c8b0c78c93d726a4d2d142da3bd4"
+      },
+      "entradaOriginal": {
+        "localizador": "capturas/madrid-2018-base16000/entrada.json",
+        "sha256": "4ef1c16ab9c5b2ae8ac5e90e8bff03ba9df564d0bf5d23f1a6b7917d1e09b9f1"
+      },
+      "bruto": "16000",
+      "ss": "1016",
+      "extracto": "2ac626e31b7c81a0bcdb6c98e69f6e60cabd87bbed04436cd684300a6c38d118",
+      "estado": "coincide-presentacion-diferencia-interna-abierta",
+      "reservas": [
+        "SS estimada; no acreditación TGSS ni coste laboral",
+        "Negativos parcialmente asumidos del escenario sintético; identidad completa no acreditada",
+        "X/I sin salida directa Open; IPC EUR-2018 es transformación del motor"
+      ],
+      "open": {
+        "cuota": "1119.85",
+        "netoDerivado": "13864.15",
+        "interno": {
+          "Q": "1119.85125",
+          "neto": "13864.14875"
+        },
+        "deltaCuota": "-0.00125",
+        "deltaNeto": "0.00125",
+        "certificacionInterna": false,
+        "fuentes": {
+          "captura.pdf": {
+            "localizador": "capturas/madrid-2018-base16000/captura.pdf",
+            "sha256": "65d64628824bed71f2dfffcade172d6c40e43ea9d0eb6ffb4b3a3283ff8d1627"
+          },
+          "ses-texto.json": {
+            "tipo": "DERIVADO-SES-TEXTO",
+            "sha256": "2580b2320ddfc66534338cc9875e3d99cd7960c00ba426f7ee0ac4e538ca25d3",
+            "originalComprimidoSHA256": "ea7cef77e8518b216e7c0dcd8753cc619e6414a2eb4ee493485c81a85084a043",
+            "infladoLatin1SHA256": "6fedeea61ff31626cda92053e6120a283f33df7928104573e118643bc93acb7c"
+          }
+        }
+      }
+    },
+    {
+      "id": "madrid-2019-base16000",
+      "ejercicio": 2019,
+      "entradaSHA256": "f6f5a38b2e35e3bf8d0a0b1e49ee241f7c90548a5da650ade21105fd40080189",
+      "casoOriginal": {
+        "localizador": "capturas/madrid-2019-base16000/caso.json",
+        "sha256": "bef3036ec849411397544ead09ad73c05b91d39f009f19ff8e82a9dcbf1b5264"
+      },
+      "entradaOriginal": {
+        "localizador": "capturas/madrid-2019-base16000/entrada.json",
+        "sha256": "56b06e67bc9a744f42dfe09faa8957a548567bb3ff46f7f18bbd4740783fc428"
+      },
+      "bruto": "16126.09",
+      "ss": "1024.006715",
+      "extracto": "4bbf15ac92ca80e8a75491bce54188adce6390bbd03a91e40e93b161b81ef524",
+      "estado": "entrada-no-conservada",
+      "reservas": [
+        "SS estimada; no acreditación TGSS ni coste laboral",
+        "Negativos parcialmente asumidos del escenario sintético; identidad completa no acreditada",
+        "X/I sin salida directa Open; IPC EUR-2018 es transformación del motor"
+      ]
+    },
+    {
+      "id": "madrid-2020-base16000",
+      "ejercicio": 2020,
+      "entradaSHA256": "3a646f14b94bc97c15dee988c3b9718ef22f88fa5f5047aede54b8a768fa19cc",
+      "casoOriginal": {
+        "localizador": "capturas/madrid-2020-base16000/caso.json",
+        "sha256": "abfe8bcf18ddccc4de2006a920b7ac722668c534d4d8d7fb420023fd6c3851c3"
+      },
+      "entradaOriginal": {
+        "localizador": "capturas/madrid-2020-base16000/entrada.json",
+        "sha256": "6b2a094f86ae7dd771b87860b1f28cda76622e2436f3aad8b3e5108c1133b4c3"
+      },
+      "bruto": "16040.28",
+      "ss": "1018.55778",
+      "extracto": "2ca0b4e9184a2cc04704e62ae0801fb8605aa65969e2509334c9934fa3b1832d",
+      "estado": "entrada-no-conservada",
+      "reservas": [
+        "SS estimada; no acreditación TGSS ni coste laboral",
+        "Negativos parcialmente asumidos del escenario sintético; identidad completa no acreditada",
+        "X/I sin salida directa Open; IPC EUR-2018 es transformación del motor"
+      ]
+    },
+    {
+      "id": "madrid-2021-base16000",
+      "ejercicio": 2021,
+      "entradaSHA256": "76b5649a226f0426008a2241700110de94d658ecd4229044b3101c770a75fb07",
+      "casoOriginal": {
+        "localizador": "capturas/madrid-2021-base16000/caso.json",
+        "sha256": "083001d4e9b144a2972eaf13945a5f9cd992b417d728dee6962b6ef90dd7968a"
+      },
+      "entradaOriginal": {
+        "localizador": "capturas/madrid-2021-base16000/entrada.json",
+        "sha256": "265bc4923494d844c70047612245c7784f7faf256472937a78fcd7f43ccba66c"
+      },
+      "bruto": "17090.9",
+      "ss": "1085.27215",
+      "extracto": "481cbf47b6ecd0218489127b5be30a75a8fafdac6b6b2f6b9d17d60a43c83133",
+      "estado": "entrada-no-conservada",
+      "reservas": [
+        "SS estimada; no acreditación TGSS ni coste laboral",
+        "Negativos parcialmente asumidos del escenario sintético; identidad completa no acreditada",
+        "X/I sin salida directa Open; IPC EUR-2018 es transformación del motor"
+      ]
+    },
+    {
+      "id": "madrid-2022-base16000",
+      "ejercicio": 2022,
+      "entradaSHA256": "534e20a792350e30cf82cb728344a8671cdb3c82724c126634e145f53f33a16e",
+      "casoOriginal": {
+        "localizador": "capturas/madrid-2022-base16000/caso.json",
+        "sha256": "370ec9f7f8ca5672c401c40c1f96f9c42acfde12070f78aed129ed40e01c77ea"
+      },
+      "entradaOriginal": {
+        "localizador": "capturas/madrid-2022-base16000/entrada.json",
+        "sha256": "179def54b5efa1ab5f1ac7716c5e288aad8ab31203d40c9c6c6ac3d9e5bcee0b"
+      },
+      "bruto": "18066.39",
+      "ss": "1147.215765",
+      "extracto": "cb8339e6c08cb23480e4cada5b3a462d29c613c9d268dd7380b23235558ce4b1",
+      "estado": "entrada-no-conservada",
+      "reservas": [
+        "SS estimada; no acreditación TGSS ni coste laboral",
+        "Negativos parcialmente asumidos del escenario sintético; identidad completa no acreditada",
+        "X/I sin salida directa Open; IPC EUR-2018 es transformación del motor"
+      ]
+    },
+    {
+      "id": "madrid-2023-base16000",
+      "ejercicio": 2023,
+      "entradaSHA256": "4879da35dbdc610dfed1d1bb31da7ce9876c2bf23f82c49ee1a9e45f3a734cb0",
+      "casoOriginal": {
+        "localizador": "capturas/madrid-2023-base16000/caso.json",
+        "sha256": "5ed4d80bc37b4a22f3d81fddb84ab8a91b6cd6ca6153e8bc5af1f79105e09e9c"
+      },
+      "entradaOriginal": {
+        "localizador": "capturas/madrid-2023-base16000/entrada.json",
+        "sha256": "bf68bad082e2e3e8dadc903d74d55610991799b1a32bc17bb1cedc5f82889706"
+      },
+      "bruto": "18626.8",
+      "ss": "1201.4286",
+      "extracto": "0508261e45b7a5057bba232afedfc17cfa104e96c6fbb0d3ca121277a045577a",
+      "estado": "entrada-no-conservada",
+      "reservas": [
+        "SS estimada; no acreditación TGSS ni coste laboral",
+        "Negativos parcialmente asumidos del escenario sintético; identidad completa no acreditada",
+        "X/I sin salida directa Open; IPC EUR-2018 es transformación del motor"
+      ]
+    },
+    {
+      "id": "madrid-2024-base16000",
+      "ejercicio": 2024,
+      "entradaSHA256": "f84d1d300c806d513a2007f2d76b5743612067f1f2b544d06e8944597ceb2c0f",
+      "casoOriginal": {
+        "localizador": "capturas/madrid-2024-base16000/caso.json",
+        "sha256": "589e7eb43b418bb4a5c67f16c9c851699bfa6aa2449a27f0484883546f75ad9e"
+      },
+      "entradaOriginal": {
+        "localizador": "capturas/madrid-2024-base16000/entrada.json",
+        "sha256": "c923531bc689773774bed48f93280a5ad148ac321bfa7b2546b55d9a14d42603"
+      },
+      "bruto": "19157.13",
+      "ss": "1239.466311",
+      "extracto": "88651fd113bc0f45461038b5a74eb308951758dead9c8092688f33355630d325",
+      "estado": "entrada-no-conservada",
+      "reservas": [
+        "SS estimada; no acreditación TGSS ni coste laboral",
+        "Negativos parcialmente asumidos del escenario sintético; identidad completa no acreditada",
+        "X/I sin salida directa Open; IPC EUR-2018 es transformación del motor"
+      ]
+    },
+    {
+      "id": "madrid-2025-base16000",
+      "ejercicio": 2025,
+      "entradaSHA256": "bcff1a56a40f6ab4fbbe1a25b8c525565d79279dbd5dd2c38748c0d0f25cf7ed",
+      "casoOriginal": {
+        "localizador": "capturas/madrid-2025-base16000/caso.json",
+        "sha256": "ea593e247b62159f2de1fc31fa2e0b461ad353b08617a850ac43564d722df269"
+      },
+      "entradaOriginal": {
+        "localizador": "capturas/madrid-2025-base16000/entrada.json",
+        "sha256": "aa06e5b4a065350f05e3f63873213c7be5e3503b3351877ddb7091fabfd0247c"
+      },
+      "bruto": "19717.37",
+      "ss": "1277.685576",
+      "extracto": "5c8b87e8a638548db220c51d0a4182715dfefc7fd7f2063a94c08f6f914c2ebc",
+      "estado": "entrada-no-conservada",
+      "reservas": [
+        "SS estimada; no acreditación TGSS ni coste laboral",
+        "Negativos parcialmente asumidos del escenario sintético; identidad completa no acreditada",
+        "X/I sin salida directa Open; IPC EUR-2018 es transformación del motor"
+      ]
+    },
+    {
+      "id": "madrid-2018-base30000",
+      "ejercicio": 2018,
+      "entradaSHA256": "2f1b83f06e645ae660fa49b410b6983726ce360d036e47752bbdde3dbbd290e3",
+      "casoOriginal": {
+        "localizador": "capturas/madrid-2018-base30000/caso.json",
+        "sha256": "add1d496e778b7bb9787eb655e15168b73a8eefa3a03f842d036341f3390a686"
+      },
+      "entradaOriginal": {
+        "localizador": "capturas/madrid-2018-base30000/entrada.json",
+        "sha256": "4ef1c16ab9c5b2ae8ac5e90e8bff03ba9df564d0bf5d23f1a6b7917d1e09b9f1"
+      },
+      "bruto": "30000",
+      "ss": "1905",
+      "extracto": "faea59a8c63551a00733a2576f7eb8b98b4666f89c1502b7119823a3e8d381e1",
+      "estado": "coincide-presentacion-diferencia-interna-abierta",
+      "reservas": [
+        "SS estimada; no acreditación TGSS ni coste laboral",
+        "Negativos parcialmente asumidos del escenario sintético; identidad completa no acreditada",
+        "X/I sin salida directa Open; IPC EUR-2018 es transformación del motor"
+      ],
+      "open": {
+        "cuota": "4795.14",
+        "netoDerivado": "23299.86",
+        "interno": {
+          "Q": "4795.1374",
+          "neto": "23299.8626"
+        },
+        "deltaCuota": "0.0026",
+        "deltaNeto": "-0.0026",
+        "certificacionInterna": false,
+        "fuentes": {
+          "captura.pdf": {
+            "localizador": "capturas/madrid-2018-base30000/captura.pdf",
+            "sha256": "09e1452cc2e139a7a6ae1ae6fa12a4bd10dbd67686a6c43b10b1dd7b2a396805"
+          },
+          "ses-texto.json": {
+            "tipo": "DERIVADO-SES-TEXTO",
+            "sha256": "410550519dffc2a92e7bd94c37720d0e8e2bd6ea873a8e9b266e59ec68c9034f",
+            "originalComprimidoSHA256": "81ed91a3a5335395222ed8fdfcc193f5bd4dd5d660f4ebd41cfd82552ac7559f",
+            "infladoLatin1SHA256": "4dd19e457dda0195a3046370101662653c23019a39426d28b657cb7447f4950a"
+          }
+        }
+      }
+    },
+    {
+      "id": "madrid-2019-base30000",
+      "ejercicio": 2019,
+      "entradaSHA256": "df404c9e78e6b76a84ab5b2d2f98c9de8b97ba4e27f5ca167374355c8ed7ace0",
+      "casoOriginal": {
+        "localizador": "capturas/madrid-2019-base30000/caso.json",
+        "sha256": "9e4b3b37fdb7969d4c38a1d175e596d087fefbe5377c4f7d5104f2a6566096b7"
+      },
+      "entradaOriginal": {
+        "localizador": "capturas/madrid-2019-base30000/entrada.json",
+        "sha256": "56b06e67bc9a744f42dfe09faa8957a548567bb3ff46f7f18bbd4740783fc428"
+      },
+      "bruto": "30236.41",
+      "ss": "1920.012035",
+      "extracto": "b9967a6c1f5c00a94978261c05d91739d5d5b8fc79b6d98ef82231aacfd5ca0e",
+      "estado": "entrada-no-conservada",
+      "reservas": [
+        "SS estimada; no acreditación TGSS ni coste laboral",
+        "Negativos parcialmente asumidos del escenario sintético; identidad completa no acreditada",
+        "X/I sin salida directa Open; IPC EUR-2018 es transformación del motor"
+      ]
+    },
+    {
+      "id": "madrid-2020-base30000",
+      "ejercicio": 2020,
+      "entradaSHA256": "f51d00e3fd23253842f5915280d8a4a424a320878e708fa8d65041b9072ff045",
+      "casoOriginal": {
+        "localizador": "capturas/madrid-2020-base30000/caso.json",
+        "sha256": "3d94ecab9ed7a4ee0dfed3a4e057dd28030d35cc5d8d12faef1df8e1b1d89185"
+      },
+      "entradaOriginal": {
+        "localizador": "capturas/madrid-2020-base30000/entrada.json",
+        "sha256": "6b2a094f86ae7dd771b87860b1f28cda76622e2436f3aad8b3e5108c1133b4c3"
+      },
+      "bruto": "30075.52",
+      "ss": "1909.79552",
+      "extracto": "a545355d38f3d6b3b8633cbc8768dc5ba2b02f56c349fe2e3cf2d34edaf9ae57",
+      "estado": "entrada-no-conservada",
+      "reservas": [
+        "SS estimada; no acreditación TGSS ni coste laboral",
+        "Negativos parcialmente asumidos del escenario sintético; identidad completa no acreditada",
+        "X/I sin salida directa Open; IPC EUR-2018 es transformación del motor"
+      ]
+    },
+    {
+      "id": "madrid-2021-base30000",
+      "ejercicio": 2021,
+      "entradaSHA256": "aa7ad8d47af4f9eb7393aed049b08a825163f4519c057a4fc812751e393b053e",
+      "casoOriginal": {
+        "localizador": "capturas/madrid-2021-base30000/caso.json",
+        "sha256": "e1ccf4f942bd6cb1969f6a6cdfe42af66d7629f2adf5fae4a5b42c544898c1dd"
+      },
+      "entradaOriginal": {
+        "localizador": "capturas/madrid-2021-base30000/entrada.json",
+        "sha256": "265bc4923494d844c70047612245c7784f7faf256472937a78fcd7f43ccba66c"
+      },
+      "bruto": "32045.43",
+      "ss": "2034.884805",
+      "extracto": "369145cd6cf3248a48046e71dd324e4e219a07914aca87de802c3ac5fbf869e3",
+      "estado": "entrada-no-conservada",
+      "reservas": [
+        "SS estimada; no acreditación TGSS ni coste laboral",
+        "Negativos parcialmente asumidos del escenario sintético; identidad completa no acreditada",
+        "X/I sin salida directa Open; IPC EUR-2018 es transformación del motor"
+      ]
+    },
+    {
+      "id": "madrid-2022-base30000",
+      "ejercicio": 2022,
+      "entradaSHA256": "6d7b770fb941561f8e367bee91980e94f87d5a817b6e2cf73902f4a96aa787dc",
+      "casoOriginal": {
+        "localizador": "capturas/madrid-2022-base30000/caso.json",
+        "sha256": "08e2e3fd4b71ee1e44b69269acbc822721f5a00c23ba2e6c6924cf398ff558a8"
+      },
+      "entradaOriginal": {
+        "localizador": "capturas/madrid-2022-base30000/entrada.json",
+        "sha256": "179def54b5efa1ab5f1ac7716c5e288aad8ab31203d40c9c6c6ac3d9e5bcee0b"
+      },
+      "bruto": "33874.49",
+      "ss": "2151.030115",
+      "extracto": "9608a7374165323863495180ccfaa1a9afc8a437f7332b4752bb83d33b402ab4",
+      "estado": "entrada-no-conservada",
+      "reservas": [
+        "SS estimada; no acreditación TGSS ni coste laboral",
+        "Negativos parcialmente asumidos del escenario sintético; identidad completa no acreditada",
+        "X/I sin salida directa Open; IPC EUR-2018 es transformación del motor"
+      ]
+    },
+    {
+      "id": "madrid-2023-base30000",
+      "ejercicio": 2023,
+      "entradaSHA256": "35723746d6d0635007f515bf08b2ae8c14b1b7f38b60fe34c5fbb42ffb9cf425",
+      "casoOriginal": {
+        "localizador": "capturas/madrid-2023-base30000/caso.json",
+        "sha256": "0800577d5dfc9b3b85c23bb7e3f87d127edbc477d9e5f7bc095040bc338bada1"
+      },
+      "entradaOriginal": {
+        "localizador": "capturas/madrid-2023-base30000/entrada.json",
+        "sha256": "bf68bad082e2e3e8dadc903d74d55610991799b1a32bc17bb1cedc5f82889706"
+      },
+      "bruto": "34925.25",
+      "ss": "2252.678625",
+      "extracto": "bcde7bdb9b192ebb089204f4f04062ec0126df22ed524b65b3391528e4971978",
+      "estado": "entrada-no-conservada",
+      "reservas": [
+        "SS estimada; no acreditación TGSS ni coste laboral",
+        "Negativos parcialmente asumidos del escenario sintético; identidad completa no acreditada",
+        "X/I sin salida directa Open; IPC EUR-2018 es transformación del motor"
+      ]
+    },
+    {
+      "id": "madrid-2024-base30000",
+      "ejercicio": 2024,
+      "entradaSHA256": "bd31874c7864265387c77d253cda58e204ffb34a811243fb35f27b272a46be85",
+      "casoOriginal": {
+        "localizador": "capturas/madrid-2024-base30000/caso.json",
+        "sha256": "dac41f0d4b35df22db63e940349e88299812f97306e1830435e07ecc38cc8e45"
+      },
+      "entradaOriginal": {
+        "localizador": "capturas/madrid-2024-base30000/entrada.json",
+        "sha256": "c923531bc689773774bed48f93280a5ad148ac321bfa7b2546b55d9a14d42603"
+      },
+      "bruto": "35919.61",
+      "ss": "2323.998767",
+      "extracto": "076cbc9ec750b675407ced33bfb5105f5c206620af092ef61cde577baef7ec2e",
+      "estado": "entrada-no-conservada",
+      "reservas": [
+        "SS estimada; no acreditación TGSS ni coste laboral",
+        "Negativos parcialmente asumidos del escenario sintético; identidad completa no acreditada",
+        "X/I sin salida directa Open; IPC EUR-2018 es transformación del motor"
+      ]
+    },
+    {
+      "id": "madrid-2025-base30000",
+      "ejercicio": 2025,
+      "entradaSHA256": "1e98b22ecbb97afc2a85131085114ff460cb85a95bccd928bd5be45c25ebe6fc",
+      "casoOriginal": {
+        "localizador": "capturas/madrid-2025-base30000/caso.json",
+        "sha256": "0f1dc0f3b104777358f86682d0f1398cb81d18fd87d6b90059fad44310f67a43"
+      },
+      "entradaOriginal": {
+        "localizador": "capturas/madrid-2025-base30000/entrada.json",
+        "sha256": "aa06e5b4a065350f05e3f63873213c7be5e3503b3351877ddb7091fabfd0247c"
+      },
+      "bruto": "36970.07",
+      "ss": "2395.660536",
+      "extracto": "aa713297b08283a5bac0016b927357bf54ca9078158c67e3fb5f25ee1879f1ba",
+      "estado": "entrada-no-conservada",
+      "reservas": [
+        "SS estimada; no acreditación TGSS ni coste laboral",
+        "Negativos parcialmente asumidos del escenario sintético; identidad completa no acreditada",
+        "X/I sin salida directa Open; IPC EUR-2018 es transformación del motor"
+      ]
+    },
+    {
+      "id": "madrid-2018-base60000",
+      "ejercicio": 2018,
+      "entradaSHA256": "a75e2f31fc281c034197c7c95e6219fbb88571127f25e585ccfeb2858359ac41",
+      "casoOriginal": {
+        "localizador": "capturas/madrid-2018-base60000/caso.json",
+        "sha256": "3b1f18c9c4817aa25049a3f358661ec9baabb300b0b582f06a240ea21206cb81"
+      },
+      "entradaOriginal": {
+        "localizador": "capturas/madrid-2018-base60000/entrada.json",
+        "sha256": "4ef1c16ab9c5b2ae8ac5e90e8bff03ba9df564d0bf5d23f1a6b7917d1e09b9f1"
+      },
+      "bruto": "60000",
+      "ss": "2875.08315",
+      "extracto": "e09c6598829048574bb8648bbc51eaf306f514c096d9174bfc8812c0e2772d85",
+      "estado": "entrada-no-conservada",
+      "reservas": [
+        "SS estimada; no acreditación TGSS ni coste laboral",
+        "Negativos parcialmente asumidos del escenario sintético; identidad completa no acreditada",
+        "X/I sin salida directa Open; IPC EUR-2018 es transformación del motor"
+      ]
+    },
+    {
+      "id": "madrid-2019-base60000",
+      "ejercicio": 2019,
+      "entradaSHA256": "06f451e525c6968eb1a14d3e3d514d855358a2ae9301cf2a61b1d9d7fdf2dcb3",
+      "casoOriginal": {
+        "localizador": "capturas/madrid-2019-base60000/caso.json",
+        "sha256": "e1715b2a548d0eeb407ecdef3b807cc8512549a49faddb71c3837b2199cebf4d"
+      },
+      "entradaOriginal": {
+        "localizador": "capturas/madrid-2019-base60000/entrada.json",
+        "sha256": "56b06e67bc9a744f42dfe09faa8957a548567bb3ff46f7f18bbd4740783fc428"
+      },
+      "bruto": "60472.83",
+      "ss": "3101.4162",
+      "extracto": "4855c40a356c8270a770cedc78c322b0ee791f8cda4a24f01ee1063e5f8ff15e",
+      "estado": "entrada-no-conservada",
+      "reservas": [
+        "SS estimada; no acreditación TGSS ni coste laboral",
+        "Negativos parcialmente asumidos del escenario sintético; identidad completa no acreditada",
+        "X/I sin salida directa Open; IPC EUR-2018 es transformación del motor"
+      ]
+    },
+    {
+      "id": "madrid-2020-base60000",
+      "ejercicio": 2020,
+      "entradaSHA256": "83095d3f1a88f35a488f3d1e6cdf003d7883220156350018f6d005ffa7ec250d",
+      "casoOriginal": {
+        "localizador": "capturas/madrid-2020-base60000/caso.json",
+        "sha256": "19ba97bde97bad548a065c596f20378d3f272f3e7a9364808ff41326d055f976"
+      },
+      "entradaOriginal": {
+        "localizador": "capturas/madrid-2020-base60000/entrada.json",
+        "sha256": "6b2a094f86ae7dd771b87860b1f28cda76622e2436f3aad8b3e5108c1133b4c3"
+      },
+      "bruto": "60151.03",
+      "ss": "3101.4162",
+      "extracto": "e8c14ffbb6511d644683e251731013ce1229b455d672eee18647616435968830",
+      "estado": "entrada-no-conservada",
+      "reservas": [
+        "SS estimada; no acreditación TGSS ni coste laboral",
+        "Negativos parcialmente asumidos del escenario sintético; identidad completa no acreditada",
+        "X/I sin salida directa Open; IPC EUR-2018 es transformación del motor"
+      ]
+    },
+    {
+      "id": "madrid-2021-base60000",
+      "ejercicio": 2021,
+      "entradaSHA256": "348591a03c8ca8aac41984e2555b1296a5e5186ac74152c5e5fcb92cf7532010",
+      "casoOriginal": {
+        "localizador": "capturas/madrid-2021-base60000/caso.json",
+        "sha256": "3e79f426c0e6612c84f998763951aa7b674e38efdfedc7c4342c09e1f5c747e5"
+      },
+      "entradaOriginal": {
+        "localizador": "capturas/madrid-2021-base60000/entrada.json",
+        "sha256": "265bc4923494d844c70047612245c7784f7faf256472937a78fcd7f43ccba66c"
+      },
+      "bruto": "64090.87",
+      "ss": "3101.4162",
+      "extracto": "980ce2cec8305954f5d16e7552fa2f8aef009fff6ddc7192dec116c5fbb4a34e",
+      "estado": "entrada-no-conservada",
+      "reservas": [
+        "SS estimada; no acreditación TGSS ni coste laboral",
+        "Negativos parcialmente asumidos del escenario sintético; identidad completa no acreditada",
+        "X/I sin salida directa Open; IPC EUR-2018 es transformación del motor"
+      ]
+    },
+    {
+      "id": "madrid-2022-base60000",
+      "ejercicio": 2022,
+      "entradaSHA256": "e6436d653ae188fbccf0e5121a5f4ee8feed3ba578cb71d29825ec79a53e7bfa",
+      "casoOriginal": {
+        "localizador": "capturas/madrid-2022-base60000/caso.json",
+        "sha256": "d3be8399c36ba0556daadebb490f8b4660c8694812555478443f28b93f2ad9c9"
+      },
+      "entradaOriginal": {
+        "localizador": "capturas/madrid-2022-base60000/entrada.json",
+        "sha256": "179def54b5efa1ab5f1ac7716c5e288aad8ab31203d40c9c6c6ac3d9e5bcee0b"
+      },
+      "bruto": "67748.98",
+      "ss": "3154.2228",
+      "extracto": "b1b2698e8a098122ea373494fea0b066accd8a53c6765d4a13655a8760bbf8b9",
+      "estado": "entrada-no-conservada",
+      "reservas": [
+        "SS estimada; no acreditación TGSS ni coste laboral",
+        "Negativos parcialmente asumidos del escenario sintético; identidad completa no acreditada",
+        "X/I sin salida directa Open; IPC EUR-2018 es transformación del motor"
+      ]
+    },
+    {
+      "id": "madrid-2023-base60000",
+      "ejercicio": 2023,
+      "entradaSHA256": "950c3fa4c2a338ed8d11f75fd7b984cedfdd63fc182085cac9ef571cf97edbdf",
+      "casoOriginal": {
+        "localizador": "capturas/madrid-2023-base60000/caso.json",
+        "sha256": "bba06d3d383e886b54d5e6f0d52d30c97939550d63100ec791ba1f3b36b58e35"
+      },
+      "entradaOriginal": {
+        "localizador": "capturas/madrid-2023-base60000/entrada.json",
+        "sha256": "bf68bad082e2e3e8dadc903d74d55610991799b1a32bc17bb1cedc5f82889706"
+      },
+      "bruto": "69850.51",
+      "ss": "3479.517",
+      "extracto": "b4f63604115c0bffbca5e39c9ad85f4d1cfcb245d082d7ae689e3946695ab901",
+      "estado": "entrada-no-conservada",
+      "reservas": [
+        "SS estimada; no acreditación TGSS ni coste laboral",
+        "Negativos parcialmente asumidos del escenario sintético; identidad completa no acreditada",
+        "X/I sin salida directa Open; IPC EUR-2018 es transformación del motor"
+      ]
+    },
+    {
+      "id": "madrid-2024-base60000",
+      "ejercicio": 2024,
+      "entradaSHA256": "ad41f069c594312dffb68b82e4cd26b8b64147d699c96e7d513317f1b4f1a5f0",
+      "casoOriginal": {
+        "localizador": "capturas/madrid-2024-base60000/caso.json",
+        "sha256": "e154706c5a28af64118d75a3a8412708692513038c595e22d52ce668579ca5b7"
+      },
+      "entradaOriginal": {
+        "localizador": "capturas/madrid-2024-base60000/entrada.json",
+        "sha256": "c923531bc689773774bed48f93280a5ad148ac321bfa7b2546b55d9a14d42603"
+      },
+      "bruto": "71839.23",
+      "ss": "3664.9962",
+      "extracto": "066284ff06698430c7da4e14ffee3a2628c845027f9a6bfb6a7be03dc961d865",
+      "estado": "entrada-no-conservada",
+      "reservas": [
+        "SS estimada; no acreditación TGSS ni coste laboral",
+        "Negativos parcialmente asumidos del escenario sintético; identidad completa no acreditada",
+        "X/I sin salida directa Open; IPC EUR-2018 es transformación del motor"
+      ]
+    },
+    {
+      "id": "madrid-2025-base60000",
+      "ejercicio": 2025,
+      "entradaSHA256": "2becc1d3a52bc30a53a35a5d3347febe138ff7c6a4f1e4ff24ebdaab46312f54",
+      "casoOriginal": {
+        "localizador": "capturas/madrid-2025-base60000/caso.json",
+        "sha256": "ddd931d844356720793acc51f09d30a3de42eccf3dc72c47e7f537bd23448de9"
+      },
+      "entradaOriginal": {
+        "localizador": "capturas/madrid-2025-base60000/entrada.json",
+        "sha256": "aa06e5b4a065350f05e3f63873213c7be5e3503b3351877ddb7091fabfd0247c"
+      },
+      "bruto": "73940.14",
+      "ss": "3841.993358",
+      "extracto": "8a26eacc69a6b191676b2a73d3defc640f63a12d8d637d44f2270b2110bd6593",
+      "estado": "entrada-no-conservada",
+      "reservas": [
+        "SS estimada; no acreditación TGSS ni coste laboral",
+        "Negativos parcialmente asumidos del escenario sintético; identidad completa no acreditada",
+        "X/I sin salida directa Open; IPC EUR-2018 es transformación del motor"
+      ]
+    }
+  ]
+}
