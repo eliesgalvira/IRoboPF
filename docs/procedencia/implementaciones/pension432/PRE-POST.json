@@ -1,0 +1,229 @@
+{
+  "schema": "pension432-diagnostico-v1",
+  "decision": "pendiente-sin-cambio-de-motor",
+  "productionChanged": false,
+  "metricsChanged": false,
+  "metrics": {
+    "original": "76/80",
+    "arrendadores": "4/4",
+    "pensiones": "1/2"
+  },
+  "rows": [
+    {
+      "id": "pension-2025-andalucia-68",
+      "PRE": {
+        "frozen": "-323.72",
+        "current": "-323.72",
+        "componentes": {
+          "unidad": "EUR",
+          "gravamenEstatal": "1088.415",
+          "gravamenMinimoEstatal": "636.5",
+          "gravamenAutonomico": "1088.415",
+          "gravamenMinimoAutonomico": "664.05",
+          "cuotaEstatal": "451.915",
+          "cuotaAutonomica": "424.365"
+        },
+        "cuota": "876.28",
+        "open": "-323.71",
+        "differenceOpenMinusMotor": "0.01"
+      },
+      "POST": {
+        "kind": "contrafactual-no-aplicado",
+        "hypothesis": "HALF_UP por gravamen completo antes de restar mínimos",
+        "estatal": "451.92",
+        "autonomica": "424.37",
+        "cuota": "876.29",
+        "diferencial": "-323.71",
+        "open": "-323.71",
+        "differenceOpenMinusCandidate": "0.00",
+        "alternativeNetQuotaRoundingAlsoMatches": true
+      },
+      "netoDisponible": {
+        "PRE": "16123.72",
+        "POST": "16123.71",
+        "meaning": "bruto menos cuota; no es campo devuelto por la API"
+      }
+    },
+    {
+      "id": "pension-2025-madrid-77",
+      "PRE": {
+        "frozen": "465.24",
+        "current": "465.24",
+        "componentes": {
+          "unidad": "EUR",
+          "gravamenEstatal": "3282.75",
+          "gravamenMinimoEstatal": "769.5",
+          "gravamenAutonomico": "2890.93736",
+          "gravamenMinimoAutonomico": "738.94665",
+          "cuotaEstatal": "2513.25",
+          "cuotaAutonomica": "2151.99071"
+        },
+        "cuota": "4665.24071",
+        "open": "465.24",
+        "differenceOpenMinusMotor": "0.00"
+      },
+      "POST": {
+        "kind": "contrafactual-no-aplicado",
+        "hypothesis": "HALF_UP por gravamen completo antes de restar mínimos",
+        "estatal": "2513.25",
+        "autonomica": "2151.99",
+        "cuota": "4665.24",
+        "diferencial": "465.24",
+        "open": "465.24",
+        "differenceOpenMinusCandidate": "0.00",
+        "alternativeNetQuotaRoundingAlsoMatches": true
+      },
+      "netoDisponible": {
+        "PRE": "25334.76",
+        "POST": "25334.76",
+        "meaning": "bruto menos cuota; no es campo devuelto por la API"
+      }
+    },
+    {
+      "id": "pension-2025-andalucia-65-devengo",
+      "PRE": {
+        "frozen": "-323.72",
+        "current": "-323.72",
+        "componentes": {
+          "unidad": "EUR",
+          "gravamenEstatal": "1088.415",
+          "gravamenMinimoEstatal": "636.5",
+          "gravamenAutonomico": "1088.415",
+          "gravamenMinimoAutonomico": "664.05",
+          "cuotaEstatal": "451.915",
+          "cuotaAutonomica": "424.365"
+        },
+        "cuota": "876.28",
+        "open": "-323.71",
+        "differenceOpenMinusMotor": "0.01"
+      },
+      "POST": {
+        "kind": "contrafactual-no-aplicado",
+        "hypothesis": "HALF_UP por gravamen completo antes de restar mínimos",
+        "estatal": "451.92",
+        "autonomica": "424.37",
+        "cuota": "876.29",
+        "diferencial": "-323.71",
+        "open": "-323.71",
+        "differenceOpenMinusCandidate": "0.00",
+        "alternativeNetQuotaRoundingAlsoMatches": true
+      },
+      "netoDisponible": {
+        "PRE": "16123.72",
+        "POST": "16123.71",
+        "meaning": "bruto menos cuota; no es campo devuelto por la API"
+      }
+    },
+    {
+      "id": "pension-2025-madrid-75-devengo",
+      "PRE": {
+        "frozen": "465.24",
+        "current": "465.24",
+        "componentes": {
+          "unidad": "EUR",
+          "gravamenEstatal": "3282.75",
+          "gravamenMinimoEstatal": "769.5",
+          "gravamenAutonomico": "2890.93736",
+          "gravamenMinimoAutonomico": "738.94665",
+          "cuotaEstatal": "2513.25",
+          "cuotaAutonomica": "2151.99071"
+        },
+        "cuota": "4665.24071",
+        "open": "465.24",
+        "differenceOpenMinusMotor": "0.00"
+      },
+      "POST": {
+        "kind": "contrafactual-no-aplicado",
+        "hypothesis": "HALF_UP por gravamen completo antes de restar mínimos",
+        "estatal": "2513.25",
+        "autonomica": "2151.99",
+        "cuota": "4665.24",
+        "diferencial": "465.24",
+        "open": "465.24",
+        "differenceOpenMinusCandidate": "0.00",
+        "alternativeNetQuotaRoundingAlsoMatches": true
+      },
+      "netoDisponible": {
+        "PRE": "25334.76",
+        "POST": "25334.76",
+        "meaning": "bruto menos cuota; no es campo devuelto por la API"
+      }
+    }
+  ],
+  "adversa": {
+    "synthetic": true,
+    "observed": false,
+    "base": "11457",
+    "minimo": "6700.05",
+    "porGravamen": "451.92",
+    "porCuota": "451.91"
+  },
+  "evidence": [
+    {
+      "path": "docs/procedencia/simuladores/pensiones-prospectivas-2025/hechos-previos.json",
+      "sha256": "dcb6324b10ba4c5b003e4fa3185326061f234ef69468b6228c3af6018645d825"
+    },
+    {
+      "path": "docs/procedencia/simuladores/pensiones-prospectivas-2025/predicciones-previas.json",
+      "sha256": "709579cb02321e006e2771d5e054cf2d92a42c4eda94594ae9088213e8526e7c"
+    },
+    {
+      "path": "docs/procedencia/simuladores/pensiones-prospectivas-2025/pension-2025-andalucia-68/correspondencias.json",
+      "sha256": "dc0861c0596ef802bc891077cbef1ad2d7df6a11788e883b555d497ea8c16a2d"
+    },
+    {
+      "path": "docs/procedencia/simuladores/pensiones-prospectivas-2025/pension-2025-andalucia-68/captura.pdf",
+      "sha256": "c1fb8f6d76674311b5243e3e1b9f624b2a0d570b119884daac1bb635950e4ba0"
+    },
+    {
+      "path": "docs/procedencia/simuladores/pensiones-prospectivas-2025/pension-2025-madrid-77/correspondencias.json",
+      "sha256": "08d4ef2597eb815f93f9dbf6387978143937a105d46d66ca36ee899fce0d868c"
+    },
+    {
+      "path": "docs/procedencia/simuladores/pensiones-prospectivas-2025/pension-2025-madrid-77/captura.pdf",
+      "sha256": "a526863c5758cd2ca251abbf08437ded47ca0449c95ade85c8778e8663be226f"
+    },
+    {
+      "path": "docs/procedencia/simuladores/pensiones-fronteras-2025/hechos-previos.json",
+      "sha256": "46121bd4f4a2a004117bc0aeb26f648a81d01c67490112393acad21da6b4846b"
+    },
+    {
+      "path": "docs/procedencia/simuladores/pensiones-fronteras-2025/predicciones-previas.json",
+      "sha256": "2e13c68d0e88d5bb61bb95afbef6e3d8284721995431bd3179c213726cbdc1ae"
+    },
+    {
+      "path": "docs/procedencia/simuladores/pensiones-fronteras-2025/pension-2025-andalucia-65-devengo/correspondencias.json",
+      "sha256": "a59339b1cf4c21d4634809b98f85a90d6318ea016e46b7d7db41adee0c9115b1"
+    },
+    {
+      "path": "docs/procedencia/simuladores/pensiones-fronteras-2025/pension-2025-andalucia-65-devengo/recibo-original.json",
+      "sha256": "df0259395a0649b26de3450c7ea9fb3e1afe6ad470067ee743e6c0fa9f949211"
+    },
+    {
+      "path": "docs/procedencia/simuladores/pensiones-fronteras-2025/pension-2025-andalucia-65-devengo/captura.pdf",
+      "sha256": "4e9b42cfb5b7612276a1e27d59d82f9cd2133bd208aeef859666e798e8465ecc"
+    },
+    {
+      "path": "docs/procedencia/simuladores/pensiones-fronteras-2025/pension-2025-madrid-75-devengo/correspondencias.json",
+      "sha256": "7eab4d9d47616b3ad86d6169eae6e5310a3316793e81540a5f1a390f8344562f"
+    },
+    {
+      "path": "docs/procedencia/simuladores/pensiones-fronteras-2025/pension-2025-madrid-75-devengo/recibo-original.json",
+      "sha256": "36e1eb475ae285b42c38c70248662114fda50ea11ee90a61fffc02bcfe34e3cf"
+    },
+    {
+      "path": "docs/procedencia/simuladores/pensiones-fronteras-2025/pension-2025-madrid-75-devengo/captura.pdf",
+      "sha256": "4c2e743a28e20251974526eefc70b6d61062248c8facc1f6b4b994054c767e3c"
+    }
+  ],
+  "api": {
+    "explicita": "ejecutada con hechos de pensión y retenciones efectivas",
+    "canonica": "no aplicable a esta entrada: sin contrato solo-trabajo de pensión efectiva; no convertir a salario estimado"
+  },
+  "limitations": [
+    "Cotejo focal contra transcripción PDF y hash del PDF; no sustituye revisión documental independiente SES/PDF.",
+    "Dos patrones monetarios; fronteras repiten importes y no discriminan algoritmos.",
+    "POST es contrafactual sin rastro de producción modificado.",
+    "No habilita regla por ID, edad, territorio, importe, otros ejercicios ni todas las pensiones."
+  ]
+}

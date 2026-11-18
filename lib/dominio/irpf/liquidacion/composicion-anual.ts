@@ -1,3 +1,4 @@
+import { validarPaqueteMadrid, materializarPaqueteMadrid, type ParametrosMadrid2018 } from "../analisis-madrid/parametros"
 import { seleccionarPoliticaAlquilerOpen2025 } from "../trabajo-alquiler-ordinario-2025/seleccion-open"
 import { seleccionarCuantizacionFamilia2025, cuantizarGravamenFamilia2025 } from "../cuotas/politica-familia-open-2025"
 import { seleccionarCuantizacionConjunta, cuantizarComponenteConjunto } from "../conjunta-2025/politica-cuantizacion"
@@ -86,6 +87,7 @@ export type PoliticaAnual =
   | "open-etapas-empleo-madrid-2024"
 /** Contrato interno: bases ya integradas en EUR Decimal; jamás reconstruye cotizaciones. */
 export interface EntradaComposicionAnual {
+  readonly parametrosAnaliticosMadrid?: ParametrosMadrid2018 | undefined
   readonly hechosAlquilerOpen2025?: import("../trabajo-alquiler-ordinario-2025/contrato").CasoTrabajoAlquilerOrdinario2025 | undefined
   /** Hechos de la conexión explícita; ausentes en la API canónica. */
   readonly hechosFamiliaOpen2025?: CasoFiscalAnualExplicitoBase | undefined
@@ -170,6 +172,25 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
     const ampliaF = entrada.deduccionesTerritoriales2025?.solicitudes.some((s) => s.lote === "F-ampliado") === true
     const A = Decimal.clone({ precision: entrada.deduccionesTerritoriales2025?.viviendaDT182025 !== undefined || entrada.basesFamiliares2025 !== undefined || entrada.deduccionesTerritoriales2025?.solicitudes.some(s=>s.lote==="A-aragon-dos") === true || entrada.deduccionesTerritoriales2025?.vehiculoDA582025 !== undefined || ampliaF || usaPrecisionD51(entrada.deduccionesTerritoriales2025) || entrada.deduccionesTerritoriales2025?.donativosEstatales2025 !== undefined ? 80 : entrada.precision })
     const caso = entrada.ambito
+    const paquete = entrada.parametrosAnaliticosMadrid
+    if (paquete !== undefined) {
+      if (!validarPaqueteMadrid(paquete)) return yield* Effect.fail(errorDerechosMinimos({ motivo: "Paquete analítico ajeno a la fábrica" }))
+      if (entrada.politica !== "decimal-hasta-salida" || caso.anio !== 2018 || caso.comunidadAutonoma !== "madrid" ||
+          caso.situacionFamiliar.edad < 18 || caso.situacionFamiliar.edad >= 65 ||
+          caso.situacionFamiliar.tipo !== "individual" || caso.situacionFamiliar.discapacidad._tag !== "SinDiscapacidad" ||
+          caso.derechosMinimos !== undefined || caso.fechaFallecimiento !== undefined ||
+          caso.situacionFamiliar.descendientes.length !== 0 || caso.situacionFamiliar.ascendientes.length !== 0 ||
+          !entrada.baseAhorro.isZero() || entrada.serviciosLaborales !== undefined ||
+          entrada.deduccionesAutonomicasCentimos !== 0 || entrada.deduccionesTerritoriales2025 !== undefined ||
+          entrada.deduccionesValencianas2025 !== undefined || entrada.conjunta2025 !== undefined || entrada.basesFamiliares2025 !== undefined ||
+          entrada.hechosFamiliaOpen2025 !== undefined || entrada.hechosAlquilerOpen2025 !== undefined ||
+          entrada.basesImponiblesE38 !== undefined || entrada.ambito.contribuyenteId !== undefined ||
+          [entrada.hechosOpen2023A2024, entrada.hechosOpen2020A2022, entrada.pagadoresCatalunya2025,
+           entrada.aragonSocialMixto2025, entrada.inmueblesP4a, entrada.ingresosIdentificados2025,
+           entrada.rentaActividadAnualB, entrada.origenBaseGeneralB, entrada.rentasTrabajoAnuales, entrada.maternidad2025].some(v => v !== undefined))
+        return yield* Effect.fail(errorDerechosMinimos({ motivo: "Paquete analítico incompatible con ámbito o política Open" }))
+    }
+    const parametrosMadrid = paquete === undefined ? undefined : materializarPaqueteMadrid(paquete)
     const libroBasesFamiliares2025 = entrada.basesFamiliares2025 === undefined ? undefined : yield* Effect.try({
       try: () => {
         if (caso.comunidadAutonoma === "andalucia" && entrada.basesImponiblesE38 === undefined)
@@ -212,7 +233,7 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
     if (atribucionIngresos?.estado === "no_soportado")
       return yield* Effect.fail(errorDerechosMinimos(atribucionIngresos))
     const libroIngresosIdentificados2025 = atribucionIngresos?.libro
-    const minimosEstatales = conjunta === undefined ? entrada.minimosEstatales : MINIMOS_ESTATALES_2025
+    const minimosEstatales = parametrosMadrid?.minimos ?? (conjunta === undefined ? entrada.minimosEstatales : MINIMOS_ESTATALES_2025)
     const cuantizar = (importe: Decimal) =>
       cuantizarAnual(importe, entrada.politica)
     const estatalOpen2018 = entrada.politica === "open-etapas-empleo-madrid-2018"
@@ -431,12 +452,13 @@ export const componerLiquidacionAnual = Effect.fn("Liquidacion.componerAnual")(
     })
     if (seleccion._tag === "ComunidadAutonomaNoSoportada")
       return yield* Effect.fail(errorDerechosMinimos(seleccion))
-    const parametrosComunidad = seleccion
+    const parametrosComunidad = paquete === undefined ? seleccion : { ...seleccion, minimosAutonomicos: parametrosMadrid!.minimos }
     let escalasPublicadasEstatales =
       caso.anio <= 2014 && caso.comunidadAutonoma !== "simulada-estatal"
         ? [ESTATAL_ORDINARIA_2012_2014, ESTATAL_COMPLEMENTARIA_2012_2014]
-        : undefined
+        : paquete === undefined ? undefined : [parametrosMadrid!.estatal]
     let escalaPublicadaAutonomica = obtenerEscalaAutonomicaPublicada(caso)
+    if (paquete !== undefined) escalaPublicadaAutonomica = parametrosMadrid!.autonomica
     let escalasPublicadasAutonomicas =
       escalaPublicadaAutonomica === undefined
         ? undefined

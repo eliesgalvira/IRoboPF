@@ -1,0 +1,267 @@
+{
+  "schema": "adenda-legal-madrid-v1",
+  "alcance": "Operandos Hdecimal 2018–2025; no revisión global; no cambia aceptación Open ni matriz histórica",
+  "fuentes": {
+    "DA61-2025": {
+      "url": "https://www.boe.es/boe/dias/2025/07/25/pdfs/BOE-A-2025-15424.pdf",
+      "sha256": "9657d0c565a0b0017bee94f8544da006109f54f06286c15a0496ed4f1a3e38ac",
+      "original": {
+        "sha256": "9657d0c565a0b0017bee94f8544da006109f54f06286c15a0496ed4f1a3e38ac",
+        "bytes": 36928247,
+        "estado": "original-verificado-SHA256"
+      },
+      "localizador": "Ley5/2025 DF3; PDF46–47; BOE99351–99352; efectos 2025-01-01",
+      "extracto": "docs/procedencia/implementaciones/conexion-anual/ley5-2025-p46-47.txt",
+      "extractoSHA256": "ae0ce2aceeef140364f66d28113d7711cfcf78c74ffc41860be9f42c873ff641",
+      "parametros": {
+        "brutoMaxExclusivo": "18276",
+        "umbral": "16576",
+        "maximo": "340",
+        "pendiente": "0.2",
+        "otrasRentasMaxInclusivo": "6500"
+      },
+      "operacion": "min(cuota-limite-atribuible,max(0,340-0.2*max(0,bruto-16576))); restar tras art80",
+      "reserva": "Sólo servicios laborales/estatutarios; atribución1 por alcance sin otras rentas; no acredita algoritmo Open"
+    },
+    "estatal-2025": {
+      "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Biblioteca/Manual/Practicos/IRPF/IRPF-2025/ManualRenta2025Parte1_es_es.pdf",
+      "sha256": "02c6e8300a7f56c8c24aa947d4c39c5657c9a9eda6f5d727d44b4112d7de15d4",
+      "original": {
+        "sha256": "02c6e8300a7f56c8c24aa947d4c39c5657c9a9eda6f5d727d44b4112d7de15d4",
+        "bytes": 8554799,
+        "estado": "original-verificado-SHA256"
+      },
+      "localizador": "PDF e impresa1120; Cap15 Gravamen estatal; art63.1.1º; publicación editorial20/05/2026",
+      "extracto": "docs/analisis-madrid/estatal-2025-p1120.txt",
+      "extractoSHA256": "582ba61f24ec255d912066719dade6952d31572e91c5f171670db49fea76fd4f",
+      "filasBaseCuotaTipo": [
+        [
+          "0",
+          "0",
+          "0.095"
+        ],
+        [
+          "12450",
+          "1182.75",
+          "0.12"
+        ],
+        [
+          "20200",
+          "2112.75",
+          "0.15"
+        ],
+        [
+          "35200",
+          "4362.75",
+          "0.185"
+        ],
+        [
+          "60000",
+          "8950.75",
+          "0.225"
+        ],
+        [
+          "300000",
+          "62950.75",
+          "0.245"
+        ]
+      ],
+      "operacion": "integral por anchuras y tipos; restar integral del mínimo; cuotas fijas corroboran integral, no tabla productiva nueva",
+      "reserva": "No cambia política de cuantización; no revisión completa de manual ni firma/CSV"
+    }
+  },
+  "porEjercicio": {
+    "2018": {
+      "art19": {
+        "limite": "2000",
+        "formula": "min(2000,max(0,bruto-SS))",
+        "referencia": "docs/analisis-madrid/catalogo.json#/porEjercicio/2018/art19"
+      },
+      "art20": {
+        "formula": "A+max(0,B-A)/2; A=max(0,3700-1.15625*max(0,N-11250)); B=max(0,5565-1.5*max(0,N-13115)); cortes11250/13115/14450/16825",
+        "fuente": "ley6-2018 pp77-78/306",
+        "otrasRentas": "0",
+        "limite": "max(0,neto-art19)",
+        "referencia": "docs/analisis-madrid/catalogo.json#/porEjercicio/2018/art20"
+      },
+      "minimos": {
+        "fuente": "docs/analisis-madrid/catalogo.json#/porEjercicio/2018/minimos",
+        "edad": "18–64; sin familia/discapacidad; valor usado en salida minimos"
+      },
+      "gravamen": {
+        "fuenteEstatal": "docs/analisis-madrid/catalogo.json#/porEjercicio/2018/estatal",
+        "fuenteMadrid": "docs/analisis-madrid/catalogo.json#/porEjercicio/2018/madrid",
+        "parametros": "límites inferior/superior, cuota fija y tipo serializados por tramo en rastro; no sólo selector"
+      }
+    },
+    "2019": {
+      "art19": {
+        "limite": "2000",
+        "formula": "min(2000,max(0,bruto-SS))",
+        "referencia": "docs/analisis-madrid/catalogo.json#/porEjercicio/2019/art19"
+      },
+      "art20": {
+        "formula": "5565 si N<=13115; 5565-1.5*(N-13115) si N<16825; 0 después",
+        "fuente": "ley6-2018 pp77-78/306",
+        "otrasRentas": "0",
+        "limite": "max(0,neto-art19)",
+        "referencia": "docs/analisis-madrid/catalogo.json#/porEjercicio/2019/art20"
+      },
+      "minimos": {
+        "fuente": "docs/analisis-madrid/catalogo.json#/porEjercicio/2019/minimos",
+        "edad": "18–64; sin familia/discapacidad; valor usado en salida minimos"
+      },
+      "gravamen": {
+        "fuenteEstatal": "docs/analisis-madrid/catalogo.json#/porEjercicio/2019/estatal",
+        "fuenteMadrid": "docs/analisis-madrid/catalogo.json#/porEjercicio/2019/madrid",
+        "parametros": "límites inferior/superior, cuota fija y tipo serializados por tramo en rastro; no sólo selector"
+      }
+    },
+    "2020": {
+      "art19": {
+        "limite": "2000",
+        "formula": "min(2000,max(0,bruto-SS))",
+        "referencia": "docs/analisis-madrid/catalogo.json#/porEjercicio/2020/art19"
+      },
+      "art20": {
+        "formula": "5565 si N<=13115; 5565-1.5*(N-13115) si N<16825; 0 después",
+        "fuente": "ley6-2018 pp77-78/306",
+        "otrasRentas": "0",
+        "limite": "max(0,neto-art19)",
+        "referencia": "docs/analisis-madrid/catalogo.json#/porEjercicio/2020/art20"
+      },
+      "minimos": {
+        "fuente": "docs/analisis-madrid/catalogo.json#/porEjercicio/2020/minimos",
+        "edad": "18–64; sin familia/discapacidad; valor usado en salida minimos"
+      },
+      "gravamen": {
+        "fuenteEstatal": "docs/analisis-madrid/catalogo.json#/porEjercicio/2020/estatal",
+        "fuenteMadrid": "docs/analisis-madrid/catalogo.json#/porEjercicio/2020/madrid",
+        "parametros": "límites inferior/superior, cuota fija y tipo serializados por tramo en rastro; no sólo selector"
+      }
+    },
+    "2021": {
+      "art19": {
+        "limite": "2000",
+        "formula": "min(2000,max(0,bruto-SS))",
+        "referencia": "docs/analisis-madrid/catalogo.json#/porEjercicio/2021/art19"
+      },
+      "art20": {
+        "formula": "5565 si N<=13115; 5565-1.5*(N-13115) si N<16825; 0 después",
+        "fuente": "ley6-2018 pp77-78/306",
+        "otrasRentas": "0",
+        "limite": "max(0,neto-art19)",
+        "referencia": "docs/analisis-madrid/catalogo.json#/porEjercicio/2021/art20"
+      },
+      "minimos": {
+        "fuente": "docs/analisis-madrid/catalogo.json#/porEjercicio/2021/minimos",
+        "edad": "18–64; sin familia/discapacidad; valor usado en salida minimos"
+      },
+      "gravamen": {
+        "fuenteEstatal": "docs/analisis-madrid/catalogo.json#/porEjercicio/2021/estatal",
+        "fuenteMadrid": "docs/analisis-madrid/catalogo.json#/porEjercicio/2021/madrid",
+        "parametros": "límites inferior/superior, cuota fija y tipo serializados por tramo en rastro; no sólo selector"
+      }
+    },
+    "2022": {
+      "art19": {
+        "limite": "2000",
+        "formula": "min(2000,max(0,bruto-SS))",
+        "referencia": "docs/analisis-madrid/catalogo.json#/porEjercicio/2022/art19"
+      },
+      "art20": {
+        "formula": "5565 si N<=13115; 5565-1.5*(N-13115) si N<16825; 0 después",
+        "fuente": "ley6-2018 pp77-78/306",
+        "otrasRentas": "0",
+        "limite": "max(0,neto-art19)",
+        "referencia": "docs/analisis-madrid/catalogo.json#/porEjercicio/2022/art20"
+      },
+      "minimos": {
+        "fuente": "docs/analisis-madrid/catalogo.json#/porEjercicio/2022/minimos",
+        "edad": "18–64; sin familia/discapacidad; valor usado en salida minimos"
+      },
+      "gravamen": {
+        "fuenteEstatal": "docs/analisis-madrid/catalogo.json#/porEjercicio/2022/estatal",
+        "fuenteMadrid": "docs/analisis-madrid/catalogo.json#/porEjercicio/2022/madrid",
+        "parametros": "límites inferior/superior, cuota fija y tipo serializados por tramo en rastro; no sólo selector"
+      }
+    },
+    "2023": {
+      "art19": {
+        "limite": "2000",
+        "formula": "min(2000,max(0,bruto-SS))",
+        "referencia": "docs/analisis-madrid/catalogo.json#/porEjercicio/2023/art19"
+      },
+      "art20": {
+        "formula": "6498 si N<=14047.50; 6498-1.14*(N-14047.50) si N<19747.50; 0 después",
+        "fuente": "ley31-2022 p84",
+        "otrasRentas": "0",
+        "limite": "max(0,neto-art19)",
+        "referencia": "docs/analisis-madrid/catalogo.json#/porEjercicio/2023/art20"
+      },
+      "minimos": {
+        "fuente": "docs/analisis-madrid/catalogo.json#/porEjercicio/2023/minimos",
+        "edad": "18–64; sin familia/discapacidad; valor usado en salida minimos"
+      },
+      "gravamen": {
+        "fuenteEstatal": "docs/analisis-madrid/catalogo.json#/porEjercicio/2023/estatal",
+        "fuenteMadrid": "docs/analisis-madrid/catalogo.json#/porEjercicio/2023/madrid",
+        "parametros": "límites inferior/superior, cuota fija y tipo serializados por tramo en rastro; no sólo selector"
+      }
+    },
+    "2024": {
+      "art19": {
+        "limite": "2000",
+        "formula": "min(2000,max(0,bruto-SS))",
+        "referencia": "docs/analisis-madrid/catalogo.json#/porEjercicio/2024/art19"
+      },
+      "art20": {
+        "formula": "7302 si N<=14852; 7302-1.75*(N-14852) si N<=17673.52; 2364.34-1.14*(N-17673.52) si N<19747.50; 0 después",
+        "fuente": "rdl4-2024 p23",
+        "otrasRentas": "0",
+        "limite": "max(0,neto-art19)",
+        "referencia": "docs/analisis-madrid/catalogo.json#/porEjercicio/2024/art20"
+      },
+      "minimos": {
+        "fuente": "docs/analisis-madrid/catalogo.json#/porEjercicio/2024/minimos",
+        "edad": "18–64; sin familia/discapacidad; valor usado en salida minimos"
+      },
+      "gravamen": {
+        "fuenteEstatal": "docs/analisis-madrid/catalogo.json#/porEjercicio/2024/estatal",
+        "fuenteMadrid": "docs/analisis-madrid/catalogo.json#/porEjercicio/2024/madrid",
+        "parametros": "límites inferior/superior, cuota fija y tipo serializados por tramo en rastro; no sólo selector"
+      }
+    },
+    "2025": {
+      "art19": {
+        "limite": "2000",
+        "formula": "min(2000,max(0,bruto-SS))",
+        "referencia": "docs/analisis-madrid/catalogo.json#/porEjercicio/2025/art19"
+      },
+      "art20": {
+        "formula": "7302 si N<=14852; 7302-1.75*(N-14852) si N<=17673.52; 2364.34-1.14*(N-17673.52) si N<19747.50; 0 después",
+        "fuente": "rdl4-2024 p23",
+        "otrasRentas": "0",
+        "limite": "max(0,neto-art19)",
+        "referencia": "docs/analisis-madrid/catalogo.json#/porEjercicio/2025/art20"
+      },
+      "minimos": {
+        "fuente": "docs/analisis-madrid/catalogo.json#/porEjercicio/2025/minimos",
+        "edad": "18–64; sin familia/discapacidad; valor usado en salida minimos"
+      },
+      "gravamen": {
+        "fuenteEstatal": "docs/analisis-madrid/adenda-legal.json#/fuentes/estatal-2025",
+        "fuenteMadrid": "docs/analisis-madrid/catalogo.json#/porEjercicio/2025/madrid",
+        "parametros": "límites inferior/superior, cuota fija y tipo serializados por tramo en rastro; no sólo selector"
+      }
+    }
+  },
+  "separacion": {
+    "IPC_SS": "Adenda independiente a conciliar; no se editan sus datos ni fuentes",
+    "Hcontractual": "resultadoLegal.rastro conserva sus operaciones; cotejo documental separado en replay; Hdecimal no se sustituye por contractual",
+    "fueraCorte": {
+      "2026": "fuera API; IPC3% escenario no observado",
+      "2012-2017": "evidencia legado diferenciada, fuera API"
+    }
+  }
+}

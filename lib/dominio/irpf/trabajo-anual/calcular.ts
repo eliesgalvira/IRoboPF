@@ -100,7 +100,7 @@ export function calcularGastosTrabajo(caso: GastosTrabajo): ResultadoGastos {
   const gastos = ordinarios.plus(D.min(colegio, 500)).plus(D.min(defensa, 300))
   const previo = bruto.minus(gastos)
   const teoricos = c.ejercicio >= 2015 ? 2000 : 0
-  const generales = D.min(teoricos, D.max(0, previo))
+  const generales = aplicarGastoGeneralTrabajo(previo, new D(teoricos))
   const incremento =
     c.discapacidadActiva === "ninguna"
       ? 0
@@ -118,6 +118,11 @@ export function calcularGastosTrabajo(caso: GastosTrabajo): ResultadoGastos {
     fuente: "LIRPF art19; Ley26/2014 pp11–12; RIRPF art10",
     aceptacionFiscal: "pendiente",
   }
+}
+
+/** Operación art19 compartida; el llamante analítico declara sus parámetros. */
+export function aplicarGastoGeneralTrabajo(previo: Decimal, limite: Decimal): Decimal {
+  return D.min(limite, D.max(0, previo))
 }
 
 /** Etapa posterior al art80: no redefine la cuota líquida del art79. */
