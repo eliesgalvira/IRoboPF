@@ -1,5 +1,21 @@
 # Análisis salarial Madrid 2018–2025
 
+<!-- resultados-madrid:inicio -->
+## Qué puedes averiguar
+
+¿Cuánto queda del salario tras cotizaciones e impuesto? ¿Conserva su poder adquisitivo cuando el bruto sigue los precios?
+
+El salario bruto acompaña a los precios: parte de 30.000,00 EUR anuales en 2018 y llega a 36.970,07 EUR anuales en 2025. Con la ley de cada año, el neto pasa de 23.299,86 a 28.162,60 EUR del año. Sin embargo, en euros de diciembre de 2018, pasa de 23.299,86 a 22.853,03 EUR anuales: el cambio de poder adquisitivo es -446,83 EUR anuales. Aunque el bruto siga los precios, el neto real puede bajar.
+
+Lee [los resultados anuales](RESULTADOS.md) para comparar la ley de cada año con dos referencias inventadas: la ley de 2018 sin actualizar sus importes y esa misma ley actualizada con los precios. No representan lo que ocurrió realmente. Las tablas separan las comparaciones fiscales del cambio por cotizaciones y redondeo en la referencia; explican supuestos, fuentes y límites. Son ejemplos educativos con cotizaciones estimadas, sin contraste Open para sus 24 filas.
+
+Consulta también el [acompañamiento 2012–2017 y escenario 2026](ACOMPANAMIENTO.md).
+
+Desde la raíz del proyecto, `timeout -k 30s 3m bun scripts/resultados-madrid.mjs` genera los tres documentos; añade `--check` para comprobarlos. La referencia técnica original se conserva a continuación.
+<!-- resultados-madrid:fin -->
+
+## Referencia técnica original
+
 API: `analizarMadrid` en `lib/dominio/irpf/analisis-madrid/analizar.ts`.
 CLI: `timeout -k 30s 1m bun scripts/analisis-madrid.ts < entrada.json`.
 Entrada y salida JSON; importes de entrada en texto decimal EUR a céntimos.

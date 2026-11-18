@@ -1,0 +1,109 @@
+{
+  "schema": "pension461-documental-v1",
+  "decision": "pendiente-sin-fix",
+  "productionChanged": false,
+  "metricsChanged": false,
+  "PRE": {
+    "andalucia": {
+      "motor": "-323.72",
+      "open": "-323.71"
+    },
+    "madrid": {
+      "motor": "465.24",
+      "open": "465.24"
+    },
+    "metrics": [
+      "76/80",
+      "4/4",
+      "1/2"
+    ]
+  },
+  "POST": {
+    "kind": "sin-cambio-real",
+    "sameAsPRE": true
+  },
+  "newConclusions": {
+    "centExactMinimumTranslationIdentity": true,
+    "equivalenceAcrossOrdinaryLegalDomain": false,
+    "exactMinima": [
+      {
+        "minimum": "5550",
+        "tax": "527.25"
+      },
+      {
+        "minimum": "6700",
+        "tax": "636.50"
+      },
+      {
+        "minimum": "8100",
+        "tax": "769.50"
+      },
+      {
+        "minimum": "5790",
+        "tax": "550.05"
+      },
+      {
+        "minimum": "6990",
+        "tax": "664.05"
+      },
+      {
+        "minimum": "8450",
+        "tax": "802.75"
+      }
+    ],
+    "legalSyntheticWitness": {
+      "observed": false,
+      "motorExecuted": false,
+      "legalConstruction": "pension ordinaria individual sin familia; integro 30000.04 menos gastos art19 2000; sin reduccion art20",
+      "base": "28000.04",
+      "minimum": "8693.49",
+      "minimumTax": "738.94665",
+      "grossTax": "2890.94248",
+      "byGross": "2151.99",
+      "byNet": "2152.00",
+      "candidateDifferentials": [
+        "465.25",
+        "465.26"
+      ]
+    }
+  },
+  "originals": [
+    {
+      "id": "pension-2025-andalucia-68",
+      "pdfSHA256": "c1fb8f6d76674311b5243e3e1b9f624b2a0d570b119884daac1bb635950e4ba0",
+      "boxes": {
+        "0528": "1088.42",
+        "0529": "1088.42",
+        "0530": "636.50",
+        "0531": "664.05",
+        "0532": "451.92",
+        "0533": "424.37",
+        "0595": "876.29",
+        "0670": "-323.71"
+      },
+      "kind": "original-existente-no-nueva-observacion"
+    },
+    {
+      "id": "pension-2025-madrid-77",
+      "pdfSHA256": "a526863c5758cd2ca251abbf08437ded47ca0449c95ade85c8778e8663be226f",
+      "boxes": {
+        "0528": "3282.75",
+        "0529": "2890.94",
+        "0530": "769.50",
+        "0531": "738.95",
+        "0532": "2513.25",
+        "0533": "2151.99",
+        "0595": "4665.24",
+        "0670": "465.24"
+      },
+      "kind": "original-existente-no-nueva-observacion"
+    }
+  ],
+  "limitations": [
+    "Dos PDF originales releidos; fronteras sólo informe histórico de cuatro filas, sin nueva extracción",
+    "No ejecución ni nuevo oráculo de motor",
+    "Equivalencia de dos candidatos no prueba exhaustividad de políticas",
+    "No regla por territorio, importe, epsilon ni ID",
+    "Sin nuevos casos métricos ni capturas"
+  ]
+}
