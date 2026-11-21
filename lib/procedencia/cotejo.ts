@@ -35,15 +35,6 @@ const mismoValor = (a: Valor, b: Valor): boolean =>
 const ambito = (territorio: string, magnitud: string) =>
   `${territorio}|${magnitud}`
 
-const FALLOS_DE_TABLA = new Set([
-  "TablaNoLocalizada",
-  "TablaAmbigua",
-  "CabeceraNoLocalizada",
-  "CabeceraAmbigua",
-  "EstructuraNoAdmitida",
-  "PaginaInexistente",
-])
-
 export interface Cotejo {
   readonly entradas: ReadonlyArray<EntradaCotejo>
   readonly excepciones: ColaExcepciones
@@ -74,7 +65,9 @@ export const cotejar = (
       )
     }
     for (const excepcion of extraccion.excepciones) {
-      if (FALLOS_DE_TABLA.has(excepcion._tag)) {
+      // Una tabla sin localizar no da ningún valor: su fallo alcanza a todas
+      // las claves de su ámbito.
+      if (extraccion.documento.tablaLocalizada === null) {
         anotar(fallosDeTabla, extraccion.tabla, excepcion._tag)
       }
       if ("claves" in excepcion) {

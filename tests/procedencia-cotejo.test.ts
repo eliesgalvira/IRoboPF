@@ -6,6 +6,7 @@ import { describe, expect, it } from "@effect/vitest"
 import { Effect, Schema } from "effect"
 
 import { cotejar } from "../lib/procedencia/cotejo"
+import { TablaNoLocalizada } from "../lib/procedencia/excepciones"
 import { proyectarMotor2025 } from "../lib/procedencia/motor-2025"
 import { RUTAS, textoCotejo } from "../lib/procedencia/programa"
 import {
@@ -174,6 +175,25 @@ describe("cotejo por clave", () => {
     expect(resultado.excepciones.cotejo.map((e) => e._tag)).toEqual([
       "ClaveDuplicada",
     ])
+  })
+
+  it("el fallo de una tabla sin localizar alcanza a las claves de su ámbito", () => {
+    const fallida: ExtraccionTabla = {
+      ...extraccion([]),
+      documento: { sha256: "a".repeat(64), tablaLocalizada: null },
+      excepciones: [
+        new TablaNoLocalizada({
+          tabla: "prueba",
+          localizador: "única tabla del documento",
+          encontradas: 0,
+        }),
+      ],
+    }
+    const resultado = cotejar([fallida], [motor(clave(0, "a"), "1")])
+    expect(
+      resultado.entradas.map((e) => [e.estado, e.excepcionesDeExtraccion])
+    ).toEqual([["excepcion-de-extraccion", ["TablaNoLocalizada"]]])
+    expect(resultado.excepciones.cotejo).toEqual([])
   })
 })
 
