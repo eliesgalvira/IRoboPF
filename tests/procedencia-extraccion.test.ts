@@ -271,6 +271,57 @@ describe("extracción de un cuadro de partidas", () => {
     ])
   })
 
+  it("una partida sin clave de motor se extrae con su literal de testigo", () => {
+    const fallecimiento = {
+      ...general,
+      plantilla: "(*) En caso de fallecimiento {importe} euros.",
+      claves: [],
+    }
+    const extraccion = exito(
+      extraerCuadro(
+        cuadro([
+          {
+            fila: "Estatal",
+            columna: "Mínimo por contribuyente",
+            partidas: [general, fallecimiento],
+            remisiones: [],
+            notas: [],
+          },
+          {
+            fila: "C.A. de Aragón",
+            columna: "Mínimo por contribuyente",
+            partidas: [],
+            remisiones: [
+              { literal: "igual que los mínimos estatales.", fila: "Estatal" },
+            ],
+            notas: [],
+          },
+        ]),
+        cuadroHtml(
+          filaCuadro(
+            "Estatal",
+            "<p>5.550 euros anuales, en general.</p><p>(*) En caso de fallecimiento 2.400 euros.</p>"
+          ),
+          filaCuadro("C.A. de Aragón", "<p>igual que los mínimos estatales.</p>")
+        )
+      )
+    )
+    expect(extraccion.excepciones).toEqual([])
+    expect(
+      extraccion.valores.map((v) => [
+        v.valor,
+        v.claves.length,
+        v.origen._tag,
+        v.literalTestigo,
+      ])
+    ).toEqual([
+      [{ _tag: "Numero", decimal: "5550" }, 1, "Directo", "5.550"],
+      [{ _tag: "Numero", decimal: "2400" }, 0, "Directo", "2.400"],
+      [{ _tag: "Numero", decimal: "5550" }, 1, "Remision", null],
+      [{ _tag: "Numero", decimal: "2400" }, 0, "Remision", null],
+    ])
+  })
+
   it("una plantilla ha de tener exactamente un hueco", () => {
     const celda = (plantilla: string) => [
       {

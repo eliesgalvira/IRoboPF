@@ -129,6 +129,34 @@ describe("cotejo por clave", () => {
     expect(resultado.entradas.map((e) => e.clave.fila)).toEqual([1, 2, 10])
   })
 
+  it("un valor sin clave de motor no entra en el cotejo y se cuenta aparte", () => {
+    const resultado = cotejar(
+      [extraccion([manual(clave(0, "a"), "1"), manual(clave(0, "a"), "2400", { claves: [] })])],
+      [motor(clave(0, "a"), "1")]
+    )
+    expect(resultado.entradas.map((e) => e.estado)).toEqual(["coincidente"])
+    expect(resultado.excepciones.cotejo).toEqual([])
+    expect(resultado.resumen.porTabla[0]?.contadores).toMatchObject({
+      valoresExtraidos: 2,
+      conTestigo: 2,
+      sinClaveDeMotor: 1,
+      claves: 1,
+      coincidentes: 1,
+      sinHomologoEnMotor: 0,
+    })
+    expect(resultado.resumen.sinClaveDeMotor).toEqual([
+      {
+        tabla: "prueba",
+        ubicacion,
+        literal: "2400",
+        unidad: "EUR",
+        valor: { _tag: "Numero", decimal: "2400" },
+        origen: { _tag: "Directo" },
+        testigo: "ConTestigo",
+      },
+    ])
+  })
+
   it("una clave con dos valores del manual es ambigua", () => {
     const resultado = cotejar(
       [extraccion([manual(clave(0, "a"), "1"), manual(clave(0, "a"), "1")])],
