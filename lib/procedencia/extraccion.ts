@@ -107,21 +107,29 @@ const localizarTabla = (
   )
 }
 
-interface Cabecera {
-  readonly fila: FilaHtml
+interface TablaConCabecera {
+  readonly tablaLocalizada: ExtraccionHtml["tablaLocalizada"]
   readonly posicionDe: ReadonlyMap<string, number>
+  readonly datos: ReadonlyArray<FilaHtml>
 }
 
 // La fila de cabecera es la única cuyas celdas son, exactamente, las
 // cabeceras declaradas; las demás filas de la tabla son filas de datos.
+const localizar = (
+  tabla: string,
+  localizador: LocalizadorTabla,
+  html: string,
+  declaradas: ReadonlyArray<string>
+): Result.Result<TablaConCabecera, FalloDeTabla> =>
+  Result.flatMap(localizarTabla(tabla, localizador, html), (modelo) =>
+    localizarCabecera(tabla, modelo, declaradas)
+  )
+
 const localizarCabecera = (
   tabla: string,
   modelo: TablaHtml,
   declaradas: ReadonlyArray<string>
-): Result.Result<
-  { readonly cabecera: Cabecera; readonly datos: ReadonlyArray<FilaHtml> },
-  FalloDeTabla
-> => {
+): Result.Result<TablaConCabecera, FalloDeTabla> => {
   const esperadas = new Set(declaradas)
   const candidatas = modelo.filas.filter(
     (fila) =>
@@ -151,12 +159,14 @@ const localizarCabecera = (
     )
   }
   return Result.succeed({
-    cabecera: {
-      fila: unica,
-      posicionDe: new Map(
-        unica.celdas.map((celda, indice) => [celda.texto, indice])
-      ),
+    tablaLocalizada: {
+      linea: modelo.linea,
+      columnaFuente: modelo.columnaFuente,
+      caption: modelo.caption,
     },
+    posicionDe: new Map(
+      unica.celdas.map((celda, indice) => [celda.texto, indice])
+    ),
     datos: modelo.filas.filter((fila) => fila !== unica),
   })
 }
@@ -178,111 +188,94 @@ export const extraerEscala = (
 ): Result.Result<ExtraccionHtml, FalloDeTabla> => {
   const { tabla, magnitud, territorios } = especificacion
   const declaradas = especificacion.columnas.map((columna) => columna.cabecera)
-  return Result.flatMap(
-    localizarTabla(tabla, especificacion.documento.localizador, html),
-    (modelo) =>
-      Result.map(
-        localizarCabecera(tabla, modelo, declaradas),
-        ({ cabecera, datos }) => {
-          const valores: Array<ValorPendienteDeTestigo> = []
-          const excepciones: Array<ExcepcionExtraccion> = []
-          const clavesDe = (fila: number, columna: string) =>
-            territorios.map((territorio) => ({
-              territorio,
-              magnitud,
-              fila,
-              columna,
-            }))
-          datos.forEach((fila, indice) => {
-            if (fila.celdas.length !== declaradas.length) {
-              excepciones.push(
-                new FilaIrregular({
-                  tabla,
-                  fila: String(indice),
-                  linea: fila.linea,
-                  celdas: fila.celdas.length,
-                  esperadas: declaradas.length,
-                  claves: especificacion.columnas.flatMap((columna) =>
-                    clavesDe(indice, columna.columna)
-                  ),
-                })
-              )
-              return
-            }
-            for (const columna of especificacion.columnas) {
-              const celda = fila.celdas[
-                cabecera.posicionDe.get(columna.cabecera) ?? -1
-              ] as CeldaHtml
-              const ubicacion = ubicacionDe(
-                String(indice),
-                columna.cabecera,
-                celda
-              )
-              const claves = clavesDe(indice, columna.columna)
-              const [bloque, ...otros] = celda.bloques
-              if (bloque === undefined) {
-                excepciones.push(
-                  new CeldaAusente({
-                    tabla,
-                    fila: ubicacion.fila,
-                    columna: ubicacion.columna,
-                    buscado: "un literal en la celda",
-                    claves,
-                  })
-                )
-                continue
-              }
-              if (otros.length > 0) {
-                excepciones.push(
-                  new CeldaAmbigua({
-                    tabla,
-                    fila: ubicacion.fila,
-                    columna: ubicacion.columna,
-                    buscado: "un único literal en la celda",
-                    coincidencias: celda.bloques.map((b) =>
-                      ubicacionDe(ubicacion.fila, ubicacion.columna, b)
-                    ),
-                    claves,
-                  })
-                )
-                continue
-              }
-              const leido = leerLiteral(bloque.texto, columna.gramatica)
-              if (Result.isFailure(leido)) {
-                excepciones.push(
-                  new LiteralFueraDeGramatica({
-                    tabla,
-                    ubicacion,
-                    literal: bloque.texto,
-                    motivo: leido.failure,
-                    claves,
-                  })
-                )
-                continue
-              }
-              valores.push({
+  return Result.map(
+    localizar(tabla, especificacion.documento.localizador, html, declaradas),
+    ({ tablaLocalizada, posicionDe, datos }) => {
+      const valores: Array<ValorPendienteDeTestigo> = []
+      const excepciones: Array<ExcepcionExtraccion> = []
+      const clavesDe = (fila: number, columna: string) =>
+        territorios.map((territorio) => ({
+          territorio,
+          magnitud,
+          fila,
+          columna,
+        }))
+      datos.forEach((fila, indice) => {
+        if (fila.celdas.length !== declaradas.length) {
+          excepciones.push(
+            new FilaIrregular({
+              tabla,
+              fila: String(indice),
+              linea: fila.linea,
+              celdas: fila.celdas.length,
+              esperadas: declaradas.length,
+              claves: especificacion.columnas.flatMap((columna) =>
+                clavesDe(indice, columna.columna)
+              ),
+            })
+          )
+          return
+        }
+        for (const columna of especificacion.columnas) {
+          const celda = fila.celdas[
+            posicionDe.get(columna.cabecera) ?? -1
+          ] as CeldaHtml
+          const ubicacion = ubicacionDe(String(indice), columna.cabecera, celda)
+          const claves = clavesDe(indice, columna.columna)
+          const [bloque, ...otros] = celda.bloques
+          if (bloque === undefined) {
+            excepciones.push(
+              new CeldaAusente({
+                tabla,
+                fila: ubicacion.fila,
+                columna: ubicacion.columna,
+                buscado: "un literal en la celda",
+                claves,
+              })
+            )
+            continue
+          }
+          if (otros.length > 0) {
+            excepciones.push(
+              new CeldaAmbigua({
+                tabla,
+                fila: ubicacion.fila,
+                columna: ubicacion.columna,
+                buscado: "un único literal en la celda",
+                coincidencias: celda.bloques.map((b) =>
+                  ubicacionDe(ubicacion.fila, ubicacion.columna, b)
+                ),
+                claves,
+              })
+            )
+            continue
+          }
+          const leido = leerLiteral(bloque.texto, columna.gramatica)
+          if (Result.isFailure(leido)) {
+            excepciones.push(
+              new LiteralFueraDeGramatica({
+                tabla,
                 ubicacion,
                 literal: bloque.texto,
-                unidad: columna.unidad,
-                valor: leido.success.valor,
+                motivo: leido.failure,
                 claves,
-                origen: { _tag: "Directo" },
-                literalTestigo: leido.success.literalTestigo,
               })
-            }
-          })
-          return {
-            tablaLocalizada: {
-              linea: modelo.linea,
-              columnaFuente: modelo.columnaFuente,
-              caption: modelo.caption,
-            },
-            valores,
-            notas: [],
-            excepciones,
+            )
+            continue
           }
+          valores.push({
+            ubicacion,
+            literal: bloque.texto,
+            unidad: columna.unidad,
+            valor: leido.success.valor,
+            claves,
+            origen: { _tag: "Directo" },
+            literalTestigo: leido.success.literalTestigo,
+          })
         }
-      )
+      })
+      return { tablaLocalizada, valores, notas: [], excepciones }
+    }
   )
 }
 
@@ -354,271 +347,250 @@ export const extraerCuadro = (
       fila: clave.fila,
       columna: clave.columna,
     }))
-  return Result.flatMap(
-    localizarTabla(tabla, especificacion.documento.localizador, html),
-    (modelo) =>
-      Result.map(
-        localizarCabecera(tabla, modelo, declaradas),
-        ({ cabecera, datos }) => {
-          const valores: Array<ValorPendienteDeTestigo> = []
-          const notas: Array<{ ubicacion: Ubicacion; literal: string }> = []
-          const excepciones: Array<ExcepcionExtraccion> = []
-          const remisiones: Array<RemisionPendiente> = []
-          const columnaDeFilas =
-            cabecera.posicionDe.get(especificacion.cabeceraDeFilas) ?? -1
-          const celdasDeFila = (literal: string) =>
-            especificacion.celdas.filter((celda) => celda.fila === literal)
-          const clavesDeFila = (literal: string, territorio: Territorio) =>
-            celdasDeFila(literal).flatMap((celda) =>
-              celda.partidas.flatMap((partida) =>
-                clavesDePartida(territorio, partida)
-              )
-            )
+  return Result.map(
+    localizar(tabla, especificacion.documento.localizador, html, declaradas),
+    ({ tablaLocalizada, posicionDe, datos }) => {
+      const valores: Array<ValorPendienteDeTestigo> = []
+      const notas: Array<{ ubicacion: Ubicacion; literal: string }> = []
+      const excepciones: Array<ExcepcionExtraccion> = []
+      const remisiones: Array<RemisionPendiente> = []
+      const columnaDeFilas =
+        posicionDe.get(especificacion.cabeceraDeFilas) ?? -1
+      const celdasDeFila = (literal: string) =>
+        especificacion.celdas.filter((celda) => celda.fila === literal)
+      const clavesDeFila = (literal: string, territorio: Territorio) =>
+        celdasDeFila(literal).flatMap((celda) =>
+          celda.partidas.flatMap((partida) =>
+            clavesDePartida(territorio, partida)
+          )
+        )
 
-          const filasPorLiteral = new Map<string, Array<FilaHtml>>()
-          for (const fila of datos) {
-            if (fila.celdas.length !== declaradas.length) {
-              excepciones.push(
-                new FilaIrregular({
+      const filasPorLiteral = new Map<string, Array<FilaHtml>>()
+      for (const fila of datos) {
+        if (fila.celdas.length !== declaradas.length) {
+          excepciones.push(
+            new FilaIrregular({
+              tabla,
+              fila: fila.celdas[columnaDeFilas]?.texto ?? "",
+              linea: fila.linea,
+              celdas: fila.celdas.length,
+              esperadas: declaradas.length,
+              claves: [],
+            })
+          )
+          continue
+        }
+        const literal = (fila.celdas[columnaDeFilas] as CeldaHtml).texto
+        if (!especificacion.filas.some((f) => f.cabecera === literal)) {
+          excepciones.push(
+            new FilaNoDeclarada({ tabla, literal, linea: fila.linea })
+          )
+          continue
+        }
+        filasPorLiteral.set(literal, [
+          ...(filasPorLiteral.get(literal) ?? []),
+          fila,
+        ])
+      }
+
+      for (const filaDeclarada of especificacion.filas) {
+        const { cabecera: literalFila, territorio } = filaDeclarada
+        const encontradas = filasPorLiteral.get(literalFila) ?? []
+        const [fila, ...otras] = encontradas
+        if (fila === undefined || otras.length > 0) {
+          excepciones.push(
+            fila === undefined
+              ? new CeldaAusente({
                   tabla,
-                  fila: fila.celdas[columnaDeFilas]?.texto ?? "",
-                  linea: fila.linea,
-                  celdas: fila.celdas.length,
-                  esperadas: declaradas.length,
-                  claves: [],
+                  fila: literalFila,
+                  columna: especificacion.cabeceraDeFilas,
+                  buscado: `fila «${literalFila}»`,
+                  claves: clavesDeFila(literalFila, territorio),
                 })
-              )
-              continue
-            }
-            const literal = (fila.celdas[columnaDeFilas] as CeldaHtml).texto
-            if (!especificacion.filas.some((f) => f.cabecera === literal)) {
+              : new CeldaAmbigua({
+                  tabla,
+                  fila: literalFila,
+                  columna: especificacion.cabeceraDeFilas,
+                  buscado: `fila «${literalFila}»`,
+                  coincidencias: encontradas.map((f) =>
+                    ubicacionDe(literalFila, especificacion.cabeceraDeFilas, f)
+                  ),
+                  claves: clavesDeFila(literalFila, territorio),
+                })
+          )
+          continue
+        }
+        for (const columna of especificacion.columnas) {
+          const celda = fila.celdas[posicionDe.get(columna) ?? -1] as CeldaHtml
+          const declarada = especificacion.celdas.find(
+            (c) => c.fila === literalFila && c.columna === columna
+          )
+          const ubicacionBloque = (bloque: Bloque) =>
+            ubicacionDe(literalFila, columna, bloque)
+          if (declarada === undefined) {
+            for (const bloque of celda.bloques) {
               excepciones.push(
-                new FilaNoDeclarada({ tabla, literal, linea: fila.linea })
-              )
-              continue
-            }
-            filasPorLiteral.set(literal, [
-              ...(filasPorLiteral.get(literal) ?? []),
-              fila,
-            ])
-          }
-
-          for (const filaDeclarada of especificacion.filas) {
-            const { cabecera: literalFila, territorio } = filaDeclarada
-            const encontradas = filasPorLiteral.get(literalFila) ?? []
-            const [fila, ...otras] = encontradas
-            if (fila === undefined || otras.length > 0) {
-              excepciones.push(
-                fila === undefined
-                  ? new CeldaAusente({
-                      tabla,
-                      fila: literalFila,
-                      columna: especificacion.cabeceraDeFilas,
-                      buscado: `fila «${literalFila}»`,
-                      claves: clavesDeFila(literalFila, territorio),
-                    })
-                  : new CeldaAmbigua({
-                      tabla,
-                      fila: literalFila,
-                      columna: especificacion.cabeceraDeFilas,
-                      buscado: `fila «${literalFila}»`,
-                      coincidencias: encontradas.map((f) =>
-                        ubicacionDe(
-                          literalFila,
-                          especificacion.cabeceraDeFilas,
-                          f
-                        )
-                      ),
-                      claves: clavesDeFila(literalFila, territorio),
-                    })
-              )
-              continue
-            }
-            for (const columna of especificacion.columnas) {
-              const celda = fila.celdas[
-                cabecera.posicionDe.get(columna) ?? -1
-              ] as CeldaHtml
-              const declarada = especificacion.celdas.find(
-                (c) => c.fila === literalFila && c.columna === columna
-              )
-              const ubicacionBloque = (bloque: Bloque) =>
-                ubicacionDe(literalFila, columna, bloque)
-              if (declarada === undefined) {
-                for (const bloque of celda.bloques) {
-                  excepciones.push(
-                    new ContenidoNoDeclarado({
-                      tabla,
-                      ubicacion: ubicacionBloque(bloque),
-                      literal: bloque.texto,
-                    })
-                  )
-                }
-                continue
-              }
-              const declaraciones = declaracionesDe(declarada)
-              const encajes = celda.bloques.map((bloque) =>
-                declaraciones.filter((declaracion) =>
-                  encaja(declaracion, bloque)
-                )
-              )
-              const conflictivas = new Set<Declaracion>()
-              celda.bloques.forEach((bloque, indice) => {
-                const candidatas = encajes[indice] ?? []
-                if (candidatas.length === 0) {
-                  excepciones.push(
-                    new ContenidoNoDeclarado({
-                      tabla,
-                      ubicacion: ubicacionBloque(bloque),
-                      literal: bloque.texto,
-                    })
-                  )
-                }
-                if (candidatas.length > 1) {
-                  candidatas.forEach((c) => conflictivas.add(c))
-                  excepciones.push(
-                    new CeldaAmbigua({
-                      tabla,
-                      fila: literalFila,
-                      columna,
-                      buscado: candidatas.map(textoDeclarado).join(" | "),
-                      coincidencias: [ubicacionBloque(bloque)],
-                      claves: candidatas.flatMap((c) =>
-                        c._tag === "Partida"
-                          ? clavesDePartida(territorio, c.partida)
-                          : []
-                      ),
-                    })
-                  )
-                }
-              })
-              for (const declaracion of declaraciones) {
-                if (conflictivas.has(declaracion)) {
-                  continue
-                }
-                const claves =
-                  declaracion._tag === "Partida"
-                    ? clavesDePartida(territorio, declaracion.partida)
-                    : []
-                const bloques = celda.bloques.filter((_, indice) =>
-                  (encajes[indice] ?? []).includes(declaracion)
-                )
-                const [bloque, ...otros] = bloques
-                if (bloque === undefined) {
-                  excepciones.push(
-                    new CeldaAusente({
-                      tabla,
-                      fila: literalFila,
-                      columna,
-                      buscado: textoDeclarado(declaracion),
-                      claves,
-                    })
-                  )
-                  continue
-                }
-                if (otros.length > 0) {
-                  excepciones.push(
-                    new CeldaAmbigua({
-                      tabla,
-                      fila: literalFila,
-                      columna,
-                      buscado: textoDeclarado(declaracion),
-                      coincidencias: bloques.map(ubicacionBloque),
-                      claves,
-                    })
-                  )
-                  continue
-                }
-                const ubicacion = ubicacionBloque(bloque)
-                if (declaracion._tag === "Nota") {
-                  notas.push({ ubicacion, literal: bloque.texto })
-                  continue
-                }
-                if (declaracion._tag === "Remision") {
-                  remisiones.push({
-                    territorio,
-                    filaDestino: literalFila,
-                    filaOrigen: declaracion.fila,
-                    columna,
-                    literal: bloque.texto,
-                    ubicacion,
-                  })
-                  continue
-                }
-                const { partida } = declaracion
-                const literalHueco = hueco(partida, bloque.texto) ?? ""
-                const leido = leerLiteral(literalHueco, partida.gramatica)
-                if (Result.isFailure(leido)) {
-                  excepciones.push(
-                    new LiteralFueraDeGramatica({
-                      tabla,
-                      ubicacion,
-                      literal: literalHueco,
-                      motivo: leido.failure,
-                      claves,
-                    })
-                  )
-                  continue
-                }
-                valores.push({
-                  ubicacion,
+                new ContenidoNoDeclarado({
+                  tabla,
+                  ubicacion: ubicacionBloque(bloque),
                   literal: bloque.texto,
-                  unidad: partida.unidad,
-                  valor: leido.success.valor,
-                  claves,
-                  origen: { _tag: "Directo" },
-                  literalTestigo: leido.success.literalTestigo,
                 })
-              }
+              )
             }
+            continue
           }
-
-          for (const remision of remisiones) {
-            const origenes = valores.filter(
-              (valor) =>
-                valor.origen._tag === "Directo" &&
-                valor.ubicacion.fila === remision.filaOrigen &&
-                valor.ubicacion.columna === remision.columna
+          const declaraciones = declaracionesDe(declarada)
+          const encajes = celda.bloques.map((bloque) =>
+            declaraciones.filter((declaracion) => encaja(declaracion, bloque))
+          )
+          const conflictivas = new Set<Declaracion>()
+          celda.bloques.forEach((bloque, indice) => {
+            const candidatas = encajes[indice] ?? []
+            if (candidatas.length === 0) {
+              excepciones.push(
+                new ContenidoNoDeclarado({
+                  tabla,
+                  ubicacion: ubicacionBloque(bloque),
+                  literal: bloque.texto,
+                })
+              )
+            }
+            if (candidatas.length > 1) {
+              candidatas.forEach((c) => conflictivas.add(c))
+              excepciones.push(
+                new CeldaAmbigua({
+                  tabla,
+                  fila: literalFila,
+                  columna,
+                  buscado: candidatas.map(textoDeclarado).join(" | "),
+                  coincidencias: [ubicacionBloque(bloque)],
+                  claves: candidatas.flatMap((c) =>
+                    c._tag === "Partida"
+                      ? clavesDePartida(territorio, c.partida)
+                      : []
+                  ),
+                })
+              )
+            }
+          })
+          for (const declaracion of declaraciones) {
+            if (conflictivas.has(declaracion)) {
+              continue
+            }
+            const claves =
+              declaracion._tag === "Partida"
+                ? clavesDePartida(territorio, declaracion.partida)
+                : []
+            const bloques = celda.bloques.filter((_, indice) =>
+              (encajes[indice] ?? []).includes(declaracion)
             )
-            if (origenes.length === 0) {
+            const [bloque, ...otros] = bloques
+            if (bloque === undefined) {
               excepciones.push(
                 new CeldaAusente({
                   tabla,
-                  fila: remision.filaDestino,
-                  columna: remision.columna,
-                  buscado: `valores de la celda remitida «${remision.filaOrigen}»`,
-                  claves: [],
+                  fila: literalFila,
+                  columna,
+                  buscado: textoDeclarado(declaracion),
+                  claves,
                 })
               )
               continue
             }
-            for (const origen of origenes) {
-              valores.push({
-                ...origen,
-                claves: origen.claves.map((clave) => ({
-                  ...clave,
-                  territorio: remision.territorio,
-                })),
-                origen: {
-                  _tag: "Remision",
-                  literal: remision.literal,
-                  ubicacionRemision: remision.ubicacion,
-                },
-                literalTestigo: null,
-              })
+            if (otros.length > 0) {
+              excepciones.push(
+                new CeldaAmbigua({
+                  tabla,
+                  fila: literalFila,
+                  columna,
+                  buscado: textoDeclarado(declaracion),
+                  coincidencias: bloques.map(ubicacionBloque),
+                  claves,
+                })
+              )
+              continue
             }
-          }
-
-          return {
-            tablaLocalizada: {
-              linea: modelo.linea,
-              columnaFuente: modelo.columnaFuente,
-              caption: modelo.caption,
-            },
-            valores,
-            notas,
-            excepciones,
+            const ubicacion = ubicacionBloque(bloque)
+            if (declaracion._tag === "Nota") {
+              notas.push({ ubicacion, literal: bloque.texto })
+              continue
+            }
+            if (declaracion._tag === "Remision") {
+              remisiones.push({
+                territorio,
+                filaDestino: literalFila,
+                filaOrigen: declaracion.fila,
+                columna,
+                literal: bloque.texto,
+                ubicacion,
+              })
+              continue
+            }
+            const { partida } = declaracion
+            const literalHueco = hueco(partida, bloque.texto) ?? ""
+            const leido = leerLiteral(literalHueco, partida.gramatica)
+            if (Result.isFailure(leido)) {
+              excepciones.push(
+                new LiteralFueraDeGramatica({
+                  tabla,
+                  ubicacion,
+                  literal: literalHueco,
+                  motivo: leido.failure,
+                  claves,
+                })
+              )
+              continue
+            }
+            valores.push({
+              ubicacion,
+              literal: bloque.texto,
+              unidad: partida.unidad,
+              valor: leido.success.valor,
+              claves,
+              origen: { _tag: "Directo" },
+              literalTestigo: leido.success.literalTestigo,
+            })
           }
         }
-      )
+      }
+
+      for (const remision of remisiones) {
+        const origenes = valores.filter(
+          (valor) =>
+            valor.origen._tag === "Directo" &&
+            valor.ubicacion.fila === remision.filaOrigen &&
+            valor.ubicacion.columna === remision.columna
+        )
+        if (origenes.length === 0) {
+          excepciones.push(
+            new CeldaAusente({
+              tabla,
+              fila: remision.filaDestino,
+              columna: remision.columna,
+              buscado: `valores de la celda remitida «${remision.filaOrigen}»`,
+              claves: [],
+            })
+          )
+          continue
+        }
+        for (const origen of origenes) {
+          valores.push({
+            ...origen,
+            claves: origen.claves.map((clave) => ({
+              ...clave,
+              territorio: remision.territorio,
+            })),
+            origen: {
+              _tag: "Remision",
+              literal: remision.literal,
+              ubicacionRemision: remision.ubicacion,
+            },
+            literalTestigo: null,
+          })
+        }
+      }
+
+      return { tablaLocalizada, valores, notas, excepciones }
+    }
   )
 }
