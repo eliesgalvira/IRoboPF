@@ -49,17 +49,21 @@ const DocumentoHtml = Schema.Struct({
   localizador: LocalizadorTabla,
 })
 
-const TestigoPdf = Schema.Struct({
-  sha256: Sha256,
-  paginas: Schema.NonEmptyArray(Pagina),
-})
-
 const sinRepetidos =
   <T>(nombre: string, clave: (elemento: T) => string) =>
   (elementos: ReadonlyArray<T>) =>
     new Set(elementos.map(clave)).size === elementos.length
       ? undefined
       : `${nombre} repetido`
+
+const TestigoPdf = Schema.Struct({
+  sha256: Sha256,
+  paginas: Schema.NonEmptyArray(Pagina).check(
+    Schema.makeFilter(
+      sinRepetidos("número de página", (p: number) => String(p))
+    )
+  ),
+})
 
 const ColumnaEscalaDeclarada = Schema.Struct({
   cabecera: LiteralCanonico,

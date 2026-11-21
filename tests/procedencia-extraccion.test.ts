@@ -185,6 +185,12 @@ describe("extracción de una escala", () => {
       })
     ).toThrow()
   })
+
+  it("una especificación con una página del testigo repetida no se decodifica", () => {
+    expect(() =>
+      escala({ testigo: { sha256: SHA_PDF, paginas: [1, 1] } })
+    ).toThrow()
+  })
 })
 
 const cuadro = (
