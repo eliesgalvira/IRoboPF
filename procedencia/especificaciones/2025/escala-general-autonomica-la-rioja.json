@@ -1,0 +1,47 @@
+{
+  "tipo": "escala",
+  "tabla": "escala-general-autonomica-la-rioja",
+  "magnitud": "escala-general-autonomica",
+  "territorios": ["la-rioja"],
+  "documento": {
+    "sha256": "9cc16db25f77a57fc4ca7765aab74bae9240f2f029bf440559dda8de7ecb3793",
+    "localizador": { "_tag": "UnicaTablaDelDocumento" }
+  },
+  "columnas": [
+    {
+      "cabecera": "Base liquidable hasta (euros)",
+      "columna": "base-liquidable",
+      "unidad": "EUR",
+      "evidenciaUnidad": "(euros)",
+      "gramatica": { "decimales": [0, 2], "centinelas": [] }
+    },
+    {
+      "cabecera": "Cuota íntegra (euros)",
+      "columna": "cuota-integra",
+      "unidad": "EUR",
+      "evidenciaUnidad": "(euros)",
+      "gramatica": { "decimales": [2], "centinelas": [] }
+    },
+    {
+      "cabecera": "Resto base liquidable hasta (euros)",
+      "columna": "resto-base-liquidable",
+      "unidad": "EUR",
+      "evidenciaUnidad": "(euros)",
+      "gramatica": {
+        "decimales": [0, 2],
+        "centinelas": [{ "literal": "En adelante", "centinela": "sin-limite" }]
+      }
+    },
+    {
+      "cabecera": "Tipo porcentaje aplicable",
+      "columna": "tipo-aplicable",
+      "unidad": "porcentaje",
+      "evidenciaUnidad": "porcentaje",
+      "gramatica": { "decimales": [2], "centinelas": [] }
+    }
+  ],
+  "testigo": {
+    "sha256": "02c6e8300a7f56c8c24aa947d4c39c5657c9a9eda6f5d727d44b4112d7de15d4",
+    "paginas": [1129]
+  }
+}

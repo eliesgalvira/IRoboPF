@@ -1,0 +1,47 @@
+{
+  "tipo": "escala",
+  "tabla": "escala-general-autonomica-comunitat-valenciana",
+  "magnitud": "escala-general-autonomica",
+  "territorios": ["comunitat-valenciana"],
+  "documento": {
+    "sha256": "fa68046febc95ad72350f8e9a4bd7e8c4422067e8551215b804f6faafa81c516",
+    "localizador": { "_tag": "UnicaTablaDelDocumento" }
+  },
+  "columnas": [
+    {
+      "cabecera": "Base liquidable hasta (euros)",
+      "columna": "base-liquidable",
+      "unidad": "EUR",
+      "evidenciaUnidad": "(euros)",
+      "gramatica": { "decimales": [0], "centinelas": [] }
+    },
+    {
+      "cabecera": "Cuota íntegra (euros)",
+      "columna": "cuota-integra",
+      "unidad": "EUR",
+      "evidenciaUnidad": "(euros)",
+      "gramatica": { "decimales": [0, 2], "centinelas": [] }
+    },
+    {
+      "cabecera": "Resto base liquidable hasta (euros)",
+      "columna": "resto-base-liquidable",
+      "unidad": "EUR",
+      "evidenciaUnidad": "(euros)",
+      "gramatica": {
+        "decimales": [0],
+        "centinelas": [{ "literal": "En adelante", "centinela": "sin-limite" }]
+      }
+    },
+    {
+      "cabecera": "Tipo aplicable (%)",
+      "columna": "tipo-aplicable",
+      "unidad": "porcentaje",
+      "evidenciaUnidad": "(%)",
+      "gramatica": { "decimales": [2], "centinelas": [] }
+    }
+  ],
+  "testigo": {
+    "sha256": "02c6e8300a7f56c8c24aa947d4c39c5657c9a9eda6f5d727d44b4112d7de15d4",
+    "paginas": [1129, 1130]
+  }
+}
