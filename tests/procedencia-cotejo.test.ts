@@ -51,9 +51,7 @@ const motor = (
   regla: "prueba",
 })
 
-const extraccion = (
-  valores: ExtraccionTabla["valores"]
-): ExtraccionTabla => ({
+const extraccion = (valores: ExtraccionTabla["valores"]): ExtraccionTabla => ({
   tabla: "prueba",
   especificacion: "c".repeat(64),
   tipo: "escala",
@@ -89,7 +87,11 @@ describe("cotejo por clave", () => {
       ]
     )
     expect(
-      resultado.entradas.map((e) => [e.clave.territorio, e.clave.columna, e.estado])
+      resultado.entradas.map((e) => [
+        e.clave.territorio,
+        e.clave.columna,
+        e.estado,
+      ])
     ).toEqual([
       ["andalucia", "a", "coincidente"],
       ["andalucia", "b", "distinta"],
@@ -132,7 +134,12 @@ describe("cotejo por clave", () => {
 
   it("un valor sin clave de motor no entra en el cotejo y se cuenta aparte", () => {
     const resultado = cotejar(
-      [extraccion([manual(clave(0, "a"), "1"), manual(clave(0, "a"), "2400", { claves: [] })])],
+      [
+        extraccion([
+          manual(clave(0, "a"), "1"),
+          manual(clave(0, "a"), "2400", { claves: [] }),
+        ]),
+      ],
       [motor(clave(0, "a"), "1")]
     )
     expect(resultado.entradas.map((e) => e.estado)).toEqual(["coincidente"])
@@ -171,22 +178,24 @@ describe("cotejo por clave", () => {
 })
 
 describe("extracción sellada", () => {
-  it.effect("regenerar el cotejo desde lo sellado y el motor da los mismos bytes", () =>
-    Effect.gen(function* () {
-      const extracciones = yield* Effect.forEach(
-        readdirSync(RUTAS.extraccion)
-          .filter((archivo) => archivo.endsWith(".json"))
-          .sort(),
-        (archivo) =>
-          Schema.decodeUnknownEffect(ExtraccionTablaDesdeJson)(
-            readFileSync(`${RUTAS.extraccion}/${archivo}`, "utf8")
-          )
-      )
-      const primero = cotejar(extracciones, proyectarMotor2025())
-      const segundo = cotejar(extracciones, proyectarMotor2025())
-      const texto = yield* textoCotejo(primero.entradas)
-      expect(yield* textoCotejo(segundo.entradas)).toBe(texto)
-      expect(texto).toBe(readFileSync(RUTAS.cotejo, "utf8"))
-    })
+  it.effect(
+    "regenerar el cotejo desde lo sellado y el motor da los mismos bytes",
+    () =>
+      Effect.gen(function* () {
+        const extracciones = yield* Effect.forEach(
+          readdirSync(RUTAS.extraccion)
+            .filter((archivo) => archivo.endsWith(".json"))
+            .sort(),
+          (archivo) =>
+            Schema.decodeUnknownEffect(ExtraccionTablaDesdeJson)(
+              readFileSync(`${RUTAS.extraccion}/${archivo}`, "utf8")
+            )
+        )
+        const primero = cotejar(extracciones, proyectarMotor2025())
+        const segundo = cotejar(extracciones, proyectarMotor2025())
+        const texto = yield* textoCotejo(primero.entradas)
+        expect(yield* textoCotejo(segundo.entradas)).toBe(texto)
+        expect(texto).toBe(readFileSync(RUTAS.cotejo, "utf8"))
+      })
   )
 })

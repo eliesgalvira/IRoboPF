@@ -22,7 +22,9 @@ const LiteralCanonico = Schema.String.check(
   )
 )
 
-const IdTabla = Schema.String.check(Schema.isPattern(/^[a-z0-9]+(-[a-z0-9]+)*$/))
+const IdTabla = Schema.String.check(
+  Schema.isPattern(/^[a-z0-9]+(-[a-z0-9]+)*$/)
+)
 
 const Pagina = Schema.Int.check(Schema.isGreaterThanOrEqualTo(1))
 

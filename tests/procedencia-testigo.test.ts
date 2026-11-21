@@ -10,7 +10,10 @@ import {
 
 const SHA_PDF = "b".repeat(64)
 
-const pagina = (numero: number, ...textos: ReadonlyArray<string>): PaginaDeTexto => ({
+const pagina = (
+  numero: number,
+  ...textos: ReadonlyArray<string>
+): PaginaDeTexto => ({
   pagina: numero,
   elementos: textos.map((texto, indice) => ({ texto, x: indice, y: numero })),
 })
@@ -40,7 +43,13 @@ const etiquetas = (tablas: ReadonlyArray<TablaPendienteDeTestigo>) => {
   const testigos = asignarTestigos(tablas)
   return Object.fromEntries(
     tablas
-      .map((t) => [t.tabla, (testigos.get(t.tabla) ?? []).map((v) => v.testigo._tag)] as const)
+      .map(
+        (t) =>
+          [
+            t.tabla,
+            (testigos.get(t.tabla) ?? []).map((v) => v.testigo._tag),
+          ] as const
+      )
       .sort(([a], [b]) => a.localeCompare(b))
   )
 }
@@ -73,7 +82,10 @@ describe("testigo global en el PDF", () => {
     const p1 = pagina(1, "0", "0")
     // Cada tabla, por separado, tiene apariciones de sobra; juntas piden tres
     // y sólo hay dos.
-    const escasas = [tabla("a", [p1], "0", "0"), tabla("b", [p1, pagina(2)], "0")]
+    const escasas = [
+      tabla("a", [p1], "0", "0"),
+      tabla("b", [p1, pagina(2)], "0"),
+    ]
     expect(etiquetas(escasas)).toEqual({
       a: ["SinTestigo", "SinTestigo"],
       b: ["SinTestigo"],
@@ -86,7 +98,9 @@ describe("testigo global en el PDF", () => {
       a: ["ConTestigo", "ConTestigo"],
       b: ["ConTestigo"],
     })
-    expect(etiquetas([...suficientes].reverse())).toEqual(etiquetas(suficientes))
+    expect(etiquetas([...suficientes].reverse())).toEqual(
+      etiquetas(suficientes)
+    )
     expect(etiquetas([...escasas].reverse())).toEqual(etiquetas(escasas))
   })
 
@@ -113,7 +127,9 @@ describe("testigo global en el PDF", () => {
   })
 
   it("dos ocurrencias en un mismo elemento son dos apariciones distintas", () => {
-    expect(aparicionesDe("0", [pagina(1, "0 y 0")]).map((a) => a.ocurrencia)).toEqual([0, 1])
+    expect(
+      aparicionesDe("0", [pagina(1, "0 y 0")]).map((a) => a.ocurrencia)
+    ).toEqual([0, 1])
     expect(
       etiquetas([
         tabla("a", [pagina(1, "0 y 0")], "0"),

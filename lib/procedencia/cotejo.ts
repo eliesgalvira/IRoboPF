@@ -56,7 +56,10 @@ export const cotejar = (
 ): Cotejo => {
   const tablasPorAmbito = new Map<string, Array<string>>()
   const fallosDeTabla = new Map<string, Array<string>>()
-  const manualPorClave = new Map<string, Array<EntradaCotejo["manual"][number]>>()
+  const manualPorClave = new Map<
+    string,
+    Array<EntradaCotejo["manual"][number]>
+  >()
   const excepcionesPorClave = new Map<string, Set<string>>()
   const claves = new Map<string, Clave>()
   const anotar = <T>(mapa: Map<string, Array<T>>, clave: string, valor: T) =>
@@ -190,9 +193,7 @@ export const cotejar = (
     })
   }
 
-  const contar = (
-    tablas: ReadonlySet<string>
-  ): Contadores => {
+  const contar = (tablas: ReadonlySet<string>): Contadores => {
     const propias = extracciones.filter((e) => tablas.has(e.tabla))
     const valores = propias.flatMap((e) => e.valores)
     const deTablas = entradas.filter((entrada) =>
@@ -208,8 +209,9 @@ export const cotejar = (
       valoresExtraidos: valores.length,
       conTestigo: valores.filter((v) => v.testigo._tag === "ConTestigo").length,
       sinTestigo: valores.filter((v) => v.testigo._tag === "SinTestigo").length,
-      testigoPorRemision: valores.filter((v) => v.testigo._tag === "PorRemision")
-        .length,
+      testigoPorRemision: valores.filter(
+        (v) => v.testigo._tag === "PorRemision"
+      ).length,
       sinClaveDeMotor: valores.filter((v) => v.claves.length === 0).length,
       excepcionesDeExtraccion: propias.flatMap((e) => e.excepciones).length,
       claves: deTablas.length,

@@ -9,7 +9,11 @@ import {
 } from "../lib/procedencia/literales"
 
 const euros: GramaticaNumero = { decimales: [2], centinelas: [] }
-const porcentaje: GramaticaNumero = { decimales: [2], sufijo: "%", centinelas: [] }
+const porcentaje: GramaticaNumero = {
+  decimales: [2],
+  sufijo: "%",
+  centinelas: [],
+}
 
 const valor = (literal: string, gramatica: GramaticaNumero) =>
   Result.match(leerLiteral(literal, gramatica), {
@@ -43,7 +47,10 @@ describe("gramática de literales", () => {
   })
 
   it("exige el sufijo declarado y no admite otro", () => {
-    expect(valor("9,50%", porcentaje)).toEqual({ _tag: "Numero", decimal: "9.5" })
+    expect(valor("9,50%", porcentaje)).toEqual({
+      _tag: "Numero",
+      decimal: "9.5",
+    })
     expect(valor("9,50", porcentaje)).toBe("rechazado")
     expect(valor("9,50 %", porcentaje)).toBe("rechazado")
   })
@@ -54,7 +61,10 @@ describe("gramática de literales", () => {
       centinelas: [{ literal: "En adelante", centinela: "sin-limite" }],
     }
     expect(valor("6.000", ahorro)).toEqual({ _tag: "Numero", decimal: "6000" })
-    expect(valor("6.000,00", ahorro)).toEqual({ _tag: "Numero", decimal: "6000" })
+    expect(valor("6.000,00", ahorro)).toEqual({
+      _tag: "Numero",
+      decimal: "6000",
+    })
     expect(valor("6.000,0", ahorro)).toBe("rechazado")
     expect(valor("En adelante", ahorro)).toEqual({
       _tag: "Centinela",

@@ -94,7 +94,8 @@ const escribir = Effect.fn("procedencia.escribir")(function* <E>(
   const path = yield* Path.Path
   const contenido = yield* texto.pipe(
     Effect.mapError(
-      (error) => new ResultadoIlegible({ archivo: ruta, detalle: String(error) })
+      (error) =>
+        new ResultadoIlegible({ archivo: ruta, detalle: String(error) })
     )
   )
   yield* fs.makeDirectory(path.dirname(ruta), { recursive: true })
@@ -173,44 +174,49 @@ const decodificarUtf8 = (sha256: string, bytes: Uint8Array) =>
       new DocumentoNoDisponible({ sha256, motivo: "no es UTF-8 válido" }),
   })
 
-export const leerEspecificaciones = Effect.fn("procedencia.leerEspecificaciones")(
-  function* () {
-    const fs = yield* FileSystem.FileSystem
-    const path = yield* Path.Path
-    const archivos = (yield* fs.readDirectory(RUTAS.especificaciones))
-      .filter((archivo) => archivo.endsWith(".json"))
-      .sort()
-    const especificaciones: Array<EspecificacionLeida> = []
-    for (const archivo of archivos) {
-      const ruta = path.join(RUTAS.especificaciones, archivo)
-      const texto = yield* fs.readFileString(ruta).pipe(
+export const leerEspecificaciones = Effect.fn(
+  "procedencia.leerEspecificaciones"
+)(function* () {
+  const fs = yield* FileSystem.FileSystem
+  const path = yield* Path.Path
+  const archivos = (yield* fs.readDirectory(RUTAS.especificaciones))
+    .filter((archivo) => archivo.endsWith(".json"))
+    .sort()
+  const especificaciones: Array<EspecificacionLeida> = []
+  for (const archivo of archivos) {
+    const ruta = path.join(RUTAS.especificaciones, archivo)
+    const texto = yield* fs
+      .readFileString(ruta)
+      .pipe(
         Effect.mapError(
           (error) =>
-            new EspecificacionInvalida({ archivo: ruta, detalle: error.message })
+            new EspecificacionInvalida({
+              archivo: ruta,
+              detalle: error.message,
+            })
         )
       )
-      const especificacion = yield* Schema.decodeUnknownEffect(
-        EspecificacionDesdeJson
-      )(texto, { onExcessProperty: "error" }).pipe(
-        Effect.mapError(
-          (error) =>
-            new EspecificacionInvalida({ archivo: ruta, detalle: error.message })
-        )
+    const especificacion = yield* Schema.decodeUnknownEffect(
+      EspecificacionDesdeJson
+    )(texto, { onExcessProperty: "error" }).pipe(
+      Effect.mapError(
+        (error) =>
+          new EspecificacionInvalida({ archivo: ruta, detalle: error.message })
       )
-      if (`${especificacion.tabla}.json` !== archivo) {
-        return yield* new EspecificacionInvalida({
-          archivo: ruta,
-          detalle: `el campo «tabla» (${especificacion.tabla}) no coincide con el nombre del archivo`,
-        })
-      }
-      especificaciones.push({
-        especificacion,
-        huella: yield* sha256Hex(new TextEncoder().encode(texto)),
+    )
+    if (`${especificacion.tabla}.json` !== archivo) {
+      return yield* new EspecificacionInvalida({
+        archivo: ruta,
+        detalle: `el campo «tabla» (${especificacion.tabla}) no coincide con el nombre del archivo`,
       })
     }
-    return especificaciones
+    especificaciones.push({
+      especificacion,
+      huella: yield* sha256Hex(new TextEncoder().encode(texto)),
+    })
   }
-)
+  return especificaciones
+})
 
 interface EspecificacionLeida {
   readonly especificacion: Especificacion

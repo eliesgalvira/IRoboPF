@@ -136,7 +136,10 @@ const proyectarMinimos = (
     [
       "ascendientes",
       [
-        ["mayor65OConDiscapacidad", minimos.ascendientes.mayor65OConDiscapacidad],
+        [
+          "mayor65OConDiscapacidad",
+          minimos.ascendientes.mayor65OConDiscapacidad,
+        ],
         ["adicionalMayor75", minimos.ascendientes.adicionalMayor75],
       ],
     ],
@@ -193,6 +196,9 @@ export const proyectarMotor2025 = (): ReadonlyArray<ValorMotor> => [
   ),
   ...proyectarMinimos("estatal", MINIMOS_ESTATALES_2025),
   ...TERRITORIOS_AUTONOMICOS.flatMap((territorio) =>
-    proyectarMinimos(territorio, MINIMOS_AUTONOMICOS_IRPF_2025.valor[territorio])
+    proyectarMinimos(
+      territorio,
+      MINIMOS_AUTONOMICOS_IRPF_2025.valor[territorio]
+    )
   ),
 ]

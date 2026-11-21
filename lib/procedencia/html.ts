@@ -70,7 +70,9 @@ const problema = (nodo: Nodo, motivo: string): ProblemaEstructura => ({
 
 const esTextoVacio = (nodo: Nodo): boolean =>
   nodo.nodeName === "#comment" ||
-  (nodo.nodeName === "#text" && "value" in nodo && normalizar(nodo.value) === "")
+  (nodo.nodeName === "#text" &&
+    "value" in nodo &&
+    normalizar(nodo.value) === "")
 
 const elementosDescendientes = (
   padre: Padre,
@@ -123,7 +125,10 @@ const textoEnLinea = (
     } else if (esElemento(nodo)) {
       if (!EN_LINEA.has(nodo.tagName)) {
         return Result.fail(
-          problema(nodo, `elemento <${nodo.tagName}> no admitido dentro de texto`)
+          problema(
+            nodo,
+            `elemento <${nodo.tagName}> no admitido dentro de texto`
+          )
         )
       }
       const interior = textoEnLinea(nodo)
@@ -297,7 +302,10 @@ export const modeloDeTabla = (
         continue
       }
       return Result.fail(
-        problema(nodo, `nodo ${nodo.nodeName} no admitido en <${padre.tagName}>`)
+        problema(
+          nodo,
+          `nodo ${nodo.nodeName} no admitido en <${padre.tagName}>`
+        )
       )
     }
     return Result.succeed(undefined)

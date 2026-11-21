@@ -288,7 +288,11 @@ export const extraerEscala = (
 
 type Declaracion =
   | { readonly _tag: "Partida"; readonly partida: Partida }
-  | { readonly _tag: "Remision"; readonly literal: string; readonly fila: string }
+  | {
+      readonly _tag: "Remision"
+      readonly literal: string
+      readonly fila: string
+    }
   | { readonly _tag: "Nota"; readonly literal: string }
 
 const textoDeclarado = (declaracion: Declaracion): string =>
@@ -336,7 +340,10 @@ export const extraerCuadro = (
   html: string
 ): Result.Result<ExtraccionHtml, FalloDeTabla> => {
   const { tabla, magnitud } = especificacion
-  const declaradas = [especificacion.cabeceraDeFilas, ...especificacion.columnas]
+  const declaradas = [
+    especificacion.cabeceraDeFilas,
+    ...especificacion.columnas,
+  ]
   const clavesDePartida = (
     territorio: Territorio,
     partida: Partida
@@ -416,7 +423,11 @@ export const extraerCuadro = (
                       columna: especificacion.cabeceraDeFilas,
                       buscado: `fila «${literalFila}»`,
                       coincidencias: encontradas.map((f) =>
-                        ubicacionDe(literalFila, especificacion.cabeceraDeFilas, f)
+                        ubicacionDe(
+                          literalFila,
+                          especificacion.cabeceraDeFilas,
+                          f
+                        )
                       ),
                       claves: clavesDeFila(literalFila, territorio),
                     })

@@ -20,9 +20,7 @@ const almacen = Flag.directory("almacen").pipe(
 )
 
 const mostrarResumen = (resumen: Resumen) =>
-  Console.log(
-    Schema.encodeSync(Schema.fromJsonString(Resumen))(resumen)
-  )
+  Console.log(Schema.encodeSync(Schema.fromJsonString(Resumen))(resumen))
 
 const obtenerDocumento = Command.make(
   "obtener",
@@ -98,8 +96,15 @@ const buscar = Command.make(
 )
 
 Command.make("procedencia").pipe(
-  Command.withDescription("Procedencia documental de las tablas fiscales de 2025"),
-  Command.withSubcommands([obtenerDocumento, extraerYCotejar, cotejarSellado, buscar]),
+  Command.withDescription(
+    "Procedencia documental de las tablas fiscales de 2025"
+  ),
+  Command.withSubcommands([
+    obtenerDocumento,
+    extraerYCotejar,
+    cotejarSellado,
+    buscar,
+  ]),
   Command.run({ version: "2025.1" }),
   Effect.provide([BunServices.layer, FetchHttpClient.layer]),
   BunRuntime.runMain

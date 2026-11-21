@@ -89,7 +89,9 @@ describe("localizador de tabla", () => {
           localizador: { _tag: "Caption", literal },
         },
       })
-    expect(exito(extraerEscala(porCaption("Escala B"), dos)).valores).toHaveLength(2)
+    expect(
+      exito(extraerEscala(porCaption("Escala B"), dos)).valores
+    ).toHaveLength(2)
     expect(fallo(extraerEscala(porCaption("Escala"), dos))).toBe(
       "TablaNoLocalizada"
     )
@@ -118,12 +120,16 @@ describe("localizador de tabla", () => {
         "<tr><th>Base liquidable hasta (euros)</th><th>Tipo aplicable (%)</th><th>Nota</th></tr>"
       )
     )
-    expect(fallo(extraerEscala(escala(), sobrante))).toBe("CabeceraNoLocalizada")
+    expect(fallo(extraerEscala(escala(), sobrante))).toBe(
+      "CabeceraNoLocalizada"
+    )
   })
 
   it("las celdas combinadas no se admiten", () => {
     const combinada = html(tabla('<tr><td colspan="2">0,00</td></tr>'))
-    expect(fallo(extraerEscala(escala(), combinada))).toBe("EstructuraNoAdmitida")
+    expect(fallo(extraerEscala(escala(), combinada))).toBe(
+      "EstructuraNoAdmitida"
+    )
   })
 })
 
@@ -133,7 +139,9 @@ describe("extracción de una escala", () => {
       extraerEscala(escala(), html(tabla(fila("12.450,00", "12,00%"))))
     )
     expect(extraccion.excepciones).toEqual([])
-    expect(extraccion.valores.map((v) => v.claves.map((c) => c.territorio))).toEqual([
+    expect(
+      extraccion.valores.map((v) => v.claves.map((c) => c.territorio))
+    ).toEqual([
       ["ceuta", "melilla"],
       ["ceuta", "melilla"],
     ])
@@ -170,13 +178,19 @@ describe("extracción de una escala", () => {
   it("una especificación sin la evidencia de unidad en la cabecera no se decodifica", () => {
     expect(() =>
       escala({
-        columnas: [{ ...columnaBase, evidenciaUnidad: "euros anuales" }, columnaTipo],
+        columnas: [
+          { ...columnaBase, evidenciaUnidad: "euros anuales" },
+          columnaTipo,
+        ],
       })
     ).toThrow()
   })
 })
 
-const cuadro = (celdas: ReadonlyArray<unknown>, filas?: ReadonlyArray<unknown>) =>
+const cuadro = (
+  celdas: ReadonlyArray<unknown>,
+  filas?: ReadonlyArray<unknown>
+) =>
   Schema.decodeUnknownSync(EspecificacionCuadro)({
     tipo: "cuadro",
     tabla: "prueba-cuadro",
@@ -247,12 +261,17 @@ describe("extracción de un cuadro de partidas", () => {
         ]),
         cuadroHtml(
           estatal,
-          filaCuadro("C.A. de Aragón", "<p>igual que los mínimos estatales.</p>")
+          filaCuadro(
+            "C.A. de Aragón",
+            "<p>igual que los mínimos estatales.</p>"
+          )
         )
       )
     )
     expect(extraccion.excepciones).toEqual([])
-    expect(extraccion.notas.map((n) => n.literal)).toEqual(["(*) Nota estatal."])
+    expect(extraccion.notas.map((n) => n.literal)).toEqual([
+      "(*) Nota estatal.",
+    ])
     expect(
       extraccion.valores.map((v) => [
         v.claves[0]?.territorio,
@@ -262,9 +281,19 @@ describe("extracción de un cuadro de partidas", () => {
       ])
     ).toEqual([
       ["estatal", "general", { _tag: "Numero", decimal: "5550" }, "Directo"],
-      ["estatal", "adicionalMayor65", { _tag: "Numero", decimal: "1150" }, "Directo"],
+      [
+        "estatal",
+        "adicionalMayor65",
+        { _tag: "Numero", decimal: "1150" },
+        "Directo",
+      ],
       ["aragon", "general", { _tag: "Numero", decimal: "5550" }, "Remision"],
-      ["aragon", "adicionalMayor65", { _tag: "Numero", decimal: "1150" }, "Remision"],
+      [
+        "aragon",
+        "adicionalMayor65",
+        { _tag: "Numero", decimal: "1150" },
+        "Remision",
+      ],
     ])
   })
 
@@ -299,7 +328,10 @@ describe("extracción de un cuadro de partidas", () => {
             "Estatal",
             "<p>5.550 euros anuales, en general.</p><p>(*) En caso de fallecimiento 2.400 euros.</p>"
           ),
-          filaCuadro("C.A. de Aragón", "<p>igual que los mínimos estatales.</p>")
+          filaCuadro(
+            "C.A. de Aragón",
+            "<p>igual que los mínimos estatales.</p>"
+          )
         )
       )
     )
@@ -417,7 +449,12 @@ describe("testigo en el PDF", () => {
     const testigos = (paginas: ReturnType<typeof pagina>) =>
       (
         asignarTestigos([
-          { tabla: "prueba", sha256: SHA_PDF, paginas, valores: extraccion.valores },
+          {
+            tabla: "prueba",
+            sha256: SHA_PDF,
+            paginas,
+            valores: extraccion.valores,
+          },
         ]).get("prueba") ?? []
       ).map((v) => v.testigo._tag)
     expect(testigos(pagina("0,00", "0,00", "9,50%", "12,00%"))).toEqual([
