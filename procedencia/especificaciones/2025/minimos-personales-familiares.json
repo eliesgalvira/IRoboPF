@@ -1,0 +1,1142 @@
+{
+  "tipo": "cuadro",
+  "tabla": "minimos-personales-familiares",
+  "magnitud": "minimos-personales-familiares",
+  "territorios": [
+    "estatal",
+    "andalucia",
+    "aragon",
+    "asturias",
+    "illes-balears",
+    "canarias",
+    "cantabria",
+    "castilla-la-mancha",
+    "castilla-y-leon",
+    "catalunya",
+    "extremadura",
+    "galicia",
+    "madrid",
+    "murcia",
+    "la-rioja",
+    "comunitat-valenciana",
+    "ceuta",
+    "melilla"
+  ],
+  "documento": {
+    "sha256": "c8b0fcac85c75ed40c3cea0cdda28b36264e3fb70ee9daedd3ff8b2fc4b2c0f8",
+    "localizador": { "_tag": "UnicaTablaDelDocumento" }
+  },
+  "cabeceraDeFilas": "Importes del mínimo personal y familiar",
+  "columnas": [
+    "Mínimo por contribuyente",
+    "Mínimo por descendientes",
+    "Mínimo por ascendientes",
+    "Mínimo por discapacidad del contribuyente, descendientes y ascendientes"
+  ],
+  "filas": [
+    { "cabecera": "Estatal", "territorio": "estatal" },
+    { "cabecera": "C.A Andalucía", "territorio": "andalucia" },
+    { "cabecera": "C.A. del Principado de Asturias", "territorio": "asturias" },
+    { "cabecera": "C.A Illes Balears", "territorio": "illes-balears" },
+    { "cabecera": "C.A. Canarias", "territorio": "canarias" },
+    { "cabecera": "Comunidad Castilla y León", "territorio": "castilla-y-leon" },
+    { "cabecera": "C.A. Cataluña", "territorio": "catalunya" },
+    { "cabecera": "C.A Galicia", "territorio": "galicia" },
+    { "cabecera": "Comunidad Madrid", "territorio": "madrid" },
+    { "cabecera": "C.A La Rioja", "territorio": "la-rioja" },
+    { "cabecera": "Comunitat Valenciana", "territorio": "comunitat-valenciana" }
+  ],
+  "celdas": [
+    {
+      "fila": "Estatal",
+      "columna": "Mínimo por contribuyente",
+      "partidas": [
+        {
+          "plantilla": "{importe} euros anuales, en general.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "contribuyente", "columna": "general" }]
+        },
+        {
+          "plantilla": "+ {importe} euros anuales, mayor de 65 años.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "contribuyente", "columna": "adicionalMayor65" }]
+        },
+        {
+          "plantilla": "+ {importe} euros anuales adicionales, mayor de 75 años.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "contribuyente", "columna": "adicionalMayor75" }]
+        }
+      ],
+      "remisiones": [],
+      "notas": []
+    },
+    {
+      "fila": "Estatal",
+      "columna": "Mínimo por descendientes",
+      "partidas": [
+        {
+          "plantilla": "{importe} euros anuales por el 1º.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "descendientes", "columna": "primero" }]
+        },
+        {
+          "plantilla": "{importe} euros anuales por el 2º.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "descendientes", "columna": "segundo" }]
+        },
+        {
+          "plantilla": "{importe} euros anuales por el 3º.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "descendientes", "columna": "tercero" }]
+        },
+        {
+          "plantilla": "{importe} euros anuales por el 4º y siguientes.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "descendientes", "columna": "cuartoYSiguientes" }]
+        },
+        {
+          "plantilla": "+ {importe} euros anuales, por descendiente menor de tres años.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "descendientes", "columna": "adicionalMenorTres" }]
+        }
+      ],
+      "remisiones": [],
+      "notas": ["(*) En caso de fallecimiento del descendiente 2.400 euros."]
+    },
+    {
+      "fila": "Estatal",
+      "columna": "Mínimo por ascendientes",
+      "partidas": [
+        {
+          "plantilla": "{importe} euros anuales por cada ascendiente de más de 65 años o con discapacidad.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "ascendientes", "columna": "mayor65OConDiscapacidad" }]
+        },
+        {
+          "plantilla": "+ {importe} euros anuales, si tiene más de 75 años.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "ascendientes", "columna": "adicionalMayor75" }]
+        }
+      ],
+      "remisiones": [],
+      "notas": ["(*) En caso de fallecimiento del ascendiente 1.150 euros."]
+    },
+    {
+      "fila": "Estatal",
+      "columna": "Mínimo por discapacidad del contribuyente, descendientes y ascendientes",
+      "partidas": [
+        {
+          "plantilla": "{importe} euros anuales, por discapacidad = o > al 33%.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [
+            { "fila": "discapacidad-contribuyente", "columna": "grado33Hasta65" },
+            { "fila": "discapacidad-descendientes", "columna": "grado33Hasta65" },
+            { "fila": "discapacidad-ascendientes", "columna": "grado33Hasta65" }
+          ]
+        },
+        {
+          "plantilla": "{importe} euros anuales, si el grado de discapacidad= o > al 65%.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [
+            { "fila": "discapacidad-contribuyente", "columna": "grado65OMas" },
+            { "fila": "discapacidad-descendientes", "columna": "grado65OMas" },
+            { "fila": "discapacidad-ascendientes", "columna": "grado65OMas" }
+          ]
+        },
+        {
+          "plantilla": "+ {importe} euros anuales, si necesita ayuda de terceras personas o movilidad reducida o un grado de discapacidad = o > al 65%.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [
+            { "fila": "discapacidad-contribuyente", "columna": "gastosAsistencia" },
+            { "fila": "discapacidad-descendientes", "columna": "gastosAsistencia" },
+            { "fila": "discapacidad-ascendientes", "columna": "gastosAsistencia" }
+          ]
+        }
+      ],
+      "remisiones": [],
+      "notas": []
+    },
+    {
+      "fila": "C.A Andalucía",
+      "columna": "Mínimo por contribuyente",
+      "partidas": [
+        {
+          "plantilla": "{importe} euros anuales, en general.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "contribuyente", "columna": "general" }]
+        },
+        {
+          "plantilla": "+ {importe} euros anuales, mayor de 65 años.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "contribuyente", "columna": "adicionalMayor65" }]
+        },
+        {
+          "plantilla": "+ {importe} euros anuales adicionales, mayor de 75 años.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "contribuyente", "columna": "adicionalMayor75" }]
+        }
+      ],
+      "remisiones": [],
+      "notas": []
+    },
+    {
+      "fila": "C.A Andalucía",
+      "columna": "Mínimo por descendientes",
+      "partidas": [
+        {
+          "plantilla": "{importe} euros anuales por el 1º.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "descendientes", "columna": "primero" }]
+        },
+        {
+          "plantilla": "{importe} euros anuales por el 2º.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "descendientes", "columna": "segundo" }]
+        },
+        {
+          "plantilla": "{importe} euros anuales por el 3º.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "descendientes", "columna": "tercero" }]
+        },
+        {
+          "plantilla": "{importe} euros anuales por el 4º y siguientes.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "descendientes", "columna": "cuartoYSiguientes" }]
+        },
+        {
+          "plantilla": "+ {importe} euros anuales, por descendiente menor de tres años.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "descendientes", "columna": "adicionalMenorTres" }]
+        }
+      ],
+      "remisiones": [],
+      "notas": []
+    },
+    {
+      "fila": "C.A Andalucía",
+      "columna": "Mínimo por ascendientes",
+      "partidas": [
+        {
+          "plantilla": "{importe} euros anuales por cada ascendiente mayor de 65 años o con discapacidad.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "ascendientes", "columna": "mayor65OConDiscapacidad" }]
+        },
+        {
+          "plantilla": "+ {importe} euros anuales, mayor de 75 años.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "ascendientes", "columna": "adicionalMayor75" }]
+        }
+      ],
+      "remisiones": [],
+      "notas": []
+    },
+    {
+      "fila": "C.A Andalucía",
+      "columna": "Mínimo por discapacidad del contribuyente, descendientes y ascendientes",
+      "partidas": [
+        {
+          "plantilla": "{importe} euros anuales, por discapacidad = o > al 33%.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [
+            { "fila": "discapacidad-contribuyente", "columna": "grado33Hasta65" },
+            { "fila": "discapacidad-descendientes", "columna": "grado33Hasta65" },
+            { "fila": "discapacidad-ascendientes", "columna": "grado33Hasta65" }
+          ]
+        },
+        {
+          "plantilla": "{importe} euros anuales, si el grado de discapacidad= o > al 65%.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [
+            { "fila": "discapacidad-contribuyente", "columna": "grado65OMas" },
+            { "fila": "discapacidad-descendientes", "columna": "grado65OMas" },
+            { "fila": "discapacidad-ascendientes", "columna": "grado65OMas" }
+          ]
+        },
+        {
+          "plantilla": "+ {importe} euros anuales, si necesita ayuda de terceras personas o movilidad reducida o un grado de discapacidad = o > al 65%.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [
+            { "fila": "discapacidad-contribuyente", "columna": "gastosAsistencia" },
+            { "fila": "discapacidad-descendientes", "columna": "gastosAsistencia" },
+            { "fila": "discapacidad-ascendientes", "columna": "gastosAsistencia" }
+          ]
+        }
+      ],
+      "remisiones": [],
+      "notas": []
+    },
+    {
+      "fila": "C.A. del Principado de Asturias",
+      "columna": "Mínimo por contribuyente",
+      "partidas": [
+        {
+          "plantilla": "{importe} euros anuales, en general.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "contribuyente", "columna": "general" }]
+        },
+        {
+          "plantilla": "+ {importe} euros anuales, mayor de 65 años.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "contribuyente", "columna": "adicionalMayor65" }]
+        },
+        {
+          "plantilla": "+ {importe} euros anuales adicionales, mayor de 75 años.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "contribuyente", "columna": "adicionalMayor75" }]
+        }
+      ],
+      "remisiones": [],
+      "notas": []
+    },
+    {
+      "fila": "C.A. del Principado de Asturias",
+      "columna": "Mínimo por descendientes",
+      "partidas": [
+        {
+          "plantilla": "{importe} euros anuales por el 1º.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "descendientes", "columna": "primero" }]
+        },
+        {
+          "plantilla": "{importe} euros anuales por el 2º.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "descendientes", "columna": "segundo" }]
+        },
+        {
+          "plantilla": "{importe} euros anuales por el 3º.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "descendientes", "columna": "tercero" }]
+        },
+        {
+          "plantilla": "{importe} euros anuales por el 4º y siguientes.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "descendientes", "columna": "cuartoYSiguientes" }]
+        },
+        {
+          "plantilla": "+ {importe} euros anuales, por descendiente menor de tres años.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "descendientes", "columna": "adicionalMenorTres" }]
+        }
+      ],
+      "remisiones": [],
+      "notas": []
+    },
+    {
+      "fila": "C.A. del Principado de Asturias",
+      "columna": "Mínimo por ascendientes",
+      "partidas": [
+        {
+          "plantilla": "{importe} euros anuales por cada ascendiente mayor de 65 años o con discapacidad.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "ascendientes", "columna": "mayor65OConDiscapacidad" }]
+        },
+        {
+          "plantilla": "+ {importe} euros anuales, mayor de 75 años.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "ascendientes", "columna": "adicionalMayor75" }]
+        }
+      ],
+      "remisiones": [],
+      "notas": []
+    },
+    {
+      "fila": "C.A. del Principado de Asturias",
+      "columna": "Mínimo por discapacidad del contribuyente, descendientes y ascendientes",
+      "partidas": [
+        {
+          "plantilla": "{importe} euros anuales, por discapacidad = o > al 33%.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [
+            { "fila": "discapacidad-contribuyente", "columna": "grado33Hasta65" },
+            { "fila": "discapacidad-descendientes", "columna": "grado33Hasta65" },
+            { "fila": "discapacidad-ascendientes", "columna": "grado33Hasta65" }
+          ]
+        },
+        {
+          "plantilla": "{importe} euros anuales, si el grado de discapacidad= o > al 65%.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [
+            { "fila": "discapacidad-contribuyente", "columna": "grado65OMas" },
+            { "fila": "discapacidad-descendientes", "columna": "grado65OMas" },
+            { "fila": "discapacidad-ascendientes", "columna": "grado65OMas" }
+          ]
+        },
+        {
+          "plantilla": "+ {importe} euros anuales, si necesita ayuda de terceras personas o movilidad reducida, o un grado de discapacidad = o > al 65%.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [
+            { "fila": "discapacidad-contribuyente", "columna": "gastosAsistencia" },
+            { "fila": "discapacidad-descendientes", "columna": "gastosAsistencia" },
+            { "fila": "discapacidad-ascendientes", "columna": "gastosAsistencia" }
+          ]
+        }
+      ],
+      "remisiones": [],
+      "notas": []
+    },
+    {
+      "fila": "C.A Illes Balears",
+      "columna": "Mínimo por contribuyente",
+      "partidas": [
+        {
+          "plantilla": "{importe} euros anuales, en general.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "contribuyente", "columna": "general" }]
+        },
+        {
+          "plantilla": "+ {importe} euros anuales adicionales, mayor de 75 años.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "contribuyente", "columna": "adicionalMayor75" }]
+        }
+      ],
+      "remisiones": [],
+      "notas": [
+        "6.105 euros anuales si tiene más de 65 años",
+        "+ 1.265 euros anuales, mayor de 65 años"
+      ]
+    },
+    {
+      "fila": "C.A Illes Balears",
+      "columna": "Mínimo por descendientes",
+      "partidas": [
+        {
+          "plantilla": "{importe} euros anuales por el 1º.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "descendientes", "columna": "primero" }]
+        },
+        {
+          "plantilla": "{importe} euros anuales por el 2º.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "descendientes", "columna": "segundo" }]
+        },
+        {
+          "plantilla": "{importe} euros anuales por el 3º.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "descendientes", "columna": "tercero" }]
+        },
+        {
+          "plantilla": "{importe} euros anuales por el 4º y siguientes.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "descendientes", "columna": "cuartoYSiguientes" }]
+        },
+        {
+          "plantilla": "+ {importe} euros anuales, por descendiente menor de tres años.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "descendientes", "columna": "adicionalMenorTres" }]
+        }
+      ],
+      "remisiones": [],
+      "notas": []
+    },
+    {
+      "fila": "C.A Illes Balears",
+      "columna": "Mínimo por ascendientes",
+      "partidas": [
+        {
+          "plantilla": "{importe} euros anuales por cada ascendiente de más de 65 años o con discapacidad.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "ascendientes", "columna": "mayor65OConDiscapacidad" }]
+        },
+        {
+          "plantilla": "+ {importe} euros anuales, si tiene más de 75 años.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "ascendientes", "columna": "adicionalMayor75" }]
+        }
+      ],
+      "remisiones": [],
+      "notas": []
+    },
+    {
+      "fila": "C.A Illes Balears",
+      "columna": "Mínimo por discapacidad del contribuyente, descendientes y ascendientes",
+      "partidas": [
+        {
+          "plantilla": "{importe} euros anuales, por discapacidad = o > al 33%.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [
+            { "fila": "discapacidad-contribuyente", "columna": "grado33Hasta65" },
+            { "fila": "discapacidad-descendientes", "columna": "grado33Hasta65" },
+            { "fila": "discapacidad-ascendientes", "columna": "grado33Hasta65" }
+          ]
+        },
+        {
+          "plantilla": "{importe} euros anuales, si el grado de discapacidad= o > al 65%.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [
+            { "fila": "discapacidad-contribuyente", "columna": "grado65OMas" },
+            { "fila": "discapacidad-descendientes", "columna": "grado65OMas" },
+            { "fila": "discapacidad-ascendientes", "columna": "grado65OMas" }
+          ]
+        },
+        {
+          "plantilla": "+ {importe} euros anuales, si necesita ayuda de terceras personas o movilidad reducida o un grado de discapacidad = o > al 65%.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [
+            { "fila": "discapacidad-contribuyente", "columna": "gastosAsistencia" },
+            { "fila": "discapacidad-descendientes", "columna": "gastosAsistencia" },
+            { "fila": "discapacidad-ascendientes", "columna": "gastosAsistencia" }
+          ]
+        }
+      ],
+      "remisiones": [],
+      "notas": []
+    },
+    {
+      "fila": "C.A. Canarias",
+      "columna": "Mínimo por contribuyente",
+      "partidas": [
+        {
+          "plantilla": "{importe} euros anuales, en general.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "contribuyente", "columna": "general" }]
+        },
+        {
+          "plantilla": "+ {importe} euros anuales, mayor de 65 años.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "contribuyente", "columna": "adicionalMayor65" }]
+        },
+        {
+          "plantilla": "+ {importe} euros anuales adicionales, mayor de 75 años.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "contribuyente", "columna": "adicionalMayor75" }]
+        }
+      ],
+      "remisiones": [],
+      "notas": []
+    },
+    {
+      "fila": "C.A. Canarias",
+      "columna": "Mínimo por descendientes",
+      "partidas": [
+        {
+          "plantilla": "{importe} euros anuales por el 1º.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "descendientes", "columna": "primero" }]
+        },
+        {
+          "plantilla": "{importe} euros anuales por el 2º.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "descendientes", "columna": "segundo" }]
+        },
+        {
+          "plantilla": "{importe} euros anuales por el 3º.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "descendientes", "columna": "tercero" }]
+        },
+        {
+          "plantilla": "{importe} euros anuales por el 4º y siguientes.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "descendientes", "columna": "cuartoYSiguientes" }]
+        },
+        {
+          "plantilla": "+ {importe} euros anuales, por descendiente menor de tres años.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "descendientes", "columna": "adicionalMenorTres" }]
+        }
+      ],
+      "remisiones": [],
+      "notas": []
+    },
+    {
+      "fila": "C.A. Canarias",
+      "columna": "Mínimo por ascendientes",
+      "partidas": [
+        {
+          "plantilla": "{importe} euros anuales por cada ascendiente de más de 65 años o con discapacidad.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "ascendientes", "columna": "mayor65OConDiscapacidad" }]
+        },
+        {
+          "plantilla": "+ {importe} euros anuales, mayor de 75 años.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "ascendientes", "columna": "adicionalMayor75" }]
+        }
+      ],
+      "remisiones": [],
+      "notas": []
+    },
+    {
+      "fila": "C.A. Canarias",
+      "columna": "Mínimo por discapacidad del contribuyente, descendientes y ascendientes",
+      "partidas": [
+        {
+          "plantilla": "{importe} euros anuales, por discapacidad = o > al 33%.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [
+            { "fila": "discapacidad-contribuyente", "columna": "grado33Hasta65" },
+            { "fila": "discapacidad-descendientes", "columna": "grado33Hasta65" },
+            { "fila": "discapacidad-ascendientes", "columna": "grado33Hasta65" }
+          ]
+        },
+        {
+          "plantilla": "{importe} euros anuales, si el grado de discapacidad= o > al 65%.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [
+            { "fila": "discapacidad-contribuyente", "columna": "grado65OMas" },
+            { "fila": "discapacidad-descendientes", "columna": "grado65OMas" },
+            { "fila": "discapacidad-ascendientes", "columna": "grado65OMas" }
+          ]
+        },
+        {
+          "plantilla": "+ {importe} euros anuales, si necesita ayuda de terceras personas o movilidad reducida o un grado de discapacidad = o > al 65%.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [
+            { "fila": "discapacidad-contribuyente", "columna": "gastosAsistencia" },
+            { "fila": "discapacidad-descendientes", "columna": "gastosAsistencia" },
+            { "fila": "discapacidad-ascendientes", "columna": "gastosAsistencia" }
+          ]
+        }
+      ],
+      "remisiones": [],
+      "notas": []
+    },
+    {
+      "fila": "Comunidad Castilla y León",
+      "columna": "Mínimo por contribuyente",
+      "partidas": [],
+      "remisiones": [{ "literal": "igual que los mínimos estatales.", "fila": "Estatal" }],
+      "notas": []
+    },
+    {
+      "fila": "Comunidad Castilla y León",
+      "columna": "Mínimo por descendientes",
+      "partidas": [],
+      "remisiones": [{ "literal": "igual que los mínimos estatales.", "fila": "Estatal" }],
+      "notas": []
+    },
+    {
+      "fila": "Comunidad Castilla y León",
+      "columna": "Mínimo por ascendientes",
+      "partidas": [],
+      "remisiones": [{ "literal": "igual que los mínimos estatales.", "fila": "Estatal" }],
+      "notas": []
+    },
+    {
+      "fila": "Comunidad Castilla y León",
+      "columna": "Mínimo por discapacidad del contribuyente, descendientes y ascendientes",
+      "partidas": [],
+      "remisiones": [{ "literal": "igual que los mínimos estatales.", "fila": "Estatal" }],
+      "notas": []
+    },
+    {
+      "fila": "C.A. Cataluña",
+      "columna": "Mínimo por contribuyente",
+      "partidas": [],
+      "remisiones": [{ "literal": "igual que los mínimos estatales.", "fila": "Estatal" }],
+      "notas": []
+    },
+    {
+      "fila": "C.A. Cataluña",
+      "columna": "Mínimo por descendientes",
+      "partidas": [],
+      "remisiones": [{ "literal": "igual que los mínimos estatales.", "fila": "Estatal" }],
+      "notas": []
+    },
+    {
+      "fila": "C.A. Cataluña",
+      "columna": "Mínimo por ascendientes",
+      "partidas": [],
+      "remisiones": [{ "literal": "igual que los mínimos estatales.", "fila": "Estatal" }],
+      "notas": []
+    },
+    {
+      "fila": "C.A. Cataluña",
+      "columna": "Mínimo por discapacidad del contribuyente, descendientes y ascendientes",
+      "partidas": [],
+      "remisiones": [{ "literal": "igual que los mínimos estatales.", "fila": "Estatal" }],
+      "notas": []
+    },
+    {
+      "fila": "C.A Galicia",
+      "columna": "Mínimo por contribuyente",
+      "partidas": [
+        {
+          "plantilla": "{importe} euros anuales, en general.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "contribuyente", "columna": "general" }]
+        },
+        {
+          "plantilla": "+ {importe} euros anuales, si es mayor de 65 años.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "contribuyente", "columna": "adicionalMayor65" }]
+        },
+        {
+          "plantilla": "+ {importe} euros anuales adicionales, si es mayor de 75 años.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "contribuyente", "columna": "adicionalMayor75" }]
+        }
+      ],
+      "remisiones": [],
+      "notas": []
+    },
+    {
+      "fila": "C.A Galicia",
+      "columna": "Mínimo por descendientes",
+      "partidas": [
+        {
+          "plantilla": "{importe} euros anuales por el 1º.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "descendientes", "columna": "primero" }]
+        },
+        {
+          "plantilla": "{importe} euros anuales por el 2º.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "descendientes", "columna": "segundo" }]
+        },
+        {
+          "plantilla": "{importe} euros anuales por el 3º.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "descendientes", "columna": "tercero" }]
+        },
+        {
+          "plantilla": "{importe} euros anuales por el 4º y siguientes.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "descendientes", "columna": "cuartoYSiguientes" }]
+        },
+        {
+          "plantilla": "+ {importe} euros anuales, por descendiente menor de tres años.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "descendientes", "columna": "adicionalMenorTres" }]
+        }
+      ],
+      "remisiones": [],
+      "notas": []
+    },
+    {
+      "fila": "C.A Galicia",
+      "columna": "Mínimo por ascendientes",
+      "partidas": [
+        {
+          "plantilla": "{importe} euros anuales por cada ascendiente mayor de 65 años o con discapacidad.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "ascendientes", "columna": "mayor65OConDiscapacidad" }]
+        },
+        {
+          "plantilla": "+ {importe} euros anuales, si tiene más de 75 años.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "ascendientes", "columna": "adicionalMayor75" }]
+        }
+      ],
+      "remisiones": [],
+      "notas": []
+    },
+    {
+      "fila": "C.A Galicia",
+      "columna": "Mínimo por discapacidad del contribuyente, descendientes y ascendientes",
+      "partidas": [
+        {
+          "plantilla": "{importe} euros anuales, por discapacidad = o > al 33%.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [
+            { "fila": "discapacidad-contribuyente", "columna": "grado33Hasta65" },
+            { "fila": "discapacidad-descendientes", "columna": "grado33Hasta65" },
+            { "fila": "discapacidad-ascendientes", "columna": "grado33Hasta65" }
+          ]
+        },
+        {
+          "plantilla": "{importe} euros anuales, si el grado de discapacidad= o > al 65%.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [
+            { "fila": "discapacidad-contribuyente", "columna": "grado65OMas" },
+            { "fila": "discapacidad-descendientes", "columna": "grado65OMas" },
+            { "fila": "discapacidad-ascendientes", "columna": "grado65OMas" }
+          ]
+        },
+        {
+          "plantilla": "+ {importe} euros anuales, si necesita ayuda de terceras personas o movilidad reducida o un grado de discapacidad = o > al 65%.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [
+            { "fila": "discapacidad-contribuyente", "columna": "gastosAsistencia" },
+            { "fila": "discapacidad-descendientes", "columna": "gastosAsistencia" },
+            { "fila": "discapacidad-ascendientes", "columna": "gastosAsistencia" }
+          ]
+        }
+      ],
+      "remisiones": [],
+      "notas": []
+    },
+    {
+      "fila": "Comunidad Madrid",
+      "columna": "Mínimo por contribuyente",
+      "partidas": [
+        {
+          "plantilla": "{importe} euros anuales, en general.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [2], "centinelas": [] },
+          "claves": [{ "fila": "contribuyente", "columna": "general" }]
+        },
+        {
+          "plantilla": "+ {importe} euros anuales, mayor de 65 años.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [2], "centinelas": [] },
+          "claves": [{ "fila": "contribuyente", "columna": "adicionalMayor65" }]
+        },
+        {
+          "plantilla": "+ {importe} euros anuales adicionales, mayor de 75 años.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [2], "centinelas": [] },
+          "claves": [{ "fila": "contribuyente", "columna": "adicionalMayor75" }]
+        }
+      ],
+      "remisiones": [],
+      "notas": []
+    },
+    {
+      "fila": "Comunidad Madrid",
+      "columna": "Mínimo por descendientes",
+      "partidas": [
+        {
+          "plantilla": "{importe} euros anuales por el 1º.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [2], "centinelas": [] },
+          "claves": [{ "fila": "descendientes", "columna": "primero" }]
+        },
+        {
+          "plantilla": "{importe} euros anuales por el 2º.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [2], "centinelas": [] },
+          "claves": [{ "fila": "descendientes", "columna": "segundo" }]
+        },
+        {
+          "plantilla": "{importe} euros anuales por el 3º.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "descendientes", "columna": "tercero" }]
+        },
+        {
+          "plantilla": "{importe} euros anuales por el 4º y siguientes.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "descendientes", "columna": "cuartoYSiguientes" }]
+        },
+        {
+          "plantilla": "+ {importe} euros anuales, por descendiente menor de tres años.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [2], "centinelas": [] },
+          "claves": [{ "fila": "descendientes", "columna": "adicionalMenorTres" }]
+        }
+      ],
+      "remisiones": [],
+      "notas": []
+    },
+    {
+      "fila": "Comunidad Madrid",
+      "columna": "Mínimo por ascendientes",
+      "partidas": [
+        {
+          "plantilla": "{importe} euros anuales por cada ascendiente de más de 65 años o con discapacidad.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [2], "centinelas": [] },
+          "claves": [{ "fila": "ascendientes", "columna": "mayor65OConDiscapacidad" }]
+        },
+        {
+          "plantilla": "+ {importe} euros anuales, mayor de 75 años.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [2], "centinelas": [] },
+          "claves": [{ "fila": "ascendientes", "columna": "adicionalMayor75" }]
+        }
+      ],
+      "remisiones": [],
+      "notas": []
+    },
+    {
+      "fila": "Comunidad Madrid",
+      "columna": "Mínimo por discapacidad del contribuyente, descendientes y ascendientes",
+      "partidas": [
+        {
+          "plantilla": "{importe} euros anuales, por discapacidad = o > al 33%.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [2], "centinelas": [] },
+          "claves": [
+            { "fila": "discapacidad-contribuyente", "columna": "grado33Hasta65" },
+            { "fila": "discapacidad-descendientes", "columna": "grado33Hasta65" },
+            { "fila": "discapacidad-ascendientes", "columna": "grado33Hasta65" }
+          ]
+        },
+        {
+          "plantilla": "{importe} euros anuales, si el grado de discapacidad= o > al 65%.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [2], "centinelas": [] },
+          "claves": [
+            { "fila": "discapacidad-contribuyente", "columna": "grado65OMas" },
+            { "fila": "discapacidad-descendientes", "columna": "grado65OMas" },
+            { "fila": "discapacidad-ascendientes", "columna": "grado65OMas" }
+          ]
+        },
+        {
+          "plantilla": "+ {importe} euros anuales, si necesita ayuda de terceras personas o movilidad reducida o un grado de discapacidad = o > al 65%.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [2], "centinelas": [] },
+          "claves": [
+            { "fila": "discapacidad-contribuyente", "columna": "gastosAsistencia" },
+            { "fila": "discapacidad-descendientes", "columna": "gastosAsistencia" },
+            { "fila": "discapacidad-ascendientes", "columna": "gastosAsistencia" }
+          ]
+        }
+      ],
+      "remisiones": [],
+      "notas": []
+    },
+    {
+      "fila": "C.A La Rioja",
+      "columna": "Mínimo por contribuyente",
+      "partidas": [],
+      "remisiones": [{ "literal": "igual que los mínimos estatales.", "fila": "Estatal" }],
+      "notas": []
+    },
+    {
+      "fila": "C.A La Rioja",
+      "columna": "Mínimo por descendientes",
+      "partidas": [],
+      "remisiones": [{ "literal": "igual que los mínimos estatales.", "fila": "Estatal" }],
+      "notas": []
+    },
+    {
+      "fila": "C.A La Rioja",
+      "columna": "Mínimo por ascendientes",
+      "partidas": [],
+      "remisiones": [{ "literal": "igual que los mínimos estatales.", "fila": "Estatal" }],
+      "notas": []
+    },
+    {
+      "fila": "C.A La Rioja",
+      "columna": "Mínimo por discapacidad del contribuyente, descendientes y ascendientes",
+      "partidas": [
+        {
+          "plantilla": "{importe} euros anuales, por discapacidad = o > al 33%.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [
+            { "fila": "discapacidad-descendientes", "columna": "grado33Hasta65" }
+          ]
+        },
+        {
+          "plantilla": "{importe} euros anuales, si el grado de discapacidad= o > al 65%.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [
+            { "fila": "discapacidad-descendientes", "columna": "grado65OMas" }
+          ]
+        },
+        {
+          "plantilla": "+ {importe} euros anuales.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [
+            { "fila": "discapacidad-contribuyente", "columna": "gastosAsistencia" },
+            { "fila": "discapacidad-descendientes", "columna": "gastosAsistencia" },
+            { "fila": "discapacidad-ascendientes", "columna": "gastosAsistencia" }
+          ]
+        }
+      ],
+      "remisiones": [],
+      "notas": [
+        "Solo para el caso del mínimo por descendientes:",
+        "Sin embargo, para el mínimo por contribuyentes, por descendientes y ascendientes cuando necesiten ayuda de terceras personas o tengan movilidad reducida o un grado de discapacidad = o > al 65%:"
+      ]
+    },
+    {
+      "fila": "Comunitat Valenciana",
+      "columna": "Mínimo por contribuyente",
+      "partidas": [
+        {
+          "plantilla": "{importe} euros anuales, en general.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "contribuyente", "columna": "general" }]
+        },
+        {
+          "plantilla": "+ {importe} euros anuales, mayor de 65 años.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "contribuyente", "columna": "adicionalMayor65" }]
+        },
+        {
+          "plantilla": "+ {importe} euros anuales adicionales, mayor de 75 años.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "contribuyente", "columna": "adicionalMayor75" }]
+        }
+      ],
+      "remisiones": [],
+      "notas": []
+    },
+    {
+      "fila": "Comunitat Valenciana",
+      "columna": "Mínimo por descendientes",
+      "partidas": [
+        {
+          "plantilla": "{importe} euros anuales por el 1º.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "descendientes", "columna": "primero" }]
+        },
+        {
+          "plantilla": "{importe} euros anuales por el 2º.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "descendientes", "columna": "segundo" }]
+        },
+        {
+          "plantilla": "{importe} euros anuales por el 3º.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "descendientes", "columna": "tercero" }]
+        },
+        {
+          "plantilla": "{importe} euros anuales por el 4º y siguientes.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "descendientes", "columna": "cuartoYSiguientes" }]
+        },
+        {
+          "plantilla": "+ {importe} euros anuales, por descendiente menor de tres años.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "descendientes", "columna": "adicionalMenorTres" }]
+        }
+      ],
+      "remisiones": [],
+      "notas": []
+    },
+    {
+      "fila": "Comunitat Valenciana",
+      "columna": "Mínimo por ascendientes",
+      "partidas": [
+        {
+          "plantilla": "{importe} euros anuales por cada ascendiente de más de 65 años o con discapacidad.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "ascendientes", "columna": "mayor65OConDiscapacidad" }]
+        },
+        {
+          "plantilla": "+ {importe} euros anuales, mayor de 75 años.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [{ "fila": "ascendientes", "columna": "adicionalMayor75" }]
+        }
+      ],
+      "remisiones": [],
+      "notas": []
+    },
+    {
+      "fila": "Comunitat Valenciana",
+      "columna": "Mínimo por discapacidad del contribuyente, descendientes y ascendientes",
+      "partidas": [
+        {
+          "plantilla": "{importe} euros anuales, por discapacidad = o > al 33%.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [
+            { "fila": "discapacidad-contribuyente", "columna": "grado33Hasta65" },
+            { "fila": "discapacidad-descendientes", "columna": "grado33Hasta65" },
+            { "fila": "discapacidad-ascendientes", "columna": "grado33Hasta65" }
+          ]
+        },
+        {
+          "plantilla": "{importe} euros anuales, si el grado de discapacidad= o > al 65%.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [
+            { "fila": "discapacidad-contribuyente", "columna": "grado65OMas" },
+            { "fila": "discapacidad-descendientes", "columna": "grado65OMas" },
+            { "fila": "discapacidad-ascendientes", "columna": "grado65OMas" }
+          ]
+        },
+        {
+          "plantilla": "+ {importe} euros anuales, si necesita ayuda de terceras personas o movilidad reducida o un grado de discapacidad = o > al 65%.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": [
+            { "fila": "discapacidad-contribuyente", "columna": "gastosAsistencia" },
+            { "fila": "discapacidad-descendientes", "columna": "gastosAsistencia" },
+            { "fila": "discapacidad-ascendientes", "columna": "gastosAsistencia" }
+          ]
+        }
+      ],
+      "remisiones": [],
+      "notas": []
+    }
+  ],
+  "testigo": {
+    "sha256": "02c6e8300a7f56c8c24aa947d4c39c5657c9a9eda6f5d727d44b4112d7de15d4",
+    "paginas": [1094, 1095, 1096, 1097, 1098]
+  }
+}
