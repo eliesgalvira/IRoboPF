@@ -1,6 +1,6 @@
 import { Schema } from "effect"
 
-import { Clave, Sha256, Unidad, Valor } from "./vocabulario"
+import { Clave, OrigenMotor, Sha256, Unidad, Valor } from "./vocabulario"
 
 // Procedencia de un elemento del HTML. «fila» y «columna» son los
 // identificadores declarados (índice de fila o literal de su cabecera y
@@ -128,7 +128,13 @@ export class ClaveDuplicada extends Schema.TaggedErrorClass<ClaveDuplicada>()(
 
 export class ValorDistinto extends Schema.TaggedErrorClass<ValorDistinto>()(
   "ValorDistinto",
-  { clave: Clave, tabla: Schema.String, manual: Valor, motor: Valor }
+  {
+    clave: Clave,
+    tabla: Schema.String,
+    manual: Valor,
+    motor: Valor,
+    origenMotor: OrigenMotor,
+  }
 ) {}
 
 export class UnidadDistinta extends Schema.TaggedErrorClass<UnidadDistinta>()(

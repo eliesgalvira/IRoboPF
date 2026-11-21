@@ -81,6 +81,9 @@ export const ColumnaMinimo = Schema.Literals([
 ])
 export type ColumnaMinimo = typeof ColumnaMinimo.Type
 
+export const OrigenMotor = Schema.Literals(["almacenado", "derivado"])
+export type OrigenMotor = typeof OrigenMotor.Type
+
 export const Unidad = Schema.Literals(["EUR", "porcentaje"])
 export type Unidad = typeof Unidad.Type
 

@@ -14,7 +14,8 @@ distancias exigiría umbrales.
 
 **Todo lo que decide la extracción está en la especificación.** Cada tabla es
 un JSON en `procedencia/especificaciones/2025/` que se decodifica con `Schema`.
-El programa no tiene casos por territorio ni por tabla.
+El programa no tiene casos por territorio ni por tabla. Una clave que el esquema
+no declara es un error al decodificar, no se ignora.
 
 **Documentos por contenido.** Los originales no entran en git. Viven en un
 almacén `sha256/<hash>` cuya ruta se pasa con `--almacen` o
@@ -140,20 +141,21 @@ Es «derivado» lo que se sigue de esos datos por aritmética exacta:
 
 El cotejo cuenta aparte las coincidencias y diferencias derivadas.
 
-**Redondeo declarado.** El manual imprime la cuota acumulada con dos decimales
-(Asturias: 1.751,36 frente a 1.751,364 exacto). Una columna puede declarar
-`redondeoDeclarado` (decimales y modo `medio-hacia-arriba`, el del redondeo del
-euro). En ese caso, si la comparación exacta falla, se compara el valor del
-motor redondeado así. El resultado es `coincidente-con-redondeo-declarado`, se
-cuenta aparte y conserva el valor exacto. Sin esa declaración, la comparación es
-exacta.
+**Sin redondeo declarado; la comparación es siempre exacta.** El manual imprime
+la cuota acumulada con dos decimales (Asturias: 1.751,36 frente a 1.751,364 que
+se sigue de integrar los tipos del motor). El manual no dice con qué modo
+redondea lo que imprime, así que declarar «medio hacia arriba» (o cualquier
+otro) sería decisión del autor de la especificación y no de la fuente. Además,
+la diferencia entre la cuota publicada y la integrada es justo un hecho que este
+cotejo tiene que contar, no absorber. Por eso no hay redondeo ni tolerancia de
+ningún tipo: esa celda sale `ValorDistinto` con los dos valores exactos y
+`origenMotor: "derivado"`, y se cuenta aparte en `distintasDerivadas`.
 
 **Cotejo por clave.** El cotejo recorre la unión de claves del manual, del motor
 y de las excepciones. Cada clave termina en uno de estos estados:
 
 - coincidente;
-- coincidente con redondeo declarado;
-- distinta (`ValorDistinto`);
+- distinta (`ValorDistinto`, con el origen del valor del motor);
 - unidad distinta;
 - ambigua (`ClaveDuplicada` o `CeldaAmbigua`);
 - ausente en el manual;
@@ -198,6 +200,3 @@ ausente, pero su valor sigue en `cotejo.json`.
   anuales si tiene más de 65 años» además de «+ 1.265». El motor guarda un
   adicional de 1.820, que no aparece literal en el cuadro. Cómo se relacionan es
   una cuestión fiscal, no de extracción.
-- **Modo del redondeo impreso.** Medio hacia arriba y medio al par no se
-  distinguen en las cuotas vistas. Se declara el del euro, pero la fuente no lo
-  dice.

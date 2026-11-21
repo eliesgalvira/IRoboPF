@@ -53,10 +53,6 @@ export const cotejar = (
   const fallosDeTabla = new Map<string, Array<string>>()
   const manualPorClave = new Map<string, Array<EntradaCotejo["manual"][number]>>()
   const excepcionesPorClave = new Map<string, Set<string>>()
-  const redondeoPorClave = new Map<
-    string,
-    NonNullable<ExtraccionTabla["valores"][number]["redondeoDeclarado"]>
-  >()
   const claves = new Map<string, Clave>()
   const anotar = <T>(mapa: Map<string, Array<T>>, clave: string, valor: T) =>
     mapa.set(clave, [...(mapa.get(clave) ?? []), valor])
@@ -89,9 +85,6 @@ export const cotejar = (
     for (const valor of extraccion.valores) {
       for (const clave of valor.claves) {
         claves.set(textoClave(clave), clave)
-        if (valor.redondeoDeclarado !== undefined) {
-          redondeoPorClave.set(textoClave(clave), valor.redondeoDeclarado)
-        }
         anotar(manualPorClave, textoClave(clave), {
           tabla: extraccion.tabla,
           unidad: valor.unidad,
@@ -128,7 +121,6 @@ export const cotejar = (
       ...tablas.flatMap((tabla) => fallosDeTabla.get(tabla) ?? []),
     ])
     let estado: EstadoCotejo
-    let motorRedondeado: Valor | undefined
     const [unico] = manual
     if (tablas.length === 0) {
       estado = "fuera-de-alcance"
@@ -138,7 +130,6 @@ export const cotejar = (
         new ClaveDuplicada({ clave, tablas: manual.map((m) => m.tabla) })
       )
     } else if (unico !== undefined) {
-      const redondeo = redondeoPorClave.get(texto)
       if (valorMotor === null) {
         estado = "sin-homologo-en-motor"
         excepciones.push(new SinHomologoEnMotor({ clave, tabla: unico.tabla }))
@@ -155,31 +146,16 @@ export const cotejar = (
       } else if (mismoValor(unico.valor, valorMotor.valor)) {
         estado = "coincidente"
       } else {
-        motorRedondeado =
-          redondeo !== undefined && valorMotor.valor._tag === "Numero"
-            ? {
-                _tag: "Numero",
-                decimal: new Decimal(valorMotor.valor.decimal)
-                  .toDecimalPlaces(redondeo.decimales, Decimal.ROUND_HALF_UP)
-                  .toFixed(),
-              }
-            : undefined
-        if (
-          motorRedondeado !== undefined &&
-          mismoValor(unico.valor, motorRedondeado)
-        ) {
-          estado = "coincidente-con-redondeo-declarado"
-        } else {
-          estado = "distinta"
-          excepciones.push(
-            new ValorDistinto({
-              clave,
-              tabla: unico.tabla,
-              manual: unico.valor,
-              motor: valorMotor.valor,
-            })
-          )
-        }
+        estado = "distinta"
+        excepciones.push(
+          new ValorDistinto({
+            clave,
+            tabla: unico.tabla,
+            manual: unico.valor,
+            motor: valorMotor.valor,
+            origenMotor: valorMotor.origen,
+          })
+        )
       }
     } else if (deExtraccion.has("CeldaAmbigua")) {
       estado = "ambigua"
@@ -205,7 +181,6 @@ export const cotejar = (
               origen: valorMotor.origen,
               regla: valorMotor.regla,
             },
-      ...(motorRedondeado === undefined ? {} : { motorRedondeado }),
       excepcionesDeExtraccion: Array.from(deExtraccion).sort(),
     })
   }
@@ -224,10 +199,6 @@ export const cotejar = (
           estados.includes(entrada.estado) &&
           (!derivadas || entrada.motor?.origen === "derivado")
       ).length
-    const coincidentes: ReadonlyArray<EstadoCotejo> = [
-      "coincidente",
-      "coincidente-con-redondeo-declarado",
-    ]
     return {
       valoresExtraidos: valores.length,
       conTestigo: valores.filter((v) => v.testigo._tag === "ConTestigo").length,
@@ -236,11 +207,8 @@ export const cotejar = (
         .length,
       excepcionesDeExtraccion: propias.flatMap((e) => e.excepciones).length,
       claves: deTablas.length,
-      coincidentes: cuantas(coincidentes),
-      coincidentesConRedondeoDeclarado: cuantas([
-        "coincidente-con-redondeo-declarado",
-      ]),
-      coincidentesDerivadas: cuantas(coincidentes, true),
+      coincidentes: cuantas(["coincidente"]),
+      coincidentesDerivadas: cuantas(["coincidente"], true),
       distintas: cuantas(["distinta"]),
       distintasDerivadas: cuantas(["distinta"], true),
       unidadDistinta: cuantas(["unidad-distinta"]),

@@ -52,12 +52,6 @@ const TestigoPdf = Schema.Struct({
   paginas: Schema.NonEmptyArray(Pagina),
 })
 
-export const RedondeoDeclarado = Schema.Struct({
-  decimales: Schema.Int.check(Schema.isGreaterThanOrEqualTo(0)),
-  modo: Schema.Literals(["medio-hacia-arriba"]),
-})
-export type RedondeoDeclarado = typeof RedondeoDeclarado.Type
-
 const sinRepetidos =
   <T>(nombre: string, clave: (elemento: T) => string) =>
   (elementos: ReadonlyArray<T>) =>
@@ -71,7 +65,6 @@ const ColumnaEscalaDeclarada = Schema.Struct({
   unidad: Unidad,
   evidenciaUnidad: LiteralCanonico,
   gramatica: Gramatica,
-  redondeoDeclarado: Schema.optionalKey(RedondeoDeclarado),
 })
 
 export const EspecificacionEscala = Schema.Struct({

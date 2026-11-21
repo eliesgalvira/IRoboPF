@@ -178,7 +178,11 @@ export const leerEspecificaciones = Effect.fn("procedencia.leerEspecificaciones"
     for (const archivo of archivos) {
       const ruta = path.join(RUTAS.especificaciones, archivo)
       const especificacion = yield* fs.readFileString(ruta).pipe(
-        Effect.flatMap(Schema.decodeUnknownEffect(EspecificacionDesdeJson)),
+        Effect.flatMap((texto) =>
+          Schema.decodeUnknownEffect(EspecificacionDesdeJson)(texto, {
+            onExcessProperty: "error",
+          })
+        ),
         Effect.mapError(
           (error) =>
             new EspecificacionInvalida({ archivo: ruta, detalle: error.message })

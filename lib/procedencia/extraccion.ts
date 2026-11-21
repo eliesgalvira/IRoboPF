@@ -7,7 +7,6 @@ import {
   type EspecificacionEscala,
   type LocalizadorTabla,
   type Partida,
-  type RedondeoDeclarado,
 } from "./especificacion"
 import {
   CabeceraAmbigua,
@@ -43,7 +42,6 @@ export interface ValorPendienteDeTestigo {
   readonly unidad: Unidad
   readonly valor: Valor
   readonly claves: ReadonlyArray<Clave>
-  readonly redondeoDeclarado?: RedondeoDeclarado
   readonly origen: Origen
   // null cuando el valor procede de una remisión y no de un literal propio.
   readonly literalTestigo: string | null
@@ -285,9 +283,6 @@ export const extraerEscala = (
                 unidad: columna.unidad,
                 valor: leido.success.valor,
                 claves,
-                ...(columna.redondeoDeclarado === undefined
-                  ? {}
-                  : { redondeoDeclarado: columna.redondeoDeclarado }),
                 origen: { _tag: "Directo" },
                 literalTestigo: leido.success.literalTestigo,
               })

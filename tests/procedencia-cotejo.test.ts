@@ -39,11 +39,15 @@ const manual = (
   ...extra,
 })
 
-const motor = (claveMotor: Clave, decimal: string): ValorMotor => ({
+const motor = (
+  claveMotor: Clave,
+  decimal: string,
+  origen: ValorMotor["origen"] = "derivado"
+): ValorMotor => ({
   clave: claveMotor,
   unidad: "EUR",
   valor: { _tag: "Numero", decimal },
-  origen: "derivado",
+  origen,
   regla: "prueba",
 })
 
@@ -71,15 +75,13 @@ describe("cotejo por clave", () => {
         extraccion([
           manual(clave("0", "a"), "1235"),
           manual(clave("0", "b"), "1235.01"),
-          manual(clave("0", "c"), "1751.36", {
-            redondeoDeclarado: { decimales: 2, modo: "medio-hacia-arriba" },
-          }),
+          manual(clave("0", "c"), "1751.36"),
           manual(clave("0", "d"), "7"),
         ]),
       ],
       [
         motor(clave("0", "a"), "1235"),
-        motor(clave("0", "b"), "1235"),
+        motor(clave("0", "b"), "1235", "almacenado"),
         motor(clave("0", "c"), "1751.364"),
         motor(clave("0", "e"), "9"),
         motor({ ...clave("0", "a"), territorio: "aragon" }, "1"),
@@ -90,23 +92,30 @@ describe("cotejo por clave", () => {
     ).toEqual([
       ["andalucia", "a", "coincidente"],
       ["andalucia", "b", "distinta"],
-      ["andalucia", "c", "coincidente-con-redondeo-declarado"],
+      ["andalucia", "c", "distinta"],
       ["andalucia", "d", "sin-homologo-en-motor"],
       ["andalucia", "e", "ausente-en-manual"],
       ["aragon", "a", "fuera-de-alcance"],
     ])
     expect(resultado.excepciones.cotejo.map((e) => e._tag)).toEqual([
       "ValorDistinto",
+      "ValorDistinto",
       "SinHomologoEnMotor",
       "AusenteEnManual",
     ])
+    expect(resultado.excepciones.cotejo[1]).toMatchObject({
+      _tag: "ValorDistinto",
+      manual: { _tag: "Numero", decimal: "1751.36" },
+      motor: { _tag: "Numero", decimal: "1751.364" },
+      origenMotor: "derivado",
+    })
     const [contadores] = resultado.resumen.porTabla
     expect(contadores?.contadores).toMatchObject({
       claves: 5,
-      coincidentes: 2,
-      coincidentesConRedondeoDeclarado: 1,
-      coincidentesDerivadas: 2,
-      distintas: 1,
+      coincidentes: 1,
+      coincidentesDerivadas: 1,
+      distintas: 2,
+      distintasDerivadas: 1,
       ausentesEnManual: 1,
       sinHomologoEnMotor: 1,
     })

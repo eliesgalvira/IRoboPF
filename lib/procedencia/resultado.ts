@@ -1,8 +1,15 @@
 import { Schema, Struct } from "effect"
 
-import { RedondeoDeclarado } from "./especificacion"
 import { ExcepcionCotejo, ExcepcionExtraccion, Ubicacion } from "./excepciones"
-import { Clave, Magnitud, Sha256, Territorio, Unidad, Valor } from "./vocabulario"
+import {
+  Clave,
+  Magnitud,
+  OrigenMotor,
+  Sha256,
+  Territorio,
+  Unidad,
+  Valor,
+} from "./vocabulario"
 
 export const Aparicion = Schema.Struct({
   pagina: Schema.Int,
@@ -41,7 +48,6 @@ export const ValorExtraido = Schema.Struct({
   unidad: Unidad,
   valor: Valor,
   claves: Schema.Array(Clave),
-  redondeoDeclarado: Schema.optionalKey(RedondeoDeclarado),
   origen: Origen,
   testigo: Testigo,
 })
@@ -80,14 +86,13 @@ export const ValorMotor = Schema.Struct({
   clave: Clave,
   unidad: Unidad,
   valor: Valor,
-  origen: Schema.Literals(["almacenado", "derivado"]),
+  origen: OrigenMotor,
   regla: Schema.String,
 })
 export type ValorMotor = typeof ValorMotor.Type
 
 export const EstadoCotejo = Schema.Literals([
   "coincidente",
-  "coincidente-con-redondeo-declarado",
   "distinta",
   "unidad-distinta",
   "ambigua",
@@ -113,7 +118,6 @@ export const EntradaCotejo = Schema.Struct({
     })
   ),
   motor: Schema.NullOr(ValorMotor.mapFields(Struct.omit(["clave"]))),
-  motorRedondeado: Schema.optionalKey(Valor),
   excepcionesDeExtraccion: Schema.Array(Schema.String),
 })
 export type EntradaCotejo = typeof EntradaCotejo.Type
@@ -126,7 +130,6 @@ export const Contadores = Schema.Struct({
   excepcionesDeExtraccion: Schema.Int,
   claves: Schema.Int,
   coincidentes: Schema.Int,
-  coincidentesConRedondeoDeclarado: Schema.Int,
   coincidentesDerivadas: Schema.Int,
   distintas: Schema.Int,
   distintasDerivadas: Schema.Int,
