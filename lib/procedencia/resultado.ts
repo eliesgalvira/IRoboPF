@@ -62,6 +62,8 @@ export type ValorExtraido = typeof ValorExtraido.Type
 
 export const ExtraccionTabla = Schema.Struct({
   tabla: Schema.String,
+  // SHA-256 del archivo de especificación con el que se extrajo.
+  especificacion: Sha256,
   tipo: Schema.Literals(["escala", "cuadro"]),
   magnitud: Magnitud,
   territorios: Schema.Array(Territorio),

@@ -28,7 +28,9 @@ documento que no figura en el manifiesto no se usa.
 sellado y el motor, y escribe `cotejo.json`, `excepciones.json` y
 `resumen.json`. La CI no tiene originales, así que ejecuta `cotejar` y exige que
 no cambie ningún byte. Si un valor del motor de 2025 cambia y su celda no, la
-CI falla.
+CI falla. Cada extracción sellada guarda el SHA-256 de su especificación y
+`cotejar` rechaza la que no coincide, así que cambiar una especificación sin
+volver a extraer también la hace fallar.
 
 **Localizar sin adivinar.**
 

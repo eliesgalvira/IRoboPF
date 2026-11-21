@@ -179,15 +179,18 @@ export const leerEspecificaciones = Effect.fn("procedencia.leerEspecificaciones"
     const archivos = (yield* fs.readDirectory(RUTAS.especificaciones))
       .filter((archivo) => archivo.endsWith(".json"))
       .sort()
-    const especificaciones: Array<Especificacion> = []
+    const especificaciones: Array<EspecificacionLeida> = []
     for (const archivo of archivos) {
       const ruta = path.join(RUTAS.especificaciones, archivo)
-      const especificacion = yield* fs.readFileString(ruta).pipe(
-        Effect.flatMap((texto) =>
-          Schema.decodeUnknownEffect(EspecificacionDesdeJson)(texto, {
-            onExcessProperty: "error",
-          })
-        ),
+      const texto = yield* fs.readFileString(ruta).pipe(
+        Effect.mapError(
+          (error) =>
+            new EspecificacionInvalida({ archivo: ruta, detalle: error.message })
+        )
+      )
+      const especificacion = yield* Schema.decodeUnknownEffect(
+        EspecificacionDesdeJson
+      )(texto, { onExcessProperty: "error" }).pipe(
         Effect.mapError(
           (error) =>
             new EspecificacionInvalida({ archivo: ruta, detalle: error.message })
@@ -199,11 +202,19 @@ export const leerEspecificaciones = Effect.fn("procedencia.leerEspecificaciones"
           detalle: `el campo «tabla» (${especificacion.tabla}) no coincide con el nombre del archivo`,
         })
       }
-      especificaciones.push(especificacion)
+      especificaciones.push({
+        especificacion,
+        huella: yield* sha256Hex(new TextEncoder().encode(texto)),
+      })
     }
     return especificaciones
   }
 )
+
+interface EspecificacionLeida {
+  readonly especificacion: Especificacion
+  readonly huella: string
+}
 
 interface TablaExtraida {
   readonly extraccion: Omit<ExtraccionTabla, "valores">
@@ -213,7 +224,7 @@ interface TablaExtraida {
 }
 
 const extraerTabla = Effect.fn("procedencia.tabla")(function* (
-  especificacion: Especificacion,
+  { especificacion, huella }: EspecificacionLeida,
   almacen: string,
   manifiesto: Manifiesto,
   pdf: PdfAbierto
@@ -225,6 +236,7 @@ const extraerTabla = Effect.fn("procedencia.tabla")(function* (
   )
   const base = {
     tabla: especificacion.tabla,
+    especificacion: huella,
     tipo: especificacion.tipo,
     magnitud: especificacion.magnitud,
     territorios: especificacion.territorios,
@@ -291,16 +303,17 @@ export const extraer = Effect.fn("procedencia.extraer")(function* (
   const manifiesto = yield* leerManifiesto()
   const especificaciones = yield* leerEspecificaciones()
   const pdfs = Array.from(
-    new Set(especificaciones.map((e) => e.testigo.sha256))
+    new Set(especificaciones.map((e) => e.especificacion.testigo.sha256))
   ).sort()
   for (const sha256 of pdfs) {
     yield* Effect.scoped(
       Effect.gen(function* () {
         const pdf = yield* abrirPdfDelAlmacen(almacen, sha256, manifiesto)
         const extraidas = yield* Effect.forEach(
-          especificaciones.filter((e) => e.testigo.sha256 === sha256),
-          (especificacion) =>
-            extraerTabla(especificacion, almacen, manifiesto, pdf)
+          especificaciones.filter(
+            (e) => e.especificacion.testigo.sha256 === sha256
+          ),
+          (leida) => extraerTabla(leida, almacen, manifiesto, pdf)
         )
         const leidas = new Map<number, PaginaDeTexto>()
         for (const pagina of new Set(extraidas.flatMap((t) => t.paginas))) {
@@ -338,22 +351,39 @@ export const generarCotejo = Effect.fn("procedencia.cotejar")(function* () {
   const archivos = (yield* fs.readDirectory(RUTAS.extraccion))
     .filter((archivo) => archivo.endsWith(".json"))
     .sort()
-  const esperados = especificaciones.map((e) => `${e.tabla}.json`).sort()
+  const esperados = especificaciones.map(
+    (e) => `${e.especificacion.tabla}.json`
+  )
   if (archivos.join("\n") !== esperados.join("\n")) {
     return yield* new ResultadoIlegible({
       archivo: RUTAS.extraccion,
       detalle: `las extracciones selladas (${archivos.join(", ")}) no corresponden a las especificaciones (${esperados.join(", ")}); vuelve a extraer`,
     })
   }
-  const extracciones = yield* Effect.forEach(archivos, (archivo) => {
-    const ruta = path.join(RUTAS.extraccion, archivo)
-    return fs.readFileString(ruta).pipe(
-      Effect.flatMap(Schema.decodeUnknownEffect(ExtraccionTablaDesdeJson)),
-      Effect.mapError(
-        (error) => new ResultadoIlegible({ archivo: ruta, detalle: error.message })
+  const extracciones = yield* Effect.forEach(
+    especificaciones,
+    Effect.fnUntraced(function* ({ especificacion, huella }) {
+      const ruta = path.join(RUTAS.extraccion, `${especificacion.tabla}.json`)
+      const extraccion = yield* fs.readFileString(ruta).pipe(
+        Effect.flatMap(Schema.decodeUnknownEffect(ExtraccionTablaDesdeJson)),
+        Effect.mapError(
+          (error) =>
+            new ResultadoIlegible({ archivo: ruta, detalle: error.message })
+        )
       )
-    )
-  })
+      if (
+        extraccion.tabla !== especificacion.tabla ||
+        extraccion.especificacion !== huella
+      ) {
+        return yield* new ResultadoIlegible({
+          archivo: ruta,
+          detalle:
+            "la extracción sellada no procede de la especificación actual; vuelve a extraer",
+        })
+      }
+      return extraccion
+    })
+  )
   const cotejo = cotejar(extracciones, proyectarMotor2025())
   yield* escribir(RUTAS.cotejo, textoCotejo(cotejo.entradas))
   yield* escribirJson(RUTAS.excepciones, ColaExcepciones, cotejo.excepciones)

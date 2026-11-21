@@ -55,6 +55,7 @@ const extraccion = (
   valores: ExtraccionTabla["valores"]
 ): ExtraccionTabla => ({
   tabla: "prueba",
+  especificacion: "c".repeat(64),
   tipo: "escala",
   magnitud: "escala-general-autonomica",
   territorios: ["andalucia"],
