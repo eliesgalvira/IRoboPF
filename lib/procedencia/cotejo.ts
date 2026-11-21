@@ -196,7 +196,15 @@ export const cotejar = (
       estado,
       tablas,
       manual,
-      motor: valorMotor,
+      motor:
+        valorMotor === null
+          ? null
+          : {
+              unidad: valorMotor.unidad,
+              valor: valorMotor.valor,
+              origen: valorMotor.origen,
+              regla: valorMotor.regla,
+            },
       ...(motorRedondeado === undefined ? {} : { motorRedondeado }),
       excepcionesDeExtraccion: Array.from(deExtraccion).sort(),
     })

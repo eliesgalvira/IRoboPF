@@ -71,19 +71,37 @@ export const textoJson = <
     Effect.map((texto) => `${texto}\n`)
   )
 
-const escribirJson = Effect.fn("procedencia.escribirJson")(function* <
-  S extends Schema.Top & { readonly EncodingServices: never },
->(ruta: string, schema: S, valor: S["Type"]) {
+// El cotejo es largo: una entrada por línea para que cada cambio del motor o
+// del manual sea una línea del diff.
+const lineaDeCotejo = Schema.encodeEffect(Schema.fromJsonString(EntradaCotejo))
+
+export const textoCotejo = (entradas: ReadonlyArray<EntradaCotejo>) =>
+  Effect.forEach(entradas, (entrada) => lineaDeCotejo(entrada)).pipe(
+    Effect.map((lineas) => `[\n${lineas.join(",\n")}\n]\n`)
+  )
+
+const escribir = Effect.fn("procedencia.escribir")(function* <E>(
+  ruta: string,
+  texto: Effect.Effect<string, E>
+) {
   const fs = yield* FileSystem.FileSystem
   const path = yield* Path.Path
-  const texto = yield* textoJson(schema, valor).pipe(
+  const contenido = yield* texto.pipe(
     Effect.mapError(
-      (error) => new ResultadoIlegible({ archivo: ruta, detalle: error.message })
+      (error) => new ResultadoIlegible({ archivo: ruta, detalle: String(error) })
     )
   )
   yield* fs.makeDirectory(path.dirname(ruta), { recursive: true })
-  yield* fs.writeFileString(ruta, texto)
+  yield* fs.writeFileString(ruta, contenido)
 })
+
+const escribirJson = <
+  S extends Schema.Top & { readonly EncodingServices: never },
+>(
+  ruta: string,
+  schema: S,
+  valor: S["Type"]
+) => escribir(ruta, textoJson(schema, valor))
 
 const sha256Hex = (bytes: Uint8Array) =>
   Effect.promise(() => crypto.subtle.digest("SHA-256", bytes.slice())).pipe(
@@ -314,7 +332,7 @@ export const generarCotejo = Effect.fn("procedencia.cotejar")(function* () {
     )
   })
   const cotejo = cotejar(extracciones, proyectarMotor2025())
-  yield* escribirJson(RUTAS.cotejo, Schema.Array(EntradaCotejo), cotejo.entradas)
+  yield* escribir(RUTAS.cotejo, textoCotejo(cotejo.entradas))
   yield* escribirJson(RUTAS.excepciones, ColaExcepciones, cotejo.excepciones)
   yield* escribirJson(RUTAS.resumen, Resumen, cotejo.resumen)
   return cotejo.resumen

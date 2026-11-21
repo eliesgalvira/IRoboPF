@@ -1,4 +1,4 @@
-import { Schema } from "effect"
+import { Schema, Struct } from "effect"
 
 import { RedondeoDeclarado } from "./especificacion"
 import { ExcepcionCotejo, ExcepcionExtraccion, Ubicacion } from "./excepciones"
@@ -112,7 +112,7 @@ export const EntradaCotejo = Schema.Struct({
       testigo: Schema.String,
     })
   ),
-  motor: Schema.NullOr(ValorMotor),
+  motor: Schema.NullOr(ValorMotor.mapFields(Struct.omit(["clave"]))),
   motorRedondeado: Schema.optionalKey(Valor),
   excepcionesDeExtraccion: Schema.Array(Schema.String),
 })
