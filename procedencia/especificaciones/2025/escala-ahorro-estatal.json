@@ -1,0 +1,47 @@
+{
+  "tipo": "escala",
+  "tabla": "escala-ahorro-estatal",
+  "magnitud": "escala-ahorro-estatal",
+  "territorios": ["estatal"],
+  "documento": {
+    "sha256": "3c79fec38631533ef4654ac05da4e3253953af91c37c0c3e4cd969c869e45d14",
+    "localizador": { "_tag": "UnicaTablaDelDocumento" }
+  },
+  "columnas": [
+    {
+      "cabecera": "Base liquidable hasta (euros)",
+      "columna": "base-liquidable",
+      "unidad": "EUR",
+      "evidenciaUnidad": "(euros)",
+      "gramatica": { "decimales": [0, 2], "centinelas": [] }
+    },
+    {
+      "cabecera": "Incremento en cuota íntegra estatal (euros)",
+      "columna": "cuota-integra",
+      "unidad": "EUR",
+      "evidenciaUnidad": "(euros)",
+      "gramatica": { "decimales": [0], "centinelas": [] }
+    },
+    {
+      "cabecera": "Resto base liquidable del ahorro hasta (euros)",
+      "columna": "resto-base-liquidable",
+      "unidad": "EUR",
+      "evidenciaUnidad": "(euros)",
+      "gramatica": {
+        "decimales": [0],
+        "centinelas": [{ "literal": "En adelante", "centinela": "sin-limite" }]
+      }
+    },
+    {
+      "cabecera": "Tipo aplicable (%)",
+      "columna": "tipo-aplicable",
+      "unidad": "porcentaje",
+      "evidenciaUnidad": "(%)",
+      "gramatica": { "decimales": [2], "centinelas": [] }
+    }
+  ],
+  "testigo": {
+    "sha256": "02c6e8300a7f56c8c24aa947d4c39c5657c9a9eda6f5d727d44b4112d7de15d4",
+    "paginas": [1131]
+  }
+}
