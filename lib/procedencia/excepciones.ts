@@ -184,24 +184,44 @@ export type ExcepcionCotejo = typeof ExcepcionCotejo.Type
 export class EspecificacionInvalida extends Schema.TaggedErrorClass<EspecificacionInvalida>()(
   "EspecificacionInvalida",
   { archivo: Schema.String, detalle: Schema.String }
-) {}
+) {
+  override get message(): string {
+    return `${this.archivo}: ${this.detalle}`
+  }
+}
 
 export class DocumentoNoDisponible extends Schema.TaggedErrorClass<DocumentoNoDisponible>()(
   "DocumentoNoDisponible",
   { sha256: Sha256, motivo: Schema.String }
-) {}
+) {
+  override get message(): string {
+    return `${this.sha256}: ${this.motivo}`
+  }
+}
 
 export class ResultadoIlegible extends Schema.TaggedErrorClass<ResultadoIlegible>()(
   "ResultadoIlegible",
   { archivo: Schema.String, detalle: Schema.String }
-) {}
+) {
+  override get message(): string {
+    return `${this.archivo}: ${this.detalle}`
+  }
+}
 
 export class PdfIlegible extends Schema.TaggedErrorClass<PdfIlegible>()(
   "PdfIlegible",
   { sha256: Sha256, cause: Schema.Defect }
-) {}
+) {
+  override get message(): string {
+    return `${this.sha256}: ${String(this.cause)}`
+  }
+}
 
 export class DescargaFallida extends Schema.TaggedErrorClass<DescargaFallida>()(
   "DescargaFallida",
   { url: Schema.String, cause: Schema.Defect }
-) {}
+) {
+  override get message(): string {
+    return `${this.url}: ${String(this.cause)}`
+  }
+}
