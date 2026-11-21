@@ -151,6 +151,25 @@ describe("extracción de una escala", () => {
     })
   })
 
+  it("una fila anterior a la cabecera no es de datos ni desplaza los tramos", () => {
+    const extraccion = exito(
+      extraerEscala(
+        escala(),
+        html(
+          tabla(
+            fila("0,00", "9,50%"),
+            "",
+            `${fila("2025", "Ceuta")}<tr><th>Base liquidable hasta (euros)</th><th>Tipo aplicable (%)</th></tr>`
+          )
+        )
+      )
+    )
+    expect(extraccion.excepciones).toMatchObject([
+      { _tag: "FilaNoDeclarada", literal: "2025 | Ceuta" },
+    ])
+    expect(extraccion.valores.map((v) => v.claves[0]?.fila)).toEqual([0, 0])
+  })
+
   it("cada defecto de celda es un error con tipo y nunca se rellena", () => {
     const extraccion = exito(
       extraerEscala(

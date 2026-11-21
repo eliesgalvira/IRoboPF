@@ -37,7 +37,8 @@ volver a extraer también la hace fallar.
 - La tabla se localiza con `UnicaTablaDelDocumento` o por el literal exacto de
   su `<caption>`. Si hay cero o más de una, es un error.
 - La fila de cabecera es la única cuyas celdas son exactamente las cabeceras
-  declaradas. Las demás filas de la tabla son de datos.
+  declaradas. Las filas que la siguen son de datos; una anterior es
+  `FilaNoDeclarada`, porque contarla desplazaría el índice de los tramos.
 - La columna de cada celda es la de su cabecera, según la alineación de la
   tabla HTML.
 - En una escala, la fila es su índice entre las filas de datos, que es el número

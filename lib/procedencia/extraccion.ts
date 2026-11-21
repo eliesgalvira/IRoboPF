@@ -111,10 +111,13 @@ interface TablaConCabecera {
   readonly tablaLocalizada: ExtraccionHtml["tablaLocalizada"]
   readonly posicionDe: ReadonlyMap<string, number>
   readonly datos: ReadonlyArray<FilaHtml>
+  readonly excepciones: ReadonlyArray<ExcepcionExtraccion>
 }
 
 // La fila de cabecera es la única cuyas celdas son, exactamente, las
-// cabeceras declaradas; las demás filas de la tabla son filas de datos.
+// cabeceras declaradas; las filas que la siguen son las de datos. Una fila
+// anterior no es de datos ni está declarada: si contara, desplazaría el índice
+// de los tramos.
 const localizar = (
   tabla: string,
   localizador: LocalizadorTabla,
@@ -167,7 +170,15 @@ const localizarCabecera = (
     posicionDe: new Map(
       unica.celdas.map((celda, indice) => [celda.texto, indice])
     ),
-    datos: modelo.filas.filter((fila) => fila !== unica),
+    datos: modelo.filas.slice(modelo.filas.indexOf(unica) + 1),
+    excepciones: modelo.filas.slice(0, modelo.filas.indexOf(unica)).map(
+      (fila) =>
+        new FilaNoDeclarada({
+          tabla,
+          literal: fila.celdas.map((celda) => celda.texto).join(" | "),
+          linea: fila.linea,
+        })
+    ),
   })
 }
 
@@ -190,9 +201,9 @@ export const extraerEscala = (
   const declaradas = especificacion.columnas.map((columna) => columna.cabecera)
   return Result.map(
     localizar(tabla, especificacion.documento.localizador, html, declaradas),
-    ({ tablaLocalizada, posicionDe, datos }) => {
+    ({ tablaLocalizada, posicionDe, datos, excepciones: previas }) => {
       const valores: Array<ValorPendienteDeTestigo> = []
-      const excepciones: Array<ExcepcionExtraccion> = []
+      const excepciones: Array<ExcepcionExtraccion> = [...previas]
       const clavesDe = (fila: number, columna: string) =>
         territorios.map((territorio) => ({
           territorio,
@@ -526,11 +537,11 @@ export const extraerCuadro = (
       .flatMap((celda) => declaracionesDe(celda).flatMap(clavesDe(territorio)))
   return Result.map(
     localizar(tabla, especificacion.documento.localizador, html, declaradas),
-    ({ tablaLocalizada, posicionDe, datos }) => {
+    ({ tablaLocalizada, posicionDe, datos, excepciones: previas }) => {
       const salida: SalidaCuadro = {
         valores: [],
         notas: [],
-        excepciones: [],
+        excepciones: [...previas],
         remisiones: [],
       }
       const columnaDeFilas =
