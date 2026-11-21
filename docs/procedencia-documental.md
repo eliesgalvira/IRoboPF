@@ -39,7 +39,9 @@ CI falla.
 - La columna de cada celda es la de su cabecera, según la alineación de la
   tabla HTML.
 - En una escala, la fila es su índice entre las filas de datos, que es el número
-  de tramo.
+  de tramo, y la clave lo guarda como entero: las salidas ordenan las claves por
+  territorio, magnitud, fila (numérica en las escalas, por texto en el cuadro) y
+  columna, de modo que el tramo 2 va antes que el 10.
 - En un cuadro, la fila se identifica por el literal exacto de su cabecera de
   fila.
 - Las celdas combinadas (`colspan`/`rowspan`), las tablas anidadas y cualquier

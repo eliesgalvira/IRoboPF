@@ -191,7 +191,7 @@ export const extraerEscala = (
             territorios.map((territorio) => ({
               territorio,
               magnitud,
-              fila: String(fila),
+              fila,
               columna,
             }))
           const columnasConUnidad = especificacion.columnas.filter((columna) => {

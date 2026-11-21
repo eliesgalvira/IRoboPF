@@ -55,7 +55,7 @@ const proyectarEscala = (
     const clave = (columna: ColumnaEscala) => ({
       territorio,
       magnitud,
-      fila: String(indice),
+      fila: indice,
       columna,
     })
     valores.push(

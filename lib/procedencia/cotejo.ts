@@ -17,7 +17,12 @@ import type {
   Resumen,
   ValorMotor,
 } from "./resultado"
-import { textoClave, type Clave, type Valor } from "./vocabulario"
+import {
+  compararClaves,
+  textoClave,
+  type Clave,
+  type Valor,
+} from "./vocabulario"
 import { EXCLUIDOS_DEL_MOTOR } from "./motor-2025"
 
 const mismoValor = (a: Valor, b: Valor): boolean =>
@@ -105,8 +110,8 @@ export const cotejar = (
 
   const entradas: Array<EntradaCotejo> = []
   const excepciones: Array<ExcepcionCotejo> = []
-  for (const texto of Array.from(claves.keys()).sort()) {
-    const clave = claves.get(texto) as Clave
+  for (const clave of Array.from(claves.values()).sort(compararClaves)) {
+    const texto = textoClave(clave)
     const manual = manualPorClave.get(texto) ?? []
     const valorMotor = motorPorClave.get(texto) ?? null
     const tablas = Array.from(

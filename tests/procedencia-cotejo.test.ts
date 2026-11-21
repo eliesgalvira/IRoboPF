@@ -15,7 +15,7 @@ import {
 } from "../lib/procedencia/resultado"
 import type { Clave } from "../lib/procedencia/vocabulario"
 
-const clave = (fila: string, columna: string): Clave => ({
+const clave = (fila: Clave["fila"], columna: string): Clave => ({
   territorio: "andalucia",
   magnitud: "escala-general-autonomica",
   fila,
@@ -73,18 +73,18 @@ describe("cotejo por clave", () => {
     const resultado = cotejar(
       [
         extraccion([
-          manual(clave("0", "a"), "1235"),
-          manual(clave("0", "b"), "1235.01"),
-          manual(clave("0", "c"), "1751.36"),
-          manual(clave("0", "d"), "7"),
+          manual(clave(0, "a"), "1235"),
+          manual(clave(0, "b"), "1235.01"),
+          manual(clave(0, "c"), "1751.36"),
+          manual(clave(0, "d"), "7"),
         ]),
       ],
       [
-        motor(clave("0", "a"), "1235"),
-        motor(clave("0", "b"), "1235", "almacenado"),
-        motor(clave("0", "c"), "1751.364"),
-        motor(clave("0", "e"), "9"),
-        motor({ ...clave("0", "a"), territorio: "aragon" }, "1"),
+        motor(clave(0, "a"), "1235"),
+        motor(clave(0, "b"), "1235", "almacenado"),
+        motor(clave(0, "c"), "1751.364"),
+        motor(clave(0, "e"), "9"),
+        motor({ ...clave(0, "a"), territorio: "aragon" }, "1"),
       ]
     )
     expect(
@@ -121,10 +121,18 @@ describe("cotejo por clave", () => {
     })
   })
 
+  it("ordena las filas de una escala por su índice", () => {
+    const resultado = cotejar(
+      [extraccion([10, 2, 1].map((fila) => manual(clave(fila, "a"), "1")))],
+      [10, 2, 1].map((fila) => motor(clave(fila, "a"), "1"))
+    )
+    expect(resultado.entradas.map((e) => e.clave.fila)).toEqual([1, 2, 10])
+  })
+
   it("una clave con dos valores del manual es ambigua", () => {
     const resultado = cotejar(
-      [extraccion([manual(clave("0", "a"), "1"), manual(clave("0", "a"), "1")])],
-      [motor(clave("0", "a"), "1")]
+      [extraccion([manual(clave(0, "a"), "1"), manual(clave(0, "a"), "1")])],
+      [motor(clave(0, "a"), "1")]
     )
     expect(resultado.entradas.map((e) => e.estado)).toEqual(["ambigua"])
     expect(resultado.excepciones.cotejo.map((e) => e._tag)).toEqual([
