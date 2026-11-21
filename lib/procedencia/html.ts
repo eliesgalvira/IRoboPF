@@ -21,7 +21,6 @@ export interface Bloque extends Posicion {
 }
 
 export interface CeldaHtml extends Posicion {
-  readonly elemento: "th" | "td"
   readonly texto: string
   readonly bloques: ReadonlyArray<Bloque>
 }
@@ -235,7 +234,6 @@ const celdaDe = (
   }
   return Result.map(bloquesDe(elemento), (bloques) => ({
     ...posicion(elemento),
-    elemento: elemento.tagName === "th" ? "th" : "td",
     texto: bloques.map((bloque) => bloque.texto).join(" "),
     bloques,
   }))
