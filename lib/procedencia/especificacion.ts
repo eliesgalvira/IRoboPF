@@ -98,7 +98,9 @@ const Partida = Schema.Struct({
   unidad: Unidad,
   evidenciaUnidad: LiteralCanonico,
   gramatica: Gramatica,
-  claves: Schema.NonEmptyArray(
+  // Vacío cuando el manual da un importe que no tiene magnitud en el motor:
+  // se extrae y lleva testigo, pero no hay clave que cotejar.
+  claves: Schema.Array(
     Schema.Struct({ fila: FilaMinimo, columna: ColumnaMinimo })
   ),
 })

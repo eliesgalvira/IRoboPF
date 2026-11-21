@@ -134,6 +134,7 @@ export const Contadores = Schema.Struct({
   conTestigo: Schema.Int,
   sinTestigo: Schema.Int,
   testigoPorRemision: Schema.Int,
+  sinClaveDeMotor: Schema.Int,
   excepcionesDeExtraccion: Schema.Int,
   claves: Schema.Int,
   coincidentes: Schema.Int,
@@ -164,6 +165,19 @@ export const Resumen = Schema.Struct({
       sha256: Sha256,
       tablas: Schema.Array(Schema.String),
       contadores: Contadores,
+    })
+  ),
+  // Valores del manual cuya partida no tiene clave en el motor: no entran en
+  // el cotejo, que va por clave, y se listan aquí con su procedencia.
+  sinClaveDeMotor: Schema.Array(
+    Schema.Struct({
+      tabla: Schema.String,
+      ubicacion: Ubicacion,
+      literal: Schema.String,
+      unidad: Unidad,
+      valor: Valor,
+      origen: Origen,
+      testigo: Schema.String,
     })
   ),
   fueraDeAlcance: Schema.Array(

@@ -210,6 +210,7 @@ export const cotejar = (
       sinTestigo: valores.filter((v) => v.testigo._tag === "SinTestigo").length,
       testigoPorRemision: valores.filter((v) => v.testigo._tag === "PorRemision")
         .length,
+      sinClaveDeMotor: valores.filter((v) => v.claves.length === 0).length,
       excepcionesDeExtraccion: propias.flatMap((e) => e.excepciones).length,
       claves: deTablas.length,
       coincidentes: cuantas(["coincidente"]),
@@ -259,6 +260,19 @@ export const cotejar = (
       })),
       porDocumentoHtml: agrupar((e) => e.documento.sha256),
       porDocumentoPdf: agrupar((e) => e.testigoPdf.sha256),
+      sinClaveDeMotor: extracciones.flatMap((e) =>
+        e.valores
+          .filter((v) => v.claves.length === 0)
+          .map((v) => ({
+            tabla: e.tabla,
+            ubicacion: v.ubicacion,
+            literal: v.literal,
+            unidad: v.unidad,
+            valor: v.valor,
+            origen: v.origen,
+            testigo: v.testigo._tag,
+          }))
+      ),
       fueraDeAlcance: Array.from(fueraDeAlcance.values()).map(
         ({ clave, claves }) => ({
           territorio: clave.territorio,
