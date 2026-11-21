@@ -72,8 +72,7 @@ literales ya normalizados; si no, falla al decodificarse.
   `6.000` y `6.000,00`).
 - El sufijo, si se declara (`%`), es obligatorio y va pegado al número. Si no se
   declara, está prohibido.
-- Los centinelas son literales exactos declarados. Hoy sólo existe `En adelante`
-  → `sin-limite`.
+- Los centinelas son literales exactos declarados.
 - Un literal fuera de la gramática es `LiteralFueraDeGramatica`; no se limpia.
 
 **Unidad con evidencia.** Cada columna (o partida) declara su unidad y el
@@ -150,12 +149,9 @@ y unidad.
 
 - La cuota estatal de los territorios reales usa
   `TRAMOS_IRPF_ESTATAL_GENERAL_2025` (magnitud `escala-general-estatal`).
-- Cada territorio usa su escala de `ESCALAS_AUTONOMICAS_IRPF_2025`.
 - `TRAMOS_IRPF_AHORRO_2025` es una sola escala conjunta (estatal más
   autonómica) que se aplica igual en todos los territorios. Se proyecta como
   `escala-ahorro-agregada` del territorio `estatal`.
-- Los mínimos salen de `MINIMOS_ESTATALES_2025` y de
-  `MINIMOS_AUTONOMICOS_IRPF_2025`.
 - `simulada-estatal` no es un territorio fiscal y se excluye. La liquidación lo
   trata como caso técnico con la escala conjunta `TRAMOS_IRPF_DESDE_2021`, y el
   resumen lo lista como excluido.
@@ -203,24 +199,6 @@ y de las excepciones. Cada clave termina en uno de estos estados:
 El alcance de una tabla son sus `territorios` × su `magnitud`. Una clave del
 motor que ninguna especificación cubre es «fuera de alcance». No cuenta como
 ausente, pero su valor sigue en `cotejo.json`.
-
-## Cómo añadir una tabla
-
-1. `bun scripts/procedencia.ts obtener --url <url> --tipo html --almacen <dir>`
-   (y lo mismo con el PDF si aún no está). Imprime el SHA-256.
-2. Para cada literal que interese, `bun scripts/procedencia.ts buscar --sha256 <pdf> --literal "<literal>" --almacen <dir>`
-   lista las páginas donde aparece. Hay que declararlas todas las que cubre la
-   tabla.
-3. Crear `procedencia/especificaciones/2025/<tabla>.json`, con `tabla` igual al
-   nombre del archivo. Escalas: véase
-   `escala-general-autonomica-andalucia.json`. Cuadros: `tipo: "cuadro"`,
-   `cabeceraDeFilas`, `columnas`, `filas` (literal → territorio) y `celdas` con
-   `partidas`, `remisiones` y `notas` (esquema en
-   `lib/procedencia/especificacion.ts`).
-4. `bun scripts/procedencia.ts extraer --almacen <dir>`. La orden extrae todas
-   las tablas, sella la extracción, regenera el cotejo y escribe en pantalla
-   los contadores. Las excepciones quedan en
-   `procedencia/resultados/2025/excepciones.json`.
 
 ## Dudas abiertas
 
