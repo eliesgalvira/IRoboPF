@@ -20,7 +20,9 @@ const almacen = Flag.directory("almacen").pipe(
 )
 
 const mostrarResumen = (resumen: Resumen) =>
-  Console.log(Schema.encodeSync(Schema.fromJsonString(Resumen))(resumen))
+  Schema.encodeEffect(Schema.fromJsonString(Resumen))(resumen).pipe(
+    Effect.flatMap(Console.log)
+  )
 
 const obtenerDocumento = Command.make(
   "obtener",
