@@ -45,6 +45,7 @@ import {
   type PaginaDeTexto,
   type PdfAbierto,
 } from "./testigo-pdf"
+import { compararTexto } from "./vocabulario"
 
 export const RUTAS = {
   manifiesto: "procedencia/fuentes/manifiesto.json",
@@ -420,10 +421,9 @@ export const obtener = Effect.fn("procedencia.obtener")(function* (
       documentos: [
         ...manifiesto.documentos,
         { sha256, url, bytes: bytes.length, tipo, obtenidoEl: hoy },
-      ].sort((a, b) =>
-        a.sha256 === b.sha256
-          ? a.url.localeCompare(b.url)
-          : a.sha256.localeCompare(b.sha256)
+      ].sort(
+        (a, b) =>
+          compararTexto(a.sha256, b.sha256) || compararTexto(a.url, b.url)
       ),
     })
   }

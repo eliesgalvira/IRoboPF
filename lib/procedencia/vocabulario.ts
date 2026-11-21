@@ -104,7 +104,7 @@ export type Clave = typeof Clave.Type
 export const textoClave = (clave: Clave): string =>
   `${clave.territorio}|${clave.magnitud}|${clave.fila}|${clave.columna}`
 
-const compararTexto = (a: string, b: string): number =>
+export const compararTexto = (a: string, b: string): number =>
   a < b ? -1 : a > b ? 1 : 0
 
 const compararFila = (a: Clave["fila"], b: Clave["fila"]): number =>
