@@ -402,11 +402,11 @@
     {
       "tabla": "minimos-personales-familiares",
       "contadores": {
-        "valoresExtraidos": 142,
-        "conTestigo": 106,
+        "valoresExtraidos": 152,
+        "conTestigo": 110,
         "sinTestigo": 0,
-        "testigoPorRemision": 36,
-        "sinClaveDeMotor": 0,
+        "testigoPorRemision": 42,
+        "sinClaveDeMotor": 10,
         "excepcionesDeExtraccion": 0,
         "claves": 342,
         "coincidentes": 204,
@@ -812,11 +812,11 @@
         "minimos-personales-familiares"
       ],
       "contadores": {
-        "valoresExtraidos": 142,
-        "conTestigo": 106,
+        "valoresExtraidos": 152,
+        "conTestigo": 110,
         "sinTestigo": 0,
-        "testigoPorRemision": 36,
-        "sinClaveDeMotor": 0,
+        "testigoPorRemision": 42,
+        "sinClaveDeMotor": 10,
         "excepcionesDeExtraccion": 0,
         "claves": 342,
         "coincidentes": 204,
@@ -929,11 +929,11 @@
         "minimos-personales-familiares"
       ],
       "contadores": {
-        "valoresExtraidos": 645,
-        "conTestigo": 609,
+        "valoresExtraidos": 655,
+        "conTestigo": 613,
         "sinTestigo": 0,
-        "testigoPorRemision": 36,
-        "sinClaveDeMotor": 0,
+        "testigoPorRemision": 42,
+        "sinClaveDeMotor": 10,
         "excepcionesDeExtraccion": 1,
         "claves": 1186,
         "coincidentes": 664,
@@ -948,7 +948,240 @@
       }
     }
   ],
-  "sinClaveDeMotor": [],
+  "sinClaveDeMotor": [
+    {
+      "tabla": "minimos-personales-familiares",
+      "ubicacion": {
+        "fila": "Estatal",
+        "columna": "Mínimo por descendientes",
+        "linea": 69,
+        "columnaFuente": 1
+      },
+      "literal": "(*) En caso de fallecimiento del descendiente 2.400 euros.",
+      "unidad": "EUR",
+      "valor": {
+        "_tag": "Numero",
+        "decimal": "2400"
+      },
+      "origen": {
+        "_tag": "Directo"
+      },
+      "testigo": "ConTestigo"
+    },
+    {
+      "tabla": "minimos-personales-familiares",
+      "ubicacion": {
+        "fila": "Estatal",
+        "columna": "Mínimo por ascendientes",
+        "linea": 74,
+        "columnaFuente": 1
+      },
+      "literal": "(*) En caso de fallecimiento del ascendiente 1.150 euros.",
+      "unidad": "EUR",
+      "valor": {
+        "_tag": "Numero",
+        "decimal": "1150"
+      },
+      "origen": {
+        "_tag": "Directo"
+      },
+      "testigo": "ConTestigo"
+    },
+    {
+      "tabla": "minimos-personales-familiares",
+      "ubicacion": {
+        "fila": "C.A Illes Balears",
+        "columna": "Mínimo por contribuyente",
+        "linea": 144,
+        "columnaFuente": 1
+      },
+      "literal": "6.105 euros anuales si tiene más de 65 años",
+      "unidad": "EUR",
+      "valor": {
+        "_tag": "Numero",
+        "decimal": "6105"
+      },
+      "origen": {
+        "_tag": "Directo"
+      },
+      "testigo": "ConTestigo"
+    },
+    {
+      "tabla": "minimos-personales-familiares",
+      "ubicacion": {
+        "fila": "C.A Illes Balears",
+        "columna": "Mínimo por contribuyente",
+        "linea": 145,
+        "columnaFuente": 1
+      },
+      "literal": "+ 1.265 euros anuales, mayor de 65 años",
+      "unidad": "EUR",
+      "valor": {
+        "_tag": "Numero",
+        "decimal": "1265"
+      },
+      "origen": {
+        "_tag": "Directo"
+      },
+      "testigo": "ConTestigo"
+    },
+    {
+      "tabla": "minimos-personales-familiares",
+      "ubicacion": {
+        "fila": "Estatal",
+        "columna": "Mínimo por descendientes",
+        "linea": 69,
+        "columnaFuente": 1
+      },
+      "literal": "(*) En caso de fallecimiento del descendiente 2.400 euros.",
+      "unidad": "EUR",
+      "valor": {
+        "_tag": "Numero",
+        "decimal": "2400"
+      },
+      "origen": {
+        "_tag": "Remision",
+        "literal": "igual que los mínimos estatales.",
+        "ubicacionRemision": {
+          "fila": "Comunidad Castilla y León",
+          "columna": "Mínimo por descendientes",
+          "linea": 203,
+          "columnaFuente": 1
+        }
+      },
+      "testigo": "PorRemision"
+    },
+    {
+      "tabla": "minimos-personales-familiares",
+      "ubicacion": {
+        "fila": "Estatal",
+        "columna": "Mínimo por ascendientes",
+        "linea": 74,
+        "columnaFuente": 1
+      },
+      "literal": "(*) En caso de fallecimiento del ascendiente 1.150 euros.",
+      "unidad": "EUR",
+      "valor": {
+        "_tag": "Numero",
+        "decimal": "1150"
+      },
+      "origen": {
+        "_tag": "Remision",
+        "literal": "igual que los mínimos estatales.",
+        "ubicacionRemision": {
+          "fila": "Comunidad Castilla y León",
+          "columna": "Mínimo por ascendientes",
+          "linea": 206,
+          "columnaFuente": 1
+        }
+      },
+      "testigo": "PorRemision"
+    },
+    {
+      "tabla": "minimos-personales-familiares",
+      "ubicacion": {
+        "fila": "Estatal",
+        "columna": "Mínimo por descendientes",
+        "linea": 69,
+        "columnaFuente": 1
+      },
+      "literal": "(*) En caso de fallecimiento del descendiente 2.400 euros.",
+      "unidad": "EUR",
+      "valor": {
+        "_tag": "Numero",
+        "decimal": "2400"
+      },
+      "origen": {
+        "_tag": "Remision",
+        "literal": "igual que los mínimos estatales.",
+        "ubicacionRemision": {
+          "fila": "C.A. Cataluña",
+          "columna": "Mínimo por descendientes",
+          "linea": 218,
+          "columnaFuente": 1
+        }
+      },
+      "testigo": "PorRemision"
+    },
+    {
+      "tabla": "minimos-personales-familiares",
+      "ubicacion": {
+        "fila": "Estatal",
+        "columna": "Mínimo por ascendientes",
+        "linea": 74,
+        "columnaFuente": 1
+      },
+      "literal": "(*) En caso de fallecimiento del ascendiente 1.150 euros.",
+      "unidad": "EUR",
+      "valor": {
+        "_tag": "Numero",
+        "decimal": "1150"
+      },
+      "origen": {
+        "_tag": "Remision",
+        "literal": "igual que los mínimos estatales.",
+        "ubicacionRemision": {
+          "fila": "C.A. Cataluña",
+          "columna": "Mínimo por ascendientes",
+          "linea": 221,
+          "columnaFuente": 1
+        }
+      },
+      "testigo": "PorRemision"
+    },
+    {
+      "tabla": "minimos-personales-familiares",
+      "ubicacion": {
+        "fila": "Estatal",
+        "columna": "Mínimo por descendientes",
+        "linea": 69,
+        "columnaFuente": 1
+      },
+      "literal": "(*) En caso de fallecimiento del descendiente 2.400 euros.",
+      "unidad": "EUR",
+      "valor": {
+        "_tag": "Numero",
+        "decimal": "2400"
+      },
+      "origen": {
+        "_tag": "Remision",
+        "literal": "igual que los mínimos estatales.",
+        "ubicacionRemision": {
+          "fila": "C.A La Rioja",
+          "columna": "Mínimo por descendientes",
+          "linea": 286,
+          "columnaFuente": 21
+        }
+      },
+      "testigo": "PorRemision"
+    },
+    {
+      "tabla": "minimos-personales-familiares",
+      "ubicacion": {
+        "fila": "Estatal",
+        "columna": "Mínimo por ascendientes",
+        "linea": 74,
+        "columnaFuente": 1
+      },
+      "literal": "(*) En caso de fallecimiento del ascendiente 1.150 euros.",
+      "unidad": "EUR",
+      "valor": {
+        "_tag": "Numero",
+        "decimal": "1150"
+      },
+      "origen": {
+        "_tag": "Remision",
+        "literal": "igual que los mínimos estatales.",
+        "ubicacionRemision": {
+          "fila": "C.A La Rioja",
+          "columna": "Mínimo por ascendientes",
+          "linea": 287,
+          "columnaFuente": 21
+        }
+      },
+      "testigo": "PorRemision"
+    }
+  ],
   "fueraDeAlcance": [
     {
       "territorio": "estatal",

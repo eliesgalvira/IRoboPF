@@ -106,10 +106,16 @@
           "unidad": "EUR", "evidenciaUnidad": "euros",
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "descendientes", "columna": "adicionalMenorTres" }]
+        },
+        {
+          "plantilla": "(*) En caso de fallecimiento del descendiente {importe} euros.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": []
         }
       ],
       "remisiones": [],
-      "notas": ["(*) En caso de fallecimiento del descendiente 2.400 euros."]
+      "notas": []
     },
     {
       "fila": "Estatal",
@@ -126,10 +132,16 @@
           "unidad": "EUR", "evidenciaUnidad": "euros",
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "ascendientes", "columna": "adicionalMayor75" }]
+        },
+        {
+          "plantilla": "(*) En caso de fallecimiento del ascendiente {importe} euros.",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": []
         }
       ],
       "remisiones": [],
-      "notas": ["(*) En caso de fallecimiento del ascendiente 1.150 euros."]
+      "notas": []
     },
     {
       "fila": "Estatal",
@@ -428,13 +440,22 @@
           "unidad": "EUR", "evidenciaUnidad": "euros",
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "contribuyente", "columna": "adicionalMayor75" }]
+        },
+        {
+          "plantilla": "{importe} euros anuales si tiene más de 65 años",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": []
+        },
+        {
+          "plantilla": "+ {importe} euros anuales, mayor de 65 años",
+          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "gramatica": { "decimales": [0], "centinelas": [] },
+          "claves": []
         }
       ],
       "remisiones": [],
-      "notas": [
-        "6.105 euros anuales si tiene más de 65 años",
-        "+ 1.265 euros anuales, mayor de 65 años"
-      ]
+      "notas": []
     },
     {
       "fila": "C.A Illes Balears",
