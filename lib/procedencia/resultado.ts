@@ -29,7 +29,6 @@ export const Testigo = Schema.Union([
   }),
   Schema.TaggedStruct("SinTestigo", {
     literal: Schema.String,
-    motivo: Schema.String,
     tablas: Schema.Array(Schema.String),
     celdas: Schema.Int,
     aparicionesDisponibles: Schema.Int,

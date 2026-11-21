@@ -162,7 +162,6 @@ export const asignarTestigos = (
             : {
                 _tag: "SinTestigo",
                 literal,
-                motivo: `${celdas} celdas de ${nombres.join(", ")} piden este literal y sus páginas declaradas tienen ${disponibles} apariciones; sin usar una aparición dos veces se cubren como mucho ${cubiertas}`,
                 tablas: nombres,
                 celdas,
                 aparicionesDisponibles: disponibles,
