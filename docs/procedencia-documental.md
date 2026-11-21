@@ -102,10 +102,33 @@ está, es `UnidadNoDeclarada` y la columna no se extrae.
   literal como token numérico completo, es decir, maximal (`9,50` no aparece
   dentro de `19,50%`), en algún elemento de texto de las páginas declaradas.
 - Para un centinela, es un elemento de texto entero igual al literal.
-- Se guardan la página, el índice del elemento y su posición.
-- Si `n` celdas de la tabla comparten literal, hacen falta al menos `n`
-  apariciones. Si faltan, ninguna de esas celdas queda con testigo, porque nada
-  permite asignar una aparición concreta a una celda concreta.
+- Una aparición es (documento, página, elemento, ocurrencia dentro del
+  elemento), y atestigua como mucho una celda en toda la ejecución, no sólo
+  dentro de su tabla: varias páginas del PDF contienen dos tablas (la 1128,
+  Madrid y Murcia; la 1131, Ceuta y Melilla y las dos del ahorro), y contar
+  por tabla dejaría que un mismo «0» sirviera a las dos.
+- Cada celda sólo puede usar apariciones de su literal en las páginas que
+  declara su tabla. Como las páginas de dos tablas pueden solaparse en parte,
+  la pregunta es si existe un emparejamiento que dé a cada celda una aparición
+  distinta. Se responde de forma exacta con el emparejamiento máximo (caminos
+  aumentantes), cuyo tamaño no depende del orden de las tablas.
+- El cálculo se hace por literal y por grupo de tablas que comparten alguna
+  aparición de ese literal. Si el emparejamiento cubre todas las celdas del
+  grupo, todas tienen testigo. Si no, ninguna, porque nada vincula una
+  aparición con una celda y elegir cuáles se quedan sin él sería inventarlo.
+  `SinTestigo` guarda las tablas del grupo, las celdas que piden el literal,
+  las apariciones disponibles y cuántas celdas se cubren como máximo.
+- Cada valor guarda las apariciones candidatas, todas las del literal en las
+  páginas de su tabla, con página, elemento, ocurrencia y posición. No hay
+  asignación de una aparición a una celda, porque el método no la conoce.
+- `extraer` procesa siempre todas las especificaciones, porque el testigo de
+  una tabla depende de las demás que declaran sus páginas. Extraer una sola
+  dejaría selladas las otras con un testigo calculado sin ella.
+- Límite que queda: el testigo prueba que el literal está en las páginas
+  declaradas tantas veces como celdas lo piden, no que esté dentro de la
+  tabla. Un «0» de la prosa de la misma página cuenta. Delimitar la tabla
+  dentro de la página exigiría leer la geometría del PDF, que es justo lo que
+  este método excluye.
 - «Sin testigo» se cuenta aparte de «distinto». Las páginas las declara el
   autor; `buscar` sólo le ayuda a encontrarlas.
 
@@ -182,9 +205,9 @@ ausente, pero su valor sigue en `cotejo.json`.
    `cabeceraDeFilas`, `columnas`, `filas` (literal → territorio) y `celdas` con
    `partidas`, `remisiones` y `notas` (esquema en
    `lib/procedencia/especificacion.ts`).
-4. `bun scripts/procedencia.ts extraer --tabla <tabla> --almacen <dir>`. La
-   orden sella la extracción, regenera el cotejo y escribe en pantalla los
-   contadores. Las excepciones quedan en
+4. `bun scripts/procedencia.ts extraer --almacen <dir>`. La orden extrae todas
+   las tablas, sella la extracción, regenera el cotejo y escribe en pantalla
+   los contadores. Las excepciones quedan en
    `procedencia/resultados/2025/excepciones.json`.
 
 ## Dudas abiertas
