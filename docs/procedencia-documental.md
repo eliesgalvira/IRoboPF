@@ -89,6 +89,14 @@ está, es `UnidadNoDeclarada` y la columna no se extrae.
   `ContenidoNoDeclarado`, y uno que encaja con dos, `CeldaAmbigua`.
 - Una partida puede dar varias claves, todas declaradas; por ejemplo, la
   discapacidad del contribuyente, de los descendientes y de los ascendientes.
+- Una partida puede no dar ninguna (`claves: []`) cuando el manual da un
+  importe que no es una magnitud del motor, como «(*) En caso de fallecimiento
+  del descendiente 2.400 euros.». El importe se extrae y lleva testigo como
+  cualquier otro, pero no hay clave que cotejar: no es una excepción ni un
+  «sin homólogo». Se cuenta en `sinClaveDeMotor` y `resumen.json` lo lista con
+  su procedencia. Inventar una clave para él en el vocabulario del motor
+  supondría afirmar que el motor tiene esa magnitud. Una remisión copia también
+  estos valores, igual que los demás valores directos de la celda remitida.
 - Una remisión es un literal exacto («igual que los mínimos estatales.») y la
   fila a la que remite, dentro de la misma columna. Se resuelve copiando los
   valores directos de la celda remitida con el territorio de la fila que remite.
@@ -222,6 +230,8 @@ ausente, pero su valor sigue en `cotejo.json`.
   alcance, sus claves saldrán «ausente en el manual». Que en ellos rijan los
   mínimos estatales lo dice la ley, no el cuadro.
 - **Baleares, contribuyente mayor de 65 años.** El cuadro da «6.105 euros
-  anuales si tiene más de 65 años» además de «+ 1.265». El motor guarda un
-  adicional de 1.820, que no aparece literal en el cuadro. Cómo se relacionan es
-  una cuestión fiscal, no de extracción.
+  anuales si tiene más de 65 años» y «+ 1.265 euros anuales, mayor de 65 años»,
+  que se extraen como valores sin clave de motor. El motor guarda un adicional
+  de 1.820, que no aparece literal en el cuadro, así que esa clave sale
+  «ausente en el manual». Cómo se relacionan es una cuestión fiscal, no de
+  extracción, y no se deriva.
