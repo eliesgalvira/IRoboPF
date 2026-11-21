@@ -179,7 +179,7 @@ describe("cotejo por clave", () => {
 
 describe("extracción sellada", () => {
   it.effect(
-    "regenerar el cotejo desde lo sellado y el motor da los mismos bytes",
+    "regenerar el cotejo desde lo sellado y el motor da los bytes de git",
     () =>
       Effect.gen(function* () {
         const extracciones = yield* Effect.forEach(
@@ -191,11 +191,10 @@ describe("extracción sellada", () => {
               readFileSync(`${RUTAS.extraccion}/${archivo}`, "utf8")
             )
         )
-        const primero = cotejar(extracciones, proyectarMotor2025())
-        const segundo = cotejar(extracciones, proyectarMotor2025())
-        const texto = yield* textoCotejo(primero.entradas)
-        expect(yield* textoCotejo(segundo.entradas)).toBe(texto)
-        expect(texto).toBe(readFileSync(RUTAS.cotejo, "utf8"))
+        const { entradas } = cotejar(extracciones, proyectarMotor2025())
+        expect(yield* textoCotejo(entradas)).toBe(
+          readFileSync(RUTAS.cotejo, "utf8")
+        )
       })
   )
 })
