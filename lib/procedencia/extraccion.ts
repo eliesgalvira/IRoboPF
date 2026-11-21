@@ -20,7 +20,6 @@ import {
   LiteralFueraDeGramatica,
   TablaAmbigua,
   TablaNoLocalizada,
-  UnidadNoDeclarada,
   type ExcepcionExtraccion,
   type Ubicacion,
 } from "./excepciones"
@@ -194,22 +193,6 @@ export const extraerEscala = (
               fila,
               columna,
             }))
-          const columnasConUnidad = especificacion.columnas.filter((columna) => {
-            if (columna.cabecera.includes(columna.evidenciaUnidad)) {
-              return true
-            }
-            excepciones.push(
-              new UnidadNoDeclarada({
-                tabla,
-                donde: `cabecera «${columna.cabecera}»`,
-                evidencia: columna.evidenciaUnidad,
-                claves: datos.flatMap((_, indice) =>
-                  clavesDe(indice, columna.columna)
-                ),
-              })
-            )
-            return false
-          })
           datos.forEach((fila, indice) => {
             if (fila.celdas.length !== declaradas.length) {
               excepciones.push(
@@ -226,7 +209,7 @@ export const extraerEscala = (
               )
               return
             }
-            for (const columna of columnasConUnidad) {
+            for (const columna of especificacion.columnas) {
               const celda = fila.celdas[
                 cabecera.posicionDe.get(columna.cabecera) ?? -1
               ] as CeldaHtml
@@ -313,23 +296,21 @@ const textoDeclarado = (declaracion: Declaracion): string =>
     ? declaracion.partida.plantilla
     : declaracion.literal
 
-const encaja = (declaracion: Declaracion, bloque: Bloque): boolean => {
-  if (declaracion._tag !== "Partida") {
-    return bloque.texto === declaracion.literal
-  }
-  const [prefijo = "", sufijo = ""] =
-    declaracion.partida.plantilla.split(HUECO_IMPORTE)
-  return (
-    bloque.texto.length > prefijo.length + sufijo.length &&
-    bloque.texto.startsWith(prefijo) &&
-    bloque.texto.endsWith(sufijo)
-  )
+// Texto del hueco si el elemento empieza por lo anterior a él y acaba por lo
+// posterior; undefined si la plantilla no encaja.
+const hueco = (partida: Partida, texto: string): string | undefined => {
+  const [prefijo = "", sufijo = ""] = partida.plantilla.split(HUECO_IMPORTE)
+  return texto.length > prefijo.length + sufijo.length &&
+    texto.startsWith(prefijo) &&
+    texto.endsWith(sufijo)
+    ? texto.slice(prefijo.length, texto.length - sufijo.length)
+    : undefined
 }
 
-const hueco = (partida: Partida, texto: string): string => {
-  const [prefijo = "", sufijo = ""] = partida.plantilla.split(HUECO_IMPORTE)
-  return texto.slice(prefijo.length, texto.length - sufijo.length)
-}
+const encaja = (declaracion: Declaracion, bloque: Bloque): boolean =>
+  declaracion._tag === "Partida"
+    ? hueco(declaracion.partida, bloque.texto) !== undefined
+    : bloque.texto === declaracion.literal
 
 const declaracionesDe = (celda: CeldaCuadro): ReadonlyArray<Declaracion> => [
   ...celda.partidas.map(
@@ -553,20 +534,7 @@ export const extraerCuadro = (
                   continue
                 }
                 const { partida } = declaracion
-                const [prefijo = "", sufijo = ""] =
-                  partida.plantilla.split(HUECO_IMPORTE)
-                if (!`${prefijo}${sufijo}`.includes(partida.evidenciaUnidad)) {
-                  excepciones.push(
-                    new UnidadNoDeclarada({
-                      tabla,
-                      donde: `plantilla «${partida.plantilla}»`,
-                      evidencia: partida.evidenciaUnidad,
-                      claves,
-                    })
-                  )
-                  continue
-                }
-                const literalHueco = hueco(partida, bloque.texto)
+                const literalHueco = hueco(partida, bloque.texto) ?? ""
                 const leido = leerLiteral(literalHueco, partida.gramatica)
                 if (Result.isFailure(leido)) {
                   excepciones.push(

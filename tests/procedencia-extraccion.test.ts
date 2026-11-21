@@ -167,15 +167,12 @@ describe("extracción de una escala", () => {
     expect(extraccion.valores.map((v) => v.literal)).toEqual(["9,50%"])
   })
 
-  it("sin la evidencia de unidad en la cabecera la columna no se extrae", () => {
-    const sinEvidencia = escala({
-      columnas: [{ ...columnaBase, evidenciaUnidad: "euros anuales" }, columnaTipo],
-    })
-    const extraccion = exito(
-      extraerEscala(sinEvidencia, html(tabla(fila("0,00", "9,50%"))))
-    )
-    expect(etiquetas(extraccion)).toEqual(["UnidadNoDeclarada"])
-    expect(extraccion.valores.map((v) => v.literal)).toEqual(["9,50%"])
+  it("una especificación sin la evidencia de unidad en la cabecera no se decodifica", () => {
+    expect(() =>
+      escala({
+        columnas: [{ ...columnaBase, evidenciaUnidad: "euros anuales" }, columnaTipo],
+      })
+    ).toThrow()
   })
 })
 
@@ -322,7 +319,7 @@ describe("extracción de un cuadro de partidas", () => {
     ])
   })
 
-  it("una plantilla ha de tener exactamente un hueco", () => {
+  it("una plantilla ha de tener exactamente un hueco y la evidencia de unidad fuera de él", () => {
     const celda = (plantilla: string) => [
       {
         fila: "Estatal",
@@ -334,12 +331,15 @@ describe("extracción de un cuadro de partidas", () => {
     ]
     expect(() => cuadro(celda("{importe} y {importe} euros"))).toThrow()
     expect(() => cuadro(celda("5.550 euros anuales"))).toThrow()
+    expect(() => cuadro(celda("{importe} anuales"))).toThrow()
+    // La evidencia «euros» no puede formarse uniendo los dos lados del hueco.
+    expect(() => cuadro(celda("eu{importe}ros anuales"))).toThrow()
   })
 
   it("fila no declarada, partida ambigua, contenido no declarado y partida o fila ausente son errores", () => {
     const solapada = {
       ...general,
-      plantilla: "{importe} anuales, en general.",
+      plantilla: "{importe}euros anuales, en general.",
       claves: [{ fila: "contribuyente", columna: "adicionalMayor75" }],
     }
     const mayor75 = {

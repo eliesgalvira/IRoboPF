@@ -77,8 +77,10 @@ literales ya normalizados; si no, falla al decodificarse.
 - Un literal fuera de la gramática es `LiteralFueraDeGramatica`; no se limpia.
 
 **Unidad con evidencia.** Cada columna (o partida) declara su unidad y el
-literal que la prueba en la cabecera (o en la plantilla). Si ese literal no
-está, es `UnidadNoDeclarada` y la columna no se extrae.
+literal que la prueba en la cabecera (o en el texto fijo de la plantilla, a un
+lado del hueco). Como la cabecera y la plantilla sólo encajan si el HTML las
+trae literalmente, la comprobación se hace al decodificar la especificación: si
+el literal no está, la especificación es inválida.
 
 **Cuadro de partidas.**
 

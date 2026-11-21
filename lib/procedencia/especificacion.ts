@@ -65,7 +65,13 @@ const ColumnaEscalaDeclarada = Schema.Struct({
   unidad: Unidad,
   evidenciaUnidad: LiteralCanonico,
   gramatica: Gramatica,
-})
+}).check(
+  Schema.makeFilter((columna) =>
+    columna.cabecera.includes(columna.evidenciaUnidad)
+      ? undefined
+      : `la evidencia de unidad «${columna.evidenciaUnidad}» no está en la cabecera «${columna.cabecera}»`
+  )
+)
 
 export const EspecificacionEscala = Schema.Struct({
   tipo: Schema.Literal("escala"),
@@ -103,7 +109,15 @@ const Partida = Schema.Struct({
   claves: Schema.Array(
     Schema.Struct({ fila: FilaMinimo, columna: ColumnaMinimo })
   ),
-})
+}).check(
+  Schema.makeFilter((partida) => {
+    const [prefijo = "", sufijo = ""] = partida.plantilla.split(HUECO_IMPORTE)
+    return prefijo.includes(partida.evidenciaUnidad) ||
+      sufijo.includes(partida.evidenciaUnidad)
+      ? undefined
+      : `la evidencia de unidad «${partida.evidenciaUnidad}» no está en el texto fijo de «${partida.plantilla}»`
+  })
+)
 export type Partida = typeof Partida.Type
 
 const Remision = Schema.Struct({

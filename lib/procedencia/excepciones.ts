@@ -67,16 +67,6 @@ export class FilaNoDeclarada extends Schema.TaggedErrorClass<FilaNoDeclarada>()(
   { ...deTabla, literal: Schema.String, linea: Schema.Int }
 ) {}
 
-export class UnidadNoDeclarada extends Schema.TaggedErrorClass<UnidadNoDeclarada>()(
-  "UnidadNoDeclarada",
-  {
-    ...deTabla,
-    donde: Schema.String,
-    evidencia: Schema.String,
-    claves: Schema.Array(Clave),
-  }
-) {}
-
 export class LiteralFueraDeGramatica extends Schema.TaggedErrorClass<LiteralFueraDeGramatica>()(
   "LiteralFueraDeGramatica",
   {
@@ -160,7 +150,6 @@ export const ExcepcionExtraccion = Schema.Union([
   EstructuraNoAdmitida,
   FilaIrregular,
   FilaNoDeclarada,
-  UnidadNoDeclarada,
   LiteralFueraDeGramatica,
   CeldaAusente,
   CeldaAmbigua,
@@ -168,14 +157,6 @@ export const ExcepcionExtraccion = Schema.Union([
   PaginaInexistente,
 ])
 export type ExcepcionExtraccion = typeof ExcepcionExtraccion.Type
-
-export type ExcepcionTabla =
-  | TablaNoLocalizada
-  | TablaAmbigua
-  | CabeceraNoLocalizada
-  | CabeceraAmbigua
-  | EstructuraNoAdmitida
-  | PaginaInexistente
 
 export const ExcepcionCotejo = Schema.Union([
   ClaveDuplicada,
