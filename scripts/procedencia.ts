@@ -47,20 +47,14 @@ const obtenerDocumento = Command.make(
 
 const extraerYCotejar = Command.make(
   "extraer",
-  {
-    almacen,
-    tabla: Flag.string("tabla").pipe(
-      Flag.withDescription("Extrae sólo esta especificación"),
-      Flag.optional
-    ),
-  },
-  Effect.fn(function* ({ almacen, tabla }) {
-    yield* extraer(almacen, tabla._tag === "Some" ? tabla.value : undefined)
+  { almacen },
+  Effect.fn(function* ({ almacen }) {
+    yield* extraer(almacen)
     yield* mostrarResumen(yield* generarCotejo())
   })
 ).pipe(
   Command.withDescription(
-    "Extrae las tablas de los originales, sella la extracción y la coteja con el motor"
+    "Extrae todas las tablas de los originales, sella la extracción y la coteja con el motor"
   )
 )
 

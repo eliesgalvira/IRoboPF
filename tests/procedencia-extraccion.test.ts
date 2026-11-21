@@ -364,7 +364,11 @@ describe("testigo en el PDF", () => {
 
   it("n celdas con el mismo literal piden n apariciones; si faltan, ninguna tiene testigo", () => {
     const testigos = (paginas: ReturnType<typeof pagina>) =>
-      asignarTestigos(extraccion.valores, paginas).map((v) => v.testigo._tag)
+      (
+        asignarTestigos([
+          { tabla: "prueba", sha256: SHA_PDF, paginas, valores: extraccion.valores },
+        ]).get("prueba") ?? []
+      ).map((v) => v.testigo._tag)
     expect(testigos(pagina("0,00", "0,00", "9,50%", "12,00%"))).toEqual([
       "ConTestigo",
       "ConTestigo",

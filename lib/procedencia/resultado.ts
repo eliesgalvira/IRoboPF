@@ -14,11 +14,14 @@ import {
 export const Aparicion = Schema.Struct({
   pagina: Schema.Int,
   elemento: Schema.Int,
+  ocurrencia: Schema.Int,
   x: Schema.Number,
   y: Schema.Number,
 })
 export type Aparicion = typeof Aparicion.Type
 
+// `apariciones` son las candidatas: todas las del literal en las páginas que
+// declara la tabla. No hay asignación de una aparición a una celda.
 export const Testigo = Schema.Union([
   Schema.TaggedStruct("ConTestigo", {
     literal: Schema.String,
@@ -27,6 +30,10 @@ export const Testigo = Schema.Union([
   Schema.TaggedStruct("SinTestigo", {
     literal: Schema.String,
     motivo: Schema.String,
+    tablas: Schema.Array(Schema.String),
+    celdas: Schema.Int,
+    aparicionesDisponibles: Schema.Int,
+    cubiertas: Schema.Int,
     apariciones: Schema.Array(Aparicion),
   }),
   Schema.TaggedStruct("PorRemision", {}),

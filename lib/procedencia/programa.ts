@@ -25,7 +25,11 @@ import {
   PaginaInexistente,
   ResultadoIlegible,
 } from "./excepciones"
-import { extraerCuadro, extraerEscala } from "./extraccion"
+import {
+  extraerCuadro,
+  extraerEscala,
+  type ValorPendienteDeTestigo,
+} from "./extraccion"
 import { proyectarMotor2025 } from "./motor-2025"
 import {
   ColaExcepciones,
@@ -38,6 +42,7 @@ import {
   abrirPdf,
   aparicionesDe,
   asignarTestigos,
+  type PaginaDeTexto,
   type PdfAbierto,
 } from "./testigo-pdf"
 
@@ -168,7 +173,7 @@ const decodificarUtf8 = (sha256: string, bytes: Uint8Array) =>
   })
 
 export const leerEspecificaciones = Effect.fn("procedencia.leerEspecificaciones")(
-  function* (soloTabla: string | undefined) {
+  function* () {
     const fs = yield* FileSystem.FileSystem
     const path = yield* Path.Path
     const archivos = (yield* fs.readDirectory(RUTAS.especificaciones))
@@ -196,20 +201,16 @@ export const leerEspecificaciones = Effect.fn("procedencia.leerEspecificaciones"
       }
       especificaciones.push(especificacion)
     }
-    if (
-      soloTabla !== undefined &&
-      !especificaciones.some((e) => e.tabla === soloTabla)
-    ) {
-      return yield* new EspecificacionInvalida({
-        archivo: path.join(RUTAS.especificaciones, `${soloTabla}.json`),
-        detalle: "no existe esa especificación",
-      })
-    }
-    return especificaciones.filter(
-      (e) => soloTabla === undefined || e.tabla === soloTabla
-    )
+    return especificaciones
   }
 )
+
+interface TablaExtraida {
+  readonly extraccion: Omit<ExtraccionTabla, "valores">
+  readonly pendientes: ReadonlyArray<ValorPendienteDeTestigo>
+  // Páginas que hay que leer para el testigo; vacío si la tabla falló.
+  readonly paginas: ReadonlyArray<number>
+}
 
 const extraerTabla = Effect.fn("procedencia.tabla")(function* (
   especificacion: Especificacion,
@@ -231,12 +232,15 @@ const extraerTabla = Effect.fn("procedencia.tabla")(function* (
   }
   const fallo = (excepcion: ExtraccionTabla["excepciones"][number]) =>
     ({
-      ...base,
-      documento: { sha256, tablaLocalizada: null },
-      valores: [],
-      notas: [],
-      excepciones: [excepcion],
-    }) satisfies ExtraccionTabla
+      extraccion: {
+        ...base,
+        documento: { sha256, tablaLocalizada: null },
+        notas: [],
+        excepciones: [excepcion],
+      },
+      pendientes: [],
+      paginas: [],
+    }) satisfies TablaExtraida
   const paginaFuera = especificacion.testigo.paginas.find(
     (pagina) => pagina > pdf.numeroDePaginas
   )
@@ -256,17 +260,16 @@ const extraerTabla = Effect.fn("procedencia.tabla")(function* (
   if (Result.isFailure(extraido)) {
     return fallo(extraido.failure)
   }
-  const paginas = yield* Effect.forEach(
-    especificacion.testigo.paginas,
-    pdf.leerPagina
-  )
   return {
-    ...base,
-    documento: { sha256, tablaLocalizada: extraido.success.tablaLocalizada },
-    valores: asignarTestigos(extraido.success.valores, paginas),
-    notas: extraido.success.notas,
-    excepciones: extraido.success.excepciones,
-  } satisfies ExtraccionTabla
+    extraccion: {
+      ...base,
+      documento: { sha256, tablaLocalizada: extraido.success.tablaLocalizada },
+      notas: extraido.success.notas,
+      excepciones: extraido.success.excepciones,
+    },
+    pendientes: extraido.success.valores,
+    paginas: especificacion.testigo.paginas,
+  } satisfies TablaExtraida
 })
 
 const abrirPdfDelAlmacen = (
@@ -278,13 +281,15 @@ const abrirPdfDelAlmacen = (
     Effect.flatMap((bytes) => abrirPdf(sha256, bytes))
   )
 
+// Siempre se extraen todas las especificaciones: el testigo de una tabla
+// depende de las demás que declaran sus mismas páginas. Las apariciones de
+// documentos distintos nunca coinciden, así que basta resolverlo por PDF.
 export const extraer = Effect.fn("procedencia.extraer")(function* (
-  almacen: string,
-  soloTabla: string | undefined
+  almacen: string
 ) {
   const path = yield* Path.Path
   const manifiesto = yield* leerManifiesto()
-  const especificaciones = yield* leerEspecificaciones(soloTabla)
+  const especificaciones = yield* leerEspecificaciones()
   const pdfs = Array.from(
     new Set(especificaciones.map((e) => e.testigo.sha256))
   ).sort()
@@ -292,19 +297,33 @@ export const extraer = Effect.fn("procedencia.extraer")(function* (
     yield* Effect.scoped(
       Effect.gen(function* () {
         const pdf = yield* abrirPdfDelAlmacen(almacen, sha256, manifiesto)
-        for (const especificacion of especificaciones.filter(
-          (e) => e.testigo.sha256 === sha256
-        )) {
-          const extraccion = yield* extraerTabla(
-            especificacion,
-            almacen,
-            manifiesto,
-            pdf
-          )
+        const extraidas = yield* Effect.forEach(
+          especificaciones.filter((e) => e.testigo.sha256 === sha256),
+          (especificacion) =>
+            extraerTabla(especificacion, almacen, manifiesto, pdf)
+        )
+        const leidas = new Map<number, PaginaDeTexto>()
+        for (const pagina of new Set(extraidas.flatMap((t) => t.paginas))) {
+          leidas.set(pagina, yield* pdf.leerPagina(pagina))
+        }
+        const valores = asignarTestigos(
+          extraidas.map(({ extraccion, pendientes, paginas }) => ({
+            tabla: extraccion.tabla,
+            sha256,
+            paginas: paginas.map(
+              (pagina) => leidas.get(pagina) as PaginaDeTexto
+            ),
+            valores: pendientes,
+          }))
+        )
+        for (const { extraccion } of extraidas) {
           yield* escribirJson(
-            path.join(RUTAS.extraccion, `${especificacion.tabla}.json`),
+            path.join(RUTAS.extraccion, `${extraccion.tabla}.json`),
             ExtraccionTabla,
-            extraccion
+            {
+              ...extraccion,
+              valores: valores.get(extraccion.tabla) ?? [],
+            }
           )
         }
       })
@@ -315,7 +334,7 @@ export const extraer = Effect.fn("procedencia.extraer")(function* (
 export const generarCotejo = Effect.fn("procedencia.cotejar")(function* () {
   const fs = yield* FileSystem.FileSystem
   const path = yield* Path.Path
-  const especificaciones = yield* leerEspecificaciones(undefined)
+  const especificaciones = yield* leerEspecificaciones()
   const archivos = (yield* fs.readDirectory(RUTAS.extraccion))
     .filter((archivo) => archivo.endsWith(".json"))
     .sort()
