@@ -72,7 +72,7 @@ const jsonLegible = <S extends Schema.Top>(schema: S) =>
     )
   )
 
-export const textoJson = <
+const textoJson = <
   S extends Schema.Top & { readonly EncodingServices: never },
 >(
   schema: S,
@@ -179,7 +179,7 @@ const decodificarUtf8 = (sha256: string, bytes: Uint8Array) =>
       new DocumentoNoDisponible({ sha256, motivo: "no es UTF-8 válido" }),
   })
 
-export const leerEspecificaciones = Effect.fn(
+const leerEspecificaciones = Effect.fn(
   "procedencia.leerEspecificaciones"
 )(function* () {
   const fs = yield* FileSystem.FileSystem
@@ -226,12 +226,15 @@ interface EspecificacionLeida {
   readonly huella: string
 }
 
-const correspondenciaDe = (especificacion: Especificacion): Correspondencia => {
+const correspondenciaDe = (
+  especificacion: Especificacion,
+  tramos: number
+): Correspondencia => {
   const { cabecera } = especificacion.testigo
   return especificacion.tipo === "escala"
     ? {
         _tag: "Escala",
-        tramos: 0,
+        tramos,
         columnaPdf: new Map(
           especificacion.columnas.map((c, i) => [c.cabecera, cabecera[i] ?? ""])
         ),
@@ -299,15 +302,12 @@ const extraerTabla = Effect.fn("procedencia.tabla")(function* (
     especificacion.testigo.paginas,
     pdf.leerPagina
   )
-  const correspondencia = correspondenciaDe(especificacion)
   return {
     ...base,
     documento: { sha256, tablaLocalizada: extraido.success.tablaLocalizada },
     valores: atestiguar(
       localizarTablaPdf(especificacion.testigo, paginas),
-      correspondencia._tag === "Escala"
-        ? { ...correspondencia, tramos: extraido.success.filasDeDatos }
-        : correspondencia,
+      correspondenciaDe(especificacion, extraido.success.filasDeDatos),
       extraido.success.valores
     ),
     notas: extraido.success.notas,
@@ -326,7 +326,7 @@ const abrirPdfDelAlmacen = (
 
 // Extrae todas las especificaciones y devuelve el texto sellado de cada una,
 // por ruta, sin escribirlo. Cada página del PDF se lee una sola vez.
-export const extraerTextos = Effect.fn("procedencia.extraerTextos")(function* (
+const extraerTextos = Effect.fn("procedencia.extraerTextos")(function* (
   almacen: string
 ) {
   const path = yield* Path.Path
@@ -528,25 +528,35 @@ export const comprobar = Effect.fn("procedencia.comprobar")(function* (
   return cotejo.resumen
 })
 
-export const obtener = Effect.fn("procedencia.obtener")(function* (
-  url: string,
-  tipo: DocumentoManifiesto["tipo"],
-  almacen: string
-) {
-  const fs = yield* FileSystem.FileSystem
-  const path = yield* Path.Path
+const descargar = Effect.fn("procedencia.descargar")(function* (url: string) {
   const cliente = (yield* HttpClient.HttpClient).pipe(HttpClient.filterStatusOk)
   const bytes = yield* cliente.get(url).pipe(
     Effect.flatMap((respuesta) => respuesta.arrayBuffer),
     Effect.map((buffer) => new Uint8Array(buffer)),
     Effect.mapError((cause) => new DescargaFallida({ url, cause }))
   )
-  const sha256 = yield* sha256Hex(bytes)
+  return { bytes, sha256: yield* sha256Hex(bytes) }
+})
+
+const guardar = Effect.fn("procedencia.guardar")(function* (
+  almacen: string,
+  sha256: string,
+  bytes: Uint8Array
+) {
+  const fs = yield* FileSystem.FileSystem
+  const path = yield* Path.Path
   const destino = path.join(almacen, "sha256", sha256)
   yield* fs.makeDirectory(path.dirname(destino), { recursive: true })
-  if (!(yield* fs.exists(destino))) {
-    yield* fs.writeFile(destino, bytes)
-  }
+  yield* fs.writeFile(destino, bytes)
+})
+
+export const obtener = Effect.fn("procedencia.obtener")(function* (
+  url: string,
+  tipo: DocumentoManifiesto["tipo"],
+  almacen: string
+) {
+  const { bytes, sha256 } = yield* descargar(url)
+  yield* guardar(almacen, sha256, bytes)
   const hoy = DateTime.formatIsoDateUtc(yield* DateTime.now)
   const manifiesto = yield* leerManifiesto()
   const yaRegistrado = manifiesto.documentos.some(
@@ -572,21 +582,9 @@ export const obtener = Effect.fn("procedencia.obtener")(function* (
 // FuenteCambiada, con el documento.
 export const obtenerFuentes = Effect.fn("procedencia.obtenerFuentes")(
   function* (almacen: string) {
-    const fs = yield* FileSystem.FileSystem
-    const path = yield* Path.Path
-    const cliente = (yield* HttpClient.HttpClient).pipe(
-      HttpClient.filterStatusOk
-    )
     const { documentos } = yield* leerManifiesto()
     for (const documento of documentos) {
-      const bytes = yield* cliente.get(documento.url).pipe(
-        Effect.flatMap((respuesta) => respuesta.arrayBuffer),
-        Effect.map((buffer) => new Uint8Array(buffer)),
-        Effect.mapError(
-          (cause) => new DescargaFallida({ url: documento.url, cause })
-        )
-      )
-      const sha256 = yield* sha256Hex(bytes)
+      const { bytes, sha256 } = yield* descargar(documento.url)
       if (sha256 !== documento.sha256 || bytes.length !== documento.bytes) {
         return yield* new FuenteCambiada({
           url: documento.url,
@@ -596,9 +594,7 @@ export const obtenerFuentes = Effect.fn("procedencia.obtenerFuentes")(
           bytesObtenidos: bytes.length,
         })
       }
-      const destino = path.join(almacen, "sha256", sha256)
-      yield* fs.makeDirectory(path.dirname(destino), { recursive: true })
-      yield* fs.writeFile(destino, bytes)
+      yield* guardar(almacen, sha256, bytes)
     }
     return documentos.length
   }
