@@ -16,12 +16,21 @@ import {
 } from "../lib/dominio/irpf/caso-fiscal-anual"
 import type { AnioFiscal } from "../lib/dominio/normativa/anio-fiscal"
 
-// Arts. 56.2, 66.1 y 76 LIRPF y Manual práctico de Renta 2025, capítulo 15,
-// «Esquema gráfico»: la cuota estatal del ahorro se minora aplicando la escala
-// estatal del ahorro al remanente del mínimo estatal (Cuota C) y la cuota
-// autonómica aplicando la escala autonómica del ahorro al remanente del mínimo
-// autonómico (Cuota D). Cada remanente es el exceso de su mínimo sobre la base
-// liquidable general.
+// Cada remanente es el exceso de su mínimo sobre la base liquidable general,
+// limitado a la base liquidable del ahorro (art. 56.2 LIRPF).
+//
+// Desde 2015, arts. 66.1 y 76 LIRPF (Ley 26/2014) y Manual práctico de Renta
+// 2025, capítulo 15, «Esquema gráfico»: la cuota estatal del ahorro se minora
+// aplicando la escala estatal del ahorro al remanente del mínimo estatal
+// (Cuota C) y la cuota autonómica aplicando la escala autonómica del ahorro al
+// remanente del mínimo autonómico (Cuota D).
+//
+// En 2012-2014, arts. 66.1 y 76 LIRPF (Ley 39/2010) y DA 35.ª.1.b: cada escala
+// grava la base del ahorro «en la parte que no corresponda, en su caso, con el
+// mínimo personal y familiar», es decir, la base menos su remanente. El Manual
+// práctico de Renta 2014, p. 449: «el importe de la base liquidable del ahorro,
+// una vez minorado, en su caso, con el remanente no aplicado del mínimo
+// personal y familiar estatal […] se grava». No hay minoración de cuota.
 
 const liquidar = (caso: CasoFiscalAnual) =>
   Effect.runSync(liquidarIrpfAnual(caso, { modo: "canonico" }))
@@ -171,17 +180,18 @@ describe("mínimo personal y familiar aplicado en la base del ahorro", () => {
     })
   })
 
-  it("Madrid 2013: el gravamen complementario estatal grava solo el remanente estatal", () => {
+  it("Madrid 2013: cada escala grava la base del ahorro neta de su remanente", () => {
     // Escala estatal del ahorro: art. 66.1 (9,5 / 10,5) más DA 35.ª.1.b
     // (2 / 4 / 6), es decir 11,5 hasta 6.000, 14,5 hasta 24.000 y 16,5 después.
     // Escala autonómica: art. 76 (9,5 / 10,5).
     // Tres descendientes de 10 años. Mínimo estatal 5.151 + 1.836 + 2.040 + 3.672
     // = 12.699; madrileño 5.151 + 1.836 + 2.040 + 4.039,20 = 13.066,20.
     // Base general 0; ahorro 30.000.
-    // Cuota A = 690 + 2.610 + 990 = 4.290,00; Cuota B = 570 + 2.520 = 3.090,00.
-    // Cuota C = 690 + 6.699 x 14,5 % = 1.661,355.
-    // Cuota D = 570 + 7.066,20 x 10,5 % = 1.311,951.
-    // Minoración 2.973,306 -> 2.973,31; cuota del ahorro 7.380 - 2.973,306 = 4.406,694 -> 4.406,69.
+    // Base neta estatal 30.000 - 12.699 = 17.301:
+    //   690 + 11.301 x 14,5 % = 2.328,645.
+    // Base neta autonómica 30.000 - 13.066,20 = 16.933,80:
+    //   570 + 10.933,80 x 10,5 % = 1.718,049.
+    // Cuota del ahorro 4.046,694 -> 4.046,69. Sin minoración de cuota.
     const diezAnios = { edad: 10, discapacidad: sinDiscapacidad }
     expect(
       liquidar(
@@ -195,9 +205,34 @@ describe("mínimo personal y familiar aplicado en la base del ahorro", () => {
       )
     ).toMatchObject({
       _tag: "LiquidacionIrpfAnualCalculada",
-      cuotaIntegraAhorroCentimos: 738_000,
-      cuotaMinimoPersonalAhorroCentimos: 297_331,
-      cuotaLiquidaCentimos: 440_669,
+      cuotaIntegraAhorroCentimos: 404_669,
+      cuotaMinimoPersonalAhorroCentimos: 0,
+      cuotaLiquidaCentimos: 404_669,
+    })
+  })
+
+  it("Castilla y León 2014, mínimos iguales: la base neta cambia de tramo", () => {
+    // Mínimo estatal y autonómico 5.151. Base general 0; ahorro 30.001.
+    // Base neta 30.001 - 5.151 = 24.850 en cada parte.
+    // Estatal: 690 + 18.000 x 14,5 % + 850 x 16,5 % = 3.300 + 140,25 = 3.440,25.
+    // Autonómica: 570 + 18.850 x 10,5 % = 2.549,25.
+    // Cuota del ahorro 5.989,50. Minorar la cuota daría
+    // 7.380,27 - 5.151 x 21 % = 6.298,56.
+    expect(
+      liquidar(
+        caso({
+          anio: 2014,
+          comunidadAutonoma: "castilla-y-leon",
+          baseGeneralCentimos: 0,
+          ahorroCentimos: 3_000_100,
+        })
+      )
+    ).toMatchObject({
+      _tag: "LiquidacionIrpfAnualCalculada",
+      baseLiquidableAhorroCentimos: 3_000_100,
+      cuotaIntegraAhorroCentimos: 598_950,
+      cuotaMinimoPersonalAhorroCentimos: 0,
+      cuotaLiquidaCentimos: 598_950,
     })
   })
 
