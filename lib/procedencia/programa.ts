@@ -391,7 +391,7 @@ export const generarCotejo = Effect.fn("procedencia.cotejar")(function* () {
       return extraccion
     })
   )
-  const cotejo = yield* cotejar(extracciones, proyectarMotor2025())
+  const cotejo = yield* cotejar(extracciones, yield* proyectarMotor2025())
   yield* escribir(RUTAS.cotejo, textoCotejo(cotejo.entradas))
   yield* escribirJson(RUTAS.excepciones, ColaExcepciones, cotejo.excepciones)
   yield* escribirJson(RUTAS.resumen, Resumen, cotejo.resumen)

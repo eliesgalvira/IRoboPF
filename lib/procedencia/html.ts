@@ -25,7 +25,10 @@ export interface CeldaHtml extends Posicion {
   readonly bloques: ReadonlyArray<Bloque>
 }
 
+export type Seccion = "thead" | "tbody" | "tfoot"
+
 export interface FilaHtml extends Posicion {
+  readonly seccion: Seccion
   readonly celdas: ReadonlyArray<CeldaHtml>
 }
 
@@ -289,7 +292,10 @@ const celdaDe = (
   }))
 }
 
-const filaDe = (tr: Elemento): Result.Result<FilaHtml, ProblemaEstructura> => {
+const filaDe = (
+  tr: Elemento,
+  seccion: Seccion
+): Result.Result<FilaHtml, ProblemaEstructura> => {
   const fuera = fueraDeLista(tr)
   if (fuera !== undefined) {
     return Result.fail(fuera)
@@ -310,10 +316,16 @@ const filaDe = (tr: Elemento): Result.Result<FilaHtml, ProblemaEstructura> => {
     }
     celdas.push(celda.success)
   }
-  return Result.succeed({ ...posicion(tr), celdas })
+  return Result.succeed({ ...posicion(tr), seccion, celdas })
 }
 
-const SECCIONES = new Set(["thead", "tbody", "tfoot"])
+const SECCIONES: ReadonlySet<string> = new Set<Seccion>([
+  "thead",
+  "tbody",
+  "tfoot",
+])
+const esSeccion = (etiqueta: string): etiqueta is Seccion =>
+  SECCIONES.has(etiqueta)
 
 export const modeloDeTabla = (
   tabla: TablaDelDocumento
@@ -330,8 +342,12 @@ export const modeloDeTabla = (
       if (esTextoVacio(nodo)) {
         continue
       }
-      if (esElemento(nodo) && nodo.tagName === "tr") {
-        const fila = filaDe(nodo)
+      if (
+        esElemento(nodo) &&
+        nodo.tagName === "tr" &&
+        esSeccion(padre.tagName)
+      ) {
+        const fila = filaDe(nodo, padre.tagName)
         if (Result.isFailure(fila)) {
           return Result.fail(fila.failure)
         }

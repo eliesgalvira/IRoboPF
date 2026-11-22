@@ -37,8 +37,15 @@ volver a extraer también la hace fallar.
 - La tabla se localiza con `UnicaTablaDelDocumento` o por el literal exacto de
   su `<caption>`. Si hay cero o más de una, es un error.
 - La fila de cabecera es la única cuyas celdas son exactamente las cabeceras
-  declaradas. Las filas que la siguen son de datos; una anterior es
-  `FilaNoDeclarada`, porque contarla desplazaría el índice de los tramos.
+  declaradas. Las filas de datos son las de `<tbody>` que la siguen; una
+  anterior, o una posterior fuera de `<tbody>` (un `<tfoot>`), es
+  `FilaNoDeclarada`, porque contarla desplazaría o añadiría tramos.
+- Una escala ha de declarar las columnas de base y de resto, y sus tramos han de
+  ser coherentes consigo mismos con aritmética exacta: la primera base es 0, cada
+  base es mayor que la anterior e igual a la anterior más su resto, y el último
+  tramo, y sólo él, es abierto. Si no, `EscalaIncoherente`, con las claves de
+  las celdas que no encajan. La cuota no se comprueba contra los tipos: que la
+  publicada no sea la integrada es lo que el cotejo cuenta.
 - La columna de cada celda es la de su cabecera, según la alineación de la
   tabla HTML.
 - En una escala, la fila es su índice entre las filas de datos, que es el número
@@ -177,6 +184,12 @@ y unidad.
 - `simulada-estatal` no es un territorio fiscal y se excluye. La liquidación lo
   trata como caso técnico con la escala conjunta `TRAMOS_IRPF_DESDE_2021`, y el
   resumen lo lista como excluido.
+- Antes de proyectar, cada escala del motor se valida: tipos finitos, límites
+  finitos y estrictamente crecientes desde 0 salvo el último, que es el único
+  abierto y ha de ser `+Infinity`. Los mínimos han de ser finitos. Un fallo es
+  `DatoDelMotorInvalido` y aborta el cotejo; antes, cualquier decimal no finito
+  (también `NaN`) se convertía en `sin-limite`. El tramo abierto se representa
+  aparte de los cerrados, así que `sin-limite` sólo sale del último.
 
 **Almacenado y derivado.** Es «almacenado» lo que el motor guarda tal cual:
 
@@ -189,8 +202,8 @@ y unidad.
 Es «derivado» lo que se sigue de esos datos por aritmética exacta:
 
 - la base 0 del primer tramo;
-- el resto de base (límite superior menos inicio, o `sin-limite` si el límite es
-  infinito);
+- el resto de base (límite superior menos inicio, o `sin-limite` en el tramo
+  abierto);
 - la cuota íntegra al inicio de cada tramo, como suma exacta de anchura × tipo
   de los tramos anteriores.
 

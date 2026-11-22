@@ -11,24 +11,14 @@ const tramos = (
     ([limite, tipo]) => [new Decimal(limite), new Decimal(tipo)] as const
   )
 
-const proyectar = (escala: ReturnType<typeof tramos>): unknown =>
+const proyectar = (escala: ReturnType<typeof tramos>) =>
   proyectarEscala("andalucia", "escala-general-autonomica", escala)
-
-const esFallo = (resultado: unknown) =>
-  Result.isResult(resultado) && Result.isFailure(resultado)
-    ? resultado.failure
-    : "sin fallo"
 
 describe("escala del motor validada antes de proyectarla", () => {
   it("el tramo abierto es el último, con límite +Infinity, y da sin-limite", () => {
-    const resultado = proyectar(tramos([12450, "0.19"], [Infinity, "0.24"]))
-    expect(Result.isResult(resultado) && Result.isSuccess(resultado)).toBe(true)
-    const valores = Result.isResult(resultado)
-      ? (Result.getOrThrow(resultado) as ReadonlyArray<{
-          clave: { fila: number; columna: string }
-          valor: unknown
-        }>)
-      : []
+    const valores = Result.getOrThrow(
+      proyectar(tramos([12450, "0.19"], [Infinity, "0.24"]))
+    )
     expect(
       valores.find(
         (v) => v.clave.fila === 1 && v.clave.columna === "resto-base-liquidable"
@@ -56,8 +46,9 @@ describe("escala del motor validada antes de proyectarla", () => {
     ["un tipo infinito", tramos([12450, "0.19"], [Infinity, Infinity])],
     ["ningún tramo", tramos()],
   ])("%s es un error tipado, no un centinela", (_, escala) => {
-    expect(esFallo(proyectar(escala))).toMatchObject({
-      _tag: "EscalaDelMotorInvalida",
+    const resultado = proyectar(escala)
+    expect(Result.isFailure(resultado) && resultado.failure).toMatchObject({
+      _tag: "DatoDelMotorInvalido",
     })
   })
 })

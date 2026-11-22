@@ -115,6 +115,15 @@ export const EspecificacionEscala = Schema.Struct({
     ),
     Schema.makeFilter(
       sinRepetidos("columna", (c: { readonly columna: string }) => c.columna)
+    ),
+    // Sin base y resto no se puede comprobar que los tramos encadenan.
+    Schema.makeFilter(
+      (columnas: ReadonlyArray<{ readonly columna: string }>) =>
+        ["base-liquidable", "resto-base-liquidable"].every((requerida) =>
+          columnas.some((c) => c.columna === requerida)
+        )
+          ? undefined
+          : "una escala ha de declarar las columnas base-liquidable y resto-base-liquidable"
     )
   ),
   testigo: TestigoPdf,

@@ -21,6 +21,15 @@ const columnaBase = {
   unidad: { _tag: "EUR", evidencia: "(euros)" },
   gramatica: { decimales: [2], centinelas: [] },
 }
+const columnaResto = {
+  cabecera: "Resto base liquidable hasta (euros)",
+  columna: "resto-base-liquidable",
+  unidad: { _tag: "EUR", evidencia: "(euros)" },
+  gramatica: {
+    decimales: [2],
+    centinelas: [{ literal: "En adelante", centinela: "sin-limite" }],
+  },
+}
 const columnaTipo = {
   cabecera: "Tipo aplicable (%)",
   columna: "tipo-aplicable",
@@ -38,22 +47,25 @@ const escala = (cambios: Record<string, unknown> = {}) =>
       sha256: SHA_HTML,
       localizador: { _tag: "UnicaTablaDelDocumento" },
     },
-    columnas: [columnaBase, columnaTipo],
+    columnas: [columnaBase, columnaResto, columnaTipo],
     testigo: { sha256: SHA_PDF, paginas: [1] },
     ...cambios,
   })
 
-const tabla = (filas: string, caption = "", cabecera?: string) =>
-  `<table>${caption === "" ? "" : `<caption>${caption}</caption>`}<thead>${
-    cabecera ??
-    "<tr><th>Base liquidable hasta (euros)</th><th>Tipo aplicable (%)</th></tr>"
-  }</thead><tbody>${filas}</tbody></table>`
+const CABECERA =
+  "<tr><th>Base liquidable hasta (euros)</th><th>Resto base liquidable hasta (euros)</th><th>Tipo aplicable (%)</th></tr>"
+
+const tabla = (filas: string, caption = "", cabecera = CABECERA, pie = "") =>
+  `<table>${caption === "" ? "" : `<caption>${caption}</caption>`}<thead>${cabecera}</thead><tbody>${filas}</tbody>${pie}</table>`
 
 const html = (...tablas: ReadonlyArray<string>) =>
   `<!doctype html><html><body>${tablas.join("")}</body></html>`
 
 const fila = (...celdas: ReadonlyArray<string>) =>
   `<tr>${celdas.map((celda) => `<td>${celda}</td>`).join("")}</tr>`
+
+// Escala de un solo tramo, abierto, con el tipo dado.
+const unTramo = (tipo: string) => fila("0,00", "En adelante", tipo)
 
 const exito = (resultado: Result.Result<ExtraccionHtml, { _tag: string }>) => {
   if (Result.isFailure(resultado)) {
@@ -70,8 +82,8 @@ const etiquetas = (extraccion: ExtraccionHtml) =>
 
 describe("localizador de tabla", () => {
   const dos = html(
-    tabla(fila("0,00", "9,50%"), "Escala A"),
-    tabla(fila("0,00", "9,50%"), "Escala B")
+    tabla(unTramo("9,50%"), "Escala A"),
+    tabla(unTramo("9,50%"), "Escala B")
   )
 
   it("«única tabla» falla si hay cero o más de una", () => {
@@ -89,13 +101,13 @@ describe("localizador de tabla", () => {
       })
     expect(
       exito(extraerEscala(porCaption("Escala B"), dos)).valores
-    ).toHaveLength(2)
+    ).toHaveLength(3)
     expect(fallo(extraerEscala(porCaption("Escala"), dos))).toBe(
       "TablaNoLocalizada"
     )
     const repetido = html(
-      tabla(fila("0,00", "9,50%"), "Escala&nbsp;A"),
-      tabla(fila("0,00", "9,50%"), "Escala A ")
+      tabla(unTramo("9,50%"), "Escala&nbsp;A"),
+      tabla(unTramo("9,50%"), "Escala A ")
     )
     expect(fallo(extraerEscala(porCaption("Escala A"), repetido))).toBe(
       "TablaAmbigua"
@@ -105,17 +117,17 @@ describe("localizador de tabla", () => {
   it("la cabecera debe ser exactamente la declarada", () => {
     const otra = html(
       tabla(
-        fila("0,00", "9,50%"),
+        unTramo("9,50%"),
         "",
-        "<tr><th>Base liquidable (euros)</th><th>Tipo aplicable (%)</th></tr>"
+        "<tr><th>Base liquidable (euros)</th><th>Resto base liquidable hasta (euros)</th><th>Tipo aplicable (%)</th></tr>"
       )
     )
     expect(fallo(extraerEscala(escala(), otra))).toBe("CabeceraNoLocalizada")
     const sobrante = html(
       tabla(
-        fila("0,00", "9,50%"),
+        unTramo("9,50%"),
         "",
-        "<tr><th>Base liquidable hasta (euros)</th><th>Tipo aplicable (%)</th><th>Nota</th></tr>"
+        CABECERA.replace("</tr>", "<th>Nota</th></tr>")
       )
     )
     expect(fallo(extraerEscala(escala(), sobrante))).toBe(
@@ -125,15 +137,15 @@ describe("localizador de tabla", () => {
 
   it("un espacio Unicode o un carácter de control en una celda es un error, también en los extremos", () => {
     for (const celda of [
-      "\u202f9,50%",
-      "9,50%\u202f",
-      "9,\u202f50%",
-      "\u200b9,50%",
+      " 9,50%",
+      "9,50% ",
+      "9, 50%",
+      "​9,50%",
       "9,50%\u0007",
     ]) {
-      expect(
-        fallo(extraerEscala(escala(), html(tabla(fila("0,00", celda)))))
-      ).toBe("EstructuraNoAdmitida")
+      expect(fallo(extraerEscala(escala(), html(tabla(unTramo(celda)))))).toBe(
+        "EstructuraNoAdmitida"
+      )
     }
   })
 
@@ -141,7 +153,8 @@ describe("localizador de tabla", () => {
     expect(() =>
       escala({
         columnas: [
-          { ...columnaBase, cabecera: "Base liquidable hasta\u202f(euros)" },
+          { ...columnaBase, cabecera: "Base liquidable hasta (euros)" },
+          columnaResto,
           columnaTipo,
         ],
       })
@@ -149,16 +162,16 @@ describe("localizador de tabla", () => {
   })
 
   it.each([
-    fila("0,00", "<span hidden>1</span>9,50%"),
-    fila("0,00", '<span style="display:none">1</span>9,50%'),
-    fila("0,00", '<span aria-hidden="true">1</span>9,50%'),
-    fila("0,00", '<span class="d-none">1</span>9,50%'),
-    fila("0,00", "<b>9,50%</b>"),
-    fila("0,00", "<sup>9,50%</sup>"),
-    fila("0,00", '<p class="letrita" title="x">9,50%</p>'),
-    "<tr><td>0,00</td><td hidden>9,50%</td></tr>",
-    '<tr><td>0,00</td><td class="sr-only">9,50%</td></tr>',
-    "<tr hidden><td>0,00</td><td>9,50%</td></tr>",
+    unTramo("<span hidden>1</span>9,50%"),
+    unTramo('<span style="display:none">1</span>9,50%'),
+    unTramo('<span aria-hidden="true">1</span>9,50%'),
+    unTramo('<span class="d-none">1</span>9,50%'),
+    unTramo("<b>9,50%</b>"),
+    unTramo("<sup>9,50%</sup>"),
+    unTramo('<p class="letrita" title="x">9,50%</p>'),
+    "<tr><td>0,00</td><td>En adelante</td><td hidden>9,50%</td></tr>",
+    '<tr><td>0,00</td><td>En adelante</td><td class="sr-only">9,50%</td></tr>',
+    "<tr hidden><td>0,00</td><td>En adelante</td><td>9,50%</td></tr>",
   ])("fuera de la lista cerrada de elementos y atributos: %s", (filaHtml) => {
     expect(fallo(extraerEscala(escala(), html(tabla(filaHtml))))).toBe(
       "EstructuraNoAdmitida"
@@ -167,12 +180,14 @@ describe("localizador de tabla", () => {
 
   it("la lista cerrada cubre los elementos y atributos de las páginas reales", () => {
     const real =
-      '<tr><td letrita2="" class="texto_der">0,00</td><td class="texto_cen"><p class="letrita sangrado-izq"><span class="letrita"><strong>9,50%</strong></span></p></td></tr>'
+      '<tr><td letrita2="" class="texto_der">0,00</td><td class="&quot;texto_der texto_der revsar">En adelante</td><td class="texto_cen"><p class="letrita sangrado-izq"><span class="letrita"><strong>9,50%</strong></span></p></td></tr>'
     expect(fallo(extraerEscala(escala(), html(tabla(real))))).toBe("sin fallo")
   })
 
   it("las celdas combinadas no se admiten", () => {
-    const combinada = html(tabla('<tr><td colspan="2">0,00</td></tr>'))
+    const combinada = html(
+      tabla('<tr><td colspan="2">0,00</td><td>9,50%</td></tr>')
+    )
     expect(fallo(extraerEscala(escala(), combinada))).toBe(
       "EstructuraNoAdmitida"
     )
@@ -182,7 +197,7 @@ describe("localizador de tabla", () => {
 describe("extracción de una escala", () => {
   it("una tabla vale para todos sus territorios declarados", () => {
     const extraccion = exito(
-      extraerEscala(escala(), html(tabla(fila("12.450,00", "12,00%"))))
+      extraerEscala(escala(), html(tabla(unTramo("12,00%"))))
     )
     expect(extraccion.excepciones).toEqual([])
     expect(
@@ -190,8 +205,9 @@ describe("extracción de una escala", () => {
     ).toEqual([
       ["ceuta", "melilla"],
       ["ceuta", "melilla"],
+      ["ceuta", "melilla"],
     ])
-    expect(extraccion.valores[1]?.valor).toEqual({
+    expect(extraccion.valores[2]?.valor).toEqual({
       _tag: "Numero",
       decimal: "12",
     })
@@ -202,18 +218,14 @@ describe("extracción de una escala", () => {
       extraerEscala(
         escala(),
         html(
-          tabla(
-            fila("0,00", "9,50%"),
-            "",
-            `${fila("2025", "Ceuta")}<tr><th>Base liquidable hasta (euros)</th><th>Tipo aplicable (%)</th></tr>`
-          )
+          tabla(unTramo("9,50%"), "", `${fila("2025", "Ceuta", "")}${CABECERA}`)
         )
       )
     )
     expect(extraccion.excepciones).toMatchObject([
-      { _tag: "FilaNoDeclarada", literal: "2025 | Ceuta" },
+      { _tag: "FilaNoDeclarada", literal: "2025 | Ceuta | " },
     ])
-    expect(extraccion.valores.map((v) => v.claves[0]?.fila)).toEqual([0, 0])
+    expect(extraccion.valores.map((v) => v.claves[0]?.fila)).toEqual([0, 0, 0])
   })
 
   it("cada defecto de celda es un error con tipo y nunca se rellena", () => {
@@ -223,8 +235,8 @@ describe("extracción de una escala", () => {
         html(
           tabla(
             [
-              fila("", "9,50%"),
-              fila("<p>1,00</p><p>2,00</p>", "12,00"),
+              fila("", "12.450,00", "9,50%"),
+              fila("<p>1,00</p><p>2,00</p>", "1,00", "12,00"),
               fila("20.200,00"),
             ].join("")
           )
@@ -237,7 +249,11 @@ describe("extracción de una escala", () => {
       "LiteralFueraDeGramatica",
       "FilaIrregular",
     ])
-    expect(extraccion.valores.map((v) => v.literal)).toEqual(["9,50%"])
+    expect(extraccion.valores.map((v) => v.literal)).toEqual([
+      "12.450,00",
+      "9,50%",
+      "1,00",
+    ])
   })
 
   it("una especificación sin la evidencia de unidad en la cabecera no se decodifica", () => {
@@ -245,6 +261,7 @@ describe("extracción de una escala", () => {
       escala({
         columnas: [
           { ...columnaBase, cabecera: "Base liquidable hasta" },
+          columnaResto,
           columnaTipo,
         ],
       })
@@ -265,12 +282,18 @@ describe("extracción de una escala", () => {
               ...columnaBase,
               unidad: { _tag: unidad, evidencia: evidenciaUnidad },
             },
+            columnaResto,
             columnaTipo,
           ],
         })
       ).toThrow()
     }
   )
+
+  it("una escala sin columna de base o de resto no se decodifica", () => {
+    expect(() => escala({ columnas: [columnaBase, columnaTipo] })).toThrow()
+    expect(() => escala({ columnas: [columnaResto, columnaTipo] })).toThrow()
+  })
 
   it("una especificación con una página del testigo repetida no se decodifica", () => {
     expect(() =>
@@ -286,30 +309,17 @@ describe("extracción de una escala", () => {
 })
 
 describe("tramos de una escala", () => {
-  const columnaResto = {
-    cabecera: "Resto base liquidable hasta (euros)",
-    columna: "resto-base-liquidable",
-    unidad: { _tag: "EUR", evidencia: "(euros)" },
-    gramatica: {
-      decimales: [2],
-      centinelas: [{ literal: "En adelante", centinela: "sin-limite" }],
-    },
-  }
-  const completa = escala({
-    columnas: [columnaBase, columnaResto, columnaTipo],
-  })
-  const cabecera =
-    "<tr><th>Base liquidable hasta (euros)</th><th>Resto base liquidable hasta (euros)</th><th>Tipo aplicable (%)</th></tr>"
   const extraer = (filas: ReadonlyArray<ReadonlyArray<string>>, pie = "") =>
     exito(
       extraerEscala(
-        completa,
+        escala(),
         html(
           tabla(
             filas.map((celdas) => fila(...celdas)).join(""),
             "",
-            cabecera
-          ).replace("</tbody>", `</tbody>${pie}`)
+            CABECERA,
+            pie
+          )
         )
       )
     )
@@ -661,7 +671,7 @@ describe("testigo en el PDF", () => {
   const extraccion = exito(
     extraerEscala(
       escala(),
-      html(tabla([fila("0,00", "9,50%"), fila("0,00", "12,00%")].join("")))
+      html(tabla([unTramo("9,50%"), unTramo("12,00%")].join("")))
     )
   )
   const pagina = (...textos: ReadonlyArray<string>) => [
@@ -683,16 +693,19 @@ describe("testigo en el PDF", () => {
           },
         ]).get("prueba") ?? []
       ).map((v) => v.testigo._tag)
-    expect(testigos(pagina("0,00", "0,00", "9,50%", "12,00%"))).toEqual([
+    expect(
+      testigos(
+        pagina("0,00", "0,00", "En adelante", "En adelante", "9,50%", "12,00%")
+      )
+    ).toEqual(Array.from({ length: 6 }, () => "ConTestigo"))
+    expect(
+      testigos(pagina("0,00", "En adelante", "En adelante", "19,50%", "12,00%"))
+    ).toEqual([
+      "SinTestigo",
       "ConTestigo",
-      "ConTestigo",
-      "ConTestigo",
-      "ConTestigo",
-    ])
-    expect(testigos(pagina("0,00", "19,50%", "12,00%"))).toEqual([
       "SinTestigo",
       "SinTestigo",
-      "SinTestigo",
+      "ConTestigo",
       "ConTestigo",
     ])
   })

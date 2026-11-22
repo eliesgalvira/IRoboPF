@@ -283,7 +283,10 @@ describe("extracción sellada", () => {
               readFileSync(`${RUTAS.extraccion}/${archivo}`, "utf8")
             )
         )
-        const { entradas } = cotejarBien(extracciones, proyectarMotor2025())
+        const { entradas } = cotejarBien(
+          extracciones,
+          Result.getOrThrow(proyectarMotor2025())
+        )
         expect(yield* textoCotejo(entradas)).toBe(
           readFileSync(RUTAS.cotejo, "utf8")
         )

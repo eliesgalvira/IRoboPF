@@ -1,3 +1,4 @@
+import Decimal from "decimal.js"
 import { Result } from "effect"
 
 import {
@@ -14,6 +15,7 @@ import {
   CeldaAmbigua,
   CeldaAusente,
   ContenidoNoDeclarado,
+  EscalaIncoherente,
   EstructuraNoAdmitida,
   FilaIrregular,
   FilaNoDeclarada,
@@ -122,9 +124,9 @@ interface TablaConCabecera {
 }
 
 // La fila de cabecera es la única cuyas celdas son, exactamente, las
-// cabeceras declaradas; las filas que la siguen son las de datos. Una fila
-// anterior no es de datos ni está declarada: si contara, desplazaría el índice
-// de los tramos.
+// cabeceras declaradas; las filas de datos son las de <tbody> que la siguen.
+// Una fila anterior, o posterior fuera de <tbody> (un <tfoot>), no es de datos
+// ni está declarada: si contara, desplazaría o añadiría tramos.
 const localizar = (
   tabla: string,
   localizador: LocalizadorTabla,
@@ -168,6 +170,8 @@ const localizarCabecera = (
       })
     )
   }
+  const indice = modelo.filas.indexOf(unica)
+  const posteriores = modelo.filas.slice(indice + 1)
   return Result.succeed({
     tablaLocalizada: {
       linea: modelo.linea,
@@ -177,8 +181,11 @@ const localizarCabecera = (
     posicionDe: new Map(
       unica.celdas.map((celda, indice) => [celda.texto, indice])
     ),
-    datos: modelo.filas.slice(modelo.filas.indexOf(unica) + 1),
-    excepciones: modelo.filas.slice(0, modelo.filas.indexOf(unica)).map(
+    datos: posteriores.filter((fila) => fila.seccion === "tbody"),
+    excepciones: [
+      ...modelo.filas.slice(0, indice),
+      ...posteriores.filter((fila) => fila.seccion !== "tbody"),
+    ].map(
       (fila) =>
         new FilaNoDeclarada({
           tabla,
@@ -295,9 +302,104 @@ export const extraerEscala = (
           })
         }
       })
+      excepciones.push(...incoherencias(tabla, datos.length, valores, clavesDe))
       return { tablaLocalizada, valores, notas: [], excepciones }
     }
   )
+}
+
+// Una escala es coherente consigo misma, con aritmética exacta: la primera
+// base es 0, cada base es mayor que la anterior e igual a la anterior más su
+// resto, y el último tramo, y sólo él, es abierto. La cuota no se comprueba
+// contra los tipos: que la publicada no sea la integrada es lo que cuenta el
+// cotejo. Lo que no se pudo leer ya es una excepción y no entra en la cuenta.
+const incoherencias = (
+  tabla: string,
+  tramos: number,
+  valores: ReadonlyArray<ValorPendienteDeTestigo>,
+  clavesDe: (fila: number, columna: ColumnaEscala) => ReadonlyArray<ClaveEscala>
+): ReadonlyArray<EscalaIncoherente> => {
+  const valorDe = (fila: number, columna: ColumnaEscala) =>
+    valores.find(
+      (valor) =>
+        valor.claves[0]?.fila === fila && valor.claves[0].columna === columna
+    )?.valor
+  const decimal = (valor: Valor | undefined) =>
+    valor?._tag === "Numero" ? new Decimal(valor.decimal) : undefined
+  const fallos: Array<EscalaIncoherente> = []
+  const fallo = (
+    tramo: number,
+    motivo: string,
+    celdas: ReadonlyArray<readonly [number, ColumnaEscala]>
+  ) =>
+    fallos.push(
+      new EscalaIncoherente({
+        tabla,
+        tramo,
+        motivo,
+        claves: celdas.flatMap(([fila, columna]) => clavesDe(fila, columna)),
+      })
+    )
+  if (tramos === 0) {
+    fallo(0, "la escala no tiene tramos", [])
+  }
+  for (let tramo = 0; tramo < tramos; tramo++) {
+    const base = valorDe(tramo, "base-liquidable")
+    const resto = valorDe(tramo, "resto-base-liquidable")
+    const ultimo = tramo === tramos - 1
+    if (base?._tag === "Centinela") {
+      fallo(tramo, "la base no es un número", [[tramo, "base-liquidable"]])
+    }
+    if (resto?._tag === "Centinela" && !ultimo) {
+      fallo(tramo, "el tramo es abierto y no es el último", [
+        [tramo, "resto-base-liquidable"],
+      ])
+    }
+    if (resto?._tag === "Numero" && ultimo) {
+      fallo(tramo, "el último tramo no es abierto", [
+        [tramo, "resto-base-liquidable"],
+      ])
+    }
+    const actual = decimal(base)
+    if (tramo === 0) {
+      if (actual !== undefined && !actual.isZero()) {
+        fallo(tramo, `la primera base es ${actual.toFixed()}, no 0`, [
+          [tramo, "base-liquidable"],
+        ])
+      }
+      continue
+    }
+    const anterior = decimal(valorDe(tramo - 1, "base-liquidable"))
+    const restoAnterior = decimal(valorDe(tramo - 1, "resto-base-liquidable"))
+    if (actual === undefined || anterior === undefined) {
+      continue
+    }
+    if (!actual.gt(anterior)) {
+      fallo(
+        tramo,
+        `la base ${actual.toFixed()} no es mayor que la anterior, ${anterior.toFixed()}`,
+        [
+          [tramo - 1, "base-liquidable"],
+          [tramo, "base-liquidable"],
+        ]
+      )
+    }
+    if (
+      restoAnterior !== undefined &&
+      !actual.eq(anterior.plus(restoAnterior))
+    ) {
+      fallo(
+        tramo,
+        `la base ${actual.toFixed()} no es la anterior más su resto, ${anterior.toFixed()} + ${restoAnterior.toFixed()}`,
+        [
+          [tramo - 1, "base-liquidable"],
+          [tramo - 1, "resto-base-liquidable"],
+          [tramo, "base-liquidable"],
+        ]
+      )
+    }
+  }
+  return fallos
 }
 
 type Declaracion =

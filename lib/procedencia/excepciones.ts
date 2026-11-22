@@ -2,8 +2,10 @@ import { Schema } from "effect"
 
 import {
   Clave,
+  Magnitud,
   OrigenMotor,
   Sha256,
+  Territorio,
   textoClave,
   Unidad,
   Valor,
@@ -65,6 +67,16 @@ export class FilaIrregular extends Schema.TaggedErrorClass<FilaIrregular>()(
     linea: Schema.Int,
     celdas: Schema.Int,
     esperadas: Schema.Int,
+    claves: Schema.Array(Clave),
+  }
+) {}
+
+export class EscalaIncoherente extends Schema.TaggedErrorClass<EscalaIncoherente>()(
+  "EscalaIncoherente",
+  {
+    ...deTabla,
+    tramo: Schema.Int,
+    motivo: Schema.String,
     claves: Schema.Array(Clave),
   }
 ) {}
@@ -157,6 +169,7 @@ export const ExcepcionExtraccion = Schema.Union([
   EstructuraNoAdmitida,
   FilaIrregular,
   FilaNoDeclarada,
+  EscalaIncoherente,
   LiteralFueraDeGramatica,
   CeldaAusente,
   CeldaAmbigua,
@@ -190,6 +203,15 @@ export class ClaveRepetidaEnMotor extends Schema.TaggedErrorClass<ClaveRepetidaE
 ) {
   override get message(): string {
     return `la proyección del motor repite la clave ${textoClave(this.clave)}`
+  }
+}
+
+export class DatoDelMotorInvalido extends Schema.TaggedErrorClass<DatoDelMotorInvalido>()(
+  "DatoDelMotorInvalido",
+  { territorio: Territorio, magnitud: Magnitud, motivo: Schema.String }
+) {
+  override get message(): string {
+    return `${this.territorio}|${this.magnitud}: ${this.motivo}`
   }
 }
 
