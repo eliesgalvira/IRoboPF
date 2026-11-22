@@ -1,10 +1,6 @@
-import Decimal from "decimal.js"
 import { Effect } from "effect"
 import { describe, expect, it } from "@effect/vitest"
 
-import { calcularCuotaPorEscalaAhorro } from "../lib/dominio/irpf/cuotas/cuota-integra-ahorro"
-import { calcularCuotaPorEscala } from "../lib/dominio/irpf/cuotas/escalas-gravamen"
-import { ESCALAS_IRPF_AHORRO_POR_GRAVAMEN } from "../lib/dominio/normativa/datos/irpf-estatal-2012-2026"
 import {
   liquidarIrpfAnual,
   type CasoFiscalAnual,
@@ -234,26 +230,6 @@ describe("mínimo personal y familiar aplicado en la base del ahorro", () => {
       cuotaMinimoPersonalAhorroCentimos: 0,
       cuotaLiquidaCentimos: 598_950,
     })
-  })
-
-  it("las escalas estatal y autonómica del ahorro suman la escala agregada en cada ejercicio", () => {
-    const bases = [
-      "0", "3000", "6000", "15000", "24000", "37000", "50000", "120000",
-      "200000", "250000", "300000", "450000",
-    ].map((base) => new Decimal(base))
-    for (const anio of Object.keys(ESCALAS_IRPF_AHORRO_POR_GRAVAMEN).map(
-      (clave) => Number(clave) as AnioFiscal
-    )) {
-      const { estatal, autonomica } = ESCALAS_IRPF_AHORRO_POR_GRAVAMEN[anio].valor
-      for (const base of bases) {
-        expect(
-          calcularCuotaPorEscala({ base, tramos: estatal })
-            .plus(calcularCuotaPorEscala({ base, tramos: autonomica }))
-            .toFixed(2),
-          `${anio} ${base.toFixed(0)}`
-        ).toBe(calcularCuotaPorEscalaAhorro({ anio, base }).toFixed(2))
-      }
-    }
   })
 
   it("Aragón 2025, mínimos iguales a los estatales: el resultado no cambia", () => {

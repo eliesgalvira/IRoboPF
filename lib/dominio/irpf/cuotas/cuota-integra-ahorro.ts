@@ -9,24 +9,11 @@ import {
 import type { AnioFiscal } from "../../normativa/anio-fiscal"
 import {
   ESCALAS_IRPF_AHORRO_POR_GRAVAMEN,
-  obtenerTramosIrpfAhorro,
   type ReglaMinimoAhorro,
   type TramosIrpf,
 } from "../../normativa/datos/irpf-estatal-2012-2026"
 
 export type TramoCuotaAhorroCalculado = TramoCuotaCalculado
-
-export const calcularCuotaPorEscalaAhorro = ({
-  anio,
-  base,
-}: {
-  readonly anio: AnioFiscal
-  readonly base: Decimal
-}): Decimal =>
-  calcularCuotaPorEscala({
-    base,
-    tramos: obtenerTramosIrpfAhorro(anio),
-  })
 
 export interface GravamenAhorro {
   readonly baseGravada: Decimal

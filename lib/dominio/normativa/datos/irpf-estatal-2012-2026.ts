@@ -116,63 +116,6 @@ export const TRAMOS_IRPF_DESDE_2021: TramosIrpf = [
   [importe(Infinity), importe("0.47")],
 ]
 
-export const TRAMOS_IRPF_AHORRO_2025: TramosIrpf = [
-  [importe(6000), importe("0.19")],
-  [importe(50000), importe("0.21")],
-  [importe(200000), importe("0.23")],
-  [importe(300000), importe("0.27")],
-  [importe(Infinity), importe("0.30")],
-]
-
-export const TRAMOS_IRPF_AHORRO_2024: TramosIrpf = [
-  [importe(6000), importe("0.19")],
-  [importe(50000), importe("0.21")],
-  [importe(200000), importe("0.23")],
-  [importe(300000), importe("0.27")],
-  [importe(Infinity), importe("0.28")],
-]
-
-export const TRAMOS_IRPF_AHORRO_2023: TramosIrpf = TRAMOS_IRPF_AHORRO_2024
-
-export const TRAMOS_IRPF_AHORRO_2022: TramosIrpf = [
-  [importe(6000), importe("0.19")],
-  [importe(50000), importe("0.21")],
-  [importe(200000), importe("0.23")],
-  [importe(Infinity), importe("0.26")],
-]
-
-export const TRAMOS_IRPF_AHORRO_2021: TramosIrpf = TRAMOS_IRPF_AHORRO_2022
-
-export const TRAMOS_IRPF_AHORRO_2020: TramosIrpf = [
-  [importe(6000), importe("0.19")],
-  [importe(50000), importe("0.21")],
-  [importe(Infinity), importe("0.23")],
-]
-
-export const TRAMOS_IRPF_AHORRO_2019: TramosIrpf = TRAMOS_IRPF_AHORRO_2020
-
-export const TRAMOS_IRPF_AHORRO_2018: TramosIrpf = TRAMOS_IRPF_AHORRO_2020
-
-export const TRAMOS_IRPF_AHORRO_2017: TramosIrpf = TRAMOS_IRPF_AHORRO_2020
-
-export const TRAMOS_IRPF_AHORRO_2016: TramosIrpf = TRAMOS_IRPF_AHORRO_2020
-
-export const TRAMOS_IRPF_AHORRO_2015: TramosIrpf = [
-  [importe(6000), importe("0.195")],
-  [importe(50000), importe("0.215")],
-  [importe(Infinity), importe("0.235")],
-]
-
-export const TRAMOS_IRPF_AHORRO_2014: TramosIrpf = [
-  [importe(6000), importe("0.21")],
-  [importe(24000), importe("0.25")],
-  [importe(Infinity), importe("0.27")],
-]
-
-export const TRAMOS_IRPF_AHORRO_2013: TramosIrpf = TRAMOS_IRPF_AHORRO_2014
-
-export const TRAMOS_IRPF_AHORRO_2012: TramosIrpf = TRAMOS_IRPF_AHORRO_2014
-
 /**
  * Operación que liga la base liquidable del ahorro, el remanente de cada
  * mínimo personal y familiar (su exceso sobre la base liquidable general,
@@ -493,24 +436,6 @@ export const obtenerTramosIrpfLegacy = (anio: AnioFiscal): TramosIrpf =>
       () => TRAMOS_IRPF_2016_A_2020
     ),
     Match.orElse(() => TRAMOS_IRPF_DESDE_2021)
-  )
-
-export const obtenerTramosIrpfAhorro = (anio: AnioFiscal): TramosIrpf =>
-  Match.value(anio).pipe(
-    Match.when(2012, () => TRAMOS_IRPF_AHORRO_2012),
-    Match.when(2013, () => TRAMOS_IRPF_AHORRO_2013),
-    Match.when(2014, () => TRAMOS_IRPF_AHORRO_2014),
-    Match.when(2015, () => TRAMOS_IRPF_AHORRO_2015),
-    Match.when(2016, () => TRAMOS_IRPF_AHORRO_2016),
-    Match.when(2017, () => TRAMOS_IRPF_AHORRO_2017),
-    Match.when(2018, () => TRAMOS_IRPF_AHORRO_2018),
-    Match.when(2019, () => TRAMOS_IRPF_AHORRO_2019),
-    Match.when(2020, () => TRAMOS_IRPF_AHORRO_2020),
-    Match.when(2021, () => TRAMOS_IRPF_AHORRO_2021),
-    Match.when(2022, () => TRAMOS_IRPF_AHORRO_2022),
-    Match.when(2023, () => TRAMOS_IRPF_AHORRO_2023),
-    Match.when(2024, () => TRAMOS_IRPF_AHORRO_2024),
-    Match.orElse(() => TRAMOS_IRPF_AHORRO_2025)
   )
 
 export const METADATOS_ARTICULO_20_LEGACY: Readonly<
