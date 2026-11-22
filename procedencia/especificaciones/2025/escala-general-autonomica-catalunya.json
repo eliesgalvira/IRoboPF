@@ -1,0 +1,49 @@
+{
+  "tipo": "escala",
+  "tabla": "escala-general-autonomica-catalunya",
+  "magnitud": "escala-general-autonomica",
+  "territorios": ["catalunya"],
+  "documento": {
+    "sha256": "16ba3f3db08f28100e8b2dc29eb388900b121415bb9905c4dd1613559c33bd46",
+    "localizador": { "_tag": "UnicaTablaDelDocumento" }
+  },
+  "columnas": [
+    {
+      "cabecera": "Base liquidable hasta (euros)",
+      "columna": "base-liquidable",
+      "unidad": { "_tag": "EUR", "evidencia": "(euros)" },
+      "gramatica": { "decimales": [2], "centinelas": [] }
+    },
+    {
+      "cabecera": "Cuota íntegra (euros)",
+      "columna": "cuota-integra",
+      "unidad": { "_tag": "EUR", "evidencia": "(euros)" },
+      "gramatica": { "decimales": [2], "centinelas": [] }
+    },
+    {
+      "cabecera": "Resto base liquidable hasta (euros)",
+      "columna": "resto-base-liquidable",
+      "unidad": { "_tag": "EUR", "evidencia": "(euros)" },
+      "gramatica": {
+        "decimales": [2],
+        "centinelas": [{ "literal": "En adelante", "centinela": "sin-limite" }]
+      }
+    },
+    {
+      "cabecera": "Tipo aplicable (%)",
+      "columna": "tipo-aplicable",
+      "unidad": { "_tag": "porcentaje", "evidencia": "(%)" },
+      "gramatica": { "decimales": [2], "centinelas": [] }
+    }
+  ],
+  "testigo": {
+    "sha256": "02c6e8300a7f56c8c24aa947d4c39c5657c9a9eda6f5d727d44b4112d7de15d4",
+    "paginas": [1126],
+    "cabecera": [
+      "Base liquidable hasta (euros)",
+      "Cuota íntegra (euros)",
+      "Resto base liquidable hasta (euros)",
+      "Tipo aplicable (%)"
+    ]
+  }
+}

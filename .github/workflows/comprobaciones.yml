@@ -1,0 +1,30 @@
+name: comprobaciones
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  comprobar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: cachix/install-nix-action@bb0495a1086c46893eee56f32fd192dfe4a15bb9 # v32
+      - name: Dependencias con el lockfile congelado
+        timeout-minutes: 10
+        run: nix develop -c bun install --frozen-lockfile
+      - name: Comprobación de tipos
+        timeout-minutes: 10
+        run: nix develop -c bun run typecheck
+      - name: Pruebas
+        timeout-minutes: 15
+        run: nix develop -c bun run test
+      - name: La reextracción desde las fuentes, verificadas por tamaño y SHA-256, da lo sellado, que se regenera idéntico con toda diferencia aceptada
+        timeout-minutes: 15
+        run: |
+          nix develop -c bun scripts/procedencia.ts obtener-fuentes --almacen "$RUNNER_TEMP/originales"
+          nix develop -c bun scripts/procedencia.ts comprobar --almacen "$RUNNER_TEMP/originales"

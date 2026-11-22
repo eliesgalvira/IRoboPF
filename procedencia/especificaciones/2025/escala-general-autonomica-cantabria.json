@@ -1,0 +1,49 @@
+{
+  "tipo": "escala",
+  "tabla": "escala-general-autonomica-cantabria",
+  "magnitud": "escala-general-autonomica",
+  "territorios": ["cantabria"],
+  "documento": {
+    "sha256": "91f84c7b72d97a334e2b530e8cea69681c580cf35b2db9129b175a16fd03360d",
+    "localizador": { "_tag": "UnicaTablaDelDocumento" }
+  },
+  "columnas": [
+    {
+      "cabecera": "Base liquidable (euros)",
+      "columna": "base-liquidable",
+      "unidad": { "_tag": "EUR", "evidencia": "(euros)" },
+      "gramatica": { "decimales": [0, 2], "centinelas": [] }
+    },
+    {
+      "cabecera": "Cuota íntegra (euros)",
+      "columna": "cuota-integra",
+      "unidad": { "_tag": "EUR", "evidencia": "(euros)" },
+      "gramatica": { "decimales": [0, 2], "centinelas": [] }
+    },
+    {
+      "cabecera": "Resto base liquidable (euros)",
+      "columna": "resto-base-liquidable",
+      "unidad": { "_tag": "EUR", "evidencia": "(euros)" },
+      "gramatica": {
+        "decimales": [0, 2],
+        "centinelas": [{ "literal": "En adelante", "centinela": "sin-limite" }]
+      }
+    },
+    {
+      "cabecera": "Tipo aplicable (%)",
+      "columna": "tipo-aplicable",
+      "unidad": { "_tag": "porcentaje", "evidencia": "(%)" },
+      "gramatica": { "decimales": [2], "centinelas": [] }
+    }
+  ],
+  "testigo": {
+    "sha256": "02c6e8300a7f56c8c24aa947d4c39c5657c9a9eda6f5d727d44b4112d7de15d4",
+    "paginas": [1124, 1125],
+    "cabecera": [
+      "Base liquidable (euros)",
+      "Cuota íntegra (euros)",
+      "Resto base liquidable (euros)",
+      "Tipo aplicable (%)"
+    ]
+  }
+}

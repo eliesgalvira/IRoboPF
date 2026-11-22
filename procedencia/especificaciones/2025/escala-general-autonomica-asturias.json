@@ -1,0 +1,53 @@
+{
+  "tipo": "escala",
+  "tabla": "escala-general-autonomica-asturias",
+  "magnitud": "escala-general-autonomica",
+  "territorios": ["asturias"],
+  "documento": {
+    "sha256": "6634870f6b87f495b47406ceee6a36dcd8ac3fd58b4ef3064a97f9f2d8244de9",
+    "localizador": {
+      "_tag": "Caption",
+      "literal": "Escala aplicable en el ejercicio 2025 por los contribuyentes residentes en dicho ejercicio en esta Comunidad Autónoma"
+    }
+  },
+  "columnas": [
+    {
+      "cabecera": "Base liquidable hasta (euros)",
+      "columna": "base-liquidable",
+      "unidad": { "_tag": "EUR", "evidencia": "(euros)" },
+      "gramatica": { "decimales": [2], "centinelas": [] }
+    },
+    {
+      "cabecera": "Cuota íntegra (euros)",
+      "columna": "cuota-integra",
+      "unidad": { "_tag": "EUR", "evidencia": "(euros)" },
+      "gramatica": { "decimales": [2], "centinelas": [] }
+    },
+    {
+      "cabecera": "Resto base liquidable hasta (euros)",
+      "columna": "resto-base-liquidable",
+      "unidad": { "_tag": "EUR", "evidencia": "(euros)" },
+      "gramatica": {
+        "decimales": [2],
+        "centinelas": [{ "literal": "En adelante", "centinela": "sin-limite" }]
+      }
+    },
+    {
+      "cabecera": "Tipo aplicable (%)",
+      "columna": "tipo-aplicable",
+      "unidad": { "_tag": "porcentaje", "evidencia": "(%)" },
+      "gramatica": { "decimales": [2], "centinelas": [] }
+    }
+  ],
+  "testigo": {
+    "sha256": "02c6e8300a7f56c8c24aa947d4c39c5657c9a9eda6f5d727d44b4112d7de15d4",
+    "paginas": [1122, 1123],
+    "cabecera": [
+      "Base liquidable hasta (euros)",
+      "Cuota íntegra (euros)",
+      "Resto base liquidable hasta (euros)",
+      "Tipo aplicable (%)"
+    ],
+    "encabezado": "Comunidad Autónoma del Principado de Asturias"
+  }
+}
