@@ -34,7 +34,7 @@ una especificación sin volver a extraer la hace fallar.
 
 Repetir los mismos bytes no basta como puerta: con el cotejo regenerado y
 guardado, un tipo cambiado en el motor pasaría como una «distinta» más. Por eso
-la CI tiene tres capas:
+hay tres capas:
 
 - Lo sellado no puede representar un testigo vacío (ver «Testigo PDF»).
 - `procedencia/excepciones-aceptadas/2025.json` lista cada diferencia aceptada,
@@ -50,7 +50,8 @@ la CI tiene tres capas:
   `comprobar --almacen` reextrae y exige que todo lo regenerado sea idéntico
   byte a byte a lo sellado.
 
-`comprobar` sin almacén hace las dos primeras capas sin red. La lista nombra
+La CI sólo ejecuta `comprobar --almacen`, que incluye las otras dos capas;
+`comprobar` sin almacén las hace sin red, para el trabajo local. La lista nombra
 cada clave aceptada con su estado y los valores de los dos lados, agrupadas por
 motivo, una por línea. Aceptar por ámbito (una magnitud, un territorio y un
 número de claves) no fija los valores: el motor podría cambiar un mínimo de un
@@ -172,9 +173,8 @@ comprobación se hace al decodificar la especificación.
   cualquier otro, pero no hay clave que cotejar: no es una excepción ni un
   «sin homólogo». Se cuenta en `sinClaveDeMotor` y `resumen.json` lo lista con
   su procedencia. Inventar una clave para él en el vocabulario del motor
-  supondría afirmar que el motor tiene esa magnitud. Una remisión copia también
-  estos valores: llegan como referidos, sin clave, y se siguen contando en
-  `sinClaveDeMotor`.
+  supondría afirmar que el motor tiene esa magnitud. Una remisión también los
+  copia, sin clave.
 - La única remisión es `RemisionAMinimosEstatales`, con su literal exacto
   («igual que los mínimos estatales.») y sin campo de fila: su destino es, por
   construcción, la celda de la misma columna en la fila del territorio
@@ -182,8 +182,8 @@ comprobación se hace al decodificar la especificación.
   5.790 € como si fueran los estatales. La remisión ha de ser todo el
   contenido de su celda, fuera de la fila estatal, y la celda estatal de su
   columna ha de tener partidas.
-- Se resuelve sólo si la celda estatal se leyó entera: sin excepciones y con
-  todas sus partidas declaradas extraídas. Entonces copia todos sus valores con
+- Se resuelve sólo si la celda estatal se leyó entera, sin excepciones: cada
+  partida que no se lee deja una, así que no hace falta recontarlas. Entonces copia todos sus valores con
   el territorio de la fila que remite, marcados como `Remision`. Si no, la
   remitente recibe `RemisionNoResuelta`, con las excepciones de la celda de
   origen y las claves que habría dado, y no copia nada: copiar el subconjunto
@@ -237,26 +237,31 @@ comprobación se hace al decodificar la especificación.
   con el mismo texto que en el HTML (`PorRemision`); el valor copiado se
   atestigua en su casilla de origen. Una página sin árbol de estructura es
   `PaginaSinEstructura`: no hay vía de reserva por texto de la página.
+- Una columna sin resolver (sin cabecera del PDF declarada, o con una que la
+  tabla no tiene) se nombra por su literal: un índice inventado no es una celda
+  y no pasaría su propio esquema.
 
-**Proyección del motor.** `lib/procedencia/motor-2025.ts` convierte los datos de
-2025 en registros con clave (territorio, magnitud, fila, columna), valor exacto
-y unidad.
+**Proyección del motor por el camino de la liquidación.**
+`lib/procedencia/motor-2025.ts` convierte los datos de 2025 en registros con
+clave (territorio, magnitud, fila, columna), valor exacto y unidad, leídos por
+donde los lee la liquidación y no por las constantes que hay detrás: si se
+cambia lo que la liquidación ejecuta sin tocar la constante, el cotejo lo ve.
 
-- La cuota estatal de los territorios reales usa
-  `TRAMOS_IRPF_ESTATAL_GENERAL_2025` (magnitud `escala-general-estatal`).
-- `TRAMOS_IRPF_AHORRO_2025` es una sola escala conjunta (estatal más
-  autonómica) que se aplica igual en todos los territorios. Se proyecta como
+- Escala estatal, escala autonómica y mínimos autonómicos: de los parámetros
+  de 2025 de cada comunidad. La liquidación toma la escala estatal de los de
+  la comunidad del caso, así que ha de ser la misma en todas; si no, es
+  `DatoDelMotorInvalido` en vez de proyectar la de una.
+- Mínimos estatales: de la capa de parámetros normativos, la misma que recibe
+  la liquidación.
+- Ahorro: de su selector por año, una sola escala conjunta (estatal más
+  autonómica) que no distingue territorio. Se proyecta como
   `escala-ahorro-agregada` del territorio `estatal`.
 - `simulada-estatal` no es un territorio fiscal y se excluye. La liquidación lo
   trata como caso técnico con la escala conjunta `TRAMOS_IRPF_DESDE_2021`, y el
   resumen lo lista como excluido.
-- Antes de proyectar, cada escala del motor se valida: tipos finitos, límites
-  finitos y estrictamente crecientes desde 0 salvo el último, que es el único
-  abierto y ha de ser `+Infinity`. Los mínimos han de ser finitos. Un fallo es
-  `DatoDelMotorInvalido` y aborta el cotejo: convertir cualquier decimal no
-  finito (también `NaN`) en `sin-limite` escondería el error. El tramo abierto
-  se representa aparte de los cerrados, así que `sin-limite` sólo sale del
-  último.
+- Una escala o un mínimo no finito, o una escala cuyo único tramo abierto no
+  sea el último, es `DatoDelMotorInvalido` y aborta el cotejo: convertir un
+  decimal no finito (también `NaN`) en `sin-limite` escondería el error.
 
 **La escala agregada del ahorro, como composición declarada.** El motor guarda
 una sola escala del ahorro (estatal más autonómica); el manual publica las dos
@@ -271,23 +276,11 @@ mitades no se pueden sumar así, es
 `ComposicionNoResuelta` y no se suma nada. Las claves de las mitades siguen
 «sin homólogo en el motor», porque el motor no las guarda.
 
-**Almacenado y derivado.** Es «almacenado» lo que el motor guarda tal cual:
-
-- los tipos (convertidos de fracción a porcentaje multiplicando por 100, de
-  forma exacta);
-- los mínimos;
-- la base de inicio de los tramos 2 y siguientes, que es el límite superior
-  guardado del tramo anterior.
-
-Es «derivado» lo que se sigue de esos datos por aritmética exacta:
-
-- la base 0 del primer tramo;
-- el resto de base (límite superior menos inicio, o `sin-limite` en el tramo
-  abierto);
-- la cuota íntegra al inicio de cada tramo, como suma exacta de anchura × tipo
-  de los tramos anteriores.
-
-El cotejo cuenta aparte las coincidencias y diferencias derivadas.
+**Almacenado y derivado.** Cada valor proyectado dice si el motor lo guarda tal
+cual (tipos, mínimos, límites) o se sigue de ellos por aritmética exacta (base
+del primer tramo, restos, cuota acumulada), con su regla. El cotejo cuenta
+aparte las coincidencias y diferencias derivadas, porque una cuota derivada
+distinta de la publicada no dice lo mismo que un tipo guardado distinto.
 
 **Sin redondeo declarado; la comparación es siempre exacta.** El manual imprime
 la cuota acumulada con dos decimales (Asturias: 1.751,36 frente a 1.751,364 que
@@ -300,24 +293,13 @@ ningún tipo: esa celda sale `ValorDistinto` con los dos valores exactos y
 `origenMotor: "derivado"`, y se cuenta aparte en `distintasDerivadas`.
 
 **Cotejo por clave.** El cotejo recorre la unión de claves del manual, del motor
-y de las excepciones. Cada clave termina en uno de estos estados:
-
-- coincidente: exactamente un valor del manual, igual al del motor, y ninguna
-  excepción de extracción que nombre la clave (una celda ambigua y otra buena
-  para la misma clave no dan una coincidencia);
-- distinta (`ValorDistinto`, con el origen del valor del motor);
-- unidad distinta;
-- ambigua (`ClaveDuplicada` o `CeldaAmbigua`);
-- ausente en el manual;
-- sin homólogo en el motor;
-- excepción de extracción;
-- fuera de alcance.
-
-Una clave identifica un solo valor del motor: si la proyección repite una, el
-cotejo falla con `ClaveRepetidaEnMotor` en vez de quedarse con la última. La
-clave está discriminada por magnitud: en una escala, índice de tramo y columna
-de la escala; en el cuadro, una fila de mínimo con una de sus columnas. Una
-clave mal formada no se puede escribir ni decodificar.
+y de las excepciones, y cada una termina en un solo estado. Una clave sólo
+coincide con exactamente un valor del manual igual al del motor y ninguna
+excepción de extracción que la nombre: una celda ambigua y otra buena para la
+misma clave no dan una coincidencia. Una clave identifica un solo valor del
+motor: si la proyección repite una, el cotejo falla con `ClaveRepetidaEnMotor`
+en vez de quedarse con la última. La clave está discriminada por magnitud, así
+que una mal formada no se puede escribir ni decodificar.
 
 El alcance de una tabla son sus `territorios` × su `magnitud`. Una clave del
 motor que ninguna especificación cubre es «fuera de alcance». No cuenta como
