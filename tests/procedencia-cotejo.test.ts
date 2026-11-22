@@ -328,3 +328,148 @@ describe("claves discriminadas por magnitud", () => {
     expect(() => decodificar(clave)).toThrow()
   })
 })
+
+describe("lo sellado no puede representar un testigo vacío", () => {
+  const madrid = () =>
+    JSON.parse(
+      readFileSync(
+        `${RUTAS.extraccion}/escala-general-autonomica-madrid.json`,
+        "utf8"
+      )
+    ) as { valores: Array<{ testigo: Record<string, unknown> }> }
+  const decodificar = (sellado: unknown) =>
+    Schema.decodeUnknownSync(ExtraccionTablaDesdeJson)(JSON.stringify(sellado), {
+      onExcessProperty: "error",
+    })
+
+  it("decodifica la extracción sellada tal cual", () => {
+    expect(() => decodificar(madrid())).not.toThrow()
+  })
+
+  it("un valor con testigo pero sin la referencia a su celda no se decodifica", () => {
+    const sellado = madrid()
+    const [primero] = sellado.valores
+    if (primero !== undefined) {
+      primero.testigo = { _tag: primero.testigo._tag, literal: "0", apariciones: [] }
+    }
+    expect(() => decodificar(sellado)).toThrow()
+  })
+})
+
+describe("escala agregada del ahorro", () => {
+  const ahorro = (
+    tabla: "escala-ahorro-estatal" | "escala-ahorro-autonomica",
+    territorio: "estatal" | "andalucia",
+    filas: ReadonlyArray<readonly [string, string, string | null, string]>
+  ): ExtraccionTabla => ({
+    ...extraccion(
+      filas.flatMap(([base, cuota, resto, tipo], fila) =>
+        (
+          [
+            ["base-liquidable", base],
+            ["cuota-integra", cuota],
+            ["resto-base-liquidable", resto],
+            ["tipo-aplicable", tipo],
+          ] as const
+        ).map(([columna, decimal]) =>
+          manual(
+            { territorio, magnitud: tabla, fila, columna },
+            decimal ?? "0",
+            decimal === null
+              ? {
+                  literal: "En adelante",
+                  valor: { _tag: "Centinela", centinela: "sin-limite" },
+                }
+              : {}
+          )
+        )
+      )
+    ),
+    tabla,
+    magnitud: tabla,
+    territorios: [territorio],
+  })
+  const agregada = (fila: number, columna: ColumnaEscala) =>
+    ({
+      territorio: "estatal",
+      magnitud: "escala-ahorro-agregada",
+      fila,
+      columna,
+    }) as const
+  const motorAgregado = [
+    motor(agregada(0, "base-liquidable"), "0"),
+    motor(agregada(0, "cuota-integra"), "0"),
+    motor(agregada(0, "resto-base-liquidable"), "6000"),
+    motor(agregada(0, "tipo-aplicable"), "19", "almacenado"),
+    motor(agregada(1, "base-liquidable"), "6000", "almacenado"),
+    motor(agregada(1, "cuota-integra"), "1140"),
+    {
+      ...motor(agregada(1, "resto-base-liquidable"), "0"),
+      valor: { _tag: "Centinela", centinela: "sin-limite" },
+    } satisfies ValorMotor,
+    motor(agregada(1, "tipo-aplicable"), "21", "almacenado"),
+  ]
+  const composicion = {
+    resultado: { territorio: "estatal", magnitud: "escala-ahorro-agregada" },
+    sumandos: ["escala-ahorro-estatal", "escala-ahorro-autonomica"],
+  } as const
+
+  it("se coteja con la suma, tramo a tramo, de las dos mitades publicadas", () => {
+    const mitad = [
+      ["0", "0", "6000", "9.5"],
+      ["6000", "570", null, "10.5"],
+    ] as const
+    const resultado = Result.getOrThrow(
+      (cotejar as (...a: ReadonlyArray<unknown>) => ReturnType<typeof cotejar>)(
+        [
+          ahorro("escala-ahorro-estatal", "estatal", mitad),
+          ahorro("escala-ahorro-autonomica", "andalucia", mitad),
+        ],
+        motorAgregado,
+        [composicion]
+      )
+    )
+    const agregadas = resultado.entradas.filter(
+      (e) => e.clave.magnitud === "escala-ahorro-agregada"
+    )
+    expect(agregadas.map((e) => e.estado)).toEqual(
+      Array.from({ length: 8 }, () => "coincidente")
+    )
+    expect(agregadas[5]?.manual).toMatchObject([
+      {
+        _tag: "DerivadoDelManual",
+        valor: { _tag: "Numero", decimal: "1140" },
+        fuentes: [
+          { tabla: "escala-ahorro-estatal" },
+          { tabla: "escala-ahorro-autonomica" },
+        ],
+      },
+    ])
+  })
+
+  it("no suma dos mitades cuyos tramos no encadenan igual", () => {
+    const resultado = Result.getOrThrow(
+      (cotejar as (...a: ReadonlyArray<unknown>) => ReturnType<typeof cotejar>)(
+        [
+          ahorro("escala-ahorro-estatal", "estatal", [
+            ["0", "0", "6000", "9.5"],
+            ["6000", "570", null, "10.5"],
+          ]),
+          ahorro("escala-ahorro-autonomica", "andalucia", [
+            ["0", "0", "7000", "9.5"],
+            ["7000", "665", null, "10.5"],
+          ]),
+        ],
+        motorAgregado,
+        [composicion]
+      )
+    )
+    const agregadas = resultado.entradas.filter(
+      (e) => e.clave.magnitud === "escala-ahorro-agregada"
+    )
+    expect(agregadas.every((e) => e.manual.length === 0)).toBe(true)
+    expect(agregadas.map((e) => e.excepcionesDeExtraccion)).toEqual(
+      Array.from({ length: 8 }, () => ["ComposicionNoResuelta"])
+    )
+  })
+})

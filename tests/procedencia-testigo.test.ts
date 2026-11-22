@@ -154,3 +154,34 @@ describe("testigo global en el PDF", () => {
     expect(candidatas("b")).toEqual([1, 2])
   })
 })
+
+// El testigo de un valor ha de ser la celda del PDF (tabla, fila y columna del
+// árbol etiquetado) cuyo texto es el de la celda del HTML, no un token de la
+// página.
+describe("testigo de celda", () => {
+  const testigoDe = (paginas: ReadonlyArray<PaginaDeTexto>, literal: string) =>
+    asignarTestigos([tabla("ahorro", paginas, literal)]).get("ahorro")?.[0]
+      ?.testigo
+
+  it("un literal que sólo está en la prosa de la página no atestigua la celda", () => {
+    expect(
+      testigoDe([pagina(1132, "Resto: 2.690 al 15 % = 403,5")], "15")?._tag
+    ).toBe("SinTestigo")
+  })
+
+  it("«-9,50 ABC9,50%» no es el texto de ninguna celda con 9,50", () => {
+    expect(
+      etiquetas([tabla("ahorro", [pagina(1, "-9,50 ABC9,50%")], "9,50", "9,50")])
+    ).toEqual({ ahorro: ["SinTestigo", "SinTestigo"] })
+  })
+
+  it("una celda cuyo texto llega en dos fragmentos «En» y «adelante» atestigua «En adelante»", () => {
+    expect(
+      testigoDe([pagina(1, "En", "adelante")], "En adelante")?._tag
+    ).not.toBe("SinTestigo")
+  })
+
+  it("el testigo identifica la tabla, la fila y la columna de la celda", () => {
+    expect(testigoDe([pagina(1, "0")], "0")).toHaveProperty("celda")
+  })
+})
