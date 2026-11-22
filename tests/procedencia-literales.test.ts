@@ -86,6 +86,12 @@ describe("normalización y tokens", () => {
     expect(normalizar("a b")).toBe("a b")
   })
 
+  it("aplica las mismas reglas en los extremos que en el interior", () => {
+    expect(normalizar(" 9,50 ")).toBe(" 9,50 ")
+    expect(normalizar("9, 50")).toBe("9, 50")
+    expect(normalizar(" \t9,50 \n")).toBe("9,50")
+  })
+
   it("un token numérico es maximal: 9,50 no aparece dentro de 19,50%", () => {
     expect(tokensNumericos("19,50%")).toEqual(["19,50"])
     expect(tokensNumericos("13.000,00 y 1.235,00.")).toEqual([

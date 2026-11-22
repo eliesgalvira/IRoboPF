@@ -125,6 +125,31 @@ describe("localizador de tabla", () => {
     )
   })
 
+  it("un espacio Unicode o un carácter de control en una celda es un error, también en los extremos", () => {
+    for (const celda of [
+      " 9,50%",
+      "9,50% ",
+      "9, 50%",
+      "​9,50%",
+      "9,50%\u0007",
+    ]) {
+      expect(
+        fallo(extraerEscala(escala(), html(tabla(fila("0,00", celda)))))
+      ).toBe("EstructuraNoAdmitida")
+    }
+  })
+
+  it("un literal de la especificación con un espacio Unicode no se decodifica", () => {
+    expect(() =>
+      escala({
+        columnas: [
+          { ...columnaBase, cabecera: "Base liquidable hasta (euros)" },
+          columnaTipo,
+        ],
+      })
+    ).toThrow()
+  })
+
   it("las celdas combinadas no se admiten", () => {
     const combinada = html(tabla('<tr><td colspan="2">0,00</td></tr>'))
     expect(fallo(extraerEscala(escala(), combinada))).toBe(
