@@ -14,7 +14,7 @@ import {
   type ExtraccionTabla,
   type ValorMotor,
 } from "../lib/procedencia/resultado"
-import type { Clave } from "../lib/procedencia/vocabulario"
+import { Clave } from "../lib/procedencia/vocabulario"
 
 const clave = (fila: Clave["fila"], columna: string): Clave => ({
   territorio: "andalucia",
@@ -217,4 +217,38 @@ describe("extracción sellada", () => {
         )
       })
   )
+})
+
+describe("claves discriminadas por magnitud", () => {
+  const decodificar = Schema.decodeUnknownSync(Clave)
+  const escala = {
+    territorio: "andalucia",
+    magnitud: "escala-general-autonomica",
+  }
+  const minimos = {
+    territorio: "andalucia",
+    magnitud: "minimos-personales-familiares",
+  }
+
+  it("decodifica una clave de escala y una de mínimos bien formadas", () => {
+    expect(() =>
+      decodificar({ ...escala, fila: 3, columna: "tipo-aplicable" })
+    ).not.toThrow()
+    expect(() =>
+      decodificar({ ...minimos, fila: "descendientes", columna: "primero" })
+    ).not.toThrow()
+  })
+
+  it.each([
+    { ...escala, fila: 3, columna: "columna-libre" },
+    { ...escala, fila: 3, columna: "general" },
+    { ...escala, fila: "contribuyente", columna: "base-liquidable" },
+    { ...minimos, fila: 0, columna: "general" },
+    { ...minimos, fila: "contribuyente", columna: "base-liquidable" },
+    { ...minimos, fila: "contribuyente", columna: "primero" },
+    { ...minimos, fila: "ascendientes", columna: "adicionalMayor65" },
+    { ...minimos, fila: "discapacidad-ascendientes", columna: "general" },
+  ])("rechaza la clave mal formada %o", (clave) => {
+    expect(() => decodificar(clave)).toThrow()
+  })
 })

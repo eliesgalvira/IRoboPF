@@ -258,6 +258,12 @@ describe("extracción de una escala", () => {
       escala({ testigo: { sha256: SHA_PDF, paginas: [1, 1] } })
     ).toThrow()
   })
+
+  it("una escala con la magnitud del cuadro de mínimos no se decodifica", () => {
+    expect(() =>
+      escala({ magnitud: "minimos-personales-familiares" })
+    ).toThrow()
+  })
 })
 
 const cuadro = (
@@ -422,6 +428,25 @@ describe("extracción de un cuadro de partidas", () => {
       [{ _tag: "Numero", decimal: "5550" }, 1, "Remision", null],
       [{ _tag: "Numero", decimal: "2400" }, 0, "Remision", null],
     ])
+  })
+
+  it("una partida con una columna que no es de su fila no se decodifica", () => {
+    expect(() =>
+      cuadro([
+        {
+          fila: "Estatal",
+          columna: "Mínimo por contribuyente",
+          partidas: [
+            {
+              ...general,
+              claves: [{ fila: "contribuyente", columna: "primero" }],
+            },
+          ],
+          remisiones: [],
+          notas: [],
+        },
+      ])
+    ).toThrow()
   })
 
   it("una plantilla ha de tener exactamente un hueco y la evidencia de unidad fuera de él", () => {
