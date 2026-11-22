@@ -24,6 +24,7 @@ const celda = (literal: string): ValorPendienteDeTestigo => ({
   unidad: "EUR",
   valor: { _tag: "Numero", decimal: "0" },
   claves: [],
+  alcance: { _tag: "CabeceraDeColumna", literal: "c" },
   origen: { _tag: "Directo" },
   literalTestigo: literal,
 })

@@ -112,15 +112,33 @@ comprobación se hace al decodificar la especificación.
 
 **Cuadro de partidas.**
 
-- Cada celda declarada enumera sus partidas, sus remisiones y sus notas.
-- Una partida es una plantilla con un único hueco `{importe}`. Encaja con un
+- Cada celda de la tabla está declarada, y una celda es la lista ordenada y
+  completa de sus bloques: partidas, remisiones y notas. El contenido de la
+  celda en el HTML ha de ser exactamente esa secuencia, elemento a elemento y en
+  ese orden; cada elemento se compara con el bloque de su misma posición. Si
+  sobra, falta o cambia de sitio alguno, la celda entera es `CeldaNoCoincide`,
+  con las dos secuencias y las claves de sus partidas, y no da ningún valor:
+  con las posiciones descuadradas, quedarse con una parte sería elegir. Como
+  no hay búsqueda entre plantillas, dos plantillas solapadas («+ {importe} euros
+  anuales.» y «{importe} euros anuales.») no se confunden.
+- Una partida es una plantilla con un único hueco `{importe}`. Encaja con su
   elemento si este empieza por el texto anterior al hueco y acaba por el
   posterior, y el hueco se lee con la gramática.
-- Si una partida encaja con cero elementos es `CeldaAusente`; con más de uno,
-  `CeldaAmbigua`. Un elemento que no encaja con ninguna declaración es
-  `ContenidoNoDeclarado`, y uno que encaja con dos, `CeldaAmbigua`.
 - Una partida puede dar varias claves, todas declaradas; por ejemplo, la
   discapacidad del contribuyente, de los descendientes y de los ascendientes.
+- Cada partida declara de dónde sale su alcance (a qué beneficiario y
+  condición se refieren sus claves): de la cabecera de su columna («Mínimo por
+  discapacidad del contribuyente, descendientes y ascendientes» para las tres
+  claves de discapacidad) o de una nota anterior de la misma celda, que tiene un
+  identificador y a la que apunta («Solo para el caso del mínimo por
+  descendientes:» en La Rioja). El esquema rechaza una referencia a una nota
+  que no existe o que va después, y la extracción, al exigir la secuencia,
+  comprueba que la frase existe, es literal y precede al importe. Cada valor
+  guarda en `alcance` ese literal y, si es una nota, su ubicación.
+- Límite: el programa no comprueba que la frase diga lo que el autor entiende
+  al poner las claves. Que «Solo para el caso del mínimo por descendientes:»
+  limite los dos importes siguientes a `discapacidad-descendientes` es una
+  lectura del autor, ahora atada a un literal concreto que se puede revisar.
 - Una partida puede no dar ninguna (`claves: []`) cuando el manual da un
   importe que no es una magnitud del motor, como «(*) En caso de fallecimiento
   del descendiente 2.400 euros.». El importe se extrae y lleva testigo como

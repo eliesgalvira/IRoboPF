@@ -48,12 +48,24 @@ export const Origen = Schema.Union([
 ])
 export type Origen = typeof Origen.Type
 
+// El literal que justifica a qué se refiere el valor: la cabecera de su
+// columna o una nota anterior de su celda, con su ubicación.
+export const AlcanceExtraido = Schema.Union([
+  Schema.TaggedStruct("CabeceraDeColumna", { literal: Schema.String }),
+  Schema.TaggedStruct("NotaAnterior", {
+    literal: Schema.String,
+    ubicacion: Ubicacion,
+  }),
+])
+export type AlcanceExtraido = typeof AlcanceExtraido.Type
+
 export const ValorExtraido = Schema.Struct({
   ubicacion: Ubicacion,
   literal: Schema.String,
   unidad: Unidad,
   valor: Valor,
   claves: Schema.Array(Clave),
+  alcance: AlcanceExtraido,
   origen: Origen,
   testigo: Testigo,
 })

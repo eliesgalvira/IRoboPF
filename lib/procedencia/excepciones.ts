@@ -120,9 +120,19 @@ export class CeldaAmbigua extends Schema.TaggedErrorClass<CeldaAmbigua>()(
   }
 ) {}
 
-export class ContenidoNoDeclarado extends Schema.TaggedErrorClass<ContenidoNoDeclarado>()(
-  "ContenidoNoDeclarado",
-  { ...deTabla, ubicacion: Ubicacion, literal: Schema.String }
+// La celda no es, bloque a bloque y en orden, la secuencia declarada.
+export class CeldaNoCoincide extends Schema.TaggedErrorClass<CeldaNoCoincide>()(
+  "CeldaNoCoincide",
+  {
+    ...deTabla,
+    fila: Schema.String,
+    columna: Schema.String,
+    linea: Schema.Int,
+    columnaFuente: Schema.Int,
+    declarados: Schema.Array(Schema.String),
+    encontrados: Schema.Array(Schema.String),
+    claves: Schema.Array(Clave),
+  }
 ) {}
 
 export class PaginaInexistente extends Schema.TaggedErrorClass<PaginaInexistente>()(
@@ -173,7 +183,7 @@ export const ExcepcionExtraccion = Schema.Union([
   LiteralFueraDeGramatica,
   CeldaAusente,
   CeldaAmbigua,
-  ContenidoNoDeclarado,
+  CeldaNoCoincide,
   PaginaInexistente,
 ])
 export type ExcepcionExtraccion = typeof ExcepcionExtraccion.Type

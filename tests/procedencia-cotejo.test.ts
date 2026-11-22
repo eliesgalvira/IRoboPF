@@ -43,6 +43,7 @@ const manual = (
   unidad: "EUR",
   valor: { _tag: "Numero", decimal },
   claves: [claveManual],
+  alcance: { _tag: "CabeceraDeColumna", literal: "c" },
   origen: { _tag: "Directo" },
   testigo: { _tag: "ConTestigo", literal: decimal, apariciones: [] },
   ...extra,

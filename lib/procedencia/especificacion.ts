@@ -130,7 +130,16 @@ export const EspecificacionEscala = Schema.Struct({
 })
 export type EspecificacionEscala = typeof EspecificacionEscala.Type
 
-const Partida = Schema.Struct({
+const IdNota = Schema.String.check(Schema.isPattern(/^[a-z0-9]+(-[a-z0-9]+)*$/))
+
+// De dónde sale a qué beneficiario y condición se refiere un importe: de la
+// cabecera de su columna o de una nota anterior de la misma celda.
+const Alcance = Schema.Union([
+  Schema.TaggedStruct("CabeceraDeColumna", {}),
+  Schema.TaggedStruct("NotaAnterior", { nota: IdNota }),
+])
+
+const Partida = Schema.TaggedStruct("Partida", {
   plantilla: LiteralCanonico.check(
     Schema.makeFilter((plantilla: string) =>
       plantilla.split(HUECO_IMPORTE).length === 2
@@ -143,6 +152,7 @@ const Partida = Schema.Struct({
   // Vacío cuando el manual da un importe que no tiene magnitud en el motor:
   // se extrae y lleva testigo, pero no hay clave que cotejar.
   claves: Schema.Array(PosicionMinimo),
+  alcance: Alcance,
 }).check(
   Schema.makeFilter((partida) => {
     const [prefijo = "", sufijo = ""] = partida.plantilla.split(HUECO_IMPORTE)
@@ -154,19 +164,50 @@ const Partida = Schema.Struct({
 )
 export type Partida = typeof Partida.Type
 
-const Remision = Schema.Struct({
+const Remision = Schema.TaggedStruct("Remision", {
   literal: LiteralCanonico,
   fila: LiteralCanonico,
 })
-export type Remision = typeof Remision.Type
 
+const Nota = Schema.TaggedStruct("Nota", {
+  literal: LiteralCanonico,
+  id: Schema.optionalKey(IdNota),
+})
+
+const BloqueDeclarado = Schema.Union([Partida, Remision, Nota])
+export type BloqueDeclarado = typeof BloqueDeclarado.Type
+
+// La celda es la secuencia completa y ordenada de sus bloques: el HTML ha de
+// traer exactamente esos, en ese orden. El alcance de una partida que viene de
+// una nota apunta a una nota anterior de la misma celda.
 const CeldaCuadro = Schema.Struct({
   fila: LiteralCanonico,
   columna: LiteralCanonico,
-  partidas: Schema.Array(Partida),
-  remisiones: Schema.Array(Remision),
-  notas: Schema.Array(LiteralCanonico),
-})
+  bloques: Schema.Array(BloqueDeclarado),
+}).check(
+  Schema.makeFilter((celda) => {
+    const anteriores = new Set<string>()
+    const problemas: Array<string> = []
+    for (const bloque of celda.bloques) {
+      if (bloque._tag === "Nota" && bloque.id !== undefined) {
+        if (anteriores.has(bloque.id)) {
+          problemas.push(`la nota «${bloque.id}» está repetida`)
+        }
+        anteriores.add(bloque.id)
+      }
+      if (
+        bloque._tag === "Partida" &&
+        bloque.alcance._tag === "NotaAnterior" &&
+        !anteriores.has(bloque.alcance.nota)
+      ) {
+        problemas.push(
+          `el alcance de «${bloque.plantilla}» apunta a «${bloque.alcance.nota}», que no es una nota anterior de la celda`
+        )
+      }
+    }
+    return problemas.length === 0 ? undefined : problemas.join("; ")
+  })
+)
 export type CeldaCuadro = typeof CeldaCuadro.Type
 
 const FilaCuadro = Schema.Struct({
@@ -206,6 +247,11 @@ export const EspecificacionCuadro = Schema.Struct({
     const filas = new Set(especificacion.filas.map((fila) => fila.cabecera))
     const columnas = new Set(especificacion.columnas)
     const territorios = new Set<string>(especificacion.territorios)
+    const declaradas = new Set(
+      especificacion.celdas.map(
+        (celda) => `${celda.fila}\u0000${celda.columna}`
+      )
+    )
     const problemas = [
       ...especificacion.filas
         .filter((fila) => !territorios.has(fila.territorio))
@@ -213,6 +259,18 @@ export const EspecificacionCuadro = Schema.Struct({
           (fila) =>
             `la fila «${fila.cabecera}» apunta a un territorio fuera de «territorios»`
         ),
+      // Cada celda de la tabla está declarada: una sin declarar no podría
+      // decir que está vacía.
+      ...especificacion.filas.flatMap((fila) =>
+        especificacion.columnas
+          .filter(
+            (columna) => !declaradas.has(`${fila.cabecera}\u0000${columna}`)
+          )
+          .map(
+            (columna) =>
+              `falta la celda de la fila «${fila.cabecera}» y la columna «${columna}»`
+          )
+      ),
       ...especificacion.celdas.flatMap((celda) => [
         ...(filas.has(celda.fila)
           ? []
@@ -220,12 +278,13 @@ export const EspecificacionCuadro = Schema.Struct({
         ...(columnas.has(celda.columna)
           ? []
           : [`la celda usa una columna no declarada «${celda.columna}»`]),
-        ...celda.remisiones
-          .filter((remision) => !filas.has(remision.fila))
-          .map(
-            (remision) =>
-              `la remisión «${remision.literal}» apunta a una fila no declarada «${remision.fila}»`
-          ),
+        ...celda.bloques.flatMap((bloque) =>
+          bloque._tag === "Remision" && !filas.has(bloque.fila)
+            ? [
+                `la remisión «${bloque.literal}» apunta a una fila no declarada «${bloque.fila}»`,
+              ]
+            : []
+        ),
       ]),
     ]
     return problemas.length === 0 ? undefined : problemas.join("; ")

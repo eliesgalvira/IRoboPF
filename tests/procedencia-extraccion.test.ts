@@ -390,9 +390,14 @@ describe("tramos de una escala", () => {
   })
 })
 
+const ESTATAL = [{ cabecera: "Estatal", territorio: "estatal" }]
+
 const cuadro = (
   celdas: ReadonlyArray<unknown>,
-  filas?: ReadonlyArray<unknown>
+  filas: ReadonlyArray<unknown> = [
+    ...ESTATAL,
+    { cabecera: "C.A. de Aragón", territorio: "aragon" },
+  ]
 ) =>
   Schema.decodeUnknownSync(EspecificacionCuadro)({
     tipo: "cuadro",
@@ -405,33 +410,53 @@ const cuadro = (
     },
     cabeceraDeFilas: "Importes",
     columnas: ["Mínimo por contribuyente"],
-    filas: filas ?? [
-      { cabecera: "Estatal", territorio: "estatal" },
-      { cabecera: "C.A. de Aragón", territorio: "aragon" },
-    ],
+    filas,
     celdas,
     testigo: { sha256: SHA_PDF, paginas: [1] },
   })
 
-const general = {
-  plantilla: "{importe} euros anuales, en general.",
+const partida = (
+  plantilla: string,
+  claves: ReadonlyArray<unknown>,
+  cambios: Record<string, unknown> = {}
+) => ({
+  _tag: "Partida",
+  plantilla,
   unidad: { _tag: "EUR", evidencia: "euros" },
   gramatica: { decimales: [0], centinelas: [] },
-  claves: [{ fila: "contribuyente", columna: "general" }],
+  claves,
+  alcance: { _tag: "CabeceraDeColumna" },
+  ...cambios,
+})
+const general = partida("{importe} euros anuales, en general.", [
+  { fila: "contribuyente", columna: "general" },
+])
+const mayor65 = partida("+ {importe} euros anuales, mayor de 65 años.", [
+  { fila: "contribuyente", columna: "adicionalMayor65" },
+])
+const nota = (literal: string, id?: string) =>
+  id === undefined ? { _tag: "Nota", literal } : { _tag: "Nota", id, literal }
+const remite = {
+  _tag: "Remision",
+  literal: "igual que los mínimos estatales.",
+  fila: "Estatal",
 }
-const mayor65 = {
-  plantilla: "+ {importe} euros anuales, mayor de 65 años.",
-  unidad: { _tag: "EUR", evidencia: "euros" },
-  gramatica: { decimales: [0], centinelas: [] },
-  claves: [{ fila: "contribuyente", columna: "adicionalMayor65" }],
-}
+const celda = (fila: string, ...bloques: ReadonlyArray<unknown>) => ({
+  fila,
+  columna: "Mínimo por contribuyente",
+  bloques,
+})
 
 const cuadroHtml = (...filas: ReadonlyArray<string>) =>
   html(
     `<table><tbody><tr><th><span><strong>Importes</strong></span></th><th>Mínimo por&nbsp;contribuyente</th></tr>${filas.join("")}</tbody></table>`
   )
-const filaCuadro = (cabecera: string, celda: string) =>
-  `<tr><th><span>${cabecera}</span></th><td>${celda}</td></tr>`
+const filaCuadro = (cabecera: string, contenido: string) =>
+  `<tr><th><span>${cabecera}</span></th><td>${contenido}</td></tr>`
+const aragonRemite = filaCuadro(
+  "C.A. de Aragón",
+  "<p>igual que los mínimos estatales.</p>"
+)
 
 describe("extracción de un cuadro de partidas", () => {
   const estatal = filaCuadro(
@@ -443,30 +468,10 @@ describe("extracción de un cuadro de partidas", () => {
     const extraccion = exito(
       extraerCuadro(
         cuadro([
-          {
-            fila: "Estatal",
-            columna: "Mínimo por contribuyente",
-            partidas: [general, mayor65],
-            remisiones: [],
-            notas: ["(*) Nota estatal."],
-          },
-          {
-            fila: "C.A. de Aragón",
-            columna: "Mínimo por contribuyente",
-            partidas: [],
-            remisiones: [
-              { literal: "igual que los mínimos estatales.", fila: "Estatal" },
-            ],
-            notas: [],
-          },
+          celda("Estatal", general, mayor65, nota("(*) Nota estatal.")),
+          celda("C.A. de Aragón", remite),
         ]),
-        cuadroHtml(
-          estatal,
-          filaCuadro(
-            "C.A. de Aragón",
-            "<p>igual que los mínimos estatales.</p>"
-          )
-        )
+        cuadroHtml(estatal, aragonRemite)
       )
     )
     expect(extraccion.excepciones).toEqual([])
@@ -479,60 +484,41 @@ describe("extracción de un cuadro de partidas", () => {
         v.claves[0]?.columna,
         v.valor,
         v.origen._tag,
+        v.alcance,
       ])
-    ).toEqual([
-      ["estatal", "general", { _tag: "Numero", decimal: "5550" }, "Directo"],
+    ).toEqual(
       [
-        "estatal",
-        "adicionalMayor65",
-        { _tag: "Numero", decimal: "1150" },
-        "Directo",
-      ],
-      ["aragon", "general", { _tag: "Numero", decimal: "5550" }, "Remision"],
-      [
-        "aragon",
-        "adicionalMayor65",
-        { _tag: "Numero", decimal: "1150" },
-        "Remision",
-      ],
-    ])
+        ["estatal", "general", "5550", "Directo"],
+        ["estatal", "adicionalMayor65", "1150", "Directo"],
+        ["aragon", "general", "5550", "Remision"],
+        ["aragon", "adicionalMayor65", "1150", "Remision"],
+      ].map(([territorio, columna, decimal, origen]) => [
+        territorio,
+        columna,
+        { _tag: "Numero", decimal },
+        origen,
+        { _tag: "CabeceraDeColumna", literal: "Mínimo por contribuyente" },
+      ])
+    )
   })
 
   it("una partida sin clave de motor se extrae con su literal de testigo", () => {
-    const fallecimiento = {
-      ...general,
-      plantilla: "(*) En caso de fallecimiento {importe} euros.",
-      claves: [],
-    }
+    const fallecimiento = partida(
+      "(*) En caso de fallecimiento {importe} euros.",
+      []
+    )
     const extraccion = exito(
       extraerCuadro(
         cuadro([
-          {
-            fila: "Estatal",
-            columna: "Mínimo por contribuyente",
-            partidas: [general, fallecimiento],
-            remisiones: [],
-            notas: [],
-          },
-          {
-            fila: "C.A. de Aragón",
-            columna: "Mínimo por contribuyente",
-            partidas: [],
-            remisiones: [
-              { literal: "igual que los mínimos estatales.", fila: "Estatal" },
-            ],
-            notas: [],
-          },
+          celda("Estatal", general, fallecimiento),
+          celda("C.A. de Aragón", remite),
         ]),
         cuadroHtml(
           filaCuadro(
             "Estatal",
             "<p>5.550 euros anuales, en general.</p><p>(*) En caso de fallecimiento 2.400 euros.</p>"
           ),
-          filaCuadro(
-            "C.A. de Aragón",
-            "<p>igual que los mínimos estatales.</p>"
-          )
+          aragonRemite
         )
       )
     )
@@ -554,106 +540,107 @@ describe("extracción de un cuadro de partidas", () => {
 
   it("una partida en porcentaje con la evidencia «euros» no se decodifica", () => {
     expect(() =>
-      cuadro([
-        {
-          fila: "Estatal",
-          columna: "Mínimo por contribuyente",
-          partidas: [
-            { ...general, unidad: { _tag: "porcentaje", evidencia: "euros" } },
-          ],
-          remisiones: [],
-          notas: [],
-        },
-      ])
+      cuadro(
+        [
+          celda("Estatal", {
+            ...general,
+            unidad: { _tag: "porcentaje", evidencia: "euros" },
+          }),
+        ],
+        ESTATAL
+      )
     ).toThrow()
   })
 
   it("una partida con una columna que no es de su fila no se decodifica", () => {
     expect(() =>
-      cuadro([
-        {
-          fila: "Estatal",
-          columna: "Mínimo por contribuyente",
-          partidas: [
-            {
-              ...general,
-              claves: [{ fila: "contribuyente", columna: "primero" }],
-            },
-          ],
-          remisiones: [],
-          notas: [],
-        },
-      ])
+      cuadro(
+        [
+          celda("Estatal", {
+            ...general,
+            claves: [{ fila: "contribuyente", columna: "primero" }],
+          }),
+        ],
+        ESTATAL
+      )
     ).toThrow()
   })
 
   it("una plantilla ha de tener exactamente un hueco y la evidencia de unidad fuera de él", () => {
-    const celda = (plantilla: string) => [
-      {
-        fila: "Estatal",
-        columna: "Mínimo por contribuyente",
-        partidas: [{ ...general, plantilla }],
-        remisiones: [],
-        notas: [],
-      },
-    ]
-    expect(() => cuadro(celda("{importe} y {importe} euros"))).toThrow()
-    expect(() => cuadro(celda("5.550 euros anuales"))).toThrow()
-    expect(() => cuadro(celda("{importe} anuales"))).toThrow()
+    const con = (plantilla: string) =>
+      cuadro([celda("Estatal", { ...general, plantilla })], ESTATAL)
+    expect(() => con("{importe} euros anuales, en general.")).not.toThrow()
+    expect(() => con("{importe} y {importe} euros")).toThrow()
+    expect(() => con("5.550 euros anuales")).toThrow()
+    expect(() => con("{importe} anuales")).toThrow()
     // La evidencia «euros» no puede formarse uniendo los dos lados del hueco.
-    expect(() => cuadro(celda("eu{importe}ros anuales"))).toThrow()
+    expect(() => con("eu{importe}ros anuales")).toThrow()
   })
 
-  it("fila no declarada, partida ambigua, contenido no declarado y partida o fila ausente son errores", () => {
-    const solapada = {
-      ...general,
-      plantilla: "{importe}euros anuales, en general.",
-      claves: [{ fila: "contribuyente", columna: "adicionalMayor75" }],
-    }
-    const mayor75 = {
-      ...mayor65,
-      plantilla: "+ {importe} euros anuales, mayor de 75 años.",
-    }
+  it("cada celda de la tabla ha de estar declarada", () => {
+    expect(() => cuadro([celda("Estatal", general)])).toThrow()
+  })
+
+  it("el alcance de una partida apunta a una nota anterior de la misma celda", () => {
+    const desde = (id: string) =>
+      partida("{importe} euros anuales, en general.", [], {
+        alcance: { _tag: "NotaAnterior", nota: id },
+      })
+    expect(() =>
+      cuadro(
+        [celda("Estatal", nota("Para todos:", "todos"), desde("todos"))],
+        ESTATAL
+      )
+    ).not.toThrow()
+    expect(() =>
+      cuadro(
+        [celda("Estatal", desde("todos"), nota("Para todos:", "todos"))],
+        ESTATAL
+      )
+    ).toThrow()
+    expect(() => cuadro([celda("Estatal", desde("todos"))], ESTATAL)).toThrow()
+    expect(() =>
+      cuadro([celda("Estatal", nota("Para todos:"), desde("todos"))], ESTATAL)
+    ).toThrow()
+  })
+
+  it("fila no declarada, celda que no es la secuencia declarada y fila ausente son errores", () => {
+    const mayor75 = partida("+ {importe} euros anuales, mayor de 75 años.", [
+      { fila: "contribuyente", columna: "adicionalMayor75" },
+    ])
     const extraccion = exito(
       extraerCuadro(
         cuadro([
-          {
-            fila: "Estatal",
-            columna: "Mínimo por contribuyente",
-            partidas: [general, solapada, mayor75],
-            remisiones: [],
-            notas: [],
-          },
+          celda("Estatal", general, mayor75, nota("(*) Nota estatal.")),
+          celda("C.A. de Aragón", remite),
         ]),
         cuadroHtml(estatal, filaCuadro("C.A. de Murcia", "<p>igual.</p>"))
       )
     )
     expect(etiquetas(extraccion)).toEqual([
       "FilaNoDeclarada",
-      "CeldaAmbigua",
-      "ContenidoNoDeclarado",
-      "ContenidoNoDeclarado",
-      "CeldaAusente",
+      "CeldaNoCoincide",
       "CeldaAusente",
     ])
+    expect(extraccion.excepciones[1]).toMatchObject({
+      declarados: [
+        "{importe} euros anuales, en general.",
+        "+ {importe} euros anuales, mayor de 75 años.",
+        "(*) Nota estatal.",
+      ],
+      encontrados: [
+        "5.550 euros anuales, en general.",
+        "+ 1.150 euros anuales, mayor de 65 años.",
+        "(*) Nota estatal.",
+      ],
+    })
     expect(extraccion.valores).toEqual([])
   })
 
-  it("una partida que encaja en dos elementos es ambigua", () => {
+  it("una celda con más bloques que los declarados no coincide", () => {
     const extraccion = exito(
       extraerCuadro(
-        cuadro(
-          [
-            {
-              fila: "Estatal",
-              columna: "Mínimo por contribuyente",
-              partidas: [general],
-              remisiones: [],
-              notas: [],
-            },
-          ],
-          [{ cabecera: "Estatal", territorio: "estatal" }]
-        ),
+        cuadro([celda("Estatal", general)], ESTATAL),
         cuadroHtml(
           filaCuadro(
             "Estatal",
@@ -662,76 +649,63 @@ describe("extracción de un cuadro de partidas", () => {
         )
       )
     )
-    expect(etiquetas(extraccion)).toEqual(["CeldaAmbigua"])
+    expect(etiquetas(extraccion)).toEqual(["CeldaNoCoincide"])
     expect(extraccion.valores).toEqual([])
   })
 })
 
 describe("secuencia de bloques de una celda del cuadro", () => {
-  const discapacidad = "Mínimo por contribuyente"
   const soloDescendientes = "Solo para el caso del mínimo por descendientes:"
-  const grado33 = {
-    ...general,
-    plantilla: "{importe} euros anuales, por discapacidad = o > al 33%.",
-    claves: [{ fila: "discapacidad-descendientes", columna: "grado33Hasta65" }],
-  }
-  const celdaConNota = {
-    fila: "Estatal",
-    columna: discapacidad,
-    partidas: [grado33],
-    remisiones: [],
-    notas: [soloDescendientes],
-  }
+  const grado33 = partida(
+    "{importe} euros anuales, por discapacidad = o > al 33%.",
+    [{ fila: "discapacidad-descendientes", columna: "grado33Hasta65" }],
+    { alcance: { _tag: "NotaAnterior", nota: "solo-descendientes" } }
+  )
   const leer = (contenido: string) =>
     exito(
       extraerCuadro(
         cuadro(
-          [celdaConNota],
-          [{ cabecera: "Estatal", territorio: "estatal" }]
+          [
+            celda(
+              "Estatal",
+              nota(soloDescendientes, "solo-descendientes"),
+              grado33
+            ),
+          ],
+          ESTATAL
         ),
         cuadroHtml(filaCuadro("Estatal", contenido))
       )
     )
 
-  it("la frase que da el alcance precede al importe", () => {
+  it("la frase que da el alcance precede al importe y queda como su evidencia", () => {
     const enOrden = leer(
       `<p>${soloDescendientes}</p><p>3.300 euros anuales, por discapacidad = o &gt; al 33%.</p>`
     )
     expect(enOrden.excepciones).toEqual([])
-    expect(enOrden.valores).toHaveLength(1)
+    expect(enOrden.valores.map((v) => v.alcance)).toMatchObject([
+      { _tag: "NotaAnterior", literal: soloDescendientes },
+    ])
   })
 
   it("mover la frase del alcance detrás del importe es una excepción y no da valores", () => {
     const movida = leer(
       `<p>3.300 euros anuales, por discapacidad = o &gt; al 33%.</p><p>${soloDescendientes}</p>`
     )
-    expect(movida.excepciones).not.toEqual([])
+    expect(etiquetas(movida)).toEqual(["CeldaNoCoincide"])
     expect(movida.valores).toEqual([])
   })
 
   it("cada bloque se compara con la declaración de su posición, sin búsqueda entre plantillas", () => {
-    const adicional = {
-      ...mayor65,
-      plantilla: "+ {importe} euros anuales.",
-    }
-    const sinSigno = {
-      ...general,
-      plantilla: "{importe} euros anuales.",
-    }
+    const adicional = partida("+ {importe} euros anuales.", [
+      { fila: "contribuyente", columna: "adicionalMayor65" },
+    ])
+    const sinSigno = partida("{importe} euros anuales.", [
+      { fila: "contribuyente", columna: "general" },
+    ])
     const extraccion = exito(
       extraerCuadro(
-        cuadro(
-          [
-            {
-              fila: "Estatal",
-              columna: "Mínimo por contribuyente",
-              partidas: [adicional, sinSigno],
-              remisiones: [],
-              notas: [],
-            },
-          ],
-          [{ cabecera: "Estatal", territorio: "estatal" }]
-        ),
+        cuadro([celda("Estatal", adicional, sinSigno)], ESTATAL),
         cuadroHtml(
           filaCuadro(
             "Estatal",
@@ -750,18 +724,7 @@ describe("secuencia de bloques de una celda del cuadro", () => {
   it("dos partidas en otro orden que el declarado son una excepción", () => {
     const extraccion = exito(
       extraerCuadro(
-        cuadro(
-          [
-            {
-              fila: "Estatal",
-              columna: "Mínimo por contribuyente",
-              partidas: [general, mayor65],
-              remisiones: [],
-              notas: [],
-            },
-          ],
-          [{ cabecera: "Estatal", territorio: "estatal" }]
-        ),
+        cuadro([celda("Estatal", general, mayor65)], ESTATAL),
         cuadroHtml(
           filaCuadro(
             "Estatal",
@@ -770,51 +733,24 @@ describe("secuencia de bloques de una celda del cuadro", () => {
         )
       )
     )
-    expect(extraccion.excepciones).not.toEqual([])
+    expect(etiquetas(extraccion)).toEqual(["CeldaNoCoincide"])
     expect(extraccion.valores).toEqual([])
   })
 })
 
 describe("remisión a los mínimos estatales", () => {
-  const remision = {
-    fila: "C.A. de Aragón",
-    columna: "Mínimo por contribuyente",
-    partidas: [],
-    remisiones: [
-      { literal: "igual que los mínimos estatales.", fila: "Estatal" },
-    ],
-    notas: [],
-  }
-  const estatalDeclarada = {
-    fila: "Estatal",
-    columna: "Mínimo por contribuyente",
-    partidas: [general, mayor65],
-    remisiones: [],
-    notas: [],
-  }
-  const aragon = filaCuadro(
-    "C.A. de Aragón",
-    "<p>igual que los mínimos estatales.</p>"
-  )
+  const estatalDeclarada = celda("Estatal", general, mayor65)
 
   it("no puede apuntar a una fila que no sea la estatal", () => {
     expect(() =>
       cuadro(
         [
           estatalDeclarada,
-          {
-            ...remision,
-            remisiones: [
-              {
-                literal: "igual que los mínimos estatales.",
-                fila: "C.A. de Madrid",
-              },
-            ],
-          },
-          { ...estatalDeclarada, fila: "C.A. de Madrid" },
+          celda("C.A. de Aragón", { ...remite, fila: "C.A. de Madrid" }),
+          celda("C.A. de Madrid", general, mayor65),
         ],
         [
-          { cabecera: "Estatal", territorio: "estatal" },
+          ...ESTATAL,
           { cabecera: "C.A. de Aragón", territorio: "aragon" },
           { cabecera: "C.A. de Madrid", territorio: "madrid" },
         ]
@@ -836,8 +772,8 @@ describe("remisión a los mínimos estatales", () => {
     (_, estatal) => {
       const extraccion = exito(
         extraerCuadro(
-          cuadro([estatalDeclarada, remision]),
-          cuadroHtml(filaCuadro("Estatal", estatal), aragon)
+          cuadro([estatalDeclarada, celda("C.A. de Aragón", remite)]),
+          cuadroHtml(filaCuadro("Estatal", estatal), aragonRemite)
         )
       )
       expect(

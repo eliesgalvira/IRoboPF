@@ -3,6 +3,7 @@ import { Result } from "effect"
 
 import {
   HUECO_IMPORTE,
+  type BloqueDeclarado,
   type CeldaCuadro,
   type EspecificacionCuadro,
   type EspecificacionEscala,
@@ -14,7 +15,7 @@ import {
   CabeceraNoLocalizada,
   CeldaAmbigua,
   CeldaAusente,
-  ContenidoNoDeclarado,
+  CeldaNoCoincide,
   EscalaIncoherente,
   EstructuraNoAdmitida,
   FilaIrregular,
@@ -34,7 +35,7 @@ import {
   type TablaHtml,
 } from "./html"
 import { leerLiteral } from "./literales"
-import type { Origen } from "./resultado"
+import type { AlcanceExtraido, Origen } from "./resultado"
 import type {
   Clave,
   ClaveEscala,
@@ -50,6 +51,7 @@ export interface ValorPendienteDeTestigo {
   readonly unidad: Unidad
   readonly valor: Valor
   readonly claves: ReadonlyArray<Clave>
+  readonly alcance: AlcanceExtraido
   readonly origen: Origen
   // null cuando el valor procede de una remisión y no de un literal propio.
   readonly literalTestigo: string | null
@@ -297,6 +299,7 @@ export const extraerEscala = (
             unidad: columna.unidad._tag,
             valor: leido.success.valor,
             claves,
+            alcance: { _tag: "CabeceraDeColumna", literal: columna.cabecera },
             origen: { _tag: "Directo" },
             literalTestigo: leido.success.literalTestigo,
           })
@@ -402,21 +405,7 @@ const incoherencias = (
   return fallos
 }
 
-type Declaracion =
-  | { readonly _tag: "Partida"; readonly partida: Partida }
-  | {
-      readonly _tag: "Remision"
-      readonly literal: string
-      readonly fila: string
-    }
-  | { readonly _tag: "Nota"; readonly literal: string }
-
-const textoDeclarado = (declaracion: Declaracion): string =>
-  declaracion._tag === "Partida"
-    ? declaracion.partida.plantilla
-    : declaracion.literal
-
-// Texto del hueco si el elemento empieza por lo anterior a él y acaba por lo
+// Texto del hueco si el bloque empieza por lo anterior a él y acaba por lo
 // posterior; undefined si la plantilla no encaja.
 const hueco = (partida: Partida, texto: string): string | undefined => {
   const [prefijo = "", sufijo = ""] = partida.plantilla.split(HUECO_IMPORTE)
@@ -427,20 +416,13 @@ const hueco = (partida: Partida, texto: string): string | undefined => {
     : undefined
 }
 
-const encaja = (declaracion: Declaracion, bloque: Bloque): boolean =>
-  declaracion._tag === "Partida"
-    ? hueco(declaracion.partida, bloque.texto) !== undefined
-    : bloque.texto === declaracion.literal
+const encaja = (declarado: BloqueDeclarado, bloque: Bloque): boolean =>
+  declarado._tag === "Partida"
+    ? hueco(declarado, bloque.texto) !== undefined
+    : bloque.texto === declarado.literal
 
-const declaracionesDe = (celda: CeldaCuadro): ReadonlyArray<Declaracion> => [
-  ...celda.partidas.map(
-    (partida): Declaracion => ({ _tag: "Partida", partida })
-  ),
-  ...celda.remisiones.map(
-    (remision): Declaracion => ({ _tag: "Remision", ...remision })
-  ),
-  ...celda.notas.map((literal): Declaracion => ({ _tag: "Nota", literal })),
-]
+const textoDeclarado = (declarado: BloqueDeclarado): string =>
+  declarado._tag === "Partida" ? declarado.plantilla : declarado.literal
 
 interface RemisionPendiente {
   readonly territorio: Territorio
@@ -463,102 +445,66 @@ interface CeldaLocalizada {
   readonly territorio: Territorio
   readonly fila: string
   readonly columna: string
-  readonly clavesDe: (declaracion: Declaracion) => ReadonlyArray<Clave>
+  readonly clavesDe: (partida: Partida) => ReadonlyArray<Clave>
 }
 
-// Cada elemento de la celda ha de encajar con una sola declaración y cada
-// declaración con un solo elemento; una celda sin declarar no admite ninguno.
+// La celda del HTML ha de ser, bloque a bloque y en orden, la secuencia
+// declarada: cada bloque se compara con la declaración de su misma posición.
+// Si no, la celda entera es CeldaNoCoincide y no da ningún valor.
 const leerCelda = (
   { tabla, territorio, fila, columna, clavesDe }: CeldaLocalizada,
   celda: CeldaHtml,
-  declarada: CeldaCuadro | undefined,
+  declarada: CeldaCuadro,
   salida: SalidaCuadro
 ): void => {
-  const ubicacionBloque = (bloque: Bloque) => ubicacionDe(fila, columna, bloque)
-  const declaraciones =
-    declarada === undefined ? [] : declaracionesDe(declarada)
-  const encajes = celda.bloques.map((bloque) =>
-    declaraciones.filter((declaracion) => encaja(declaracion, bloque))
-  )
-  const conflictivas = new Set<Declaracion>()
-  celda.bloques.forEach((bloque, indice) => {
-    const candidatas = encajes[indice] ?? []
-    if (candidatas.length === 0) {
-      salida.excepciones.push(
-        new ContenidoNoDeclarado({
-          tabla,
-          ubicacion: ubicacionBloque(bloque),
-          literal: bloque.texto,
-        })
-      )
-    }
-    if (candidatas.length > 1) {
-      candidatas.forEach((c) => conflictivas.add(c))
-      salida.excepciones.push(
-        new CeldaAmbigua({
-          tabla,
-          fila,
-          columna,
-          buscado: candidatas.map(textoDeclarado).join(" | "),
-          coincidencias: [ubicacionBloque(bloque)],
-          claves: candidatas.flatMap(clavesDe),
-        })
-      )
-    }
-  })
-  for (const declaracion of declaraciones) {
-    if (conflictivas.has(declaracion)) {
-      continue
-    }
-    const claves = clavesDe(declaracion)
-    const bloques = celda.bloques.filter((_, indice) =>
-      (encajes[indice] ?? []).includes(declaracion)
+  const coincide =
+    celda.bloques.length === declarada.bloques.length &&
+    declarada.bloques.every((declarado, indice) => {
+      const bloque = celda.bloques[indice]
+      return bloque !== undefined && encaja(declarado, bloque)
+    })
+  if (!coincide) {
+    salida.excepciones.push(
+      new CeldaNoCoincide({
+        tabla,
+        fila,
+        columna,
+        linea: celda.linea,
+        columnaFuente: celda.columnaFuente,
+        declarados: declarada.bloques.map(textoDeclarado),
+        encontrados: celda.bloques.map((bloque) => bloque.texto),
+        claves: declarada.bloques.flatMap((declarado) =>
+          declarado._tag === "Partida" ? clavesDe(declarado) : []
+        ),
+      })
     )
-    const [bloque, ...otros] = bloques
-    if (bloque === undefined) {
-      salida.excepciones.push(
-        new CeldaAusente({
-          tabla,
-          fila,
-          columna,
-          buscado: textoDeclarado(declaracion),
-          claves,
-        })
-      )
-      continue
-    }
-    if (otros.length > 0) {
-      salida.excepciones.push(
-        new CeldaAmbigua({
-          tabla,
-          fila,
-          columna,
-          buscado: textoDeclarado(declaracion),
-          coincidencias: bloques.map(ubicacionBloque),
-          claves,
-        })
-      )
-      continue
-    }
-    const ubicacion = ubicacionBloque(bloque)
-    if (declaracion._tag === "Nota") {
+    return
+  }
+  const notas = new Map<string, { literal: string; ubicacion: Ubicacion }>()
+  declarada.bloques.forEach((declarado, indice) => {
+    const bloque = celda.bloques[indice] as Bloque
+    const ubicacion = ubicacionDe(fila, columna, bloque)
+    if (declarado._tag === "Nota") {
       salida.notas.push({ ubicacion, literal: bloque.texto })
-      continue
+      if (declarado.id !== undefined) {
+        notas.set(declarado.id, { literal: bloque.texto, ubicacion })
+      }
+      return
     }
-    if (declaracion._tag === "Remision") {
+    if (declarado._tag === "Remision") {
       salida.remisiones.push({
         territorio,
         filaDestino: fila,
-        filaOrigen: declaracion.fila,
+        filaOrigen: declarado.fila,
         columna,
         literal: bloque.texto,
         ubicacion,
       })
-      continue
+      return
     }
-    const { partida } = declaracion
-    const literalHueco = hueco(partida, bloque.texto) ?? ""
-    const leido = leerLiteral(literalHueco, partida.gramatica)
+    const claves = clavesDe(declarado)
+    const literalHueco = hueco(declarado, bloque.texto) ?? ""
+    const leido = leerLiteral(literalHueco, declarado.gramatica)
     if (Result.isFailure(leido)) {
       salida.excepciones.push(
         new LiteralFueraDeGramatica({
@@ -569,18 +515,28 @@ const leerCelda = (
           claves,
         })
       )
-      continue
+      return
     }
+    // La nota del alcance es anterior en la celda (lo exige el esquema) y la
+    // secuencia ya coincide, así que está en el HTML antes del importe.
+    const nota =
+      declarado.alcance._tag === "NotaAnterior"
+        ? notas.get(declarado.alcance.nota)
+        : undefined
     salida.valores.push({
       ubicacion,
       literal: bloque.texto,
-      unidad: partida.unidad._tag,
+      unidad: declarado.unidad._tag,
       valor: leido.success.valor,
       claves,
+      alcance:
+        nota === undefined
+          ? { _tag: "CabeceraDeColumna", literal: columna }
+          : { _tag: "NotaAnterior", ...nota },
       origen: { _tag: "Directo" },
       literalTestigo: leido.success.literalTestigo,
     })
-  }
+  })
 }
 
 // Una remisión copia los valores directos de la celda remitida con el
@@ -634,18 +590,16 @@ export const extraerCuadro = (
   ]
   const clavesDe =
     (territorio: Territorio) =>
-    (declaracion: Declaracion): ReadonlyArray<Clave> =>
-      declaracion._tag === "Partida"
-        ? declaracion.partida.claves.map((posicion) => ({
-            territorio,
-            magnitud,
-            ...posicion,
-          }))
-        : []
+    (partida: Partida): ReadonlyArray<Clave> =>
+      partida.claves.map((posicion) => ({ territorio, magnitud, ...posicion }))
   const clavesDeFila = (literal: string, territorio: Territorio) =>
     especificacion.celdas
       .filter((celda) => celda.fila === literal)
-      .flatMap((celda) => declaracionesDe(celda).flatMap(clavesDe(territorio)))
+      .flatMap((celda) =>
+        celda.bloques.flatMap((bloque) =>
+          bloque._tag === "Partida" ? clavesDe(territorio)(bloque) : []
+        )
+      )
   return Result.map(
     localizar(tabla, especificacion.documento.localizador, html, declaradas),
     ({ tablaLocalizada, posicionDe, datos, excepciones: previas }) => {
@@ -722,9 +676,10 @@ export const extraerCuadro = (
               clavesDe: clavesDe(territorio),
             },
             fila.celdas[posicionDe.get(columna) ?? -1] as CeldaHtml,
+            // El esquema exige declarar todas las celdas.
             especificacion.celdas.find(
               (c) => c.fila === literalFila && c.columna === columna
-            ),
+            ) as CeldaCuadro,
             salida
           )
         }
