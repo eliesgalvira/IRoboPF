@@ -13,7 +13,7 @@ import {
   type EntradaCotejo,
   type ExtraccionTabla,
 } from "./resultado"
-import { Clave, Magnitud, Territorio, textoClave, Valor } from "./vocabulario"
+import { Clave, textoClave, Valor } from "./vocabulario"
 
 const Motivo = Schema.NonEmptyString
 
@@ -27,33 +27,25 @@ const EstadoNoCoincidente = EstadoCotejo.pipe(
   )
 )
 
-// Cada entrada determina un conjunto cerrado de claves o de excepciones y lo
-// que se espera de ellas; el motivo es el que consta, y donde falta la cita
-// normativa se dice.
+// Cada entrada nombra exactamente lo que acepta, con lo que se espera de ello.
 export const Aceptada = Schema.Union([
-  // Una clave con su estado y los valores de los dos lados, tal cual.
-  Schema.TaggedStruct("Clave", {
-    clave: Clave,
+  // Claves, cada una con los valores de los dos lados tal cual, todas en
+  // `estado`.
+  Schema.TaggedStruct("Claves", {
     estado: EstadoNoCoincidente,
-    manual: Schema.Array(Valor),
-    motor: Schema.NullOr(Valor),
+    claves: Schema.NonEmptyArray(
+      Schema.Struct({
+        clave: Clave,
+        manual: Schema.Array(Valor),
+        motor: Schema.NullOr(Valor),
+      })
+    ),
     motivo: Motivo,
   }),
-  // Todas las claves del cotejo de una magnitud (y, si se da, de un
-  // territorio): exactamente `claves`, todas en `estado`.
-  Schema.TaggedStruct("Ambito", {
-    magnitud: Magnitud,
-    territorio: Schema.optionalKey(Territorio),
-    estado: EstadoNoCoincidente,
-    claves: Schema.Int.check(Schema.isGreaterThan(0)),
-    motivo: Motivo,
-  }),
-  // Una excepción de extracción exacta; sus claves han de estar en
-  // `estadoDeSusClaves`.
+  // Una excepción de extracción exacta; sus claves se aceptan aparte.
   Schema.TaggedStruct("ExcepcionDeExtraccion", {
     tabla: Schema.String,
     excepcion: ExcepcionExtraccion,
-    estadoDeSusClaves: EstadoNoCoincidente,
     motivo: Motivo,
   }),
   Schema.TaggedStruct("ComposicionNoResuelta", {
@@ -80,28 +72,23 @@ const huella =
     JSON.stringify(Schema.encodeSync(schema)(valor))
 const huellaExcepcion = huella(ExcepcionExtraccion)
 const huellaComposicion = huella(ComposicionNoResuelta)
-const huellaValores = huella(Schema.Array(Valor))
-const huellaMotor = huella(Schema.NullOr(Valor))
+const huellaLados = huella(
+  Schema.Struct({ manual: Schema.Array(Valor), motor: Schema.NullOr(Valor) })
+)
 const huellaUbicacion = huella(Ubicacion)
 const huellaSinTestigo = huella(MotivoSinTestigo)
 
-const describir = (aceptada: Aceptada): string => {
-  switch (aceptada._tag) {
-    case "Clave":
-      return `clave ${textoClave(aceptada.clave)} (${aceptada.estado})`
-    case "Ambito":
-      return `ámbito ${aceptada.territorio ?? "*"}|${aceptada.magnitud}: ${aceptada.claves} claves ${aceptada.estado}`
-    case "ExcepcionDeExtraccion":
-      return `excepción ${aceptada.excepcion._tag} de ${aceptada.tabla}`
-    case "ComposicionNoResuelta":
-      return `composición no resuelta de ${aceptada.excepcion.resultado}`
-    case "ValorSinTestigo":
-      return `valor sin testigo de ${aceptada.tabla} en ${aceptada.ubicacion.fila} / ${aceptada.ubicacion.columna}`
-  }
-}
+const ladosDe = (entrada: EntradaCotejo) =>
+  huellaLados({
+    manual: entrada.manual.map((m) => m.valor),
+    motor: entrada.motor?.valor ?? null,
+  })
 
-const describirEntrada = (entrada: EntradaCotejo) =>
-  `clave ${textoClave(entrada.clave)} (${entrada.estado})`
+const sinTestigoDe = (
+  tabla: string,
+  ubicacion: Ubicacion,
+  motivo: MotivoSinTestigo
+) => `${tabla}\u0000${huellaUbicacion(ubicacion)}\u0000${huellaSinTestigo(motivo)}`
 
 // Ninguna diferencia pasa sin estar aceptada, con exactamente ese estado y
 // esos valores, y ninguna aceptación sobrevive a lo que aceptaba: si ya no
@@ -114,120 +101,87 @@ export const comprobarAceptadas = (
   const porClave = new Map(
     cotejo.entradas.map((entrada) => [textoClave(entrada.clave), entrada])
   )
-  const cubiertas = new Set<string>()
+  const claves = new Set<string>()
+  const excepciones = new Set<string>()
+  const composiciones = new Set<string>()
+  const sinTestigo = new Set<string>()
   const yaNoOcurren: Array<string> = []
-  const repetidas: Array<string> = []
-  const cubrir = (texto: string) => {
-    if (cubiertas.has(texto)) {
-      repetidas.push(`clave ${texto} aceptada más de una vez`)
+  const aceptar = (conjunto: Set<string>, id: string, descripcion: string) => {
+    if (conjunto.has(id)) {
+      yaNoOcurren.push(`${descripcion}: aceptada más de una vez`)
     }
-    cubiertas.add(texto)
-  }
-  const excepcionesAceptadas = new Set<string>()
-  const composicionesAceptadas = new Set<string>()
-  const sinTestigoAceptados = new Set<string>()
-  const clavesEn = (
-    claves: ReadonlyArray<Clave>,
-    estado: EstadoCotejo,
-    aceptada: Aceptada
-  ) => {
-    for (const clave of claves) {
-      const entrada = porClave.get(textoClave(clave))
-      if (entrada?.estado !== estado) {
-        yaNoOcurren.push(
-          `${describir(aceptada)}: la clave ${textoClave(clave)} está ${entrada?.estado ?? "fuera del cotejo"}`
-        )
-      }
-      cubrir(textoClave(clave))
-    }
+    conjunto.add(id)
   }
 
   for (const aceptada of aceptadas) {
     switch (aceptada._tag) {
-      case "Clave": {
-        const entrada = porClave.get(textoClave(aceptada.clave))
-        if (
-          entrada === undefined ||
-          entrada.estado !== aceptada.estado ||
-          huellaValores(entrada.manual.map((m) => m.valor)) !==
-            huellaValores(aceptada.manual) ||
-          huellaMotor(entrada.motor?.valor ?? null) !==
-            huellaMotor(aceptada.motor)
-        ) {
-          yaNoOcurren.push(
-            `${describir(aceptada)}: ahora ${entrada === undefined ? "no está en el cotejo" : `${entrada.estado}, manual ${huellaValores(entrada.manual.map((m) => m.valor))}, motor ${huellaMotor(entrada.motor?.valor ?? null)}`}`
-          )
+      case "Claves":
+        for (const { clave, ...lados } of aceptada.claves) {
+          const texto = textoClave(clave)
+          const descripcion = `clave ${texto} (${aceptada.estado})`
+          const entrada = porClave.get(texto)
+          if (
+            entrada === undefined ||
+            entrada.estado !== aceptada.estado ||
+            ladosDe(entrada) !== huellaLados(lados)
+          ) {
+            yaNoOcurren.push(
+              `${descripcion}: ahora ${entrada === undefined ? "no está en el cotejo" : `${entrada.estado}, ${ladosDe(entrada)}`}`
+            )
+          }
+          aceptar(claves, texto, descripcion)
         }
-        cubrir(textoClave(aceptada.clave))
         break
-      }
-      case "Ambito": {
-        const delAmbito = cotejo.entradas.filter(
-          (entrada) =>
-            entrada.clave.magnitud === aceptada.magnitud &&
-            (aceptada.territorio === undefined ||
-              entrada.clave.territorio === aceptada.territorio)
-        )
-        const enEstado = delAmbito.filter((e) => e.estado === aceptada.estado)
-        if (
-          delAmbito.length !== aceptada.claves ||
-          enEstado.length !== aceptada.claves
-        ) {
-          yaNoOcurren.push(
-            `${describir(aceptada)}: ahora ${delAmbito.length} claves, ${enEstado.length} en ese estado`
-          )
-        }
-        delAmbito.forEach((entrada) => cubrir(textoClave(entrada.clave)))
-        break
-      }
       case "ExcepcionDeExtraccion": {
-        const buscada = huellaExcepcion(aceptada.excepcion)
-        const ocurre = cotejo.excepciones.extraccion.some(
-          ({ tabla, excepcion }) =>
-            tabla === aceptada.tabla && huellaExcepcion(excepcion) === buscada
-        )
-        if (!ocurre) {
-          yaNoOcurren.push(`${describir(aceptada)}: ya no ocurre así`)
-        }
-        excepcionesAceptadas.add(`${aceptada.tabla}\u0000${buscada}`)
-        if ("claves" in aceptada.excepcion) {
-          clavesEn(
-            aceptada.excepcion.claves,
-            aceptada.estadoDeSusClaves,
-            aceptada
+        const id = `${aceptada.tabla}\u0000${huellaExcepcion(aceptada.excepcion)}`
+        const descripcion = `excepción ${aceptada.excepcion._tag} de ${aceptada.tabla}`
+        if (
+          !cotejo.excepciones.extraccion.some(
+            ({ tabla, excepcion }) =>
+              `${tabla}\u0000${huellaExcepcion(excepcion)}` === id
           )
+        ) {
+          yaNoOcurren.push(`${descripcion}: ya no ocurre así`)
         }
+        aceptar(excepciones, id, descripcion)
         break
       }
       case "ComposicionNoResuelta": {
-        const buscada = huellaComposicion(aceptada.excepcion)
+        const id = huellaComposicion(aceptada.excepcion)
+        const descripcion = `composición no resuelta de ${aceptada.excepcion.resultado}`
         if (
           !cotejo.excepciones.composicion.some(
-            (excepcion) => huellaComposicion(excepcion) === buscada
+            (excepcion) => huellaComposicion(excepcion) === id
           )
         ) {
-          yaNoOcurren.push(`${describir(aceptada)}: ya no ocurre así`)
+          yaNoOcurren.push(`${descripcion}: ya no ocurre así`)
         }
-        composicionesAceptadas.add(buscada)
-        clavesEn(aceptada.excepcion.claves, "excepcion-de-extraccion", aceptada)
+        aceptar(composiciones, id, descripcion)
         break
       }
       case "ValorSinTestigo": {
-        const buscado = `${aceptada.tabla}\u0000${huellaUbicacion(aceptada.ubicacion)}\u0000${huellaSinTestigo(aceptada.sinTestigo)}`
-        const ocurre = extracciones.some(
-          (extraccion) =>
-            extraccion.tabla === aceptada.tabla &&
+        const id = sinTestigoDe(
+          aceptada.tabla,
+          aceptada.ubicacion,
+          aceptada.sinTestigo
+        )
+        const descripcion = `valor sin testigo de ${aceptada.tabla} en ${aceptada.ubicacion.fila} / ${aceptada.ubicacion.columna}`
+        if (
+          !extracciones.some((extraccion) =>
             extraccion.valores.some(
               (valor) =>
                 valor.testigo._tag === "SinTestigo" &&
-                `${extraccion.tabla}\u0000${huellaUbicacion(valor.ubicacion)}\u0000${huellaSinTestigo(valor.testigo.motivo)}` ===
-                  buscado
+                sinTestigoDe(
+                  extraccion.tabla,
+                  valor.ubicacion,
+                  valor.testigo.motivo
+                ) === id
             )
-        )
-        if (!ocurre) {
-          yaNoOcurren.push(`${describir(aceptada)}: ya no ocurre así`)
+          )
+        ) {
+          yaNoOcurren.push(`${descripcion}: ya no ocurre así`)
         }
-        sinTestigoAceptados.add(buscado)
+        aceptar(sinTestigo, id, descripcion)
         break
       }
     }
@@ -238,27 +192,25 @@ export const comprobarAceptadas = (
       .filter(
         (entrada) =>
           entrada.estado !== "coincidente" &&
-          !cubiertas.has(textoClave(entrada.clave))
+          !claves.has(textoClave(entrada.clave))
       )
-      .map(describirEntrada),
+      .map(
+        (entrada) => `clave ${textoClave(entrada.clave)} (${entrada.estado})`
+      ),
     ...cotejo.excepciones.extraccion
       .filter(
         ({ tabla, excepcion }) =>
-          !excepcionesAceptadas.has(
-            `${tabla}\u0000${huellaExcepcion(excepcion)}`
-          )
+          !excepciones.has(`${tabla}\u0000${huellaExcepcion(excepcion)}`)
       )
       .map(({ tabla, excepcion }) => `excepción ${excepcion._tag} de ${tabla}`),
     ...cotejo.excepciones.composicion
-      .filter(
-        (excepcion) => !composicionesAceptadas.has(huellaComposicion(excepcion))
-      )
+      .filter((excepcion) => !composiciones.has(huellaComposicion(excepcion)))
       .map((excepcion) => `composición no resuelta de ${excepcion.resultado}`),
     ...extracciones.flatMap((extraccion) =>
       extraccion.valores.flatMap((valor) =>
         valor.testigo._tag === "SinTestigo" &&
-        !sinTestigoAceptados.has(
-          `${extraccion.tabla}\u0000${huellaUbicacion(valor.ubicacion)}\u0000${huellaSinTestigo(valor.testigo.motivo)}`
+        !sinTestigo.has(
+          sinTestigoDe(extraccion.tabla, valor.ubicacion, valor.testigo.motivo)
         )
           ? [
               `valor sin testigo de ${extraccion.tabla} en ${valor.ubicacion.fila} / ${valor.ubicacion.columna} (${valor.testigo.motivo._tag})`,
@@ -267,10 +219,7 @@ export const comprobarAceptadas = (
       )
     ),
   ]
-  const errores = [...yaNoOcurren, ...repetidas]
-  return sinAceptar.length === 0 && errores.length === 0
+  return sinAceptar.length === 0 && yaNoOcurren.length === 0
     ? Result.void
-    : Result.fail(
-        new DiferenciasNoAceptadas({ sinAceptar, yaNoOcurren: errores })
-      )
+    : Result.fail(new DiferenciasNoAceptadas({ sinAceptar, yaNoOcurren }))
 }

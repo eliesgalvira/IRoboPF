@@ -50,12 +50,14 @@ la CI tiene tres capas:
   `comprobar --almacen` reextrae y exige que todo lo regenerado sea idéntico
   byte a byte a lo sellado.
 
-`comprobar` sin almacén hace las dos primeras capas sin red. Una lista de
-claves una a una no se lee entera, así que la lista acepta también por ámbito
-exacto: una magnitud (y, si se da, un territorio), el número de claves y su
-estado; un ámbito que gana o pierde una clave, o en el que una cambia de estado,
-deja de valer. Los motivos son los que constan; donde falta la cita normativa,
-se dice.
+`comprobar` sin almacén hace las dos primeras capas sin red. La lista nombra
+cada clave aceptada con su estado y los valores de los dos lados, agrupadas por
+motivo, una por línea. Aceptar por ámbito (una magnitud, un territorio y un
+número de claves) no fija los valores: el motor podría cambiar un mínimo de un
+territorio sin fila en el cuadro y la clave seguiría «ausente en el manual».
+Por lo mismo, aceptar una excepción de extracción no acepta sus claves, que van
+en la lista con sus valores. Los motivos son los que constan; donde falta la
+cita normativa, se dice.
 
 **Localizar sin adivinar.**
 

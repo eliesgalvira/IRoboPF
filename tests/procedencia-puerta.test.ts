@@ -82,25 +82,44 @@ describe("puerta de las excepciones aceptadas", () => {
     ])
   })
 
-  it("un ámbito aceptado ha de tener exactamente sus claves en su estado", () => {
-    const lista = aceptadas.map((aceptada) =>
-      aceptada._tag === "Ambito" && aceptada.territorio === "aragon"
-        ? { ...aceptada, claves: 18 }
-        : aceptada
-    )
-    expect(fallo(puerta(sellado(), motor, lista))?.yaNoOcurren).toEqual([
-      "ámbito aragon|minimos-personales-familiares: 18 claves ausente-en-manual: ahora 19 claves, 19 en ese estado",
-    ])
+  it("una clave que no está en la lista no está aceptada", () => {
+    const clave = "aragon|minimos-personales-familiares|contribuyente|general"
+    const lista = aceptadas.flatMap((aceptada) => {
+      if (aceptada._tag !== "Claves") {
+        return [aceptada]
+      }
+      const [primera, ...resto] = aceptada.claves.filter(
+        (c) => textoClave(c.clave) !== clave
+      )
+      return primera === undefined
+        ? []
+        : [{ ...aceptada, claves: [primera, ...resto] as const }]
+    })
+    expect(fallo(puerta(sellado(), motor, lista))).toMatchObject({
+      sinAceptar: [`clave ${clave} (ausente-en-manual)`],
+      yaNoOcurren: [],
+    })
   })
 
   it("un valor del motor cambiado en una clave ausente del manual ya no está aceptado", () => {
     const clave = "aragon|minimos-personales-familiares|contribuyente|general"
-    expect(fallo(puerta(sellado(), conValor(clave, "6000")))).toBeDefined()
+    expect(fallo(puerta(sellado(), conValor(clave, "6000")))).toMatchObject({
+      sinAceptar: [],
+      yaNoOcurren: [
+        expect.stringContaining(`clave ${clave} (ausente-en-manual): ahora`),
+      ],
+    })
   })
 
   it("un valor del motor cambiado en la clave de una excepción de extracción ya no está aceptado", () => {
-    const clave = "comunitat-valenciana|escala-general-autonomica|10|tipo-aplicable"
-    expect(fallo(puerta(sellado(), conValor(clave, "30")))).toBeDefined()
+    const clave =
+      "comunitat-valenciana|escala-general-autonomica|10|tipo-aplicable"
+    expect(fallo(puerta(sellado(), conValor(clave, "30")))).toMatchObject({
+      sinAceptar: [],
+      yaNoOcurren: [
+        expect.stringContaining(`clave ${clave} (excepcion-de-extraccion)`),
+      ],
+    })
   })
 
   it("una excepción de extracción sólo pasa si está aceptada tal cual", () => {
@@ -108,7 +127,6 @@ describe("puerta de las excepciones aceptadas", () => {
       (aceptada) => aceptada._tag !== "ExcepcionDeExtraccion"
     )
     expect(fallo(puerta(sellado(), motor, sinValencia))?.sinAceptar).toEqual([
-      "clave comunitat-valenciana|escala-general-autonomica|10|tipo-aplicable (excepcion-de-extraccion)",
       "excepción LiteralFueraDeGramatica de escala-general-autonomica-comunitat-valenciana",
     ])
   })
@@ -138,7 +156,9 @@ describe("puerta de las excepciones aceptadas", () => {
   })
 
   it("una misma clave no se acepta dos veces", () => {
-    const [primera] = aceptadas.filter((a) => a._tag === "Clave")
+    const [primera] = aceptadas.filter(
+      (a) => a._tag === "Claves" && a.claves.length === 1
+    )
     expect(
       fallo(
         puerta(sellado(), motor, [
@@ -155,21 +175,25 @@ describe("puerta de las excepciones aceptadas", () => {
         JSON.stringify({
           aceptadas: [
             {
-              _tag: "Clave",
-              clave: {
-                territorio: "andalucia",
-                magnitud: "escala-general-autonomica",
-                fila: 0,
-                columna: "base-liquidable",
-              },
+              _tag: "Claves",
               estado: "coincidente",
-              manual: [],
-              motor: null,
+              claves: [
+                {
+                  clave: {
+                    territorio: "andalucia",
+                    magnitud: "escala-general-autonomica",
+                    fila: 0,
+                    columna: "base-liquidable",
+                  },
+                  manual: [],
+                  motor: null,
+                },
+              ],
               motivo: "prueba",
             },
           ],
         })
       )
-    ).toThrow()
+    ).toThrow("una clave coincidente no se acepta")
   })
 })
