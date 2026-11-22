@@ -28,7 +28,7 @@ const SE_SUMAN: ReadonlySet<ColumnaEscala> = new Set([
 const texto = (valor: Valor) =>
   valor._tag === "Numero" ? valor.decimal : valor.centinela
 
-export interface Compuesto {
+interface Compuesto {
   readonly clave: ClaveEscala
   readonly valor: ValorDelManual
 }
@@ -47,8 +47,10 @@ const celdasDe = (extraccion: ExtraccionTabla) =>
     )
   )
 
-const tramosDe = (celdas: ReadonlyMap<string, ValorExtraido>) =>
-  new Set(Array.from(celdas.keys(), (clave) => Number(clave.split("|")[0])))
+const tramosDe = (extraccion: ExtraccionTabla | undefined) =>
+  (extraccion?.valores ?? []).flatMap(({ claves: [clave] }) =>
+    clave !== undefined && typeof clave.fila === "number" ? [clave.fila] : []
+  )
 
 // Compone la escala `resultado` como la suma, tramo a tramo, de las dos
 // escalas `sumandos`. Antes de sumar comprueba que las dos se extrajeron sin
@@ -66,13 +68,9 @@ export const componer = (
   const [tablaA, tablaB] = composicion.sumandos
   const a = extracciones.find((e) => e.tabla === tablaA)
   const b = extracciones.find((e) => e.tabla === tablaB)
-  const celdasA =
-    a === undefined ? new Map<string, ValorExtraido>() : celdasDe(a)
-  const celdasB =
-    b === undefined ? new Map<string, ValorExtraido>() : celdasDe(b)
-  const tramos = Array.from(
-    new Set([...tramosDe(celdasA), ...tramosDe(celdasB)])
-  ).sort((x, y) => x - y)
+  const tramos = Array.from(new Set([...tramosDe(a), ...tramosDe(b)])).sort(
+    (x, y) => x - y
+  )
   const claveDe = (fila: number, columna: ColumnaEscala): ClaveEscala => ({
     territorio,
     magnitud,
@@ -101,6 +99,8 @@ export const componer = (
       `la tabla «${conExcepciones.tabla}» tiene excepciones de extracción: ${conExcepciones.excepciones.map((e) => e._tag).join(", ")}`
     )
   }
+  const celdasA = celdasDe(a)
+  const celdasB = celdasDe(b)
   const valores: Array<Compuesto> = []
   for (const fila of tramos) {
     for (const columna of COLUMNAS) {

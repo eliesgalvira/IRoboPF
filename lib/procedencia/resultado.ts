@@ -90,25 +90,23 @@ export const Testigo = Schema.Union([
 ])
 export type Testigo = typeof Testigo.Type
 
-export const Origen = Schema.Union([
+const Origen = Schema.Union([
   Schema.TaggedStruct("Directo", {}),
   Schema.TaggedStruct("Remision", {
     literal: Schema.String,
     ubicacionRemision: Ubicacion,
   }),
 ])
-export type Origen = typeof Origen.Type
 
 // El literal que justifica a qué se refiere el valor: la cabecera de su
 // columna o una nota anterior de su celda, con su ubicación.
-export const AlcanceExtraido = Schema.Union([
+const AlcanceExtraido = Schema.Union([
   Schema.TaggedStruct("CabeceraDeColumna", { literal: Schema.String }),
   Schema.TaggedStruct("NotaAnterior", {
     literal: Schema.String,
     ubicacion: Ubicacion,
   }),
 ])
-export type AlcanceExtraido = typeof AlcanceExtraido.Type
 
 export const ValorExtraido = Schema.Struct({
   ubicacion: Ubicacion,
@@ -236,24 +234,20 @@ export const Contadores = Schema.Struct({
 })
 export type Contadores = typeof Contadores.Type
 
+const PorDocumento = Schema.Array(
+  Schema.Struct({
+    sha256: Sha256,
+    tablas: Schema.Array(Schema.String),
+    contadores: Contadores,
+  })
+)
+
 export const Resumen = Schema.Struct({
   porTabla: Schema.Array(
     Schema.Struct({ tabla: Schema.String, contadores: Contadores })
   ),
-  porDocumentoHtml: Schema.Array(
-    Schema.Struct({
-      sha256: Sha256,
-      tablas: Schema.Array(Schema.String),
-      contadores: Contadores,
-    })
-  ),
-  porDocumentoPdf: Schema.Array(
-    Schema.Struct({
-      sha256: Sha256,
-      tablas: Schema.Array(Schema.String),
-      contadores: Contadores,
-    })
-  ),
+  porDocumentoHtml: PorDocumento,
+  porDocumentoPdf: PorDocumento,
   // Valores del manual cuya partida no tiene clave en el motor: no entran en
   // el cotejo, que va por clave, y se listan aquí con su procedencia.
   sinClaveDeMotor: Schema.Array(

@@ -62,10 +62,19 @@ export const cotejar = (
   const tablasPorAmbito = new Map<string, Array<string>>()
   const fallosDeTabla = new Map<string, Array<string>>()
   const manualPorClave = new Map<string, Array<ValorDelManual>>()
-  const excepcionesPorClave = new Map<string, Set<string>>()
+  const excepcionesPorClave = new Map<string, Array<string>>()
   const claves = new Map<string, Clave>()
   const anotar = <T>(mapa: Map<string, Array<T>>, clave: string, valor: T) =>
     mapa.set(clave, [...(mapa.get(clave) ?? []), valor])
+  const anotarExcepcion = (excepcion: {
+    readonly _tag: string
+    readonly claves: ReadonlyArray<Clave>
+  }) => {
+    for (const clave of excepcion.claves) {
+      claves.set(textoClave(clave), clave)
+      anotar(excepcionesPorClave, textoClave(clave), excepcion._tag)
+    }
+  }
 
   for (const extraccion of extracciones) {
     for (const territorio of extraccion.territorios) {
@@ -82,16 +91,7 @@ export const cotejar = (
         anotar(fallosDeTabla, extraccion.tabla, excepcion._tag)
       }
       if ("claves" in excepcion) {
-        for (const clave of excepcion.claves) {
-          claves.set(textoClave(clave), clave)
-          excepcionesPorClave.set(
-            textoClave(clave),
-            new Set([
-              ...(excepcionesPorClave.get(textoClave(clave)) ?? []),
-              excepcion._tag,
-            ])
-          )
-        }
+        anotarExcepcion(excepcion)
       }
     }
     for (const valor of extraccion.valores) {
@@ -122,16 +122,7 @@ export const cotejar = (
     }
     if (excepcion !== null) {
       noResueltas.push(excepcion)
-      for (const clave of excepcion.claves) {
-        claves.set(textoClave(clave), clave)
-        excepcionesPorClave.set(
-          textoClave(clave),
-          new Set([
-            ...(excepcionesPorClave.get(textoClave(clave)) ?? []),
-            excepcion._tag,
-          ])
-        )
-      }
+      anotarExcepcion(excepcion)
     }
   }
   for (const valor of motor) {
