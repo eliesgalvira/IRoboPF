@@ -2,6 +2,9 @@
 // camino que la liquidación. Se altera ese camino (los selectores y la capa de
 // parámetros) sin tocar las constantes que exportan los datos: si la
 // proyección leyera las constantes, seguiría dando la tarifa vieja.
+// Las fábricas de vi.mock son asíncronas y la capa se da en la prueba.
+// @effect-diagnostics effect/asyncFunction:off
+// @effect-diagnostics effect/strictEffectProvide:off
 import { describe, expect, it, vi } from "vitest"
 import Decimal from "decimal.js"
 import { Effect } from "effect"
@@ -124,12 +127,7 @@ vi.mock(
   }
 )
 
-const proyectado = () =>
-  Effect.runSync(
-    Effect.gen(function* () {
-      return yield* proyectarMotor2025()
-    })
-  )
+const proyectado = () => Effect.runSync(proyectarMotor2025())
 
 const deMagnitud = (
   valores: ReadonlyArray<ValorMotor>,
@@ -235,11 +233,7 @@ describe("la proyección lee por el camino de la liquidación de 2025", () => {
 
   it("una escala estatal distinta en un solo territorio es un error tipado", () => {
     estado.estatalSoloEn = "la-rioja"
-    const salida = Effect.runSync(
-      Effect.gen(function* () {
-        return yield* proyectarMotor2025()
-      }).pipe(Effect.flip)
-    )
+    const salida = Effect.runSync(Effect.flip(proyectarMotor2025()))
     estado.estatalSoloEn = null
     expect(salida).toMatchObject({
       _tag: "DatoDelMotorInvalido",

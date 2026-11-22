@@ -3,7 +3,7 @@
 import { readdirSync, readFileSync } from "node:fs"
 
 import { describe, expect, it } from "@effect/vitest"
-import { Result, Schema } from "effect"
+import { Effect, Result, Schema } from "effect"
 
 import {
   comprobarAceptadas,
@@ -36,7 +36,7 @@ const { composiciones } = Schema.decodeUnknownSync(ComposicionesDesdeJson)(
 const { aceptadas } = Schema.decodeUnknownSync(ExcepcionesAceptadasDesdeJson)(
   readFileSync(RUTAS.aceptadas, "utf8")
 )
-const motor = Result.getOrThrow(proyectarMotor2025())
+const motor = Effect.runSync(proyectarMotor2025())
 
 const puerta = (
   extracciones: ReadonlyArray<ExtraccionTabla> = sellado(),

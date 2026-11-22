@@ -294,7 +294,7 @@ describe("extracción sellada", () => {
         )(readFileSync(RUTAS.composiciones, "utf8"))
         const { entradas } = cotejarBien(
           extracciones,
-          Result.getOrThrow(proyectarMotor2025()),
+          yield* proyectarMotor2025(),
           composiciones
         )
         expect(yield* textoCotejo(entradas)).toBe(

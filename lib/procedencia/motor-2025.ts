@@ -1,19 +1,17 @@
 import Decimal from "decimal.js"
-import { Result } from "effect"
+import { Effect, Result } from "effect"
 
 import {
-  ESCALAS_AUTONOMICAS_IRPF_2025,
-  TRAMOS_IRPF_ESTATAL_GENERAL_2025,
-} from "../dominio/normativa/datos/irpf-autonomico-2025"
+  obtenerParametrosComunidadAutonoma,
+  ParametrosNormativosIrpf,
+} from "../dominio/irpf/comunidades/comunidad-autonoma"
 import {
-  TRAMOS_IRPF_AHORRO_2025,
+  obtenerTramosIrpfAhorro,
   type TramosIrpf,
 } from "../dominio/normativa/datos/irpf-estatal-2012-2026"
-import {
-  MINIMOS_AUTONOMICOS_IRPF_2025,
-  MINIMOS_ESTATALES_2025,
-  type MinimoDiscapacidadIrpf,
-  type MinimosPersonalesFamiliaresIrpf,
+import type {
+  MinimoDiscapacidadIrpf,
+  MinimosPersonalesFamiliaresIrpf,
 } from "../dominio/normativa/datos/minimos-autonomicos-2025"
 import { DatoDelMotorInvalido } from "./excepciones"
 import type { ValorMotor } from "./resultado"
@@ -49,11 +47,8 @@ const invalido = (territorio: Territorio, magnitud: Magnitud, motivo: string) =>
 // El tramo abierto es explícito: los cerrados tienen límite finito y el
 // último, y sólo él, no lo tiene.
 interface EscalaValidada {
-  readonly cerrados: ReadonlyArray<{
-    readonly limite: Decimal
-    readonly tipo: Decimal
-  }>
-  readonly abierto: { readonly tipo: Decimal }
+  readonly cerrados: TramosIrpf
+  readonly tipoAbierto: Decimal
 }
 
 // Una escala del motor es [límite superior, tipo como fracción] por tramo. Se
@@ -103,10 +98,7 @@ const validarEscala = (
       `el último tramo ha de ser abierto (+Infinity), no ${ultimo[0].toString()}`
     )
   }
-  return Result.succeed({
-    cerrados: cerrados.map(([limite, tipo]) => ({ limite, tipo })),
-    abierto: { tipo: ultimo[1] },
-  })
+  return Result.succeed({ cerrados, tipoAbierto: ultimo[1] })
 }
 
 // Proyecta la escala validada sobre las columnas del manual. El tipo se
@@ -164,12 +156,13 @@ export const proyectarEscala = (
         }
       )
     }
-    escala.cerrados.forEach(({ limite, tipo }, indice) => {
-      tramo(indice, tipo, numero(limite.minus(inicio)))
-      cuota = cuota.plus(limite.minus(inicio).mul(tipo))
+    escala.cerrados.forEach(([limite, tipo], indice) => {
+      const ancho = limite.minus(inicio)
+      tramo(indice, tipo, numero(ancho))
+      cuota = cuota.plus(ancho.mul(tipo))
       inicio = limite
     })
-    tramo(escala.cerrados.length, escala.abierto.tipo, {
+    tramo(escala.cerrados.length, escala.tipoAbierto, {
       _tag: "Centinela",
       centinela: "sin-limite",
     })
@@ -266,40 +259,85 @@ const proyectarMinimos = (
   )
 }
 
-// Escalas y mínimos de 2025 tal como los usa la liquidación: la cuota estatal
-// de los territorios reales se calcula con TRAMOS_IRPF_ESTATAL_GENERAL_2025;
-// el ahorro se liquida con una sola escala conjunta (estatal + autonómica)
-// que no distingue territorio.
-export const proyectarMotor2025 = (): Result.Result<
-  ReadonlyArray<ValorMotor>,
-  DatoDelMotorInvalido
-> =>
-  Result.map(
-    Result.all([
+const mismaEscala = (a: TramosIrpf, b: TramosIrpf): boolean =>
+  a.length === b.length &&
+  a.every(([limite, tipo], indice) => {
+    const otro = b[indice]
+    return otro !== undefined && limite.eq(otro[0]) && tipo.eq(otro[1])
+  })
+
+// Escalas y mínimos de 2025 por el mismo camino que la liquidación, no por
+// las constantes que hay detrás: las escalas generales y los mínimos
+// autonómicos, de los parámetros de cada comunidad; los mínimos estatales, de
+// la capa de parámetros normativos; el ahorro, de su selector por año, una
+// sola escala conjunta (estatal + autonómica) que no distingue territorio. La
+// liquidación toma la escala estatal de los parámetros de cada comunidad, así
+// que ha de ser la misma en todas para proyectarse una sola vez.
+export const proyectarMotor2025 = () =>
+  Effect.gen(function* () {
+    const { minimosEstatales2025 } = yield* ParametrosNormativosIrpf
+    const comunidades = yield* Effect.forEach(
+      TERRITORIOS_AUTONOMICOS,
+      (territorio) => {
+        const parametros = obtenerParametrosComunidadAutonoma({
+          anio: 2025,
+          comunidadAutonoma: territorio,
+        })
+        return parametros._tag === "ParametrosComunidadAutonoma"
+          ? Effect.succeed({ territorio, ...parametros })
+          : Effect.fromResult(
+              invalido(
+                territorio,
+                "escala-general-autonomica",
+                `la liquidación no tiene parámetros de 2025: ${parametros.motivo}`
+              )
+            )
+      }
+    )
+    const [primera, ...resto] = comunidades
+    if (primera === undefined) {
+      return yield* invalido(
+        "estatal",
+        "escala-general-estatal",
+        "no hay comunidades que liquidar"
+      )
+    }
+    const distinta = resto.find(
+      (c) => !mismaEscala(c.escalaEstatalGeneral, primera.escalaEstatalGeneral)
+    )
+    if (distinta !== undefined) {
+      return yield* invalido(
+        distinta.territorio,
+        "escala-general-estatal",
+        `la escala estatal general con que se liquida no es la de ${primera.territorio}`
+      )
+    }
+    const grupos = yield* Result.all([
       proyectarEscala(
         "estatal",
         "escala-general-estatal",
-        TRAMOS_IRPF_ESTATAL_GENERAL_2025
+        primera.escalaEstatalGeneral
       ),
-      ...TERRITORIOS_AUTONOMICOS.map((territorio) =>
+      ...comunidades.map((c) =>
         proyectarEscala(
-          territorio,
+          c.territorio,
           "escala-general-autonomica",
-          ESCALAS_AUTONOMICAS_IRPF_2025[territorio].tramos
+          c.escalaAutonomica.tramos
         )
       ),
       proyectarEscala(
         "estatal",
         "escala-ahorro-agregada",
-        TRAMOS_IRPF_AHORRO_2025
+        obtenerTramosIrpfAhorro(2025)
       ),
-      proyectarMinimos("estatal", MINIMOS_ESTATALES_2025),
-      ...TERRITORIOS_AUTONOMICOS.map((territorio) =>
-        proyectarMinimos(
-          territorio,
-          MINIMOS_AUTONOMICOS_IRPF_2025.valor[territorio]
-        )
+      proyectarMinimos("estatal", minimosEstatales2025),
+      ...comunidades.map((c) =>
+        proyectarMinimos(c.territorio, c.minimosAutonomicos)
       ),
-    ]),
-    (grupos) => grupos.flat()
+    ])
+    return grupos.flat()
+  }).pipe(
+    // La misma capa que se da a la liquidación.
+    // @effect-diagnostics-next-line effect/strictEffectProvide:off
+    Effect.provide(ParametrosNormativosIrpf.layer)
   )
