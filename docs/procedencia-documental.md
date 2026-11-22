@@ -40,10 +40,10 @@ volver a extraer también la hace fallar.
   declaradas. Las filas de datos son las de `<tbody>` que la siguen; una
   anterior, o una posterior fuera de `<tbody>` (un `<tfoot>`), es
   `FilaNoDeclarada`, porque contarla desplazaría o añadiría tramos.
-- Una escala ha de declarar las columnas de base y de resto, y sus tramos han de
-  ser coherentes consigo mismos con aritmética exacta: la primera base es 0, cada
-  base es mayor que la anterior e igual a la anterior más su resto, y el último
-  tramo, y sólo él, es abierto. Si no, `EscalaIncoherente`, con las claves de
+- Una escala ha de declarar las columnas de base y de resto, y sus tramos han
+  de ser coherentes consigo mismos con aritmética exacta: la primera base es 0,
+  cada base es mayor que la anterior e igual a la anterior más su resto, y el
+  último tramo, y sólo él, es abierto. Si no, `EscalaIncoherente`, con las claves de
   las celdas que no encajan. La cuota no se comprueba contra los tipos: que la
   publicada no sea la integrada es lo que el cotejo cuenta.
 - La columna de cada celda es la de su cabecera, según la alineación de la
@@ -59,8 +59,8 @@ volver a extraer también la hace fallar.
 
 **Lista cerrada de lo que puede haber en una fila y en sus celdas.** Aplanar
 cualquier descendiente leería texto que el navegador no muestra
-(`<span hidden>1</span>9,50` se leería 19,50). La lista es la mínima que cubre las
-20 páginas de 2025, sacada de los originales: `tr` sin atributos; `th` con la
+(`<span hidden>1</span>9,50` se leería 19,50). La lista es la mínima que cubre
+las 20 páginas de 2025, sacada de los originales: `tr` sin atributos; `th` con la
 clase `texto_cen`; `td` con las clases `texto_cen`, `texto_der`, `letrita`,
 `revsar` y `"texto_der` (así, con la comilla, en el ahorro estatal) y el
 atributo vacío `letrita2`; `ul`; `li`, `p` y `span` con `letrita` (y `p` con
@@ -140,7 +140,7 @@ comprobación se hace al decodificar la especificación.
   limite los dos importes siguientes a `discapacidad-descendientes` es una
   lectura del autor, ahora atada a un literal concreto que se puede revisar.
 - Una partida puede no dar ninguna (`claves: []`) cuando el manual da un
-  importe que no es una magnitud del motor, como «(*) En caso de fallecimiento
+  importe que no es una magnitud del motor, como «(\*) En caso de fallecimiento
   del descendiente 2.400 euros.». El importe se extrae y lleva testigo como
   cualquier otro, pero no hay clave que cotejar: no es una excepción ni un
   «sin homólogo». Se cuenta en `sinClaveDeMotor` y `resumen.json` lo lista con
@@ -215,8 +215,9 @@ y unidad.
   finitos y estrictamente crecientes desde 0 salvo el último, que es el único
   abierto y ha de ser `+Infinity`. Los mínimos han de ser finitos. Un fallo es
   `DatoDelMotorInvalido` y aborta el cotejo: convertir cualquier decimal no
-  finito (también `NaN`) en `sin-limite` escondería el error. El tramo abierto se representa
-  aparte de los cerrados, así que `sin-limite` sólo sale del último.
+  finito (también `NaN`) en `sin-limite` escondería el error. El tramo abierto
+  se representa aparte de los cerrados, así que `sin-limite` sólo sale del
+  último.
 
 **Almacenado y derivado.** Es «almacenado» lo que el motor guarda tal cual:
 
