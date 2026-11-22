@@ -578,66 +578,50 @@ const leerCelda = (
 
 // Una remisión a los mínimos estatales tiene por destino, por construcción,
 // la celda de su misma columna en la fila estatal. Sólo se resuelve si esa
-// celda se leyó entera, sin excepciones: entonces copia todos sus valores con
-// el territorio de la fila que remite. Si no, la remitente recibe
+// celda se leyó entera, sin excepciones: cada partida leída da un valor y
+// cada una que no se lee deja una excepción, así que entonces copia todos sus
+// valores con el territorio de la fila que remite. Si no, la remitente recibe
 // RemisionNoResuelta con las excepciones de origen y no copia nada.
 const resolverRemision = (
   tabla: string,
   remision: RemisionPendiente,
   filaEstatal: string,
   origen: LecturaCelda | undefined,
-  partidasDeOrigen: number,
   claves: ReadonlyArray<Clave>
-): LecturaCelda => {
-  const completa =
-    origen !== undefined &&
-    origen.excepciones.length === 0 &&
-    origen.valores.length === partidasDeOrigen
-  if (!completa) {
-    return {
-      valores: [],
-      notas: [],
-      excepciones: [
+): Result.Result<ReadonlyArray<ValorPendienteDeTestigo>, RemisionNoResuelta> =>
+  origen === undefined || origen.excepciones.length > 0
+    ? Result.fail(
         new RemisionNoResuelta({
           tabla,
           fila: remision.fila,
           columna: remision.columna,
           filaOrigen: filaEstatal,
           excepcionesDeOrigen:
-            origen === undefined
-              ? []
-              : origen.excepciones.map((excepcion) => excepcion._tag),
+            origen?.excepciones.map((excepcion) => excepcion._tag) ?? [],
           claves,
-        }),
-      ],
-      remision: null,
-    }
-  }
-  return {
-    valores: origen.valores.map((valor) => ({
-      ...valor,
-      claves: valor.claves.map((clave) => ({
-        ...clave,
-        territorio: remision.territorio,
-      })),
-      origen: {
-        _tag: "Remision",
-        literal: remision.literal,
-        ubicacionRemision: remision.ubicacion,
-      },
-      atestiguable: {
-        _tag: "Remision",
-        fila: remision.fila,
-        columna: remision.columna,
-        textoHtml: remision.literal,
-        gramatica: null,
-      },
-    })),
-    notas: [],
-    excepciones: [],
-    remision: null,
-  }
-}
+        })
+      )
+    : Result.succeed(
+        origen.valores.map((valor) => ({
+          ...valor,
+          claves: valor.claves.map((clave) => ({
+            ...clave,
+            territorio: remision.territorio,
+          })),
+          origen: {
+            _tag: "Remision",
+            literal: remision.literal,
+            ubicacionRemision: remision.ubicacion,
+          },
+          atestiguable: {
+            _tag: "Remision",
+            fila: remision.fila,
+            columna: remision.columna,
+            textoHtml: remision.literal,
+            gramatica: null,
+          },
+        }))
+      )
 
 const idCelda = (fila: string, columna: string) => `${fila}\u0000${columna}`
 
@@ -777,11 +761,13 @@ export const extraerCuadro = (
           remision,
           filaEstatal,
           lecturas.get(idCelda(filaEstatal, remision.columna)),
-          partidasDe(celdaDeclarada(filaEstatal, remision.columna)).length,
           clavesDeCelda(declarada, remision.territorio)
         )
-        excepciones.push(...resuelta.excepciones)
-        return resuelta.valores
+        if (Result.isFailure(resuelta)) {
+          excepciones.push(resuelta.failure)
+          return []
+        }
+        return resuelta.success
       })
       return {
         tablaLocalizada,
