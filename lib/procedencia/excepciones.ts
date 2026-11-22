@@ -154,6 +154,18 @@ export class PaginaInexistente extends Schema.TaggedErrorClass<PaginaInexistente
   { ...deTabla, pagina: Schema.Int, paginasDelDocumento: Schema.Int }
 ) {}
 
+// Las dos escalas de una composición no encadenan igual (tramos, bases o
+// restos distintos) o les falta una celda: no se suma nada.
+export class ComposicionNoResuelta extends Schema.TaggedErrorClass<ComposicionNoResuelta>()(
+  "ComposicionNoResuelta",
+  {
+    resultado: Schema.String,
+    tramo: Schema.NullOr(Schema.Int),
+    motivo: Schema.String,
+    claves: Schema.Array(Clave),
+  }
+) {}
+
 export class ClaveDuplicada extends Schema.TaggedErrorClass<ClaveDuplicada>()(
   "ClaveDuplicada",
   { clave: Clave, tablas: Schema.Array(Schema.String) }

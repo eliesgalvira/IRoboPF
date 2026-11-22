@@ -370,3 +370,19 @@ export const Manifiesto = Schema.Struct({
 export type Manifiesto = typeof Manifiesto.Type
 
 export const ManifiestoDesdeJson = Schema.fromJsonString(Manifiesto)
+
+// La escala `resultado` del motor se coteja con la suma, tramo a tramo, de las
+// dos tablas `sumandos` del manual, tras comprobar que tienen los mismos tramos
+// con las mismas bases y restos: cuotas y tipos se suman con aritmética exacta.
+export const Composicion = Schema.Struct({
+  resultado: Schema.Struct({
+    territorio: Territorio,
+    magnitud: MagnitudEscala,
+  }),
+  sumandos: Schema.Tuple([IdTabla, IdTabla]),
+})
+export type Composicion = typeof Composicion.Type
+
+export const ComposicionesDesdeJson = Schema.fromJsonString(
+  Schema.Struct({ composiciones: Schema.Array(Composicion) })
+)

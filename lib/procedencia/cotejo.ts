@@ -1,10 +1,14 @@
 import { Result } from "effect"
 
+import { componer } from "./composicion"
+import type { Composicion } from "./especificacion"
+
 import {
   AusenteEnManual,
   ClaveDuplicada,
   ClaveRepetidaEnMotor,
   SinHomologoEnMotor,
+  type ComposicionNoResuelta,
   UnidadDistinta,
   ValorDistinto,
   type ExcepcionCotejo,
@@ -16,6 +20,7 @@ import type {
   EstadoCotejo,
   ExtraccionTabla,
   Resumen,
+  ValorDelManual,
   ValorMotor,
 } from "./resultado"
 import {
@@ -29,6 +34,9 @@ import { EXCLUIDOS_DEL_MOTOR } from "./motor-2025"
 const ambito = (territorio: string, magnitud: string) =>
   `${territorio}|${magnitud}`
 
+const tablasDe = (valor: ValorDelManual): ReadonlyArray<string> =>
+  valor._tag === "Leido" ? [valor.tabla] : valor.fuentes.map((f) => f.tabla)
+
 export interface Cotejo {
   readonly entradas: ReadonlyArray<EntradaCotejo>
   readonly excepciones: ColaExcepciones
@@ -37,9 +45,12 @@ export interface Cotejo {
 
 // Una clave identifica un solo valor del motor: si la proyección repite una,
 // el cotejo no elige cuál vale.
+// Las composiciones declaradas añaden valores derivados del manual para las
+// claves de su escala resultado.
 export const cotejar = (
   extracciones: ReadonlyArray<ExtraccionTabla>,
-  motor: ReadonlyArray<ValorMotor>
+  motor: ReadonlyArray<ValorMotor>,
+  composiciones: ReadonlyArray<Composicion> = []
 ): Result.Result<Cotejo, ClaveRepetidaEnMotor> => {
   const motorPorClave = new Map<string, ValorMotor>()
   for (const valor of motor) {
@@ -50,10 +61,7 @@ export const cotejar = (
   }
   const tablasPorAmbito = new Map<string, Array<string>>()
   const fallosDeTabla = new Map<string, Array<string>>()
-  const manualPorClave = new Map<
-    string,
-    Array<EntradaCotejo["manual"][number]>
-  >()
+  const manualPorClave = new Map<string, Array<ValorDelManual>>()
   const excepcionesPorClave = new Map<string, Set<string>>()
   const claves = new Map<string, Clave>()
   const anotar = <T>(mapa: Map<string, Array<T>>, clave: string, valor: T) =>
@@ -90,6 +98,7 @@ export const cotejar = (
       for (const clave of valor.claves) {
         claves.set(textoClave(clave), clave)
         anotar(manualPorClave, textoClave(clave), {
+          _tag: "Leido",
           tabla: extraccion.tabla,
           unidad: valor.unidad,
           valor: valor.valor,
@@ -97,6 +106,31 @@ export const cotejar = (
           origen: valor.origen._tag,
           testigo: valor.testigo._tag,
         })
+      }
+    }
+  }
+  const noResueltas: Array<ComposicionNoResuelta> = []
+  for (const composicion of composiciones) {
+    const { territorio, magnitud } = composicion.resultado
+    for (const tabla of composicion.sumandos) {
+      anotar(tablasPorAmbito, ambito(territorio, magnitud), tabla)
+    }
+    const { valores, excepcion } = componer(composicion, extracciones)
+    for (const { clave, valor } of valores) {
+      claves.set(textoClave(clave), clave)
+      anotar(manualPorClave, textoClave(clave), valor)
+    }
+    if (excepcion !== null) {
+      noResueltas.push(excepcion)
+      for (const clave of excepcion.claves) {
+        claves.set(textoClave(clave), clave)
+        excepcionesPorClave.set(
+          textoClave(clave),
+          new Set([
+            ...(excepcionesPorClave.get(textoClave(clave)) ?? []),
+            excepcion._tag,
+          ])
+        )
       }
     }
   }
@@ -114,7 +148,7 @@ export const cotejar = (
       new Set([
         ...(tablasPorAmbito.get(ambito(clave.territorio, clave.magnitud)) ??
           []),
-        ...manual.map((m) => m.tabla),
+        ...manual.flatMap(tablasDe),
       ])
     ).sort()
     const deExtraccion = new Set([
@@ -130,7 +164,7 @@ export const cotejar = (
     } else if (manual.length > 1) {
       estado = "ambigua"
       excepciones.push(
-        new ClaveDuplicada({ clave, tablas: manual.map((m) => m.tabla) })
+        new ClaveDuplicada({ clave, tablas: manual.flatMap(tablasDe) })
       )
     } else if (deExtraccion.has("CeldaAmbigua")) {
       estado = "ambigua"
@@ -142,13 +176,18 @@ export const cotejar = (
     } else if (unico !== undefined) {
       if (valorMotor === null) {
         estado = "sin-homologo-en-motor"
-        excepciones.push(new SinHomologoEnMotor({ clave, tabla: unico.tabla }))
+        excepciones.push(
+          new SinHomologoEnMotor({
+            clave,
+            tabla: tablasDe(unico).join(" + "),
+          })
+        )
       } else if (valorMotor.unidad !== unico.unidad) {
         estado = "unidad-distinta"
         excepciones.push(
           new UnidadDistinta({
             clave,
-            tabla: unico.tabla,
+            tabla: tablasDe(unico).join(" + "),
             manual: unico.unidad,
             motor: valorMotor.unidad,
           })
@@ -160,7 +199,7 @@ export const cotejar = (
         excepciones.push(
           new ValorDistinto({
             clave,
-            tabla: unico.tabla,
+            tabla: tablasDe(unico).join(" + "),
             manual: unico.valor,
             motor: valorMotor.valor,
             origenMotor: valorMotor.origen,
@@ -218,6 +257,9 @@ export const cotejar = (
       claves: deTablas.length,
       coincidentes: cuantas(["coincidente"]),
       coincidentesDerivadas: cuantas(["coincidente"], true),
+      derivadasDelManual: deTablas.filter((entrada) =>
+        entrada.manual.some((m) => m._tag === "DerivadoDelManual")
+      ).length,
       distintas: cuantas(["distinta"]),
       distintasDerivadas: cuantas(["distinta"], true),
       unidadDistinta: cuantas(["unidad-distinta"]),
@@ -254,6 +296,7 @@ export const cotejar = (
       extraccion: extracciones.flatMap((e) =>
         e.excepciones.map((excepcion) => ({ tabla: e.tabla, excepcion }))
       ),
+      composicion: noResueltas,
       cotejo: excepciones,
     },
     resumen: {

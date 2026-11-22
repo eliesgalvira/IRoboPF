@@ -6,6 +6,7 @@ import { describe, expect, it } from "@effect/vitest"
 import { Effect, Result, Schema } from "effect"
 
 import { cotejar } from "../lib/procedencia/cotejo"
+import { ComposicionesDesdeJson } from "../lib/procedencia/especificacion"
 import {
   CeldaAmbigua,
   LiteralFueraDeGramatica,
@@ -287,9 +288,13 @@ describe("extracción sellada", () => {
               readFileSync(`${RUTAS.extraccion}/${archivo}`, "utf8")
             )
         )
+        const { composiciones } = yield* Schema.decodeUnknownEffect(
+          ComposicionesDesdeJson
+        )(readFileSync(RUTAS.composiciones, "utf8"))
         const { entradas } = cotejarBien(
           extracciones,
-          Result.getOrThrow(proyectarMotor2025())
+          Result.getOrThrow(proyectarMotor2025()),
+          composiciones
         )
         expect(yield* textoCotejo(entradas)).toBe(
           readFileSync(RUTAS.cotejo, "utf8")
@@ -438,7 +443,7 @@ describe("escala agregada del ahorro", () => {
       ["6000", "570", null, "10.5"],
     ] as const
     const resultado = Result.getOrThrow(
-      (cotejar as (...a: ReadonlyArray<unknown>) => ReturnType<typeof cotejar>)(
+      cotejar(
         [
           ahorro("escala-ahorro-estatal", "estatal", mitad),
           ahorro("escala-ahorro-autonomica", "andalucia", mitad),
@@ -467,7 +472,7 @@ describe("escala agregada del ahorro", () => {
 
   it("no suma dos mitades cuyos tramos no encadenan igual", () => {
     const resultado = Result.getOrThrow(
-      (cotejar as (...a: ReadonlyArray<unknown>) => ReturnType<typeof cotejar>)(
+      cotejar(
         [
           ahorro("escala-ahorro-estatal", "estatal", [
             ["0", "0", "6000", "9.5"],

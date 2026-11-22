@@ -1,6 +1,11 @@
 import { Schema, Struct } from "effect"
 
-import { ExcepcionCotejo, ExcepcionExtraccion, Ubicacion } from "./excepciones"
+import {
+  ComposicionNoResuelta,
+  ExcepcionCotejo,
+  ExcepcionExtraccion,
+  Ubicacion,
+} from "./excepciones"
 import {
   Clave,
   Magnitud,
@@ -163,20 +168,41 @@ export const EstadoCotejo = Schema.Literals([
 ])
 export type EstadoCotejo = typeof EstadoCotejo.Type
 
+// Un valor del manual es una celda leída o un valor derivado de dos celdas
+// leídas por una composición declarada; el derivado lleva sus dos fuentes.
+const FuenteDerivada = Schema.Struct({
+  tabla: Schema.String,
+  ubicacion: Ubicacion,
+  valor: Valor,
+  testigo: Schema.String,
+})
+
+export const ValorDelManual = Schema.Union([
+  Schema.TaggedStruct("Leido", {
+    tabla: Schema.String,
+    unidad: Unidad,
+    valor: Valor,
+    ubicacion: Ubicacion,
+    origen: Schema.String,
+    testigo: Schema.String,
+  }),
+  Schema.TaggedStruct("DerivadoDelManual", {
+    unidad: Unidad,
+    valor: Valor,
+    regla: Schema.Literals([
+      "igual en los dos sumandos",
+      "suma de los dos sumandos",
+    ]),
+    fuentes: Schema.Tuple([FuenteDerivada, FuenteDerivada]),
+  }),
+])
+export type ValorDelManual = typeof ValorDelManual.Type
+
 export const EntradaCotejo = Schema.Struct({
   clave: Clave,
   estado: EstadoCotejo,
   tablas: Schema.Array(Schema.String),
-  manual: Schema.Array(
-    Schema.Struct({
-      tabla: Schema.String,
-      unidad: Unidad,
-      valor: Valor,
-      ubicacion: Ubicacion,
-      origen: Schema.String,
-      testigo: Schema.String,
-    })
-  ),
+  manual: Schema.Array(ValorDelManual),
   motor: Schema.NullOr(ValorMotor.mapFields(Struct.omit(["clave"]))),
   excepcionesDeExtraccion: Schema.Array(Schema.String),
 })
@@ -193,6 +219,7 @@ export const Contadores = Schema.Struct({
   claves: Schema.Int,
   coincidentes: Schema.Int,
   coincidentesDerivadas: Schema.Int,
+  derivadasDelManual: Schema.Int,
   distintas: Schema.Int,
   distintasDerivadas: Schema.Int,
   unidadDistinta: Schema.Int,
@@ -251,6 +278,7 @@ export const ColaExcepciones = Schema.Struct({
   extraccion: Schema.Array(
     Schema.Struct({ tabla: Schema.String, excepcion: ExcepcionExtraccion })
   ),
+  composicion: Schema.Array(ComposicionNoResuelta),
   cotejo: Schema.Array(ExcepcionCotejo),
 })
 export type ColaExcepciones = typeof ColaExcepciones.Type

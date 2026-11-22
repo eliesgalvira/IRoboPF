@@ -12,6 +12,7 @@ import { HttpClient } from "effect/unstable/http"
 
 import { cotejar } from "./cotejo"
 import {
+  ComposicionesDesdeJson,
   Especificacion,
   EspecificacionDesdeJson,
   Manifiesto,
@@ -52,6 +53,7 @@ export const RUTAS = {
   cotejo: "procedencia/resultados/2025/cotejo.json",
   excepciones: "procedencia/resultados/2025/excepciones.json",
   resumen: "procedencia/resultados/2025/resumen.json",
+  composiciones: "procedencia/composiciones/2025.json",
 } as const
 
 const jsonLegible = <S extends Schema.Top>(schema: S) =>
@@ -417,7 +419,25 @@ export const generarCotejo = Effect.fn("procedencia.cotejar")(function* () {
       return extraccion
     })
   )
-  const cotejo = yield* cotejar(extracciones, yield* proyectarMotor2025())
+  const { composiciones } = yield* fs.readFileString(RUTAS.composiciones).pipe(
+    Effect.flatMap((texto) =>
+      Schema.decodeUnknownEffect(ComposicionesDesdeJson)(texto, {
+        onExcessProperty: "error",
+      })
+    ),
+    Effect.mapError(
+      (error) =>
+        new EspecificacionInvalida({
+          archivo: RUTAS.composiciones,
+          detalle: error.message,
+        })
+    )
+  )
+  const cotejo = yield* cotejar(
+    extracciones,
+    yield* proyectarMotor2025(),
+    composiciones
+  )
   yield* escribir(RUTAS.cotejo, textoCotejo(cotejo.entradas))
   yield* escribirJson(RUTAS.excepciones, ColaExcepciones, cotejo.excepciones)
   yield* escribirJson(RUTAS.resumen, Resumen, cotejo.resumen)
