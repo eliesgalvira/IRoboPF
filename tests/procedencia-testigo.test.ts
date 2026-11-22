@@ -371,6 +371,40 @@ describe("localización de la tabla en el árbol", () => {
     ])
   })
 
+  it("una tabla con dos filas iguales a la cabecera no elige la primera", () => {
+    expect(
+      testigos(
+        [pagina(1, tablaPdf(CABECERA, CABECERA, ["0", "9,50"]))],
+        [pendiente(0, "Tipo HTML", "9,50", "9.5")]
+      )
+    ).toEqual([
+      {
+        _tag: "SinTestigo",
+        motivo: { _tag: "CabeceraPdfAmbigua", pagina: 1, filas: [0, 1] },
+      },
+    ])
+  })
+
+  it("una tabla anidada en una celda no da texto a la celda", () => {
+    const anidada = elemento(
+      "TD",
+      elemento("Table", elemento("TR", celda("TD", "9,50")))
+    )
+    const tabla = elemento(
+      "Table",
+      elemento("THead", fila("TH", ...CABECERA)),
+      elemento("TBody", elemento("TR", celda("TD", "0"), anidada))
+    )
+    expect(
+      testigos([pagina(1, tabla)], [pendiente(0, "Tipo HTML", "9,50", "9.5")])
+    ).toEqual([
+      {
+        _tag: "SinTestigo",
+        motivo: { _tag: "TablaPdfAnidada", pagina: 1 },
+      },
+    ])
+  })
+
   it("un número de filas distinto del HTML deja la escala sin testigo", () => {
     expect(
       testigos(
@@ -460,6 +494,40 @@ describe("casilla del cuadro", () => {
       _tag: "SinTestigo",
       motivo: { _tag: "TextoDistinto" },
     })
+  })
+
+  it("un valor remitido se atestigua con el texto de la casilla que remite", () => {
+    const remitido = (textoHtml: string): ValorPendienteDeTestigo => ({
+      ...casilla(textoHtml),
+      atestiguable: {
+        _tag: "Remision",
+        fila: "Estatal",
+        columna: "Contribuyente HTML",
+        textoHtml,
+        gramatica: null,
+      },
+    })
+    const testigoRemitido = (texto: string, textoHtml: string) =>
+      atestiguar(
+        localizarTablaPdf(
+          { paginas: [1], cabecera: ["Importes", "Contribuyente"] },
+          [pagina(1, tabla(texto))]
+        ),
+        cuadro,
+        [remitido(textoHtml)]
+      )[0]?.testigo
+    expect(
+      testigoRemitido(
+        "Igual que los mínimos estatales.",
+        "Igual que los mínimos estatales."
+      )
+    ).toEqual({
+      _tag: "PorRemision",
+      celda: { pagina: 1, tabla: 0, fila: 1, columna: 1, paginas: [1] },
+    })
+    expect(
+      testigoRemitido("6.000 euros", "Igual que los mínimos estatales.")
+    ).toMatchObject({ _tag: "SinTestigo", motivo: { _tag: "TextoDistinto" } })
   })
 
   it("la fila se localiza por su cabecera exacta", () => {

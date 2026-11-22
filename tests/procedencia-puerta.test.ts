@@ -93,6 +93,16 @@ describe("puerta de las excepciones aceptadas", () => {
     ])
   })
 
+  it("un valor del motor cambiado en una clave ausente del manual ya no está aceptado", () => {
+    const clave = "aragon|minimos-personales-familiares|contribuyente|general"
+    expect(fallo(puerta(sellado(), conValor(clave, "6000")))).toBeDefined()
+  })
+
+  it("un valor del motor cambiado en la clave de una excepción de extracción ya no está aceptado", () => {
+    const clave = "comunitat-valenciana|escala-general-autonomica|10|tipo-aplicable"
+    expect(fallo(puerta(sellado(), conValor(clave, "30")))).toBeDefined()
+  })
+
   it("una excepción de extracción sólo pasa si está aceptada tal cual", () => {
     const sinValencia = aceptadas.filter(
       (aceptada) => aceptada._tag !== "ExcepcionDeExtraccion"

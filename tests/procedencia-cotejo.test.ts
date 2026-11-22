@@ -9,6 +9,7 @@ import { cotejar } from "../lib/procedencia/cotejo"
 import { ComposicionesDesdeJson } from "../lib/procedencia/especificacion"
 import {
   CeldaAmbigua,
+  EscalaIncoherente,
   LiteralFueraDeGramatica,
   TablaNoLocalizada,
 } from "../lib/procedencia/excepciones"
@@ -493,6 +494,40 @@ describe("escala agregada del ahorro", () => {
     expect(agregadas.every((e) => e.manual.length === 0)).toBe(true)
     expect(agregadas.map((e) => e.excepcionesDeExtraccion)).toEqual(
       Array.from({ length: 8 }, () => ["ComposicionNoResuelta"])
+    )
+  })
+
+  it("no suma una mitad que tiene excepciones de extracción", () => {
+    const mitad = [
+      ["0", "0", "6000", "9.5"],
+      ["6000", "570", null, "10.5"],
+    ] as const
+    const estatal = ahorro("escala-ahorro-estatal", "estatal", mitad)
+    const resultado = Result.getOrThrow(
+      cotejar(
+        [
+          {
+            ...estatal,
+            excepciones: [
+              new EscalaIncoherente({
+                tabla: "escala-ahorro-estatal",
+                tramo: 1,
+                motivo: "prueba",
+                claves: [],
+              }),
+            ],
+          },
+          ahorro("escala-ahorro-autonomica", "andalucia", mitad),
+        ],
+        motorAgregado,
+        [composicion]
+      )
+    )
+    const agregadas = resultado.entradas.filter(
+      (e) => e.clave.magnitud === "escala-ahorro-agregada"
+    )
+    expect(agregadas.map((e) => e.estado)).toEqual(
+      Array.from({ length: 8 }, () => "excepcion-de-extraccion")
     )
   })
 })
