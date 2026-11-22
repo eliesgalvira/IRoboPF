@@ -35,7 +35,11 @@ import {
   type FilaHtml,
   type TablaHtml,
 } from "./html"
-import { leerLiteral, type GramaticaNumero } from "./literales"
+import {
+  esFilaDeCabecera,
+  leerLiteral,
+  type GramaticaNumero,
+} from "./literales"
 import type { ValorExtraido } from "./resultado"
 import type {
   Clave,
@@ -47,22 +51,21 @@ import type {
 
 // Lo que el testigo necesita de la celda del HTML: su fila (índice de tramo o
 // literal de la cabecera de fila), su columna (literal de la cabecera), su
-// texto entero y, en una escala, la gramática de la columna. Un valor remitido
-// no tiene celda propia.
+// texto entero y, en una escala, la gramática de la columna. La celda de un
+// valor remitido es la que remite, no la de origen.
 export interface CeldaAtestiguable {
-  readonly _tag: "Celda"
+  readonly _tag: "Celda" | "Remision"
   readonly fila: number | string
   readonly columna: string
   readonly textoHtml: string
   readonly gramatica: GramaticaNumero | null
 }
-export type Atestiguable = CeldaAtestiguable | { readonly _tag: "PorRemision" }
 
 export interface ValorPendienteDeTestigo extends Omit<
   ValorExtraido,
   "testigo"
 > {
-  readonly atestiguable: Atestiguable
+  readonly atestiguable: CeldaAtestiguable
 }
 
 export interface ExtraccionHtml {
@@ -154,13 +157,11 @@ const localizarCabecera = (
   modelo: TablaHtml,
   declaradas: ReadonlyArray<string>
 ): Result.Result<TablaConCabecera, FalloDeTabla> => {
-  const esperadas = new Set(declaradas)
-  const candidatas = modelo.filas.filter(
-    (fila) =>
-      fila.celdas.length === esperadas.size &&
-      new Set(fila.celdas.map((celda) => celda.texto)).size ===
-        esperadas.size &&
-      fila.celdas.every((celda) => esperadas.has(celda.texto))
+  const candidatas = modelo.filas.filter((fila) =>
+    esFilaDeCabecera(
+      fila.celdas.map((celda) => celda.texto),
+      declaradas
+    )
   )
   const [unica, ...resto] = candidatas
   if (unica === undefined) {
@@ -622,7 +623,13 @@ const resolverRemision = (
         literal: remision.literal,
         ubicacionRemision: remision.ubicacion,
       },
-      atestiguable: { _tag: "PorRemision" },
+      atestiguable: {
+        _tag: "Remision",
+        fila: remision.fila,
+        columna: remision.columna,
+        textoHtml: remision.literal,
+        gramatica: null,
+      },
     })),
     notas: [],
     excepciones: [],

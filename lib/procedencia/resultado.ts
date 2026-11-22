@@ -42,6 +42,11 @@ export type CeldaPdf = typeof CeldaPdf.Type
 export const MotivoSinTestigo = Schema.Union([
   Schema.TaggedStruct("PaginaSinEstructura", { pagina: Pagina }),
   Schema.TaggedStruct("TablaPdfNoLocalizada", { encontradas: Indice }),
+  Schema.TaggedStruct("CabeceraPdfAmbigua", {
+    pagina: Pagina,
+    filas: Schema.Array(Indice),
+  }),
+  Schema.TaggedStruct("TablaPdfAnidada", { pagina: Pagina }),
   Schema.TaggedStruct("ContinuacionNoLocalizada", {
     pagina: Pagina,
     encontradas: Indice,
@@ -71,8 +76,9 @@ export const MotivoSinTestigo = Schema.Union([
 ])
 export type MotivoSinTestigo = typeof MotivoSinTestigo.Type
 
-// «Mismo literal» y «mismo valor, otro literal» llevan obligatoriamente la
-// celda: no hay testigo sin la celda que lo da.
+// Todo testigo lleva obligatoriamente la celda que lo da. El de un valor
+// remitido es la celda que remite, con el mismo texto que en el HTML; el valor
+// copiado se atestigua en su celda de origen.
 export const Testigo = Schema.Union([
   Schema.TaggedStruct("MismoLiteral", { celda: CeldaPdf }),
   Schema.TaggedStruct("MismoValorOtroLiteral", {
@@ -80,7 +86,7 @@ export const Testigo = Schema.Union([
     literalPdf: Schema.String,
   }),
   Schema.TaggedStruct("SinTestigo", { motivo: MotivoSinTestigo }),
-  Schema.TaggedStruct("PorRemision", {}),
+  Schema.TaggedStruct("PorRemision", { celda: CeldaPdf }),
 ])
 export type Testigo = typeof Testigo.Type
 

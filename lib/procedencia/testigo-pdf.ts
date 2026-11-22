@@ -1,12 +1,8 @@
 import { Effect, Path, Result } from "effect"
 
 import { PdfIlegible } from "./excepciones"
-import type {
-  Atestiguable,
-  CeldaAtestiguable,
-  ValorPendienteDeTestigo,
-} from "./extraccion"
-import { leerLiteral } from "./literales"
+import type { CeldaAtestiguable, ValorPendienteDeTestigo } from "./extraccion"
+import { esFilaDeCabecera, leerLiteral } from "./literales"
 import type {
   CeldaPdf,
   MotivoSinTestigo,
@@ -67,13 +63,22 @@ interface FilaDeTrozo {
 
 // Una tabla del árbol de una página: su índice entre las tablas de la página,
 // en el orden del árbol, el encabezado (H, H1…H6) que la precede en el orden
-// del documento dentro de las páginas leídas, y sus filas.
+// del documento dentro de las páginas leídas, sus filas y si tiene otra tabla
+// dentro.
 export interface TrozoDeTabla {
   readonly pagina: number
   readonly indice: number
   readonly encabezado: string | null
   readonly filas: ReadonlyArray<FilaDeTrozo>
+  readonly anidada: boolean
 }
+
+const contieneTabla = (nodo: NodoPdf): boolean =>
+  nodo._tag === "Elemento" &&
+  nodo.hijos.some(
+    (hijo) =>
+      hijo._tag === "Elemento" && (hijo.rol === "Table" || contieneTabla(hijo))
+  )
 
 const filasDe = (tabla: NodoPdf): ReadonlyArray<FilaDeTrozo> => {
   const fila = (tr: NodoPdf, seccion: string | null): FilaDeTrozo => ({
@@ -110,7 +115,13 @@ export const trozosDeTablas = (
         return
       }
       if (nodo.rol === "Table") {
-        trozos.push({ pagina, indice, encabezado, filas: filasDe(nodo) })
+        trozos.push({
+          pagina,
+          indice,
+          encabezado,
+          filas: filasDe(nodo),
+          anidada: contieneTabla(nodo),
+        })
         indice++
         return
       }
@@ -149,12 +160,12 @@ export interface TablaPdf {
   }>
 }
 
-const filaDeCabecera = (trozo: TrozoDeTabla, cabecera: ReadonlyArray<string>) =>
-  trozo.filas.findIndex(
-    (fila) =>
-      fila.celdas.length === cabecera.length &&
-      new Set(fila.celdas.map(textoDe)).size === cabecera.length &&
-      fila.celdas.every((celda) => cabecera.includes(textoDe(celda)))
+const filasDeCabecera = (
+  trozo: TrozoDeTabla,
+  cabecera: ReadonlyArray<string>
+): ReadonlyArray<number> =>
+  trozo.filas.flatMap((fila, indice) =>
+    esFilaDeCabecera(fila.celdas.map(textoDe), cabecera) ? [indice] : []
   )
 
 const mismoEsqueleto = (a: TrozoDeTabla, b: TrozoDeTabla) =>
@@ -167,11 +178,13 @@ const mismoEsqueleto = (a: TrozoDeTabla, b: TrozoDeTabla) =>
 
 // La tabla es la única de las páginas declaradas con una fila cuyas celdas son
 // exactamente la cabecera declarada (y, si se declara, con ese encabezado
-// anterior). En cada página declarada posterior a la suya, su continuación es
-// la única tabla de la página cuya fila de cabecera no tiene contenido (en la
-// continuación, la cabecera repetida es un artefacto, fuera del árbol), y ha
-// de tener el mismo esqueleto. El texto de cada celda es la unión, por orden
-// de página, de su contenido en cada trozo.
+// anterior), y esa fila es única en ella. En cada página declarada posterior a
+// la suya, su continuación es la única tabla de la página cuya fila de
+// cabecera no tiene contenido (en la continuación, la cabecera repetida es un
+// artefacto, fuera del árbol), y ha de tener el mismo esqueleto. Ningún trozo
+// puede tener otra tabla dentro: su texto se mezclaría con el de la celda. El
+// texto de cada celda es la unión, por orden de página, de su contenido en
+// cada trozo.
 export const localizarTablaPdf = (
   declaracion: DeclaracionPdf,
   paginas: ReadonlyArray<PaginaEtiquetada>
@@ -183,7 +196,7 @@ export const localizarTablaPdf = (
   const trozos = trozosDeTablas(paginas)
   const candidatas = trozos.filter(
     (trozo) =>
-      filaDeCabecera(trozo, declaracion.cabecera) !== -1 &&
+      filasDeCabecera(trozo, declaracion.cabecera).length > 0 &&
       (declaracion.encabezado === undefined ||
         trozo.encabezado === declaracion.encabezado)
   )
@@ -194,7 +207,15 @@ export const localizarTablaPdf = (
       encontradas: candidatas.length,
     })
   }
-  const cabecera = filaDeCabecera(tabla, declaracion.cabecera)
+  const filas = filasDeCabecera(tabla, declaracion.cabecera)
+  const [cabecera] = filas
+  if (cabecera === undefined || filas.length > 1) {
+    return Result.fail({
+      _tag: "CabeceraPdfAmbigua",
+      pagina: tabla.pagina,
+      filas,
+    })
+  }
   const partes: Array<TrozoDeTabla> = [tabla]
   for (const pagina of declaracion.paginas.filter((p) => p > tabla.pagina)) {
     const continuaciones = trozos.filter(
@@ -215,6 +236,13 @@ export const localizarTablaPdf = (
       return Result.fail({ _tag: "ContinuacionIrregular", pagina })
     }
     partes.push(continuacion)
+  }
+  const conTablaDentro = partes.find((parte) => parte.anidada)
+  if (conTablaDentro !== undefined) {
+    return Result.fail({
+      _tag: "TablaPdfAnidada",
+      pagina: conTablaDentro.pagina,
+    })
   }
   const celdaUnida = (fila: number, columna: number): CeldaUnida => {
     const conContenido = partes.filter(
@@ -279,7 +307,7 @@ const sinTestigo = (motivo: MotivoSinTestigo): Testigo => ({
 // de la casilla es la comprobación exacta más fuerte, y fija cada importe en
 // su sitio.
 const testigoDeCelda = (
-  { textoHtml, gramatica }: CeldaAtestiguable,
+  { _tag, textoHtml, gramatica }: CeldaAtestiguable,
   valor: Valor,
   posicion: PosicionPdf,
   celda: CeldaUnida
@@ -290,7 +318,10 @@ const testigoDeCelda = (
   }
   const referencia: CeldaPdf = { ...posicion, paginas: [primera, ...resto] }
   if (celda.texto === textoHtml) {
-    return { _tag: "MismoLiteral", celda: referencia }
+    return {
+      _tag: _tag === "Remision" ? "PorRemision" : "MismoLiteral",
+      celda: referencia,
+    }
   }
   if (gramatica === null) {
     return sinTestigo({
@@ -327,10 +358,7 @@ export const atestiguar = (
   correspondencia: Correspondencia,
   pendientes: ReadonlyArray<ValorPendienteDeTestigo>
 ): ReadonlyArray<ValorExtraido> => {
-  const testigoDe = (atestiguable: Atestiguable, valor: Valor): Testigo => {
-    if (atestiguable._tag === "PorRemision") {
-      return { _tag: "PorRemision" }
-    }
+  const testigoDe = (atestiguable: CeldaAtestiguable, valor: Valor): Testigo => {
     if (Result.isFailure(tabla)) {
       return sinTestigo(tabla.failure)
     }

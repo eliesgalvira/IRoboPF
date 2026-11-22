@@ -541,8 +541,8 @@ describe("extracción de un cuadro de partidas", () => {
     ).toEqual([
       [{ _tag: "Numero", decimal: "5550" }, 1, "Directo", "Celda"],
       [{ _tag: "Numero", decimal: "2400" }, 0, "Directo", "Celda"],
-      [{ _tag: "Numero", decimal: "5550" }, 1, "Remision", "PorRemision"],
-      [{ _tag: "Numero", decimal: "2400" }, 0, "Remision", "PorRemision"],
+      [{ _tag: "Numero", decimal: "5550" }, 1, "Remision", "Remision"],
+      [{ _tag: "Numero", decimal: "2400" }, 0, "Remision", "Remision"],
     ])
   })
 

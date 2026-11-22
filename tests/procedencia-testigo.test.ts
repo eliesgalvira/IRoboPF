@@ -421,19 +421,6 @@ describe("localización de la tabla en el árbol", () => {
     ])
   })
 
-  it("un valor remitido no tiene testigo propio", () => {
-    expect(
-      testigos(
-        [pagina(1, tablaPdf(CABECERA, ["0", "9,50"]))],
-        [
-          {
-            ...pendiente(0, "Tipo HTML", "9,50", "9.5"),
-            atestiguable: { _tag: "PorRemision" },
-          },
-        ]
-      )
-    ).toEqual([{ _tag: "PorRemision" }])
-  })
 })
 
 describe("casilla del cuadro", () => {

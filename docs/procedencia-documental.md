@@ -173,8 +173,8 @@ comprobación se hace al decodificar la especificación.
   «sin homólogo». Se cuenta en `sinClaveDeMotor` y `resumen.json` lo lista con
   su procedencia. Inventar una clave para él en el vocabulario del motor
   supondría afirmar que el motor tiene esa magnitud. Una remisión copia también
-  estos valores: llegan como referidos, sin clave y sin testigo directo, y se
-  siguen contando en `sinClaveDeMotor`.
+  estos valores: llegan como referidos, sin clave, y se siguen contando en
+  `sinClaveDeMotor`.
 - La única remisión es `RemisionAMinimosEstatales`, con su literal exacto
   («igual que los mínimos estatales.») y sin campo de fila: su destino es, por
   construcción, la celda de la misma columna en la fila del territorio
@@ -198,8 +198,11 @@ comprobación se hace al decodificar la especificación.
   si en esas páginas hay más de una tabla con esa cabecera, el encabezado
   (`H`, `H1`…`H6`) que la precede en el orden del documento. Si no hay ninguna
   tabla así o hay más de una, es `TablaPdfNoLocalizada` con el número
-  encontrado, nunca «la primera». El encabezado anterior puede estar al final
-  de la página previa, que entonces se declara (Aragón, 1121–1122).
+  encontrado, nunca «la primera». La fila de cabecera ha de ser única en la
+  tabla (`CabeceraPdfAmbigua`), y una tabla con otra dentro es
+  `TablaPdfAnidada`: su texto se mezclaría con el de la celda. El encabezado
+  anterior puede estar al final de la página previa, que entonces se declara
+  (Aragón, 1121–1122).
 - pdf.js da el árbol página a página: de una tabla que toca la página trae el
   esqueleto entero (todas sus filas y celdas), con el contenido de esa página.
   Una tabla partida se resuelve por estructura: en cada página declarada
@@ -230,7 +233,9 @@ comprobación se hace al decodificar la especificación.
   de la casilla tiene testigo.
 - El testigo sellado es la celda: página y orden de su tabla en el árbol, fila
   y columna, y las páginas con contenido. «Con testigo» sin celda no se puede
-  escribir ni leer. Una página sin árbol de estructura es
+  escribir ni leer. El testigo de un valor remitido es la casilla que remite,
+  con el mismo texto que en el HTML (`PorRemision`); el valor copiado se
+  atestigua en su casilla de origen. Una página sin árbol de estructura es
   `PaginaSinEstructura`: no hay vía de reserva por texto de la página.
 - `tablas` ayuda al autor de especificaciones: lista las tablas del árbol de
   unas páginas, con su encabezado anterior y el texto de sus celdas.

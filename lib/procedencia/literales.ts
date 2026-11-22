@@ -27,6 +27,16 @@ export const caracterNoAdmitido = (texto: string): string | undefined => {
     : `U+${(encontrado.codePointAt(0) ?? 0).toString(16).toUpperCase().padStart(4, "0")}`
 }
 
+// Una fila es de cabecera si sus textos son, exactamente y sin repetir, los
+// literales declarados, en cualquier orden.
+export const esFilaDeCabecera = (
+  textos: ReadonlyArray<string>,
+  declarados: ReadonlyArray<string>
+): boolean =>
+  textos.length === declarados.length &&
+  new Set(textos).size === declarados.length &&
+  textos.every((texto) => declarados.includes(texto))
+
 export interface GramaticaNumero {
   readonly decimales: ReadonlyArray<number>
   readonly sufijo?: string | undefined
