@@ -399,21 +399,24 @@ const cuadro = (
     { cabecera: "C.A. de Aragón", territorio: "aragon" },
   ]
 ) =>
-  Schema.decodeUnknownSync(EspecificacionCuadro)({
-    tipo: "cuadro",
-    tabla: "prueba-cuadro",
-    magnitud: "minimos-personales-familiares",
-    territorios: ["estatal", "aragon", "madrid"],
-    documento: {
-      sha256: SHA_HTML,
-      localizador: { _tag: "UnicaTablaDelDocumento" },
+  Schema.decodeUnknownSync(EspecificacionCuadro)(
+    {
+      tipo: "cuadro",
+      tabla: "prueba-cuadro",
+      magnitud: "minimos-personales-familiares",
+      territorios: ["estatal", "aragon", "madrid"],
+      documento: {
+        sha256: SHA_HTML,
+        localizador: { _tag: "UnicaTablaDelDocumento" },
+      },
+      cabeceraDeFilas: "Importes",
+      columnas: ["Mínimo por contribuyente"],
+      filas,
+      celdas,
+      testigo: { sha256: SHA_PDF, paginas: [1] },
     },
-    cabeceraDeFilas: "Importes",
-    columnas: ["Mínimo por contribuyente"],
-    filas,
-    celdas,
-    testigo: { sha256: SHA_PDF, paginas: [1] },
-  })
+    { onExcessProperty: "error" }
+  )
 
 const partida = (
   plantilla: string,
@@ -437,9 +440,8 @@ const mayor65 = partida("+ {importe} euros anuales, mayor de 65 años.", [
 const nota = (literal: string, id?: string) =>
   id === undefined ? { _tag: "Nota", literal } : { _tag: "Nota", id, literal }
 const remite = {
-  _tag: "Remision",
+  _tag: "RemisionAMinimosEstatales",
   literal: "igual que los mínimos estatales.",
-  fila: "Estatal",
 }
 const celda = (fila: string, ...bloques: ReadonlyArray<unknown>) => ({
   fila,
@@ -741,6 +743,18 @@ describe("secuencia de bloques de una celda del cuadro", () => {
 describe("remisión a los mínimos estatales", () => {
   const estatalDeclarada = celda("Estatal", general, mayor65)
 
+  it("la remisión es toda la celda y no la hace la fila estatal", () => {
+    expect(() =>
+      cuadro([
+        estatalDeclarada,
+        celda("C.A. de Aragón", remite, nota("Salvo lo que sigue:")),
+      ])
+    ).toThrow()
+    expect(() =>
+      cuadro([celda("Estatal", remite), celda("C.A. de Aragón", remite)])
+    ).toThrow()
+  })
+
   it("no puede apuntar a una fila que no sea la estatal", () => {
     expect(() =>
       cuadro(
@@ -782,10 +796,17 @@ describe("remisión a los mínimos estatales", () => {
         )
       ).toEqual([])
       expect(
-        extraccion.excepciones.some(
-          (e) => "fila" in e && e.fila === "C.A. de Aragón"
-        )
-      ).toBe(true)
+        extraccion.excepciones.filter((e) => e._tag === "RemisionNoResuelta")
+      ).toMatchObject([
+        {
+          fila: "C.A. de Aragón",
+          filaOrigen: "Estatal",
+          claves: [
+            { territorio: "aragon", columna: "general" },
+            { territorio: "aragon", columna: "adicionalMayor65" },
+          ],
+        },
+      ])
     }
   )
 })

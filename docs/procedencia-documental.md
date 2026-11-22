@@ -59,7 +59,7 @@ volver a extraer también la hace fallar.
 
 **Lista cerrada de lo que puede haber en una fila y en sus celdas.** Aplanar
 cualquier descendiente leería texto que el navegador no muestra
-(`<span hidden>1</span>9,50` daba 19,50). La lista es la mínima que cubre las
+(`<span hidden>1</span>9,50` se leería 19,50). La lista es la mínima que cubre las
 20 páginas de 2025, sacada de los originales: `tr` sin atributos; `th` con la
 clase `texto_cen`; `td` con las clases `texto_cen`, `texto_der`, `letrita`,
 `revsar` y `"texto_der` (así, con la comilla, en el ahorro estatal) y el
@@ -146,12 +146,21 @@ comprobación se hace al decodificar la especificación.
   «sin homólogo». Se cuenta en `sinClaveDeMotor` y `resumen.json` lo lista con
   su procedencia. Inventar una clave para él en el vocabulario del motor
   supondría afirmar que el motor tiene esa magnitud. Una remisión copia también
-  estos valores, igual que los demás valores directos de la celda remitida.
-- Una remisión es un literal exacto («igual que los mínimos estatales.») y la
-  fila a la que remite, dentro de la misma columna. Se resuelve copiando los
-  valores directos de la celda remitida con el territorio de la fila que remite.
-  Esos valores quedan marcados como `Remision` y no admiten cadenas de
-  remisiones.
+  estos valores: llegan como referidos, sin clave y sin testigo directo, y se
+  siguen contando en `sinClaveDeMotor`.
+- La única remisión es `RemisionAMinimosEstatales`, con su literal exacto
+  («igual que los mínimos estatales.») y sin campo de fila: su destino es, por
+  construcción, la celda de la misma columna en la fila del territorio
+  `estatal`. Un nombre de fila libre podría apuntar a Andalucía y copiar sus
+  5.790 € como si fueran los estatales. La remisión ha de ser todo el
+  contenido de su celda, fuera de la fila estatal, y la celda estatal de su
+  columna ha de tener partidas.
+- Se resuelve sólo si la celda estatal se leyó entera: sin excepciones y con
+  todas sus partidas declaradas extraídas. Entonces copia todos sus valores con
+  el territorio de la fila que remite, marcados como `Remision`. Si no, la
+  remitente recibe `RemisionNoResuelta`, con las excepciones de la celda de
+  origen y las claves que habría dado, y no copia nada: copiar el subconjunto
+  que quede haría pasar una remisión incompleta por resuelta.
 - Las notas se registran con su procedencia y no tienen clave.
 
 **Testigo PDF.**
@@ -205,8 +214,8 @@ y unidad.
 - Antes de proyectar, cada escala del motor se valida: tipos finitos, límites
   finitos y estrictamente crecientes desde 0 salvo el último, que es el único
   abierto y ha de ser `+Infinity`. Los mínimos han de ser finitos. Un fallo es
-  `DatoDelMotorInvalido` y aborta el cotejo; antes, cualquier decimal no finito
-  (también `NaN`) se convertía en `sin-limite`. El tramo abierto se representa
+  `DatoDelMotorInvalido` y aborta el cotejo: convertir cualquier decimal no
+  finito (también `NaN`) en `sin-limite` escondería el error. El tramo abierto se representa
   aparte de los cerrados, así que `sin-limite` sólo sale del último.
 
 **Almacenado y derivado.** Es «almacenado» lo que el motor guarda tal cual:

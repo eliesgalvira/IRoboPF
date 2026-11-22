@@ -164,18 +164,26 @@ const Partida = Schema.TaggedStruct("Partida", {
 )
 export type Partida = typeof Partida.Type
 
-const Remision = Schema.TaggedStruct("Remision", {
-  literal: LiteralCanonico,
-  fila: LiteralCanonico,
-})
+// Remite a los mínimos estatales: su destino es, por construcción, la celda
+// de la misma columna en la fila del territorio estatal. No hay campo de fila
+// que pueda apuntar a otra.
+const RemisionAMinimosEstatales = Schema.TaggedStruct(
+  "RemisionAMinimosEstatales",
+  { literal: LiteralCanonico }
+)
 
 const Nota = Schema.TaggedStruct("Nota", {
   literal: LiteralCanonico,
   id: Schema.optionalKey(IdNota),
 })
 
-const BloqueDeclarado = Schema.Union([Partida, Remision, Nota])
+const BloqueDeclarado = Schema.Union([Partida, RemisionAMinimosEstatales, Nota])
 export type BloqueDeclarado = typeof BloqueDeclarado.Type
+
+const remite = (celda: {
+  readonly bloques: ReadonlyArray<BloqueDeclarado>
+}): boolean =>
+  celda.bloques.some((bloque) => bloque._tag === "RemisionAMinimosEstatales")
 
 // La celda es la secuencia completa y ordenada de sus bloques: el HTML ha de
 // traer exactamente esos, en ese orden. El alcance de una partida que viene de
@@ -252,6 +260,34 @@ export const EspecificacionCuadro = Schema.Struct({
         (celda) => `${celda.fila}\u0000${celda.columna}`
       )
     )
+    const estatales = especificacion.filas.filter(
+      (fila) => fila.territorio === "estatal"
+    )
+    // La remisión es toda la celda, fuera de la fila estatal, y su destino, la
+    // celda estatal de la columna, tiene partidas.
+    const problemasDeRemision = (celda: CeldaCuadro) => [
+      ...(celda.bloques.length === 1
+        ? []
+        : [
+            `la celda de «${celda.fila}» y «${celda.columna}» remite a los mínimos estatales y tiene otros bloques`,
+          ]),
+      ...(estatales.length === 1
+        ? []
+        : ["una remisión a los mínimos estatales exige una sola fila estatal"]),
+      ...(estatales.some((fila) => fila.cabecera === celda.fila)
+        ? [`la fila estatal «${celda.fila}» no puede remitir a sí misma`]
+        : []),
+      ...(especificacion.celdas.some(
+        (otra) =>
+          otra.fila === estatales[0]?.cabecera &&
+          otra.columna === celda.columna &&
+          otra.bloques.some((bloque) => bloque._tag === "Partida")
+      )
+        ? []
+        : [
+            `la celda estatal de «${celda.columna}», a la que remite «${celda.fila}», no tiene partidas`,
+          ]),
+    ]
     const problemas = [
       ...especificacion.filas
         .filter((fila) => !territorios.has(fila.territorio))
@@ -278,13 +314,7 @@ export const EspecificacionCuadro = Schema.Struct({
         ...(columnas.has(celda.columna)
           ? []
           : [`la celda usa una columna no declarada «${celda.columna}»`]),
-        ...celda.bloques.flatMap((bloque) =>
-          bloque._tag === "Remision" && !filas.has(bloque.fila)
-            ? [
-                `la remisión «${bloque.literal}» apunta a una fila no declarada «${bloque.fila}»`,
-              ]
-            : []
-        ),
+        ...(remite(celda) ? problemasDeRemision(celda) : []),
       ]),
     ]
     return problemas.length === 0 ? undefined : problemas.join("; ")

@@ -21,6 +21,7 @@ import {
   FilaIrregular,
   FilaNoDeclarada,
   LiteralFueraDeGramatica,
+  RemisionNoResuelta,
   TablaAmbigua,
   TablaNoLocalizada,
   type ExcepcionExtraccion,
@@ -424,20 +425,24 @@ const encaja = (declarado: BloqueDeclarado, bloque: Bloque): boolean =>
 const textoDeclarado = (declarado: BloqueDeclarado): string =>
   declarado._tag === "Partida" ? declarado.plantilla : declarado.literal
 
+interface Nota {
+  readonly ubicacion: Ubicacion
+  readonly literal: string
+}
+
 interface RemisionPendiente {
   readonly territorio: Territorio
-  readonly filaDestino: string
-  readonly filaOrigen: string
+  readonly fila: string
   readonly columna: string
   readonly literal: string
   readonly ubicacion: Ubicacion
 }
 
-interface SalidaCuadro {
-  readonly valores: Array<ValorPendienteDeTestigo>
-  readonly notas: Array<{ ubicacion: Ubicacion; literal: string }>
-  readonly excepciones: Array<ExcepcionExtraccion>
-  readonly remisiones: Array<RemisionPendiente>
+interface LecturaCelda {
+  readonly valores: ReadonlyArray<ValorPendienteDeTestigo>
+  readonly notas: ReadonlyArray<Nota>
+  readonly excepciones: ReadonlyArray<ExcepcionExtraccion>
+  readonly remision: RemisionPendiente | null
 }
 
 interface CeldaLocalizada {
@@ -446,17 +451,19 @@ interface CeldaLocalizada {
   readonly fila: string
   readonly columna: string
   readonly clavesDe: (partida: Partida) => ReadonlyArray<Clave>
+  // Claves de la celda: las de sus partidas o, si remite, las de la celda
+  // estatal con el territorio de la que remite.
+  readonly claves: ReadonlyArray<Clave>
 }
 
 // La celda del HTML ha de ser, bloque a bloque y en orden, la secuencia
 // declarada: cada bloque se compara con la declaración de su misma posición.
 // Si no, la celda entera es CeldaNoCoincide y no da ningún valor.
 const leerCelda = (
-  { tabla, territorio, fila, columna, clavesDe }: CeldaLocalizada,
+  { tabla, territorio, fila, columna, clavesDe, claves }: CeldaLocalizada,
   celda: CeldaHtml,
-  declarada: CeldaCuadro,
-  salida: SalidaCuadro
-): void => {
+  declarada: CeldaCuadro
+): LecturaCelda => {
   const coincide =
     celda.bloques.length === declarada.bloques.length &&
     declarada.bloques.every((declarado, indice) => {
@@ -464,55 +471,54 @@ const leerCelda = (
       return bloque !== undefined && encaja(declarado, bloque)
     })
   if (!coincide) {
-    salida.excepciones.push(
-      new CeldaNoCoincide({
-        tabla,
-        fila,
-        columna,
-        linea: celda.linea,
-        columnaFuente: celda.columnaFuente,
-        declarados: declarada.bloques.map(textoDeclarado),
-        encontrados: celda.bloques.map((bloque) => bloque.texto),
-        claves: declarada.bloques.flatMap((declarado) =>
-          declarado._tag === "Partida" ? clavesDe(declarado) : []
-        ),
-      })
-    )
-    return
+    return {
+      valores: [],
+      notas: [],
+      excepciones: [
+        new CeldaNoCoincide({
+          tabla,
+          fila,
+          columna,
+          linea: celda.linea,
+          columnaFuente: celda.columnaFuente,
+          declarados: declarada.bloques.map(textoDeclarado),
+          encontrados: celda.bloques.map((bloque) => bloque.texto),
+          claves,
+        }),
+      ],
+      remision: null,
+    }
   }
-  const notas = new Map<string, { literal: string; ubicacion: Ubicacion }>()
+  const valores: Array<ValorPendienteDeTestigo> = []
+  const notas: Array<Nota> = []
+  const excepciones: Array<ExcepcionExtraccion> = []
+  let remision: RemisionPendiente | null = null
+  const notasPorId = new Map<string, Nota>()
   declarada.bloques.forEach((declarado, indice) => {
     const bloque = celda.bloques[indice] as Bloque
     const ubicacion = ubicacionDe(fila, columna, bloque)
     if (declarado._tag === "Nota") {
-      salida.notas.push({ ubicacion, literal: bloque.texto })
+      notas.push({ ubicacion, literal: bloque.texto })
       if (declarado.id !== undefined) {
-        notas.set(declarado.id, { literal: bloque.texto, ubicacion })
+        notasPorId.set(declarado.id, { ubicacion, literal: bloque.texto })
       }
       return
     }
-    if (declarado._tag === "Remision") {
-      salida.remisiones.push({
-        territorio,
-        filaDestino: fila,
-        filaOrigen: declarado.fila,
-        columna,
-        literal: bloque.texto,
-        ubicacion,
-      })
+    if (declarado._tag === "RemisionAMinimosEstatales") {
+      remision = { territorio, fila, columna, literal: bloque.texto, ubicacion }
       return
     }
-    const claves = clavesDe(declarado)
+    const clavesPartida = clavesDe(declarado)
     const literalHueco = hueco(declarado, bloque.texto) ?? ""
     const leido = leerLiteral(literalHueco, declarado.gramatica)
     if (Result.isFailure(leido)) {
-      salida.excepciones.push(
+      excepciones.push(
         new LiteralFueraDeGramatica({
           tabla,
           ubicacion,
           literal: literalHueco,
           motivo: leido.failure,
-          claves,
+          claves: clavesPartida,
         })
       )
       return
@@ -521,14 +527,14 @@ const leerCelda = (
     // secuencia ya coincide, así que está en el HTML antes del importe.
     const nota =
       declarado.alcance._tag === "NotaAnterior"
-        ? notas.get(declarado.alcance.nota)
+        ? notasPorId.get(declarado.alcance.nota)
         : undefined
-    salida.valores.push({
+    valores.push({
       ubicacion,
       literal: bloque.texto,
       unidad: declarado.unidad._tag,
       valor: leido.success.valor,
-      claves,
+      claves: clavesPartida,
       alcance:
         nota === undefined
           ? { _tag: "CabeceraDeColumna", literal: columna }
@@ -537,47 +543,67 @@ const leerCelda = (
       literalTestigo: leido.success.literalTestigo,
     })
   })
+  return { valores, notas, excepciones, remision }
 }
 
-// Una remisión copia los valores directos de la celda remitida con el
-// territorio de la fila que remite.
-const resolverRemisiones = (tabla: string, salida: SalidaCuadro): void => {
-  for (const remision of salida.remisiones) {
-    const origenes = salida.valores.filter(
-      (valor) =>
-        valor.origen._tag === "Directo" &&
-        valor.ubicacion.fila === remision.filaOrigen &&
-        valor.ubicacion.columna === remision.columna
-    )
-    if (origenes.length === 0) {
-      salida.excepciones.push(
-        new CeldaAusente({
+// Una remisión a los mínimos estatales tiene por destino, por construcción,
+// la celda de su misma columna en la fila estatal. Sólo se resuelve si esa
+// celda se leyó entera, sin excepciones: entonces copia todos sus valores con
+// el territorio de la fila que remite. Si no, la remitente recibe
+// RemisionNoResuelta con las excepciones de origen y no copia nada.
+const resolverRemision = (
+  tabla: string,
+  remision: RemisionPendiente,
+  filaEstatal: string,
+  origen: LecturaCelda | undefined,
+  partidasDeOrigen: number,
+  claves: ReadonlyArray<Clave>
+): LecturaCelda => {
+  const completa =
+    origen !== undefined &&
+    origen.excepciones.length === 0 &&
+    origen.valores.length === partidasDeOrigen
+  if (!completa) {
+    return {
+      valores: [],
+      notas: [],
+      excepciones: [
+        new RemisionNoResuelta({
           tabla,
-          fila: remision.filaDestino,
+          fila: remision.fila,
           columna: remision.columna,
-          buscado: `valores de la celda remitida «${remision.filaOrigen}»`,
-          claves: [],
-        })
-      )
-      continue
-    }
-    for (const origen of origenes) {
-      salida.valores.push({
-        ...origen,
-        claves: origen.claves.map((clave) => ({
-          ...clave,
-          territorio: remision.territorio,
-        })),
-        origen: {
-          _tag: "Remision",
-          literal: remision.literal,
-          ubicacionRemision: remision.ubicacion,
-        },
-        literalTestigo: null,
-      })
+          filaOrigen: filaEstatal,
+          excepcionesDeOrigen:
+            origen === undefined
+              ? []
+              : origen.excepciones.map((excepcion) => excepcion._tag),
+          claves,
+        }),
+      ],
+      remision: null,
     }
   }
+  return {
+    valores: origen.valores.map((valor) => ({
+      ...valor,
+      claves: valor.claves.map((clave) => ({
+        ...clave,
+        territorio: remision.territorio,
+      })),
+      origen: {
+        _tag: "Remision",
+        literal: remision.literal,
+        ubicacionRemision: remision.ubicacion,
+      },
+      literalTestigo: null,
+    })),
+    notas: [],
+    excepciones: [],
+    remision: null,
+  }
 }
+
+const idCelda = (fila: string, columna: string) => `${fila}\u0000${columna}`
 
 export const extraerCuadro = (
   especificacion: EspecificacionCuadro,
@@ -588,34 +614,42 @@ export const extraerCuadro = (
     especificacion.cabeceraDeFilas,
     ...especificacion.columnas,
   ]
+  // El esquema exige declarar todas las celdas y una sola fila estatal si
+  // hay remisiones.
+  const celdaDeclarada = (fila: string, columna: string) =>
+    especificacion.celdas.find(
+      (c) => c.fila === fila && c.columna === columna
+    ) as CeldaCuadro
+  const filaEstatal =
+    especificacion.filas.find((fila) => fila.territorio === "estatal")
+      ?.cabecera ?? ""
+  const partidasDe = (celda: CeldaCuadro) =>
+    celda.bloques.flatMap((bloque) =>
+      bloque._tag === "Partida" ? [bloque] : []
+    )
   const clavesDe =
     (territorio: Territorio) =>
     (partida: Partida): ReadonlyArray<Clave> =>
       partida.claves.map((posicion) => ({ territorio, magnitud, ...posicion }))
-  const clavesDeFila = (literal: string, territorio: Territorio) =>
-    especificacion.celdas
-      .filter((celda) => celda.fila === literal)
-      .flatMap((celda) =>
-        celda.bloques.flatMap((bloque) =>
-          bloque._tag === "Partida" ? clavesDe(territorio)(bloque) : []
-        )
-      )
+  const clavesDeCelda = (
+    celda: CeldaCuadro,
+    territorio: Territorio
+  ): ReadonlyArray<Clave> =>
+    (celda.bloques.some((b) => b._tag === "RemisionAMinimosEstatales")
+      ? partidasDe(celdaDeclarada(filaEstatal, celda.columna))
+      : partidasDe(celda)
+    ).flatMap(clavesDe(territorio))
   return Result.map(
     localizar(tabla, especificacion.documento.localizador, html, declaradas),
     ({ tablaLocalizada, posicionDe, datos, excepciones: previas }) => {
-      const salida: SalidaCuadro = {
-        valores: [],
-        notas: [],
-        excepciones: [...previas],
-        remisiones: [],
-      }
+      const excepciones: Array<ExcepcionExtraccion> = [...previas]
       const columnaDeFilas =
         posicionDe.get(especificacion.cabeceraDeFilas) ?? -1
 
       const filasPorLiteral = new Map<string, Array<FilaHtml>>()
       for (const fila of datos) {
         if (fila.celdas.length !== declaradas.length) {
-          salida.excepciones.push(
+          excepciones.push(
             new FilaIrregular({
               tabla,
               fila: fila.celdas[columnaDeFilas]?.texto ?? "",
@@ -629,7 +663,7 @@ export const extraerCuadro = (
         }
         const literal = (fila.celdas[columnaDeFilas] as CeldaHtml).texto
         if (!especificacion.filas.some((f) => f.cabecera === literal)) {
-          salida.excepciones.push(
+          excepciones.push(
             new FilaNoDeclarada({ tabla, literal, linea: fila.linea })
           )
           continue
@@ -640,6 +674,7 @@ export const extraerCuadro = (
         ])
       }
 
+      const lecturas = new Map<string, LecturaCelda>()
       for (const {
         cabecera: literalFila,
         territorio,
@@ -652,9 +687,11 @@ export const extraerCuadro = (
             fila: literalFila,
             columna: especificacion.cabeceraDeFilas,
             buscado: `fila «${literalFila}»`,
-            claves: clavesDeFila(literalFila, territorio),
+            claves: especificacion.columnas.flatMap((columna) =>
+              clavesDeCelda(celdaDeclarada(literalFila, columna), territorio)
+            ),
           }
-          salida.excepciones.push(
+          const excepcion =
             fila === undefined
               ? new CeldaAusente(comun)
               : new CeldaAmbigua({
@@ -663,31 +700,59 @@ export const extraerCuadro = (
                     ubicacionDe(literalFila, especificacion.cabeceraDeFilas, f)
                   ),
                 })
-          )
+          excepciones.push(excepcion)
+          for (const columna of especificacion.columnas) {
+            lecturas.set(idCelda(literalFila, columna), {
+              valores: [],
+              notas: [],
+              excepciones: [excepcion],
+              remision: null,
+            })
+          }
           continue
         }
         for (const columna of especificacion.columnas) {
-          leerCelda(
+          const declarada = celdaDeclarada(literalFila, columna)
+          const lectura = leerCelda(
             {
               tabla,
               territorio,
               fila: literalFila,
               columna,
               clavesDe: clavesDe(territorio),
+              claves: clavesDeCelda(declarada, territorio),
             },
             fila.celdas[posicionDe.get(columna) ?? -1] as CeldaHtml,
-            // El esquema exige declarar todas las celdas.
-            especificacion.celdas.find(
-              (c) => c.fila === literalFila && c.columna === columna
-            ) as CeldaCuadro,
-            salida
+            declarada
           )
+          lecturas.set(idCelda(literalFila, columna), lectura)
+          excepciones.push(...lectura.excepciones)
         }
       }
 
-      resolverRemisiones(tabla, salida)
-      const { valores, notas, excepciones } = salida
-      return { tablaLocalizada, valores, notas, excepciones }
+      const directas = Array.from(lecturas.values())
+      const remitidas = directas.flatMap(({ remision }) => {
+        if (remision === null) {
+          return []
+        }
+        const declarada = celdaDeclarada(remision.fila, remision.columna)
+        const resuelta = resolverRemision(
+          tabla,
+          remision,
+          filaEstatal,
+          lecturas.get(idCelda(filaEstatal, remision.columna)),
+          partidasDe(celdaDeclarada(filaEstatal, remision.columna)).length,
+          clavesDeCelda(declarada, remision.territorio)
+        )
+        excepciones.push(...resuelta.excepciones)
+        return resuelta.valores
+      })
+      return {
+        tablaLocalizada,
+        valores: [...directas.flatMap((l) => l.valores), ...remitidas],
+        notas: directas.flatMap((l) => l.notas),
+        excepciones,
+      }
     }
   )
 }

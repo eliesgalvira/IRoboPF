@@ -135,6 +135,20 @@ export class CeldaNoCoincide extends Schema.TaggedErrorClass<CeldaNoCoincide>()(
   }
 ) {}
 
+// La celda remite a los mínimos estatales y la celda estatal no se leyó
+// entera: no se copia nada.
+export class RemisionNoResuelta extends Schema.TaggedErrorClass<RemisionNoResuelta>()(
+  "RemisionNoResuelta",
+  {
+    ...deTabla,
+    fila: Schema.String,
+    columna: Schema.String,
+    filaOrigen: Schema.String,
+    excepcionesDeOrigen: Schema.Array(Schema.String),
+    claves: Schema.Array(Clave),
+  }
+) {}
+
 export class PaginaInexistente extends Schema.TaggedErrorClass<PaginaInexistente>()(
   "PaginaInexistente",
   { ...deTabla, pagina: Schema.Int, paginasDelDocumento: Schema.Int }
@@ -184,6 +198,7 @@ export const ExcepcionExtraccion = Schema.Union([
   CeldaAusente,
   CeldaAmbigua,
   CeldaNoCoincide,
+  RemisionNoResuelta,
   PaginaInexistente,
 ])
 export type ExcepcionExtraccion = typeof ExcepcionExtraccion.Type
