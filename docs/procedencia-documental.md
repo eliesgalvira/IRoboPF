@@ -237,8 +237,6 @@ comprobación se hace al decodificar la especificación.
   con el mismo texto que en el HTML (`PorRemision`); el valor copiado se
   atestigua en su casilla de origen. Una página sin árbol de estructura es
   `PaginaSinEstructura`: no hay vía de reserva por texto de la página.
-- `tablas` ayuda al autor de especificaciones: lista las tablas del árbol de
-  unas páginas, con su encabezado anterior y el texto de sus celdas.
 
 **Proyección del motor.** `lib/procedencia/motor-2025.ts` convierte los datos de
 2025 en registros con clave (territorio, magnitud, fila, columna), valor exacto
@@ -266,9 +264,10 @@ mitades. `procedencia/composiciones/2025.json` declara que
 `escala-ahorro-agregada` se coteja con la suma, tramo a tramo, de
 `escala-ahorro-estatal` y `escala-ahorro-autonomica`. Antes de sumar se exige
 que las dos se hayan extraído sin excepciones y tengan los mismos tramos, todas
-sus celdas y las mismas bases y restos; cuotas y tipos se suman en decimal exacto. El resultado entra en el
-cotejo como `DerivadoDelManual`, con las dos celdas de origen y su testigo, y se
-cuenta en `derivadasDelManual`. Si las mitades no encadenan igual, es
+sus celdas y las mismas bases y restos; cuotas y tipos se suman en decimal
+exacto. El resultado entra en el cotejo como `DerivadoDelManual`, con las dos
+celdas de origen y su testigo, y se cuenta en `derivadasDelManual`. Si las
+mitades no se pueden sumar así, es
 `ComposicionNoResuelta` y no se suma nada. Las claves de las mitades siguen
 «sin homólogo en el motor», porque el motor no las guarda.
 
