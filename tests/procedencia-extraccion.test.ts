@@ -667,6 +667,114 @@ describe("extracción de un cuadro de partidas", () => {
   })
 })
 
+describe("secuencia de bloques de una celda del cuadro", () => {
+  const discapacidad = "Mínimo por contribuyente"
+  const soloDescendientes = "Solo para el caso del mínimo por descendientes:"
+  const grado33 = {
+    ...general,
+    plantilla: "{importe} euros anuales, por discapacidad = o > al 33%.",
+    claves: [{ fila: "discapacidad-descendientes", columna: "grado33Hasta65" }],
+  }
+  const celdaConNota = {
+    fila: "Estatal",
+    columna: discapacidad,
+    partidas: [grado33],
+    remisiones: [],
+    notas: [soloDescendientes],
+  }
+  const leer = (contenido: string) =>
+    exito(
+      extraerCuadro(
+        cuadro(
+          [celdaConNota],
+          [{ cabecera: "Estatal", territorio: "estatal" }]
+        ),
+        cuadroHtml(filaCuadro("Estatal", contenido))
+      )
+    )
+
+  it("la frase que da el alcance precede al importe", () => {
+    const enOrden = leer(
+      `<p>${soloDescendientes}</p><p>3.300 euros anuales, por discapacidad = o &gt; al 33%.</p>`
+    )
+    expect(enOrden.excepciones).toEqual([])
+    expect(enOrden.valores).toHaveLength(1)
+  })
+
+  it("mover la frase del alcance detrás del importe es una excepción y no da valores", () => {
+    const movida = leer(
+      `<p>3.300 euros anuales, por discapacidad = o &gt; al 33%.</p><p>${soloDescendientes}</p>`
+    )
+    expect(movida.excepciones).not.toEqual([])
+    expect(movida.valores).toEqual([])
+  })
+
+  it("cada bloque se compara con la declaración de su posición, sin búsqueda entre plantillas", () => {
+    const adicional = {
+      ...mayor65,
+      plantilla: "+ {importe} euros anuales.",
+    }
+    const sinSigno = {
+      ...general,
+      plantilla: "{importe} euros anuales.",
+    }
+    const extraccion = exito(
+      extraerCuadro(
+        cuadro(
+          [
+            {
+              fila: "Estatal",
+              columna: "Mínimo por contribuyente",
+              partidas: [adicional, sinSigno],
+              remisiones: [],
+              notas: [],
+            },
+          ],
+          [{ cabecera: "Estatal", territorio: "estatal" }]
+        ),
+        cuadroHtml(
+          filaCuadro(
+            "Estatal",
+            "<p>+ 1.150 euros anuales.</p><p>5.550 euros anuales.</p>"
+          )
+        )
+      )
+    )
+    expect(extraccion.excepciones).toEqual([])
+    expect(extraccion.valores.map((v) => v.valor)).toEqual([
+      { _tag: "Numero", decimal: "1150" },
+      { _tag: "Numero", decimal: "5550" },
+    ])
+  })
+
+  it("dos partidas en otro orden que el declarado son una excepción", () => {
+    const extraccion = exito(
+      extraerCuadro(
+        cuadro(
+          [
+            {
+              fila: "Estatal",
+              columna: "Mínimo por contribuyente",
+              partidas: [general, mayor65],
+              remisiones: [],
+              notas: [],
+            },
+          ],
+          [{ cabecera: "Estatal", territorio: "estatal" }]
+        ),
+        cuadroHtml(
+          filaCuadro(
+            "Estatal",
+            "<p>+ 1.150 euros anuales, mayor de 65 años.</p><p>5.550 euros anuales, en general.</p>"
+          )
+        )
+      )
+    )
+    expect(extraccion.excepciones).not.toEqual([])
+    expect(extraccion.valores).toEqual([])
+  })
+})
+
 describe("testigo en el PDF", () => {
   const extraccion = exito(
     extraerEscala(
