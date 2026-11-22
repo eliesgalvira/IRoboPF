@@ -1,8 +1,8 @@
 import { describe, expect, it } from "@effect/vitest"
-import { Result } from "effect"
+import { Result, Schema } from "effect"
 
 import type { ValorPendienteDeTestigo } from "../lib/procedencia/extraccion"
-import type { Testigo } from "../lib/procedencia/resultado"
+import { Testigo } from "../lib/procedencia/resultado"
 import {
   atestiguar,
   localizarTablaPdf,
@@ -420,7 +420,6 @@ describe("localización de la tabla en el árbol", () => {
       },
     ])
   })
-
 })
 
 describe("casilla del cuadro", () => {
@@ -558,5 +557,78 @@ describe("la tabla localizada", () => {
         ["Base", 1],
       ]),
     })
+  })
+})
+
+describe("columna sin resolver", () => {
+  const unaFila = (columnaPdf: ReadonlyMap<string, string>) =>
+    atestiguar(
+      localizarTablaPdf(declaracion([1]), [
+        pagina(1, tablaPdf(CABECERA, ["0", "9,50"])),
+      ]),
+      { _tag: "Escala", tramos: 1, columnaPdf },
+      [pendiente(0, "Tipo HTML", "9,50", "9.5")]
+    )[0]?.testigo
+
+  it("una columna del HTML sin cabecera del PDF declarada se nombra por su literal", () => {
+    const testigo = unaFila(new Map([["Base HTML", "Base"]]))
+    expect(testigo).toEqual({
+      _tag: "SinTestigo",
+      motivo: { _tag: "ColumnaSinCorrespondencia", columna: "Tipo HTML" },
+    })
+    expect(Schema.is(Testigo)(testigo)).toBe(true)
+  })
+
+  it("una cabecera declarada que no está en la tabla se nombra por su literal", () => {
+    const testigo = unaFila(new Map([["Tipo HTML", "Tipo aplicable"]]))
+    expect(testigo).toEqual({
+      _tag: "SinTestigo",
+      motivo: { _tag: "ColumnaPdfNoLocalizada", cabecera: "Tipo aplicable" },
+    })
+    expect(Schema.is(Testigo)(testigo)).toBe(true)
+  })
+
+  it("la columna de cabeceras de fila de un cuadro también", () => {
+    const testigo = atestiguar(
+      localizarTablaPdf(
+        { paginas: [1], cabecera: ["Importes", "Contribuyente"] },
+        [
+          pagina(
+            1,
+            elemento(
+              "Table",
+              elemento(
+                "TR",
+                celda("TH", "Importes"),
+                celda("TH", "Contribuyente")
+              ),
+              elemento("TR", celda("TH", "Estatal"), celda("TD", "x"))
+            )
+          ),
+        ]
+      ),
+      {
+        _tag: "Cuadro",
+        cabeceraDeFilasPdf: "Territorio",
+        columnaPdf: new Map([["Contribuyente HTML", "Contribuyente"]]),
+      },
+      [
+        {
+          ...pendiente(0, "Base HTML", "x", "1"),
+          atestiguable: {
+            _tag: "Celda",
+            fila: "Estatal",
+            columna: "Contribuyente HTML",
+            textoHtml: "x",
+            gramatica: null,
+          },
+        },
+      ]
+    )[0]?.testigo
+    expect(testigo).toEqual({
+      _tag: "SinTestigo",
+      motivo: { _tag: "ColumnaPdfNoLocalizada", cabecera: "Territorio" },
+    })
+    expect(Schema.is(Testigo)(testigo)).toBe(true)
   })
 })
