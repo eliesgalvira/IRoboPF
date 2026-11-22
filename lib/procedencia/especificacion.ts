@@ -4,9 +4,9 @@ import { caracterNoAdmitido, normalizar } from "./literales"
 import {
   Centinela,
   ColumnaEscala,
-  ColumnaMinimo,
-  FilaMinimo,
-  Magnitud,
+  MagnitudCuadro,
+  MagnitudEscala,
+  PosicionMinimo,
   Sha256,
   Territorio,
   Unidad,
@@ -86,7 +86,7 @@ const ColumnaEscalaDeclarada = Schema.Struct({
 export const EspecificacionEscala = Schema.Struct({
   tipo: Schema.Literal("escala"),
   tabla: IdTabla,
-  magnitud: Magnitud,
+  magnitud: MagnitudEscala,
   territorios: Schema.NonEmptyArray(Territorio).check(
     Schema.makeFilter(sinRepetidos("territorio", (t: string) => t))
   ),
@@ -116,9 +116,7 @@ const Partida = Schema.Struct({
   gramatica: Gramatica,
   // Vacío cuando el manual da un importe que no tiene magnitud en el motor:
   // se extrae y lleva testigo, pero no hay clave que cotejar.
-  claves: Schema.Array(
-    Schema.Struct({ fila: FilaMinimo, columna: ColumnaMinimo })
-  ),
+  claves: Schema.Array(PosicionMinimo),
 }).check(
   Schema.makeFilter((partida) => {
     const [prefijo = "", sufijo = ""] = partida.plantilla.split(HUECO_IMPORTE)
@@ -153,7 +151,7 @@ const FilaCuadro = Schema.Struct({
 export const EspecificacionCuadro = Schema.Struct({
   tipo: Schema.Literal("cuadro"),
   tabla: IdTabla,
-  magnitud: Magnitud,
+  magnitud: MagnitudCuadro,
   territorios: Schema.NonEmptyArray(Territorio).check(
     Schema.makeFilter(sinRepetidos("territorio", (t: string) => t))
   ),

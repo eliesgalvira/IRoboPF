@@ -37,13 +37,21 @@ export const Territorio = Schema.Literals([
 ])
 export type Territorio = typeof Territorio.Type
 
-export const Magnitud = Schema.Literals([
+export const MagnitudEscala = Schema.Literals([
   "escala-general-estatal",
   "escala-general-autonomica",
   "escala-ahorro-estatal",
   "escala-ahorro-autonomica",
   "escala-ahorro-agregada",
-  "minimos-personales-familiares",
+])
+export type MagnitudEscala = typeof MagnitudEscala.Type
+
+export const MagnitudCuadro = Schema.Literal("minimos-personales-familiares")
+export type MagnitudCuadro = typeof MagnitudCuadro.Type
+
+export const Magnitud = Schema.Literals([
+  ...MagnitudEscala.literals,
+  MagnitudCuadro.literal,
 ])
 export type Magnitud = typeof Magnitud.Type
 
@@ -55,31 +63,57 @@ export const ColumnaEscala = Schema.Literals([
 ])
 export type ColumnaEscala = typeof ColumnaEscala.Type
 
-export const FilaMinimo = Schema.Literals([
-  "contribuyente",
-  "descendientes",
-  "ascendientes",
-  "discapacidad-contribuyente",
-  "discapacidad-descendientes",
-  "discapacidad-ascendientes",
-])
-export type FilaMinimo = typeof FilaMinimo.Type
-
-export const ColumnaMinimo = Schema.Literals([
-  "general",
-  "adicionalMayor65",
-  "adicionalMayor75",
-  "primero",
-  "segundo",
-  "tercero",
-  "cuartoYSiguientes",
-  "adicionalMenorTres",
-  "mayor65OConDiscapacidad",
+// Cada fila del cuadro de mínimos con las columnas que tiene en el motor: una
+// columna de otra fila no forma una posición.
+const posicion = <
+  const F extends string,
+  const C extends ReadonlyArray<string>,
+>(
+  fila: F,
+  columnas: C
+) => ({ fila: Schema.Literal(fila), columna: Schema.Literals(columnas) })
+const DISCAPACIDAD = [
   "grado33Hasta65",
   "grado65OMas",
   "gastosAsistencia",
+] as const
+const POSICIONES = {
+  contribuyente: posicion("contribuyente", [
+    "general",
+    "adicionalMayor65",
+    "adicionalMayor75",
+  ]),
+  descendientes: posicion("descendientes", [
+    "primero",
+    "segundo",
+    "tercero",
+    "cuartoYSiguientes",
+    "adicionalMenorTres",
+  ]),
+  ascendientes: posicion("ascendientes", [
+    "mayor65OConDiscapacidad",
+    "adicionalMayor75",
+  ]),
+  discapacidadContribuyente: posicion(
+    "discapacidad-contribuyente",
+    DISCAPACIDAD
+  ),
+  discapacidadDescendientes: posicion(
+    "discapacidad-descendientes",
+    DISCAPACIDAD
+  ),
+  discapacidadAscendientes: posicion("discapacidad-ascendientes", DISCAPACIDAD),
+}
+
+export const PosicionMinimo = Schema.Union([
+  Schema.Struct(POSICIONES.contribuyente),
+  Schema.Struct(POSICIONES.descendientes),
+  Schema.Struct(POSICIONES.ascendientes),
+  Schema.Struct(POSICIONES.discapacidadContribuyente),
+  Schema.Struct(POSICIONES.discapacidadDescendientes),
+  Schema.Struct(POSICIONES.discapacidadAscendientes),
 ])
-export type ColumnaMinimo = typeof ColumnaMinimo.Type
+export type PosicionMinimo = typeof PosicionMinimo.Type
 
 export const OrigenMotor = Schema.Literals(["almacenado", "derivado"])
 export type OrigenMotor = typeof OrigenMotor.Type
@@ -90,15 +124,30 @@ export type Unidad = typeof Unidad.Type
 export const Centinela = Schema.Literals(["sin-limite"])
 export type Centinela = typeof Centinela.Type
 
-// En una escala la fila es el índice del tramo; en un cuadro, su nombre.
 export const IndiceTramo = Schema.Int.check(Schema.isGreaterThanOrEqualTo(0))
 
-export const Clave = Schema.Struct({
+// La magnitud discrimina la clave: en una escala la fila es el índice del
+// tramo y la columna una de la escala; en el cuadro, una posición de mínimo.
+export const ClaveEscala = Schema.Struct({
   territorio: Territorio,
-  magnitud: Magnitud,
-  fila: Schema.Union([IndiceTramo, FilaMinimo]),
-  columna: Schema.String,
+  magnitud: MagnitudEscala,
+  fila: IndiceTramo,
+  columna: ColumnaEscala,
 })
+export type ClaveEscala = typeof ClaveEscala.Type
+
+const deMinimos = { territorio: Territorio, magnitud: MagnitudCuadro }
+export const ClaveMinimo = Schema.Union([
+  Schema.Struct({ ...deMinimos, ...POSICIONES.contribuyente }),
+  Schema.Struct({ ...deMinimos, ...POSICIONES.descendientes }),
+  Schema.Struct({ ...deMinimos, ...POSICIONES.ascendientes }),
+  Schema.Struct({ ...deMinimos, ...POSICIONES.discapacidadContribuyente }),
+  Schema.Struct({ ...deMinimos, ...POSICIONES.discapacidadDescendientes }),
+  Schema.Struct({ ...deMinimos, ...POSICIONES.discapacidadAscendientes }),
+])
+export type ClaveMinimo = typeof ClaveMinimo.Type
+
+export const Clave = Schema.Union([ClaveEscala, ClaveMinimo])
 export type Clave = typeof Clave.Type
 
 export const textoClave = (clave: Clave): string =>

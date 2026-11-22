@@ -18,9 +18,8 @@ import type { ValorMotor } from "./resultado"
 import {
   TERRITORIOS_AUTONOMICOS,
   type ColumnaEscala,
-  type ColumnaMinimo,
-  type FilaMinimo,
-  type Magnitud,
+  type MagnitudEscala,
+  type PosicionMinimo,
   type Territorio,
   type Valor,
 } from "./vocabulario"
@@ -45,7 +44,7 @@ const CIEN = new Decimal(100)
 // 100, exacto en decimal.
 const proyectarEscala = (
   territorio: Territorio,
-  magnitud: Magnitud,
+  magnitud: MagnitudEscala,
   tramos: TramosIrpf
 ): ReadonlyArray<ValorMotor> => {
   const valores: Array<ValorMotor> = []
@@ -100,76 +99,84 @@ const proyectarEscala = (
   return valores
 }
 
-const camposDiscapacidad = (
+const discapacidad = (
+  fila: `discapacidad-${"contribuyente" | "descendientes" | "ascendientes"}`,
   minimo: MinimoDiscapacidadIrpf
-): ReadonlyArray<readonly [ColumnaMinimo, Decimal]> => [
-  ["grado33Hasta65", minimo.grado33Hasta65],
-  ["grado65OMas", minimo.grado65OMas],
-  ["gastosAsistencia", minimo.gastosAsistencia],
+): ReadonlyArray<readonly [PosicionMinimo, Decimal]> => [
+  [{ fila, columna: "grado33Hasta65" }, minimo.grado33Hasta65],
+  [{ fila, columna: "grado65OMas" }, minimo.grado65OMas],
+  [{ fila, columna: "gastosAsistencia" }, minimo.gastosAsistencia],
 ]
 
 const proyectarMinimos = (
   territorio: Territorio,
   minimos: MinimosPersonalesFamiliaresIrpf
 ): ReadonlyArray<ValorMotor> => {
-  const filas: ReadonlyArray<
-    readonly [FilaMinimo, ReadonlyArray<readonly [ColumnaMinimo, Decimal]>]
-  > = [
+  const posiciones: ReadonlyArray<readonly [PosicionMinimo, Decimal]> = [
     [
-      "contribuyente",
-      [
-        ["general", minimos.contribuyente.general],
-        ["adicionalMayor65", minimos.contribuyente.adicionalMayor65],
-        ["adicionalMayor75", minimos.contribuyente.adicionalMayor75],
-      ],
+      { fila: "contribuyente", columna: "general" },
+      minimos.contribuyente.general,
     ],
     [
-      "descendientes",
-      [
-        ["primero", minimos.descendientes.primero],
-        ["segundo", minimos.descendientes.segundo],
-        ["tercero", minimos.descendientes.tercero],
-        ["cuartoYSiguientes", minimos.descendientes.cuartoYSiguientes],
-        ["adicionalMenorTres", minimos.descendientes.adicionalMenorTres],
-      ],
+      { fila: "contribuyente", columna: "adicionalMayor65" },
+      minimos.contribuyente.adicionalMayor65,
     ],
     [
-      "ascendientes",
-      [
-        [
-          "mayor65OConDiscapacidad",
-          minimos.ascendientes.mayor65OConDiscapacidad,
-        ],
-        ["adicionalMayor75", minimos.ascendientes.adicionalMayor75],
-      ],
+      { fila: "contribuyente", columna: "adicionalMayor75" },
+      minimos.contribuyente.adicionalMayor75,
     ],
     [
+      { fila: "descendientes", columna: "primero" },
+      minimos.descendientes.primero,
+    ],
+    [
+      { fila: "descendientes", columna: "segundo" },
+      minimos.descendientes.segundo,
+    ],
+    [
+      { fila: "descendientes", columna: "tercero" },
+      minimos.descendientes.tercero,
+    ],
+    [
+      { fila: "descendientes", columna: "cuartoYSiguientes" },
+      minimos.descendientes.cuartoYSiguientes,
+    ],
+    [
+      { fila: "descendientes", columna: "adicionalMenorTres" },
+      minimos.descendientes.adicionalMenorTres,
+    ],
+    [
+      { fila: "ascendientes", columna: "mayor65OConDiscapacidad" },
+      minimos.ascendientes.mayor65OConDiscapacidad,
+    ],
+    [
+      { fila: "ascendientes", columna: "adicionalMayor75" },
+      minimos.ascendientes.adicionalMayor75,
+    ],
+    ...discapacidad(
       "discapacidad-contribuyente",
-      camposDiscapacidad(minimos.discapacidad.contribuyente),
-    ],
-    [
+      minimos.discapacidad.contribuyente
+    ),
+    ...discapacidad(
       "discapacidad-descendientes",
-      camposDiscapacidad(minimos.discapacidad.descendiente),
-    ],
-    [
+      minimos.discapacidad.descendiente
+    ),
+    ...discapacidad(
       "discapacidad-ascendientes",
-      camposDiscapacidad(minimos.discapacidad.ascendiente),
-    ],
+      minimos.discapacidad.ascendiente
+    ),
   ]
-  return filas.flatMap(([fila, columnas]) =>
-    columnas.map(([columna, importe]) => ({
-      clave: {
-        territorio,
-        magnitud: "minimos-personales-familiares" as const,
-        fila,
-        columna,
-      },
-      unidad: "EUR" as const,
-      valor: numero(importe),
-      origen: "almacenado" as const,
-      regla: "importe almacenado",
-    }))
-  )
+  return posiciones.map(([posicion, importe]) => ({
+    clave: {
+      territorio,
+      magnitud: "minimos-personales-familiares",
+      ...posicion,
+    },
+    unidad: "EUR",
+    valor: numero(importe),
+    origen: "almacenado",
+    regla: "importe almacenado",
+  }))
 }
 
 // Escalas y mínimos de 2025 tal como los usa la liquidación: la cuota estatal

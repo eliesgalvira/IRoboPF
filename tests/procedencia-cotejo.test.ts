@@ -14,9 +14,13 @@ import {
   type ExtraccionTabla,
   type ValorMotor,
 } from "../lib/procedencia/resultado"
-import { Clave } from "../lib/procedencia/vocabulario"
+import {
+  Clave,
+  type ClaveEscala,
+  type ColumnaEscala,
+} from "../lib/procedencia/vocabulario"
 
-const clave = (fila: Clave["fila"], columna: string): Clave => ({
+const clave = (fila: number, columna: ColumnaEscala): ClaveEscala => ({
   territorio: "andalucia",
   magnitud: "escala-general-autonomica",
   fila,
@@ -73,33 +77,34 @@ describe("cotejo por clave", () => {
     const resultado = cotejar(
       [
         extraccion([
-          manual(clave(0, "a"), "1235"),
-          manual(clave(0, "b"), "1235.01"),
-          manual(clave(0, "c"), "1751.36"),
-          manual(clave(0, "d"), "7"),
+          manual(clave(0, "base-liquidable"), "1235"),
+          manual(clave(0, "cuota-integra"), "1235.01"),
+          manual(clave(0, "resto-base-liquidable"), "1751.36"),
+          manual(clave(0, "tipo-aplicable"), "7"),
         ]),
       ],
       [
-        motor(clave(0, "a"), "1235"),
-        motor(clave(0, "b"), "1235", "almacenado"),
-        motor(clave(0, "c"), "1751.364"),
-        motor(clave(0, "e"), "9"),
-        motor({ ...clave(0, "a"), territorio: "aragon" }, "1"),
+        motor(clave(0, "base-liquidable"), "1235"),
+        motor(clave(0, "cuota-integra"), "1235", "almacenado"),
+        motor(clave(0, "resto-base-liquidable"), "1751.364"),
+        motor(clave(1, "base-liquidable"), "9"),
+        motor({ ...clave(0, "base-liquidable"), territorio: "aragon" }, "1"),
       ]
     )
     expect(
       resultado.entradas.map((e) => [
         e.clave.territorio,
+        e.clave.fila,
         e.clave.columna,
         e.estado,
       ])
     ).toEqual([
-      ["andalucia", "a", "coincidente"],
-      ["andalucia", "b", "distinta"],
-      ["andalucia", "c", "distinta"],
-      ["andalucia", "d", "sin-homologo-en-motor"],
-      ["andalucia", "e", "ausente-en-manual"],
-      ["aragon", "a", "fuera-de-alcance"],
+      ["andalucia", 0, "base-liquidable", "coincidente"],
+      ["andalucia", 0, "cuota-integra", "distinta"],
+      ["andalucia", 0, "resto-base-liquidable", "distinta"],
+      ["andalucia", 0, "tipo-aplicable", "sin-homologo-en-motor"],
+      ["andalucia", 1, "base-liquidable", "ausente-en-manual"],
+      ["aragon", 0, "base-liquidable", "fuera-de-alcance"],
     ])
     expect(resultado.excepciones.cotejo.map((e) => e._tag)).toEqual([
       "ValorDistinto",
@@ -127,8 +132,12 @@ describe("cotejo por clave", () => {
 
   it("ordena las filas de una escala por su índice", () => {
     const resultado = cotejar(
-      [extraccion([10, 2, 1].map((fila) => manual(clave(fila, "a"), "1")))],
-      [10, 2, 1].map((fila) => motor(clave(fila, "a"), "1"))
+      [
+        extraccion(
+          [10, 2, 1].map((fila) => manual(clave(fila, "base-liquidable"), "1"))
+        ),
+      ],
+      [10, 2, 1].map((fila) => motor(clave(fila, "base-liquidable"), "1"))
     )
     expect(resultado.entradas.map((e) => e.clave.fila)).toEqual([1, 2, 10])
   })
@@ -137,11 +146,11 @@ describe("cotejo por clave", () => {
     const resultado = cotejar(
       [
         extraccion([
-          manual(clave(0, "a"), "1"),
-          manual(clave(0, "a"), "2400", { claves: [] }),
+          manual(clave(0, "base-liquidable"), "1"),
+          manual(clave(0, "base-liquidable"), "2400", { claves: [] }),
         ]),
       ],
-      [motor(clave(0, "a"), "1")]
+      [motor(clave(0, "base-liquidable"), "1")]
     )
     expect(resultado.entradas.map((e) => e.estado)).toEqual(["coincidente"])
     expect(resultado.excepciones.cotejo).toEqual([])
@@ -168,8 +177,13 @@ describe("cotejo por clave", () => {
 
   it("una clave con dos valores del manual es ambigua", () => {
     const resultado = cotejar(
-      [extraccion([manual(clave(0, "a"), "1"), manual(clave(0, "a"), "1")])],
-      [motor(clave(0, "a"), "1")]
+      [
+        extraccion([
+          manual(clave(0, "base-liquidable"), "1"),
+          manual(clave(0, "base-liquidable"), "1"),
+        ]),
+      ],
+      [motor(clave(0, "base-liquidable"), "1")]
     )
     expect(resultado.entradas.map((e) => e.estado)).toEqual(["ambigua"])
     expect(resultado.excepciones.cotejo.map((e) => e._tag)).toEqual([
@@ -189,7 +203,10 @@ describe("cotejo por clave", () => {
         }),
       ],
     }
-    const resultado = cotejar([fallida], [motor(clave(0, "a"), "1")])
+    const resultado = cotejar(
+      [fallida],
+      [motor(clave(0, "base-liquidable"), "1")]
+    )
     expect(
       resultado.entradas.map((e) => [e.estado, e.excepcionesDeExtraccion])
     ).toEqual([["excepcion-de-extraccion", ["TablaNoLocalizada"]]])

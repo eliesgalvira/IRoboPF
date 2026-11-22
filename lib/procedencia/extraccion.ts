@@ -33,7 +33,14 @@ import {
 } from "./html"
 import { leerLiteral } from "./literales"
 import type { Origen } from "./resultado"
-import type { Clave, Territorio, Unidad, Valor } from "./vocabulario"
+import type {
+  Clave,
+  ClaveEscala,
+  ColumnaEscala,
+  Territorio,
+  Unidad,
+  Valor,
+} from "./vocabulario"
 
 export interface ValorPendienteDeTestigo {
   readonly ubicacion: Ubicacion
@@ -204,7 +211,10 @@ export const extraerEscala = (
     ({ tablaLocalizada, posicionDe, datos, excepciones: previas }) => {
       const valores: Array<ValorPendienteDeTestigo> = []
       const excepciones: Array<ExcepcionExtraccion> = [...previas]
-      const clavesDe = (fila: number, columna: string) =>
+      const clavesDe = (
+        fila: number,
+        columna: ColumnaEscala
+      ): ReadonlyArray<ClaveEscala> =>
         territorios.map((territorio) => ({
           territorio,
           magnitud,
@@ -524,11 +534,10 @@ export const extraerCuadro = (
     (territorio: Territorio) =>
     (declaracion: Declaracion): ReadonlyArray<Clave> =>
       declaracion._tag === "Partida"
-        ? declaracion.partida.claves.map((clave) => ({
+        ? declaracion.partida.claves.map((posicion) => ({
             territorio,
             magnitud,
-            fila: clave.fila,
-            columna: clave.columna,
+            ...posicion,
           }))
         : []
   const clavesDeFila = (literal: string, territorio: Territorio) =>
