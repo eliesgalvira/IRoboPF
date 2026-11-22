@@ -131,7 +131,10 @@ describe("puerta de las excepciones aceptadas", () => {
     const [primera] = aceptadas.filter((a) => a._tag === "Clave")
     expect(
       fallo(
-        puerta(sellado(), motor, [...aceptadas, ...(primera ? [primera] : [])])
+        puerta(sellado(), motor, [
+          ...aceptadas,
+          ...(primera === undefined ? [] : [primera]),
+        ])
       )?.yaNoOcurren
     ).toEqual([expect.stringContaining("aceptada más de una vez")])
   })
