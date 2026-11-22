@@ -775,6 +775,85 @@ describe("secuencia de bloques de una celda del cuadro", () => {
   })
 })
 
+describe("remisión a los mínimos estatales", () => {
+  const remision = {
+    fila: "C.A. de Aragón",
+    columna: "Mínimo por contribuyente",
+    partidas: [],
+    remisiones: [
+      { literal: "igual que los mínimos estatales.", fila: "Estatal" },
+    ],
+    notas: [],
+  }
+  const estatalDeclarada = {
+    fila: "Estatal",
+    columna: "Mínimo por contribuyente",
+    partidas: [general, mayor65],
+    remisiones: [],
+    notas: [],
+  }
+  const aragon = filaCuadro(
+    "C.A. de Aragón",
+    "<p>igual que los mínimos estatales.</p>"
+  )
+
+  it("no puede apuntar a una fila que no sea la estatal", () => {
+    expect(() =>
+      cuadro(
+        [
+          estatalDeclarada,
+          {
+            ...remision,
+            remisiones: [
+              {
+                literal: "igual que los mínimos estatales.",
+                fila: "C.A. de Madrid",
+              },
+            ],
+          },
+          { ...estatalDeclarada, fila: "C.A. de Madrid" },
+        ],
+        [
+          { cabecera: "Estatal", territorio: "estatal" },
+          { cabecera: "C.A. de Aragón", territorio: "aragon" },
+          { cabecera: "C.A. de Madrid", territorio: "madrid" },
+        ]
+      )
+    ).toThrow()
+  })
+
+  it.each([
+    [
+      "falta una partida estatal",
+      "<p>+ 1.150 euros anuales, mayor de 65 años.</p>",
+    ],
+    [
+      "una partida estatal está fuera de la gramática",
+      "<p>5.550,5 euros anuales, en general.</p><p>+ 1.150 euros anuales, mayor de 65 años.</p>",
+    ],
+  ])(
+    "si %s, la remitente recibe una excepción y no copia nada",
+    (_, estatal) => {
+      const extraccion = exito(
+        extraerCuadro(
+          cuadro([estatalDeclarada, remision]),
+          cuadroHtml(filaCuadro("Estatal", estatal), aragon)
+        )
+      )
+      expect(
+        extraccion.valores.filter((v) =>
+          v.claves.some((c) => c.territorio === "aragon")
+        )
+      ).toEqual([])
+      expect(
+        extraccion.excepciones.some(
+          (e) => "fila" in e && e.fila === "C.A. de Aragón"
+        )
+      ).toBe(true)
+    }
+  )
+})
+
 describe("testigo en el PDF", () => {
   const extraccion = exito(
     extraerEscala(
