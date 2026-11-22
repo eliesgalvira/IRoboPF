@@ -47,15 +47,27 @@ volver a extraer también la hace fallar.
   columna, de modo que el tramo 2 va antes que el 10.
 - En un cuadro, la fila se identifica por el literal exacto de su cabecera de
   fila.
-- Las celdas combinadas (`colspan`/`rowspan`), las tablas anidadas y cualquier
-  elemento fuera de la lista de abajo son `EstructuraNoAdmitida`.
+- Las tablas anidadas y cualquier elemento, atributo o clase de una fila o de
+  una celda fuera de la lista cerrada de abajo son `EstructuraNoAdmitida`.
+
+**Lista cerrada de lo que puede haber en una fila y en sus celdas.** Aplanar
+cualquier descendiente leería texto que el navegador no muestra
+(`<span hidden>1</span>9,50` daba 19,50). La lista es la mínima que cubre las
+20 páginas de 2025, sacada de los originales: `tr` sin atributos; `th` con la
+clase `texto_cen`; `td` con las clases `texto_cen`, `texto_der`, `letrita`,
+`revsar` y `"texto_der` (así, con la comilla, en el ahorro estatal) y el
+atributo vacío `letrita2`; `ul`; `li`, `p` y `span` con `letrita` (y `p` con
+`sangrado-izq`); `strong`. Cualquier otro elemento (`b`, `sup`…), atributo
+(`hidden`, `style`, `aria-hidden`, `colspan`…) o clase (`d-none`…) hace fallar
+la tabla, aunque sea inocuo: decidir que lo es sería interpretar el CSS de la
+página. Si una edición nueva trae otro, se añade a la lista tras mirarlo. Los
+atributos de `<table>`, `<caption>` y de las secciones no se comprueban.
 
 **Elementos de texto de una celda.**
 
 - Cada `<p>` y cada `<li>` es un elemento.
 - El texto suelto entre ellos forma un elemento propio.
-- Los elementos de formato (`a`, `abbr`, `b`, `em`, `i`, `span`, `strong`,
-  `sub`, `sup`, `u`) se funden con el texto que los rodea.
+- `span` y `strong` se funden con el texto que los rodea.
 - Una celda de escala ha de tener un solo elemento. Si no tiene ninguno es
   `CeldaAusente`, y si tiene varios, `CeldaAmbigua`.
 

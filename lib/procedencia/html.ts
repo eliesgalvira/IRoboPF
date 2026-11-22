@@ -39,21 +39,35 @@ export interface TablaDelDocumento extends Posicion {
   readonly elemento: Elemento
 }
 
-// Elementos que sólo dan formato: su texto se une al texto que los rodea.
-const EN_LINEA = new Set([
-  "a",
-  "abbr",
-  "b",
-  "em",
-  "i",
-  "span",
-  "strong",
-  "sub",
-  "sup",
-  "u",
+// Lista cerrada de lo que puede haber de la fila al texto: la mínima que
+// cubre las 20 páginas de 2025. Un elemento, atributo o clase que no esté
+// (`hidden`, `style`, `aria-hidden`, `<b>`…) puede cambiar lo que se ve sin
+// cambiar el texto, así que hace fallar la tabla. Para `class` se listan las
+// clases admitidas una a una; para otro atributo, sus valores exactos.
+const ADMITIDOS: ReadonlyMap<
+  string,
+  Readonly<Record<string, ReadonlyArray<string>>>
+> = new Map([
+  ["tr", {}],
+  ["th", { class: ["texto_cen"] }],
+  [
+    "td",
+    {
+      class: ['"texto_der', "letrita", "revsar", "texto_cen", "texto_der"],
+      letrita2: [""],
+    },
+  ],
+  ["ul", {}],
+  ["li", { class: ["letrita"] }],
+  ["p", { class: ["letrita", "sangrado-izq"] }],
+  ["span", { class: ["letrita"] }],
+  ["strong", {}],
 ])
+
+// Elementos que sólo dan formato: su texto se une al texto que los rodea.
+const EN_LINEA = new Set(["span", "strong"])
 const BLOQUES = new Set(["p", "li"])
-const LISTAS = new Set(["ul", "ol"])
+const LISTAS = new Set(["ul"])
 
 const esElemento = (nodo: Nodo): nodo is Elemento => "tagName" in nodo
 
@@ -66,6 +80,28 @@ const problema = (nodo: Nodo, motivo: string): ProblemaEstructura => ({
   ...posicion(nodo),
   motivo,
 })
+
+const CLASES = /[ \t\n\f\r]+/
+
+const fueraDeLista = (elemento: Elemento): ProblemaEstructura | undefined => {
+  const atributos = ADMITIDOS.get(elemento.tagName)
+  if (atributos === undefined) {
+    return problema(elemento, `elemento <${elemento.tagName}> no admitido`)
+  }
+  for (const { name, value } of elemento.attrs) {
+    const admitidos = atributos[name]
+    const valores =
+      name === "class" ? value.split(CLASES).filter((c) => c !== "") : [value]
+    const otro = valores.find((valor) => !admitidos?.includes(valor))
+    if (admitidos === undefined || otro !== undefined) {
+      return problema(
+        elemento,
+        `atributo ${name}="${value}" no admitido en <${elemento.tagName}>`
+      )
+    }
+  }
+  return undefined
+}
 
 const esTextoVacio = (nodo: Nodo): boolean =>
   nodo.nodeName === "#comment" ||
@@ -122,6 +158,10 @@ const textoEnLinea = (
     if (nodo.nodeName === "#text" && "value" in nodo) {
       partes.push(nodo.value)
     } else if (esElemento(nodo)) {
+      const fuera = fueraDeLista(nodo)
+      if (fuera !== undefined) {
+        return Result.fail(fuera)
+      }
       if (!EN_LINEA.has(nodo.tagName)) {
         return Result.fail(
           problema(
@@ -168,6 +208,10 @@ const bloquesDe = (
     if (!esElemento(nodo)) {
       return Result.fail(problema(nodo, `nodo ${nodo.nodeName} no admitido`))
     }
+    const fuera = fueraDeLista(nodo)
+    if (fuera !== undefined) {
+      return Result.fail(fuera)
+    }
     if (EN_LINEA.has(nodo.tagName)) {
       const texto = textoEnLinea(nodo)
       if (Result.isFailure(texto)) {
@@ -197,6 +241,10 @@ const bloquesDe = (
           return Result.fail(
             problema(hijo, `una lista sólo admite <li>, no ${hijo.nodeName}`)
           )
+        }
+        const fueraLi = fueraDeLista(hijo)
+        if (fueraLi !== undefined) {
+          return Result.fail(fueraLi)
         }
         const texto = textoEnLinea(hijo)
         if (Result.isFailure(texto)) {
@@ -229,18 +277,10 @@ const bloquesDe = (
 const celdaDe = (
   elemento: Elemento
 ): Result.Result<CeldaHtml, ProblemaEstructura> => {
-  const combinada = elemento.attrs.find(
-    (atributo) =>
-      (atributo.name === "colspan" || atributo.name === "rowspan") &&
-      atributo.value.trim() !== "1"
-  )
-  if (combinada !== undefined) {
-    return Result.fail(
-      problema(
-        elemento,
-        `celda combinada (${combinada.name}="${combinada.value}") no admitida`
-      )
-    )
+  // Tampoco colspan ni rowspan: una celda combinada no tiene una sola columna.
+  const fuera = fueraDeLista(elemento)
+  if (fuera !== undefined) {
+    return Result.fail(fuera)
   }
   return Result.map(bloquesDe(elemento), (bloques) => ({
     ...posicion(elemento),
@@ -250,6 +290,10 @@ const celdaDe = (
 }
 
 const filaDe = (tr: Elemento): Result.Result<FilaHtml, ProblemaEstructura> => {
+  const fuera = fueraDeLista(tr)
+  if (fuera !== undefined) {
+    return Result.fail(fuera)
+  }
   const celdas: Array<CeldaHtml> = []
   for (const nodo of tr.childNodes) {
     if (esTextoVacio(nodo)) {
