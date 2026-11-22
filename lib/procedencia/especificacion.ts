@@ -1,6 +1,6 @@
 import { Schema } from "effect"
 
-import { normalizar } from "./literales"
+import { caracterNoAdmitido, normalizar } from "./literales"
 import {
   Centinela,
   ColumnaEscala,
@@ -15,11 +15,15 @@ import {
 export const HUECO_IMPORTE = "{importe}"
 
 const LiteralCanonico = Schema.String.check(
-  Schema.makeFilter((texto: string) =>
-    texto !== "" && normalizar(texto) === texto
+  Schema.makeFilter((texto: string) => {
+    if (texto === "" || normalizar(texto) !== texto) {
+      return "el literal debe estar no vacío y en forma normalizada (sin espacios duros, sin espacios repetidos ni en los extremos)"
+    }
+    const caracter = caracterNoAdmitido(texto)
+    return caracter === undefined
       ? undefined
-      : "el literal debe estar no vacío y en forma normalizada (sin espacios duros, sin espacios repetidos ni en los extremos)"
-  )
+      : `el literal contiene ${caracter}, que no es un carácter admitido`
+  })
 )
 
 const IdTabla = Schema.String.check(

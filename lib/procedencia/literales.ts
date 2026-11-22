@@ -5,11 +5,27 @@ import type { Centinela, Valor } from "./vocabulario"
 
 const ESPACIO_DURO = / /g
 const ESPACIOS_HTML = /[ \t\n\f\r]+/g
+const ESPACIO_EN_EXTREMO = /^ | $/g
+const NO_ADMITIDO = /(?! )[\p{White_Space}\p{Cc}\p{Cf}]/u
 
-// Normalización canónica: espacio duro a espacio, colapsar espacios HTML y
-// recortar. Las entidades ya llegan decodificadas por el analizador.
+// Normalización canónica: espacio duro a espacio, cada corrida de espacios
+// HTML a un espacio y, en los extremos, sin ese espacio. Nada más: cualquier
+// otro carácter, también en los extremos, queda como está. Las entidades ya
+// llegan decodificadas por el analizador.
 export const normalizar = (texto: string): string =>
-  texto.replace(ESPACIO_DURO, " ").replace(ESPACIOS_HTML, " ").trim()
+  texto
+    .replace(ESPACIO_DURO, " ")
+    .replace(ESPACIOS_HTML, " ")
+    .replace(ESPACIO_EN_EXTREMO, "")
+
+// Un literal normalizado no admite otro espacio Unicode ni caracteres de
+// control o de formato; devuelve el primero que encuentra como U+XXXX.
+export const caracterNoAdmitido = (texto: string): string | undefined => {
+  const encontrado = NO_ADMITIDO.exec(texto)?.[0]
+  return encontrado === undefined
+    ? undefined
+    : `U+${(encontrado.codePointAt(0) ?? 0).toString(16).toUpperCase().padStart(4, "0")}`
+}
 
 export interface GramaticaNumero {
   readonly decimales: ReadonlyArray<number>

@@ -60,10 +60,15 @@ volver a extraer también la hace fallar.
   `CeldaAusente`, y si tiene varios, `CeldaAmbigua`.
 
 **Normalización canónica, y nada más.** Las entidades HTML las decodifica el
-analizador. El espacio duro (U+00A0) pasa a espacio, los espacios HTML se
-colapsan y el texto se recorta. Otros espacios Unicode no se tocan, así que un
-literal que los contenga no casa. La especificación tiene que escribir sus
-literales ya normalizados; si no, falla al decodificarse.
+analizador. El espacio duro (U+00A0) pasa a espacio, cada corrida de espacios
+HTML (espacio, tabulador, salto de línea, avance de página, retorno) pasa a un
+espacio y se quita el espacio que quede en cada extremo. Ningún otro carácter
+se borra, tampoco en los extremos: `trim()` quitaría U+202F y otros espacios
+Unicode, y la regla no sería la misma dentro y fuera del texto. Un texto de
+celda que, normalizado, contenga otro espacio Unicode o un carácter de control
+o de formato (por ejemplo U+202F o U+200B) hace fallar la tabla con
+`EstructuraNoAdmitida`, y un literal así en la especificación no se decodifica.
+La especificación tiene que escribir sus literales ya normalizados.
 
 **Gramática cerrada de literales.**
 

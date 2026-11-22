@@ -1,7 +1,7 @@
 import { Result } from "effect"
 import { parse, type DefaultTreeAdapterTypes } from "parse5"
 
-import { normalizar } from "./literales"
+import { caracterNoAdmitido, normalizar } from "./literales"
 
 type Nodo = DefaultTreeAdapterTypes.ChildNode
 type Elemento = DefaultTreeAdapterTypes.Element
@@ -213,6 +213,16 @@ const bloquesDe = (
     )
   }
   cerrarCorrida()
+  for (const bloque of bloques) {
+    const caracter = caracterNoAdmitido(bloque.texto)
+    if (caracter !== undefined) {
+      return Result.fail({
+        linea: bloque.linea,
+        columnaFuente: bloque.columnaFuente,
+        motivo: `carácter ${caracter} no admitido en «${bloque.texto}»`,
+      })
+    }
+  }
   return Result.succeed(bloques)
 }
 
