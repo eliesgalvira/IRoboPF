@@ -33,24 +33,20 @@ interface Compuesto {
   readonly valor: ValorDelManual
 }
 
-// Las celdas de una escala por tramo y columna, desde su primera clave: en una
-// escala todas las claves de un valor comparten tramo y columna.
-const celdasDe = (extraccion: ExtraccionTabla) =>
-  new Map(
-    extraccion.valores.flatMap(
-      (valor): ReadonlyArray<[string, ValorExtraido]> => {
-        const [clave] = valor.claves
-        return clave !== undefined && typeof clave.fila === "number"
-          ? [[`${clave.fila}|${clave.columna}`, valor]]
-          : []
-      }
-    )
-  )
-
-const tramosDe = (extraccion: ExtraccionTabla | undefined) =>
-  (extraccion?.valores ?? []).flatMap(({ claves: [clave] }) =>
-    clave !== undefined && typeof clave.fila === "number" ? [clave.fila] : []
-  )
+// Las celdas de una escala por tramo y, dentro de él, por columna, desde la
+// primera clave de cada valor: en una escala todas las claves de un valor
+// comparten tramo y columna.
+const porTramo = (extraccion: ExtraccionTabla | undefined) => {
+  const tramos = new Map<number, Map<string, ValorExtraido>>()
+  for (const valor of extraccion?.valores ?? []) {
+    const [clave] = valor.claves
+    if (clave !== undefined && typeof clave.fila === "number") {
+      const celdas = tramos.get(clave.fila) ?? new Map()
+      tramos.set(clave.fila, celdas.set(clave.columna, valor))
+    }
+  }
+  return tramos
+}
 
 // Compone la escala `resultado` como la suma, tramo a tramo, de las dos
 // escalas `sumandos`. Antes de sumar comprueba que las dos se extrajeron sin
@@ -68,9 +64,11 @@ export const componer = (
   const [tablaA, tablaB] = composicion.sumandos
   const a = extracciones.find((e) => e.tabla === tablaA)
   const b = extracciones.find((e) => e.tabla === tablaB)
-  const tramos = Array.from(new Set([...tramosDe(a), ...tramosDe(b)])).sort(
-    (x, y) => x - y
-  )
+  const tramosA = porTramo(a)
+  const tramosB = porTramo(b)
+  const tramos = Array.from(
+    new Set([...tramosA.keys(), ...tramosB.keys()])
+  ).sort((x, y) => x - y)
   const claveDe = (fila: number, columna: ColumnaEscala): ClaveEscala => ({
     territorio,
     magnitud,
@@ -99,13 +97,11 @@ export const componer = (
       `la tabla «${conExcepciones.tabla}» tiene excepciones de extracción: ${conExcepciones.excepciones.map((e) => e._tag).join(", ")}`
     )
   }
-  const celdasA = celdasDe(a)
-  const celdasB = celdasDe(b)
   const valores: Array<Compuesto> = []
   for (const fila of tramos) {
     for (const columna of COLUMNAS) {
-      const deA = celdasA.get(`${fila}|${columna}`)
-      const deB = celdasB.get(`${fila}|${columna}`)
+      const deA = tramosA.get(fila)?.get(columna)
+      const deB = tramosB.get(fila)?.get(columna)
       if (deA === undefined || deB === undefined) {
         return fallo(
           fila,
