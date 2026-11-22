@@ -42,7 +42,7 @@ const CIEN = new Decimal(100)
 // Proyecta una escala del motor ([límite superior, tipo como fracción]) sobre
 // las columnas del manual. El tipo se convierte a porcentaje multiplicando por
 // 100, exacto en decimal.
-const proyectarEscala = (
+export const proyectarEscala = (
   territorio: Territorio,
   magnitud: MagnitudEscala,
   tramos: TramosIrpf

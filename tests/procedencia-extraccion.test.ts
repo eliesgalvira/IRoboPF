@@ -285,6 +285,101 @@ describe("extracción de una escala", () => {
   })
 })
 
+describe("tramos de una escala", () => {
+  const columnaResto = {
+    cabecera: "Resto base liquidable hasta (euros)",
+    columna: "resto-base-liquidable",
+    unidad: { _tag: "EUR", evidencia: "(euros)" },
+    gramatica: {
+      decimales: [2],
+      centinelas: [{ literal: "En adelante", centinela: "sin-limite" }],
+    },
+  }
+  const completa = escala({
+    columnas: [columnaBase, columnaResto, columnaTipo],
+  })
+  const cabecera =
+    "<tr><th>Base liquidable hasta (euros)</th><th>Resto base liquidable hasta (euros)</th><th>Tipo aplicable (%)</th></tr>"
+  const extraer = (filas: ReadonlyArray<ReadonlyArray<string>>, pie = "") =>
+    exito(
+      extraerEscala(
+        completa,
+        html(
+          tabla(
+            filas.map((celdas) => fila(...celdas)).join(""),
+            "",
+            cabecera
+          ).replace("</tbody>", `</tbody>${pie}`)
+        )
+      )
+    )
+
+  it("una tabla coherente no tiene excepciones", () => {
+    expect(
+      etiquetas(
+        extraer([
+          ["0,00", "12.450,00", "9,50%"],
+          ["12.450,00", "En adelante", "12,00%"],
+        ])
+      )
+    ).toEqual([])
+  })
+
+  it("una fila de <tfoot> no es un tramo", () => {
+    const extraccion = extraer(
+      [
+        ["0,00", "12.450,00", "9,50%"],
+        ["12.450,00", "En adelante", "12,00%"],
+      ],
+      `<tfoot>${fila("99,00", "1,00", "1,00%")}</tfoot>`
+    )
+    expect(etiquetas(extraccion)).toEqual(["FilaNoDeclarada"])
+    expect(
+      Math.max(...extraccion.valores.map((v) => Number(v.claves[0]?.fila)))
+    ).toBe(1)
+  })
+
+  it.each([
+    [
+      "la primera base no es 0",
+      [
+        ["1,00", "12.449,00", "9,50%"],
+        ["12.450,00", "En adelante", "12,00%"],
+      ],
+    ],
+    [
+      "una base no es la anterior más su resto",
+      [
+        ["0,00", "12.450,00", "9,50%"],
+        ["12.451,00", "En adelante", "12,00%"],
+      ],
+    ],
+    [
+      "las bases no crecen",
+      [
+        ["0,00", "0,00", "9,50%"],
+        ["0,00", "En adelante", "12,00%"],
+      ],
+    ],
+    [
+      "un tramo abierto que no es el último",
+      [
+        ["0,00", "En adelante", "9,50%"],
+        ["12.450,00", "En adelante", "12,00%"],
+      ],
+    ],
+    [
+      "el último tramo no es abierto",
+      [
+        ["0,00", "12.450,00", "9,50%"],
+        ["12.450,00", "20.000,00", "12,00%"],
+      ],
+    ],
+  ])("%s es una excepción de la tabla", (_, filas) => {
+    expect(etiquetas(extraer(filas))).toContain("EscalaIncoherente")
+  })
+})
+
 const cuadro = (
   celdas: ReadonlyArray<unknown>,
   filas?: ReadonlyArray<unknown>
