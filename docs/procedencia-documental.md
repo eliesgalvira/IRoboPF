@@ -6,11 +6,12 @@ segundo testigo y coteja cada valor, por clave, con los datos del motor.
 
 ## Decisiones
 
-**El HTML es la fuente y el PDF sólo testigo.** El HTML trae `<table>` con
-filas y columnas reales; leerlo con un analizador (`parse5`) no exige adivinar
-nada. Del PDF no se lee ninguna tabla: sólo se comprueba que el literal ya
-extraído aparece en las páginas declaradas. Reconstruir filas del PDF por
-distancias exigiría umbrales.
+**El HTML es la fuente y el PDF, testigo celda a celda.** El HTML trae
+`<table>` con filas y columnas reales; leerlo con un analizador (`parse5`) no
+exige adivinar nada. El PDF de 2025 está etiquetado: su árbol de estructura
+trae cada tabla como `Table` con `TR` y `TH`/`TD`. De él no se extrae ningún
+valor; se comprueba que la celda del PDF de la misma tabla, fila y columna dice
+lo mismo que la del HTML. Ni coordenadas ni texto suelto de la página.
 
 **Todo lo que decide la extracción está en la especificación.** Cada tabla es
 un JSON en `procedencia/especificaciones/2025/` que se decodifica con `Schema`.
@@ -23,14 +24,38 @@ almacén `sha256/<hash>` cuya ruta se pasa con `--almacen` o
 bytes, tipo y fecha de obtención. Al leer, se recalcula el SHA-256, y un
 documento que no figura en el manifiesto no se usa.
 
-**Dos etapas.** `extraer` lee los originales y sella
+**Dos etapas y una puerta.** `extraer` lee los originales y sella
 `procedencia/resultados/2025/extraccion/<tabla>.json`. `cotejar` sólo lee lo
 sellado y el motor, y escribe `cotejo.json`, `excepciones.json` y
-`resumen.json`. La CI no tiene originales, así que ejecuta `cotejar` y exige que
-no cambie ningún byte. Si un valor del motor de 2025 cambia y su celda no, la
-CI falla. Cada extracción sellada guarda el SHA-256 de su especificación y
-`cotejar` rechaza la que no coincide, así que cambiar una especificación sin
-volver a extraer también la hace fallar.
+`resumen.json`. Lo sellado se decodifica con `Schema` estricto: un campo de más
+o un testigo sin su celda no se leen. Cada extracción sellada guarda el SHA-256
+de su especificación y `cotejar` rechaza la que no coincide, así que cambiar
+una especificación sin volver a extraer la hace fallar.
+
+Repetir los mismos bytes no basta como puerta: con el cotejo regenerado y
+guardado, un tipo cambiado en el motor pasaría como una «distinta» más. Por eso
+la CI tiene tres capas:
+
+- Lo sellado no puede representar un testigo vacío (ver «Testigo PDF»).
+- `procedencia/excepciones-aceptadas/2025.json` lista cada diferencia aceptada,
+  con su motivo. `cotejar` y `comprobar` fallan con `DiferenciasNoAceptadas` si
+  una clave no coincidente, una excepción de extracción, una composición no
+  resuelta o un valor sin testigo no está en la lista con exactamente ese estado
+  y esos valores, o si la lista acepta algo que ya no ocurre así. Aceptar una
+  diferencia nueva exige editar ese fichero a la vista.
+- Un paso reextrae desde las fuentes: `obtener-fuentes` descarga cada documento
+  del manifiesto por su URL a un almacén temporal, sin registrar nada, y falla
+  con `DescargaFallida` si no responde o con `FuenteCambiada`, que nombra el
+  documento, si su tamaño o su SHA-256 no son los registrados. Después,
+  `comprobar --almacen` reextrae y exige que todo lo regenerado sea idéntico
+  byte a byte a lo sellado.
+
+`comprobar` sin almacén hace las dos primeras capas sin red. Una lista de
+claves una a una no se lee entera, así que la lista acepta también por ámbito
+exacto: una magnitud (y, si se da, un territorio), el número de claves y su
+estado; un ámbito que gana o pierde una clave, o en el que una cambia de estado,
+deja de valer. Los motivos son los que constan; donde falta la cita normativa,
+se dice.
 
 **Localizar sin adivinar.**
 
@@ -165,39 +190,48 @@ comprobación se hace al decodificar la especificación.
 
 **Testigo PDF.**
 
-- Para un literal numérico (sin el sufijo), el testigo es una aparición del
-  literal como token numérico completo, es decir, maximal (`9,50` no aparece
-  dentro de `19,50%`), en algún elemento de texto de las páginas declaradas.
-- Para un centinela, es un elemento de texto entero igual al literal.
-- Una aparición es (documento, página, elemento, ocurrencia dentro del
-  elemento), y atestigua como mucho una celda en toda la ejecución, no sólo
-  dentro de su tabla: varias páginas del PDF contienen dos tablas (la 1128,
-  Madrid y Murcia; la 1131, Ceuta y Melilla y las dos del ahorro), y contar
-  por tabla dejaría que un mismo «0» sirviera a las dos.
-- Cada celda sólo puede usar apariciones de su literal en las páginas que
-  declara su tabla. Como las páginas de dos tablas pueden solaparse en parte,
-  la pregunta es si existe un emparejamiento que dé a cada celda una aparición
-  distinta. Se responde de forma exacta con el emparejamiento máximo (caminos
-  aumentantes), cuyo tamaño no depende del orden de las tablas.
-- El cálculo se hace por literal y por grupo de tablas que comparten alguna
-  aparición de ese literal. Si el emparejamiento cubre todas las celdas del
-  grupo, todas tienen testigo. Si no, ninguna, porque nada vincula una
-  aparición con una celda y elegir cuáles se quedan sin él sería inventarlo.
-  `SinTestigo` guarda las tablas del grupo, las celdas que piden el literal,
-  las apariciones disponibles y cuántas celdas se cubren como máximo.
-- Cada valor guarda las apariciones candidatas, todas las del literal en las
-  páginas de su tabla, con página, elemento, ocurrencia y posición. No hay
-  asignación de una aparición a una celda, porque el método no la conoce.
-- `extraer` procesa siempre todas las especificaciones, porque el testigo de
-  una tabla depende de las demás que declaran sus páginas. Extraer una sola
-  dejaría selladas las otras con un testigo calculado sin ella.
-- Límite que queda: el testigo prueba que el literal está en las páginas
-  declaradas tantas veces como celdas lo piden, no que esté dentro de la
-  tabla. Un «0» de la prosa de la misma página cuenta. Delimitar la tabla
-  dentro de la página exigiría leer la geometría del PDF, que es justo lo que
-  este método excluye.
-- «Sin testigo» se cuenta aparte de «distinto». Las páginas las declara el
-  autor; `buscar` sólo le ayuda a encontrarlas.
+- La especificación declara las páginas (consecutivas), los literales de la
+  fila de cabecera tal como los trae el PDF, aparte de los del HTML porque
+  pueden diferir («Base liquidable hasta euros» en la escala estatal), y, sólo
+  si en esas páginas hay más de una tabla con esa cabecera, el encabezado
+  (`H`, `H1`…`H6`) que la precede en el orden del documento. Si no hay ninguna
+  tabla así o hay más de una, es `TablaPdfNoLocalizada` con el número
+  encontrado, nunca «la primera». El encabezado anterior puede estar al final
+  de la página previa, que entonces se declara (Aragón, 1121–1122).
+- pdf.js da el árbol página a página: de una tabla que toca la página trae el
+  esqueleto entero (todas sus filas y celdas), con el contenido de esa página.
+  Una tabla partida se resuelve por estructura: en cada página declarada
+  posterior a la de su cabecera, su continuación es la única tabla cuya fila de
+  cabecera no tiene contenido (la cabecera repetida es un artefacto, fuera del
+  árbol) y ha de tener el mismo esqueleto; si no, `ContinuacionNoLocalizada` o
+  `ContinuacionIrregular`. El texto de cada celda es la unión, por orden de
+  página, de su contenido en cada trozo.
+- Las filas de datos son las posteriores a la cabecera que están en `TBody` o
+  directamente en la tabla (el cuadro de mínimos no tiene secciones).
+- Normalización del PDF, aparte de la del HTML: los contenidos marcados de una
+  celda se unen por salto de línea, cada fin de línea de pdf.js es un salto, y
+  cada corrida de espacios y saltos pasa a un espacio sin los de los extremos.
+  La etiqueta de un elemento de lista (`Lbl`, la viñeta «•») no es texto de la
+  celda: el HTML no la trae, la pinta su hoja de estilo. El texto de un
+  contenido marcado sin identificador (un artefacto) no es de ninguna celda.
+- En una escala, la fila de datos i es el tramo i y ha de haber tantas como en
+  el HTML (`FilasDistintas`). La celda tiene «mismo literal» si su texto es el
+  de la celda del HTML, o «mismo valor, otro literal» si la gramática de la
+  columna lo lee al mismo valor; se cuentan aparte. Si no,
+  `LiteralPdfFueraDeGramatica` o `ValorPdfDistinto`.
+- En el cuadro, la fila es la de cabecera de fila con el literal del HTML y el
+  testigo es la casilla entera: su texto ha de ser el texto completo de la
+  casilla del HTML (sus bloques unidos por un espacio). Comparar bloque a bloque
+  no es exacto, porque cuando una frase cruza de página el árbol de pdf.js no
+  dice si los dos trozos son el mismo párrafo; el texto completo sí lo es, y
+  fija cada importe en su sitio. Si difiere, `TextoDistinto` y ningún importe
+  de la casilla tiene testigo.
+- El testigo sellado es la celda: página y orden de su tabla en el árbol, fila
+  y columna, y las páginas con contenido. «Con testigo» sin celda no se puede
+  escribir ni leer. Una página sin árbol de estructura es
+  `PaginaSinEstructura`: no hay vía de reserva por texto de la página.
+- `tablas` ayuda al autor de especificaciones: lista las tablas del árbol de
+  unas páginas, con su encabezado anterior y el texto de sus celdas.
 
 **Proyección del motor.** `lib/procedencia/motor-2025.ts` convierte los datos de
 2025 en registros con clave (territorio, magnitud, fila, columna), valor exacto
@@ -218,6 +252,18 @@ y unidad.
   finito (también `NaN`) en `sin-limite` escondería el error. El tramo abierto
   se representa aparte de los cerrados, así que `sin-limite` sólo sale del
   último.
+
+**La escala agregada del ahorro, como composición declarada.** El motor guarda
+una sola escala del ahorro (estatal más autonómica); el manual publica las dos
+mitades. `procedencia/composiciones/2025.json` declara que
+`escala-ahorro-agregada` se coteja con la suma, tramo a tramo, de
+`escala-ahorro-estatal` y `escala-ahorro-autonomica`. Antes de sumar se exige
+que las dos tengan los mismos tramos, todas sus celdas y las mismas bases y
+restos; cuotas y tipos se suman en decimal exacto. El resultado entra en el
+cotejo como `DerivadoDelManual`, con las dos celdas de origen y su testigo, y se
+cuenta en `derivadasDelManual`. Si las mitades no encadenan igual, es
+`ComposicionNoResuelta` y no se suma nada. Las claves de las mitades siguen
+«sin homólogo en el motor», porque el motor no las guarda.
 
 **Almacenado y derivado.** Es «almacenado» lo que el motor guarda tal cual:
 
@@ -273,15 +319,16 @@ ausente, pero su valor sigue en `cotejo.json`.
 
 ## Dudas abiertas
 
-- **Ahorro.** El manual publica una escala estatal y una autonómica del ahorro;
-  el motor sólo guarda su suma. Mientras el motor no guarde las dos mitades, las
-  claves del manual saldrán «sin homólogo en el motor» y la escala agregada,
-  «fuera de alcance». Igualarlas sumando en el cotejo sería decidir algo que la
-  fuente no dice.
+- **Ahorro.** Que la escala agregada sea la suma de las mitades sólo comprueba
+  la tarifa. No comprueba que la liquidación aplique cada mitad a su propio
+  remanente del mínimo personal y familiar: con remanentes distintos, una sola
+  tarifa agregada no da las mismas cuotas. Eso es de la liquidación, no de este
+  cotejo.
 - **Territorios sin fila en el cuadro de mínimos.** Siete territorios del motor
   no tienen fila en el cuadro comparativo. Si el cuadro los incluye en su
   alcance, sus claves saldrán «ausente en el manual». Que en ellos rijan los
-  mínimos estatales lo dice la ley, no el cuadro.
+  mínimos estatales lo dice la ley, no el cuadro; la cita está pendiente y la
+  lista de aceptadas lo dice así.
 - **Baleares, contribuyente mayor de 65 años.** El cuadro da «6.105 euros
   anuales si tiene más de 65 años» y «+ 1.265 euros anuales, mayor de 65 años»,
   que se extraen como valores sin clave de motor. El motor guarda un adicional
