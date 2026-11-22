@@ -121,6 +121,18 @@ export type OrigenMotor = typeof OrigenMotor.Type
 export const Unidad = Schema.Literals(["EUR", "porcentaje"])
 export type Unidad = typeof Unidad.Type
 
+// Una unidad se declara con el literal que la evidencia en la cabecera o en la
+// plantilla, y sólo con uno de los suyos: los que traen las tablas de 2025.
+export const UnidadDeclarada = Schema.Union([
+  Schema.TaggedStruct("EUR", {
+    evidencia: Schema.Literals(["(euros)", "euros"]),
+  }),
+  Schema.TaggedStruct("porcentaje", {
+    evidencia: Schema.Literals(["(%)", "porcentaje", "Porcentaje"]),
+  }),
+])
+export type UnidadDeclarada = typeof UnidadDeclarada.Type
+
 export const Centinela = Schema.Literals(["sin-limite"])
 export type Centinela = typeof Centinela.Type
 

@@ -29,22 +29,19 @@
     {
       "cabecera": "Base liquidable hasta (euros)",
       "columna": "base-liquidable",
-      "unidad": "EUR",
-      "evidenciaUnidad": "(euros)",
+      "unidad": { "_tag": "EUR", "evidencia": "(euros)" },
       "gramatica": { "decimales": [0, 2], "centinelas": [] }
     },
     {
       "cabecera": "Incremento en cuota íntegra estatal (euros)",
       "columna": "cuota-integra",
-      "unidad": "EUR",
-      "evidenciaUnidad": "(euros)",
+      "unidad": { "_tag": "EUR", "evidencia": "(euros)" },
       "gramatica": { "decimales": [0], "centinelas": [] }
     },
     {
       "cabecera": "Resto base liquidable del ahorro hasta (euros)",
       "columna": "resto-base-liquidable",
-      "unidad": "EUR",
-      "evidenciaUnidad": "(euros)",
+      "unidad": { "_tag": "EUR", "evidencia": "(euros)" },
       "gramatica": {
         "decimales": [0],
         "centinelas": [{ "literal": "En adelante", "centinela": "sin-limite" }]
@@ -53,8 +50,7 @@
     {
       "cabecera": "Tipo aplicable (%)",
       "columna": "tipo-aplicable",
-      "unidad": "porcentaje",
-      "evidenciaUnidad": "(%)",
+      "unidad": { "_tag": "porcentaje", "evidencia": "(%)" },
       "gramatica": { "decimales": [0, 2], "centinelas": [] }
     }
   ],

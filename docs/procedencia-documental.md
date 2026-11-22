@@ -93,11 +93,15 @@ La especificación tiene que escribir sus literales ya normalizados.
 - Los centinelas son literales exactos declarados.
 - Un literal fuera de la gramática es `LiteralFueraDeGramatica`; no se limpia.
 
-**Unidad con evidencia.** Cada columna (o partida) declara su unidad y el
-literal que la prueba en la cabecera (o en el texto fijo de la plantilla, a un
-lado del hueco). Como la cabecera y la plantilla sólo encajan si el HTML las
-trae literalmente, la comprobación se hace al decodificar la especificación: si
-el literal no está, la especificación es inválida.
+**Unidad con evidencia tipada.** Cada columna (o partida) declara su unidad
+junto con el literal que la prueba, y el vocabulario cierra qué literales
+prueban cada unidad: `(euros)` y `euros` para EUR; `(%)`, `porcentaje` y
+`Porcentaje` para el porcentaje, que son los que traen las tablas de 2025. Una
+evidencia que no sea de su unidad (porcentaje con `(euros)`) no se puede
+escribir. El literal tiene que estar entero en la cabecera (o en el texto fijo
+de la plantilla, a un lado del hueco), sin una letra ni una cifra pegada. Como
+la cabecera y la plantilla sólo encajan si el HTML las trae literalmente, la
+comprobación se hace al decodificar la especificación.
 
 **Cuadro de partidas.**
 

@@ -11,22 +11,19 @@
     {
       "cabecera": "Base liquidable hasta (euros)",
       "columna": "base-liquidable",
-      "unidad": "EUR",
-      "evidenciaUnidad": "(euros)",
+      "unidad": { "_tag": "EUR", "evidencia": "(euros)" },
       "gramatica": { "decimales": [0, 2], "centinelas": [] }
     },
     {
       "cabecera": "Cuota íntegra (euros)",
       "columna": "cuota-integra",
-      "unidad": "EUR",
-      "evidenciaUnidad": "(euros)",
+      "unidad": { "_tag": "EUR", "evidencia": "(euros)" },
       "gramatica": { "decimales": [2], "centinelas": [] }
     },
     {
       "cabecera": "Resto base liquidable hasta (euros)",
       "columna": "resto-base-liquidable",
-      "unidad": "EUR",
-      "evidenciaUnidad": "(euros)",
+      "unidad": { "_tag": "EUR", "evidencia": "(euros)" },
       "gramatica": {
         "decimales": [0, 2],
         "centinelas": [{ "literal": "En adelante", "centinela": "sin-limite" }]
@@ -35,8 +32,7 @@
     {
       "cabecera": "Tipo porcentaje aplicable",
       "columna": "tipo-aplicable",
-      "unidad": "porcentaje",
-      "evidenciaUnidad": "porcentaje",
+      "unidad": { "_tag": "porcentaje", "evidencia": "porcentaje" },
       "gramatica": { "decimales": [2], "centinelas": [] }
     }
   ],

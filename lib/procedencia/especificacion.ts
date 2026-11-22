@@ -9,7 +9,7 @@ import {
   PosicionMinimo,
   Sha256,
   Territorio,
-  Unidad,
+  UnidadDeclarada,
 } from "./vocabulario"
 
 export const HUECO_IMPORTE = "{importe}"
@@ -69,17 +69,35 @@ const TestigoPdf = Schema.Struct({
   ),
 })
 
+// La evidencia ha de aparecer entera en el texto fijo, sin una letra ni una
+// cifra pegada a ningún lado: «euros.» la contiene, «eurosistema» no.
+const LETRA_O_CIFRA = /[\p{L}\p{N}]/u
+const tienePalabra = (texto: string, palabra: string): boolean => {
+  for (
+    let indice = texto.indexOf(palabra);
+    indice !== -1;
+    indice = texto.indexOf(palabra, indice + 1)
+  ) {
+    if (
+      !LETRA_O_CIFRA.test(texto.charAt(indice - 1)) &&
+      !LETRA_O_CIFRA.test(texto.charAt(indice + palabra.length))
+    ) {
+      return true
+    }
+  }
+  return false
+}
+
 const ColumnaEscalaDeclarada = Schema.Struct({
   cabecera: LiteralCanonico,
   columna: ColumnaEscala,
-  unidad: Unidad,
-  evidenciaUnidad: LiteralCanonico,
+  unidad: UnidadDeclarada,
   gramatica: Gramatica,
 }).check(
   Schema.makeFilter((columna) =>
-    columna.cabecera.includes(columna.evidenciaUnidad)
+    tienePalabra(columna.cabecera, columna.unidad.evidencia)
       ? undefined
-      : `la evidencia de unidad «${columna.evidenciaUnidad}» no está en la cabecera «${columna.cabecera}»`
+      : `la evidencia de unidad «${columna.unidad.evidencia}» no es una palabra de la cabecera «${columna.cabecera}»`
   )
 )
 
@@ -111,8 +129,7 @@ const Partida = Schema.Struct({
         : `la plantilla debe contener exactamente un hueco ${HUECO_IMPORTE}`
     )
   ),
-  unidad: Unidad,
-  evidenciaUnidad: LiteralCanonico,
+  unidad: UnidadDeclarada,
   gramatica: Gramatica,
   // Vacío cuando el manual da un importe que no tiene magnitud en el motor:
   // se extrae y lleva testigo, pero no hay clave que cotejar.
@@ -120,10 +137,10 @@ const Partida = Schema.Struct({
 }).check(
   Schema.makeFilter((partida) => {
     const [prefijo = "", sufijo = ""] = partida.plantilla.split(HUECO_IMPORTE)
-    return prefijo.includes(partida.evidenciaUnidad) ||
-      sufijo.includes(partida.evidenciaUnidad)
+    return tienePalabra(prefijo, partida.unidad.evidencia) ||
+      tienePalabra(sufijo, partida.unidad.evidencia)
       ? undefined
-      : `la evidencia de unidad «${partida.evidenciaUnidad}» no está en el texto fijo de «${partida.plantilla}»`
+      : `la evidencia de unidad «${partida.unidad.evidencia}» no es una palabra del texto fijo de «${partida.plantilla}»`
   })
 )
 export type Partida = typeof Partida.Type

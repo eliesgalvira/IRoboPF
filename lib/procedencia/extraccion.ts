@@ -287,7 +287,7 @@ export const extraerEscala = (
           valores.push({
             ubicacion,
             literal: bloque.texto,
-            unidad: columna.unidad,
+            unidad: columna.unidad._tag,
             valor: leido.success.valor,
             claves,
             origen: { _tag: "Directo" },
@@ -472,7 +472,7 @@ const leerCelda = (
     salida.valores.push({
       ubicacion,
       literal: bloque.texto,
-      unidad: partida.unidad,
+      unidad: partida.unidad._tag,
       valor: leido.success.valor,
       claves,
       origen: { _tag: "Directo" },

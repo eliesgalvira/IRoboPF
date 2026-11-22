@@ -18,15 +18,13 @@ const SHA_PDF = "b".repeat(64)
 const columnaBase = {
   cabecera: "Base liquidable hasta (euros)",
   columna: "base-liquidable",
-  unidad: "EUR",
-  evidenciaUnidad: "(euros)",
+  unidad: { _tag: "EUR", evidencia: "(euros)" },
   gramatica: { decimales: [2], centinelas: [] },
 }
 const columnaTipo = {
   cabecera: "Tipo aplicable (%)",
   columna: "tipo-aplicable",
-  unidad: "porcentaje",
-  evidenciaUnidad: "(%)",
+  unidad: { _tag: "porcentaje", evidencia: "(%)" },
   gramatica: { decimales: [2], sufijo: "%", centinelas: [] },
 }
 
@@ -246,7 +244,7 @@ describe("extracción de una escala", () => {
     expect(() =>
       escala({
         columnas: [
-          { ...columnaBase, evidenciaUnidad: "euros anuales" },
+          { ...columnaBase, cabecera: "Base liquidable hasta" },
           columnaTipo,
         ],
       })
@@ -262,7 +260,13 @@ describe("extracción de una escala", () => {
     (unidad, evidenciaUnidad) => {
       expect(() =>
         escala({
-          columnas: [{ ...columnaBase, unidad, evidenciaUnidad }, columnaTipo],
+          columnas: [
+            {
+              ...columnaBase,
+              unidad: { _tag: unidad, evidencia: evidenciaUnidad },
+            },
+            columnaTipo,
+          ],
         })
       ).toThrow()
     }
@@ -306,15 +310,13 @@ const cuadro = (
 
 const general = {
   plantilla: "{importe} euros anuales, en general.",
-  unidad: "EUR",
-  evidenciaUnidad: "euros",
+  unidad: { _tag: "EUR", evidencia: "euros" },
   gramatica: { decimales: [0], centinelas: [] },
   claves: [{ fila: "contribuyente", columna: "general" }],
 }
 const mayor65 = {
   plantilla: "+ {importe} euros anuales, mayor de 65 años.",
-  unidad: "EUR",
-  evidenciaUnidad: "euros",
+  unidad: { _tag: "EUR", evidencia: "euros" },
   gramatica: { decimales: [0], centinelas: [] },
   claves: [{ fila: "contribuyente", columna: "adicionalMayor65" }],
 }
@@ -451,7 +453,9 @@ describe("extracción de un cuadro de partidas", () => {
         {
           fila: "Estatal",
           columna: "Mínimo por contribuyente",
-          partidas: [{ ...general, unidad: "porcentaje" }],
+          partidas: [
+            { ...general, unidad: { _tag: "porcentaje", evidencia: "euros" } },
+          ],
           remisiones: [],
           notas: [],
         },

@@ -53,19 +53,19 @@
       "partidas": [
         {
           "plantilla": "{importe} euros anuales, en general.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "contribuyente", "columna": "general" }]
         },
         {
           "plantilla": "+ {importe} euros anuales, mayor de 65 años.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "contribuyente", "columna": "adicionalMayor65" }]
         },
         {
           "plantilla": "+ {importe} euros anuales adicionales, mayor de 75 años.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "contribuyente", "columna": "adicionalMayor75" }]
         }
@@ -79,37 +79,37 @@
       "partidas": [
         {
           "plantilla": "{importe} euros anuales por el 1º.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "descendientes", "columna": "primero" }]
         },
         {
           "plantilla": "{importe} euros anuales por el 2º.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "descendientes", "columna": "segundo" }]
         },
         {
           "plantilla": "{importe} euros anuales por el 3º.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "descendientes", "columna": "tercero" }]
         },
         {
           "plantilla": "{importe} euros anuales por el 4º y siguientes.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "descendientes", "columna": "cuartoYSiguientes" }]
         },
         {
           "plantilla": "+ {importe} euros anuales, por descendiente menor de tres años.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "descendientes", "columna": "adicionalMenorTres" }]
         },
         {
           "plantilla": "(*) En caso de fallecimiento del descendiente {importe} euros.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": []
         }
@@ -123,19 +123,19 @@
       "partidas": [
         {
           "plantilla": "{importe} euros anuales por cada ascendiente de más de 65 años o con discapacidad.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "ascendientes", "columna": "mayor65OConDiscapacidad" }]
         },
         {
           "plantilla": "+ {importe} euros anuales, si tiene más de 75 años.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "ascendientes", "columna": "adicionalMayor75" }]
         },
         {
           "plantilla": "(*) En caso de fallecimiento del ascendiente {importe} euros.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": []
         }
@@ -149,7 +149,7 @@
       "partidas": [
         {
           "plantilla": "{importe} euros anuales, por discapacidad = o > al 33%.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [
             { "fila": "discapacidad-contribuyente", "columna": "grado33Hasta65" },
@@ -159,7 +159,7 @@
         },
         {
           "plantilla": "{importe} euros anuales, si el grado de discapacidad= o > al 65%.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [
             { "fila": "discapacidad-contribuyente", "columna": "grado65OMas" },
@@ -169,7 +169,7 @@
         },
         {
           "plantilla": "+ {importe} euros anuales, si necesita ayuda de terceras personas o movilidad reducida o un grado de discapacidad = o > al 65%.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [
             { "fila": "discapacidad-contribuyente", "columna": "gastosAsistencia" },
@@ -187,19 +187,19 @@
       "partidas": [
         {
           "plantilla": "{importe} euros anuales, en general.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "contribuyente", "columna": "general" }]
         },
         {
           "plantilla": "+ {importe} euros anuales, mayor de 65 años.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "contribuyente", "columna": "adicionalMayor65" }]
         },
         {
           "plantilla": "+ {importe} euros anuales adicionales, mayor de 75 años.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "contribuyente", "columna": "adicionalMayor75" }]
         }
@@ -213,31 +213,31 @@
       "partidas": [
         {
           "plantilla": "{importe} euros anuales por el 1º.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "descendientes", "columna": "primero" }]
         },
         {
           "plantilla": "{importe} euros anuales por el 2º.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "descendientes", "columna": "segundo" }]
         },
         {
           "plantilla": "{importe} euros anuales por el 3º.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "descendientes", "columna": "tercero" }]
         },
         {
           "plantilla": "{importe} euros anuales por el 4º y siguientes.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "descendientes", "columna": "cuartoYSiguientes" }]
         },
         {
           "plantilla": "+ {importe} euros anuales, por descendiente menor de tres años.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "descendientes", "columna": "adicionalMenorTres" }]
         }
@@ -251,13 +251,13 @@
       "partidas": [
         {
           "plantilla": "{importe} euros anuales por cada ascendiente mayor de 65 años o con discapacidad.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "ascendientes", "columna": "mayor65OConDiscapacidad" }]
         },
         {
           "plantilla": "+ {importe} euros anuales, mayor de 75 años.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "ascendientes", "columna": "adicionalMayor75" }]
         }
@@ -271,7 +271,7 @@
       "partidas": [
         {
           "plantilla": "{importe} euros anuales, por discapacidad = o > al 33%.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [
             { "fila": "discapacidad-contribuyente", "columna": "grado33Hasta65" },
@@ -281,7 +281,7 @@
         },
         {
           "plantilla": "{importe} euros anuales, si el grado de discapacidad= o > al 65%.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [
             { "fila": "discapacidad-contribuyente", "columna": "grado65OMas" },
@@ -291,7 +291,7 @@
         },
         {
           "plantilla": "+ {importe} euros anuales, si necesita ayuda de terceras personas o movilidad reducida o un grado de discapacidad = o > al 65%.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [
             { "fila": "discapacidad-contribuyente", "columna": "gastosAsistencia" },
@@ -309,19 +309,19 @@
       "partidas": [
         {
           "plantilla": "{importe} euros anuales, en general.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "contribuyente", "columna": "general" }]
         },
         {
           "plantilla": "+ {importe} euros anuales, mayor de 65 años.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "contribuyente", "columna": "adicionalMayor65" }]
         },
         {
           "plantilla": "+ {importe} euros anuales adicionales, mayor de 75 años.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "contribuyente", "columna": "adicionalMayor75" }]
         }
@@ -335,31 +335,31 @@
       "partidas": [
         {
           "plantilla": "{importe} euros anuales por el 1º.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "descendientes", "columna": "primero" }]
         },
         {
           "plantilla": "{importe} euros anuales por el 2º.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "descendientes", "columna": "segundo" }]
         },
         {
           "plantilla": "{importe} euros anuales por el 3º.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "descendientes", "columna": "tercero" }]
         },
         {
           "plantilla": "{importe} euros anuales por el 4º y siguientes.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "descendientes", "columna": "cuartoYSiguientes" }]
         },
         {
           "plantilla": "+ {importe} euros anuales, por descendiente menor de tres años.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "descendientes", "columna": "adicionalMenorTres" }]
         }
@@ -373,13 +373,13 @@
       "partidas": [
         {
           "plantilla": "{importe} euros anuales por cada ascendiente mayor de 65 años o con discapacidad.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "ascendientes", "columna": "mayor65OConDiscapacidad" }]
         },
         {
           "plantilla": "+ {importe} euros anuales, mayor de 75 años.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "ascendientes", "columna": "adicionalMayor75" }]
         }
@@ -393,7 +393,7 @@
       "partidas": [
         {
           "plantilla": "{importe} euros anuales, por discapacidad = o > al 33%.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [
             { "fila": "discapacidad-contribuyente", "columna": "grado33Hasta65" },
@@ -403,7 +403,7 @@
         },
         {
           "plantilla": "{importe} euros anuales, si el grado de discapacidad= o > al 65%.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [
             { "fila": "discapacidad-contribuyente", "columna": "grado65OMas" },
@@ -413,7 +413,7 @@
         },
         {
           "plantilla": "+ {importe} euros anuales, si necesita ayuda de terceras personas o movilidad reducida, o un grado de discapacidad = o > al 65%.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [
             { "fila": "discapacidad-contribuyente", "columna": "gastosAsistencia" },
@@ -431,25 +431,25 @@
       "partidas": [
         {
           "plantilla": "{importe} euros anuales, en general.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "contribuyente", "columna": "general" }]
         },
         {
           "plantilla": "+ {importe} euros anuales adicionales, mayor de 75 años.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "contribuyente", "columna": "adicionalMayor75" }]
         },
         {
           "plantilla": "{importe} euros anuales si tiene más de 65 años",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": []
         },
         {
           "plantilla": "+ {importe} euros anuales, mayor de 65 años",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": []
         }
@@ -463,31 +463,31 @@
       "partidas": [
         {
           "plantilla": "{importe} euros anuales por el 1º.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "descendientes", "columna": "primero" }]
         },
         {
           "plantilla": "{importe} euros anuales por el 2º.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "descendientes", "columna": "segundo" }]
         },
         {
           "plantilla": "{importe} euros anuales por el 3º.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "descendientes", "columna": "tercero" }]
         },
         {
           "plantilla": "{importe} euros anuales por el 4º y siguientes.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "descendientes", "columna": "cuartoYSiguientes" }]
         },
         {
           "plantilla": "+ {importe} euros anuales, por descendiente menor de tres años.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "descendientes", "columna": "adicionalMenorTres" }]
         }
@@ -501,13 +501,13 @@
       "partidas": [
         {
           "plantilla": "{importe} euros anuales por cada ascendiente de más de 65 años o con discapacidad.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "ascendientes", "columna": "mayor65OConDiscapacidad" }]
         },
         {
           "plantilla": "+ {importe} euros anuales, si tiene más de 75 años.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "ascendientes", "columna": "adicionalMayor75" }]
         }
@@ -521,7 +521,7 @@
       "partidas": [
         {
           "plantilla": "{importe} euros anuales, por discapacidad = o > al 33%.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [
             { "fila": "discapacidad-contribuyente", "columna": "grado33Hasta65" },
@@ -531,7 +531,7 @@
         },
         {
           "plantilla": "{importe} euros anuales, si el grado de discapacidad= o > al 65%.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [
             { "fila": "discapacidad-contribuyente", "columna": "grado65OMas" },
@@ -541,7 +541,7 @@
         },
         {
           "plantilla": "+ {importe} euros anuales, si necesita ayuda de terceras personas o movilidad reducida o un grado de discapacidad = o > al 65%.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [
             { "fila": "discapacidad-contribuyente", "columna": "gastosAsistencia" },
@@ -559,19 +559,19 @@
       "partidas": [
         {
           "plantilla": "{importe} euros anuales, en general.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "contribuyente", "columna": "general" }]
         },
         {
           "plantilla": "+ {importe} euros anuales, mayor de 65 años.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "contribuyente", "columna": "adicionalMayor65" }]
         },
         {
           "plantilla": "+ {importe} euros anuales adicionales, mayor de 75 años.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "contribuyente", "columna": "adicionalMayor75" }]
         }
@@ -585,31 +585,31 @@
       "partidas": [
         {
           "plantilla": "{importe} euros anuales por el 1º.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "descendientes", "columna": "primero" }]
         },
         {
           "plantilla": "{importe} euros anuales por el 2º.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "descendientes", "columna": "segundo" }]
         },
         {
           "plantilla": "{importe} euros anuales por el 3º.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "descendientes", "columna": "tercero" }]
         },
         {
           "plantilla": "{importe} euros anuales por el 4º y siguientes.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "descendientes", "columna": "cuartoYSiguientes" }]
         },
         {
           "plantilla": "+ {importe} euros anuales, por descendiente menor de tres años.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "descendientes", "columna": "adicionalMenorTres" }]
         }
@@ -623,13 +623,13 @@
       "partidas": [
         {
           "plantilla": "{importe} euros anuales por cada ascendiente de más de 65 años o con discapacidad.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "ascendientes", "columna": "mayor65OConDiscapacidad" }]
         },
         {
           "plantilla": "+ {importe} euros anuales, mayor de 75 años.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "ascendientes", "columna": "adicionalMayor75" }]
         }
@@ -643,7 +643,7 @@
       "partidas": [
         {
           "plantilla": "{importe} euros anuales, por discapacidad = o > al 33%.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [
             { "fila": "discapacidad-contribuyente", "columna": "grado33Hasta65" },
@@ -653,7 +653,7 @@
         },
         {
           "plantilla": "{importe} euros anuales, si el grado de discapacidad= o > al 65%.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [
             { "fila": "discapacidad-contribuyente", "columna": "grado65OMas" },
@@ -663,7 +663,7 @@
         },
         {
           "plantilla": "+ {importe} euros anuales, si necesita ayuda de terceras personas o movilidad reducida o un grado de discapacidad = o > al 65%.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [
             { "fila": "discapacidad-contribuyente", "columna": "gastosAsistencia" },
@@ -737,19 +737,19 @@
       "partidas": [
         {
           "plantilla": "{importe} euros anuales, en general.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "contribuyente", "columna": "general" }]
         },
         {
           "plantilla": "+ {importe} euros anuales, si es mayor de 65 años.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "contribuyente", "columna": "adicionalMayor65" }]
         },
         {
           "plantilla": "+ {importe} euros anuales adicionales, si es mayor de 75 años.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "contribuyente", "columna": "adicionalMayor75" }]
         }
@@ -763,31 +763,31 @@
       "partidas": [
         {
           "plantilla": "{importe} euros anuales por el 1º.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "descendientes", "columna": "primero" }]
         },
         {
           "plantilla": "{importe} euros anuales por el 2º.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "descendientes", "columna": "segundo" }]
         },
         {
           "plantilla": "{importe} euros anuales por el 3º.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "descendientes", "columna": "tercero" }]
         },
         {
           "plantilla": "{importe} euros anuales por el 4º y siguientes.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "descendientes", "columna": "cuartoYSiguientes" }]
         },
         {
           "plantilla": "+ {importe} euros anuales, por descendiente menor de tres años.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "descendientes", "columna": "adicionalMenorTres" }]
         }
@@ -801,13 +801,13 @@
       "partidas": [
         {
           "plantilla": "{importe} euros anuales por cada ascendiente mayor de 65 años o con discapacidad.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "ascendientes", "columna": "mayor65OConDiscapacidad" }]
         },
         {
           "plantilla": "+ {importe} euros anuales, si tiene más de 75 años.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "ascendientes", "columna": "adicionalMayor75" }]
         }
@@ -821,7 +821,7 @@
       "partidas": [
         {
           "plantilla": "{importe} euros anuales, por discapacidad = o > al 33%.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [
             { "fila": "discapacidad-contribuyente", "columna": "grado33Hasta65" },
@@ -831,7 +831,7 @@
         },
         {
           "plantilla": "{importe} euros anuales, si el grado de discapacidad= o > al 65%.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [
             { "fila": "discapacidad-contribuyente", "columna": "grado65OMas" },
@@ -841,7 +841,7 @@
         },
         {
           "plantilla": "+ {importe} euros anuales, si necesita ayuda de terceras personas o movilidad reducida o un grado de discapacidad = o > al 65%.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [
             { "fila": "discapacidad-contribuyente", "columna": "gastosAsistencia" },
@@ -859,19 +859,19 @@
       "partidas": [
         {
           "plantilla": "{importe} euros anuales, en general.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [2], "centinelas": [] },
           "claves": [{ "fila": "contribuyente", "columna": "general" }]
         },
         {
           "plantilla": "+ {importe} euros anuales, mayor de 65 años.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [2], "centinelas": [] },
           "claves": [{ "fila": "contribuyente", "columna": "adicionalMayor65" }]
         },
         {
           "plantilla": "+ {importe} euros anuales adicionales, mayor de 75 años.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [2], "centinelas": [] },
           "claves": [{ "fila": "contribuyente", "columna": "adicionalMayor75" }]
         }
@@ -885,31 +885,31 @@
       "partidas": [
         {
           "plantilla": "{importe} euros anuales por el 1º.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [2], "centinelas": [] },
           "claves": [{ "fila": "descendientes", "columna": "primero" }]
         },
         {
           "plantilla": "{importe} euros anuales por el 2º.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [2], "centinelas": [] },
           "claves": [{ "fila": "descendientes", "columna": "segundo" }]
         },
         {
           "plantilla": "{importe} euros anuales por el 3º.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "descendientes", "columna": "tercero" }]
         },
         {
           "plantilla": "{importe} euros anuales por el 4º y siguientes.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "descendientes", "columna": "cuartoYSiguientes" }]
         },
         {
           "plantilla": "+ {importe} euros anuales, por descendiente menor de tres años.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [2], "centinelas": [] },
           "claves": [{ "fila": "descendientes", "columna": "adicionalMenorTres" }]
         }
@@ -923,13 +923,13 @@
       "partidas": [
         {
           "plantilla": "{importe} euros anuales por cada ascendiente de más de 65 años o con discapacidad.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [2], "centinelas": [] },
           "claves": [{ "fila": "ascendientes", "columna": "mayor65OConDiscapacidad" }]
         },
         {
           "plantilla": "+ {importe} euros anuales, mayor de 75 años.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [2], "centinelas": [] },
           "claves": [{ "fila": "ascendientes", "columna": "adicionalMayor75" }]
         }
@@ -943,7 +943,7 @@
       "partidas": [
         {
           "plantilla": "{importe} euros anuales, por discapacidad = o > al 33%.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [2], "centinelas": [] },
           "claves": [
             { "fila": "discapacidad-contribuyente", "columna": "grado33Hasta65" },
@@ -953,7 +953,7 @@
         },
         {
           "plantilla": "{importe} euros anuales, si el grado de discapacidad= o > al 65%.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [2], "centinelas": [] },
           "claves": [
             { "fila": "discapacidad-contribuyente", "columna": "grado65OMas" },
@@ -963,7 +963,7 @@
         },
         {
           "plantilla": "+ {importe} euros anuales, si necesita ayuda de terceras personas o movilidad reducida o un grado de discapacidad = o > al 65%.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [2], "centinelas": [] },
           "claves": [
             { "fila": "discapacidad-contribuyente", "columna": "gastosAsistencia" },
@@ -1002,7 +1002,7 @@
       "partidas": [
         {
           "plantilla": "{importe} euros anuales, por discapacidad = o > al 33%.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [
             { "fila": "discapacidad-descendientes", "columna": "grado33Hasta65" }
@@ -1010,7 +1010,7 @@
         },
         {
           "plantilla": "{importe} euros anuales, si el grado de discapacidad= o > al 65%.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [
             { "fila": "discapacidad-descendientes", "columna": "grado65OMas" }
@@ -1018,7 +1018,7 @@
         },
         {
           "plantilla": "+ {importe} euros anuales.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [
             { "fila": "discapacidad-contribuyente", "columna": "gastosAsistencia" },
@@ -1039,19 +1039,19 @@
       "partidas": [
         {
           "plantilla": "{importe} euros anuales, en general.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "contribuyente", "columna": "general" }]
         },
         {
           "plantilla": "+ {importe} euros anuales, mayor de 65 años.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "contribuyente", "columna": "adicionalMayor65" }]
         },
         {
           "plantilla": "+ {importe} euros anuales adicionales, mayor de 75 años.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "contribuyente", "columna": "adicionalMayor75" }]
         }
@@ -1065,31 +1065,31 @@
       "partidas": [
         {
           "plantilla": "{importe} euros anuales por el 1º.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "descendientes", "columna": "primero" }]
         },
         {
           "plantilla": "{importe} euros anuales por el 2º.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "descendientes", "columna": "segundo" }]
         },
         {
           "plantilla": "{importe} euros anuales por el 3º.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "descendientes", "columna": "tercero" }]
         },
         {
           "plantilla": "{importe} euros anuales por el 4º y siguientes.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "descendientes", "columna": "cuartoYSiguientes" }]
         },
         {
           "plantilla": "+ {importe} euros anuales, por descendiente menor de tres años.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "descendientes", "columna": "adicionalMenorTres" }]
         }
@@ -1103,13 +1103,13 @@
       "partidas": [
         {
           "plantilla": "{importe} euros anuales por cada ascendiente de más de 65 años o con discapacidad.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "ascendientes", "columna": "mayor65OConDiscapacidad" }]
         },
         {
           "plantilla": "+ {importe} euros anuales, mayor de 75 años.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [{ "fila": "ascendientes", "columna": "adicionalMayor75" }]
         }
@@ -1123,7 +1123,7 @@
       "partidas": [
         {
           "plantilla": "{importe} euros anuales, por discapacidad = o > al 33%.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [
             { "fila": "discapacidad-contribuyente", "columna": "grado33Hasta65" },
@@ -1133,7 +1133,7 @@
         },
         {
           "plantilla": "{importe} euros anuales, si el grado de discapacidad= o > al 65%.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [
             { "fila": "discapacidad-contribuyente", "columna": "grado65OMas" },
@@ -1143,7 +1143,7 @@
         },
         {
           "plantilla": "+ {importe} euros anuales, si necesita ayuda de terceras personas o movilidad reducida o un grado de discapacidad = o > al 65%.",
-          "unidad": "EUR", "evidenciaUnidad": "euros",
+          "unidad": { "_tag": "EUR", "evidencia": "euros" },
           "gramatica": { "decimales": [0], "centinelas": [] },
           "claves": [
             { "fila": "discapacidad-contribuyente", "columna": "gastosAsistencia" },
