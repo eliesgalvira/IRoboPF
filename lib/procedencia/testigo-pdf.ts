@@ -146,7 +146,7 @@ interface CeldaUnida {
   readonly paginas: ReadonlyArray<number>
 }
 
-export interface TablaPdf {
+interface TablaPdf {
   readonly pagina: number
   readonly indice: number
   // Posición de cada literal de cabecera declarado en la fila de cabecera.
@@ -526,10 +526,7 @@ export const abrirPdf = Effect.fn("procedencia.abrirPdf")(function* (
     hoja.cleanup()
     return {
       pagina,
-      raiz: arbolDePagina(
-        arbol as ElementoPdfJs | null,
-        contenido.items as ReadonlyArray<ElementoDeTextoPdfJs>
-      ),
+      raiz: arbolDePagina(arbol, contenido.items),
     } satisfies PaginaEtiquetada
   })
   return {

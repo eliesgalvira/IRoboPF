@@ -84,7 +84,7 @@ export interface ExtraccionHtml {
   readonly excepciones: ReadonlyArray<ExcepcionExtraccion>
 }
 
-export type FalloDeTabla =
+type FalloDeTabla =
   | TablaNoLocalizada
   | TablaAmbigua
   | CabeceraNoLocalizada
@@ -486,12 +486,15 @@ const leerCelda = (
   celda: CeldaHtml,
   declarada: CeldaCuadro
 ): LecturaCelda => {
+  const pares = declarada.bloques.flatMap((declarado, indice) => {
+    const bloque = celda.bloques[indice]
+    return bloque !== undefined && encaja(declarado, bloque)
+      ? [{ declarado, bloque }]
+      : []
+  })
   const coincide =
     celda.bloques.length === declarada.bloques.length &&
-    declarada.bloques.every((declarado, indice) => {
-      const bloque = celda.bloques[indice]
-      return bloque !== undefined && encaja(declarado, bloque)
-    })
+    pares.length === declarada.bloques.length
   if (!coincide) {
     return {
       valores: [],
@@ -516,19 +519,18 @@ const leerCelda = (
   const excepciones: Array<ExcepcionExtraccion> = []
   let remision: RemisionPendiente | null = null
   const notasPorId = new Map<string, Nota>()
-  declarada.bloques.forEach((declarado, indice) => {
-    const bloque = celda.bloques[indice] as Bloque
+  for (const { declarado, bloque } of pares) {
     const ubicacion = ubicacionDe(fila, columna, bloque)
     if (declarado._tag === "Nota") {
       notas.push({ ubicacion, literal: bloque.texto })
       if (declarado.id !== undefined) {
         notasPorId.set(declarado.id, { ubicacion, literal: bloque.texto })
       }
-      return
+      continue
     }
     if (declarado._tag === "RemisionAMinimosEstatales") {
       remision = { territorio, fila, columna, literal: bloque.texto, ubicacion }
-      return
+      continue
     }
     const clavesPartida = clavesDe(declarado)
     const literalHueco = hueco(declarado, bloque.texto) ?? ""
@@ -543,7 +545,7 @@ const leerCelda = (
           claves: clavesPartida,
         })
       )
-      return
+      continue
     }
     // La nota del alcance es anterior en la celda (lo exige el esquema) y la
     // secuencia ya coincide, así que está en el HTML antes del importe.
@@ -570,7 +572,7 @@ const leerCelda = (
         gramatica: null,
       },
     })
-  })
+  }
   return { valores, notas, excepciones, remision }
 }
 

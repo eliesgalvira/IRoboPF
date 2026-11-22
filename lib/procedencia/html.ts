@@ -7,12 +7,12 @@ type Nodo = DefaultTreeAdapterTypes.ChildNode
 type Elemento = DefaultTreeAdapterTypes.Element
 type Padre = DefaultTreeAdapterTypes.ParentNode
 
-export interface Posicion {
+interface Posicion {
   readonly linea: number
   readonly columnaFuente: number
 }
 
-export interface ProblemaEstructura extends Posicion {
+interface ProblemaEstructura extends Posicion {
   readonly motivo: string
 }
 
@@ -25,7 +25,7 @@ export interface CeldaHtml extends Posicion {
   readonly bloques: ReadonlyArray<Bloque>
 }
 
-export type Seccion = "thead" | "tbody" | "tfoot"
+type Seccion = "thead" | "tbody" | "tfoot"
 
 export interface FilaHtml extends Posicion {
   readonly seccion: Seccion
@@ -37,7 +37,7 @@ export interface TablaHtml extends Posicion {
   readonly filas: ReadonlyArray<FilaHtml>
 }
 
-export interface TablaDelDocumento extends Posicion {
+interface TablaDelDocumento extends Posicion {
   readonly caption: string | null
   readonly elemento: Elemento
 }

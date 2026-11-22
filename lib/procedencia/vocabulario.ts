@@ -137,7 +137,7 @@ export type UnidadDeclarada = typeof UnidadDeclarada.Type
 export const Centinela = Schema.Literals(["sin-limite"])
 export type Centinela = typeof Centinela.Type
 
-export const IndiceTramo = Schema.Int.check(Schema.isGreaterThanOrEqualTo(0))
+const IndiceTramo = Schema.Int.check(Schema.isGreaterThanOrEqualTo(0))
 
 // La magnitud discrimina la clave: en una escala la fila es el índice del
 // tramo y la columna una de la escala; en el cuadro, una posición de mínimo.
@@ -150,7 +150,7 @@ export const ClaveEscala = Schema.Struct({
 export type ClaveEscala = typeof ClaveEscala.Type
 
 const deMinimos = { territorio: Territorio, magnitud: MagnitudCuadro }
-export const ClaveMinimo = Schema.Union([
+const ClaveMinimo = Schema.Union([
   Schema.Struct({ ...deMinimos, ...POSICIONES.contribuyente }),
   Schema.Struct({ ...deMinimos, ...POSICIONES.descendientes }),
   Schema.Struct({ ...deMinimos, ...POSICIONES.ascendientes }),
@@ -158,7 +158,6 @@ export const ClaveMinimo = Schema.Union([
   Schema.Struct({ ...deMinimos, ...POSICIONES.discapacidadDescendientes }),
   Schema.Struct({ ...deMinimos, ...POSICIONES.discapacidadAscendientes }),
 ])
-export type ClaveMinimo = typeof ClaveMinimo.Type
 
 export const Clave = Schema.Union([ClaveEscala, ClaveMinimo])
 export type Clave = typeof Clave.Type
@@ -184,7 +183,7 @@ export const compararClaves = (a: Clave, b: Clave): number =>
   compararFila(a.fila, b.fila) ||
   compararTexto(a.columna, b.columna)
 
-export const DecimalCanonico = Schema.String.check(
+const DecimalCanonico = Schema.String.check(
   Schema.isPattern(/^-?(0|[1-9][0-9]*)(\.[0-9]*[1-9])?$/)
 )
 
