@@ -3,6 +3,11 @@ import { DateTime, Match } from "effect"
 
 import { crearImporteMonetario } from "../../dinero/importe-monetario"
 import type { AnioFiscal } from "../anio-fiscal"
+import type { FuenteNormativaNormalizada } from "../fuente-normativa"
+import {
+  parametroNormativo,
+  type ParametroNormativoEjecutable,
+} from "../repositorio-parametros"
 
 export type TramoIrpf = readonly [limite: Decimal, tipo: Decimal]
 export type TramosIrpf = ReadonlyArray<TramoIrpf>
@@ -167,6 +172,160 @@ export const TRAMOS_IRPF_AHORRO_2014: TramosIrpf = [
 export const TRAMOS_IRPF_AHORRO_2013: TramosIrpf = TRAMOS_IRPF_AHORRO_2014
 
 export const TRAMOS_IRPF_AHORRO_2012: TramosIrpf = TRAMOS_IRPF_AHORRO_2014
+
+export interface EscalasIrpfAhorroPorGravamen {
+  readonly estatal: TramosIrpf
+  readonly autonomica: TramosIrpf
+}
+
+const LEY_IRPF_BOE = "https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764"
+
+const fuenteEscalasAhorro = (
+  titulo: string,
+  referencia: string
+): FuenteNormativaNormalizada => ({
+  _tag: "FuenteNormativaNormalizada",
+  titulo,
+  referencia,
+  nota: "Escala estatal (art. 66.1.1.º) y autonómica (art. 76.1.º) del ahorro; la suma de ambas es la escala agregada del ejercicio.",
+})
+
+const ESCALA_AHORRO_MITAD_2010: TramosIrpf = [
+  [importe(6000), importe("0.095")],
+  [importe(Infinity), importe("0.105")],
+]
+
+const ESCALA_AHORRO_MITAD_2015: TramosIrpf = [
+  [importe(6000), importe("0.095")],
+  [importe(50000), importe("0.105")],
+  [importe(Infinity), importe("0.115")],
+]
+
+const ESCALA_AHORRO_MITAD_2021: TramosIrpf = [
+  [importe(6000), importe("0.095")],
+  [importe(50000), importe("0.105")],
+  [importe(200000), importe("0.115")],
+  [importe(Infinity), importe("0.13")],
+]
+
+const ESCALA_AHORRO_MITAD_2023: TramosIrpf = [
+  [importe(6000), importe("0.095")],
+  [importe(50000), importe("0.105")],
+  [importe(200000), importe("0.115")],
+  [importe(300000), importe("0.135")],
+  [importe(Infinity), importe("0.14")],
+]
+
+const ESCALA_AHORRO_MITAD_2025: TramosIrpf = [
+  [importe(6000), importe("0.095")],
+  [importe(50000), importe("0.105")],
+  [importe(200000), importe("0.115")],
+  [importe(300000), importe("0.135")],
+  [importe(Infinity), importe("0.15")],
+]
+
+const ESCALAS_AHORRO_2012_A_2014 = parametroNormativo({
+  nombre: "Escalas estatal y autonómica del ahorro 2012-2014",
+  valor: {
+    // Art. 66.1 (9,5 / 10,5) más el gravamen complementario estatal de la
+    // DA 35.ª.1.b (2 / 4 / 6), que grava la base del ahorro que excede del
+    // mínimo del art. 56, es decir, del mínimo estatal.
+    estatal: [
+      [importe(6000), importe("0.115")],
+      [importe(24000), importe("0.145")],
+      [importe(Infinity), importe("0.165")],
+    ],
+    autonomica: ESCALA_AHORRO_MITAD_2010,
+  } satisfies EscalasIrpfAhorroPorGravamen,
+  fuente: fuenteEscalasAhorro(
+    "Ley 35/2006, arts. 66.1 y 76 (redacción de la Ley 39/2010) y disposición adicional trigésima quinta.1.b",
+    `${LEY_IRPF_BOE}&p=20101223#datrigesimaquinta`
+  ),
+})
+
+const ESCALAS_AHORRO_2015 = parametroNormativo({
+  nombre: "Escalas estatal y autonómica del ahorro 2015",
+  valor: {
+    estatal: ESCALA_AHORRO_MITAD_2015,
+    autonomica: [
+      [importe(6000), importe("0.10")],
+      [importe(50000), importe("0.11")],
+      [importe(Infinity), importe("0.12")],
+    ],
+  } satisfies EscalasIrpfAhorroPorGravamen,
+  fuente: fuenteEscalasAhorro(
+    "Ley 35/2006, disposición adicional trigésima primera.1.c y e (redacción del Real Decreto-ley 9/2015)",
+    "https://www.boe.es/buscar/doc.php?id=BOE-A-2015-7765"
+  ),
+})
+
+const ESCALAS_AHORRO_2016_A_2020 = parametroNormativo({
+  nombre: "Escalas estatal y autonómica del ahorro 2016-2020",
+  valor: {
+    estatal: ESCALA_AHORRO_MITAD_2015,
+    autonomica: ESCALA_AHORRO_MITAD_2015,
+  } satisfies EscalasIrpfAhorroPorGravamen,
+  fuente: fuenteEscalasAhorro(
+    "Ley 35/2006, arts. 66.1 y 76 (redacción de la Ley 26/2014)",
+    `${LEY_IRPF_BOE}&p=20141128#a66`
+  ),
+})
+
+const ESCALAS_AHORRO_2021_A_2022 = parametroNormativo({
+  nombre: "Escalas estatal y autonómica del ahorro 2021-2022",
+  valor: {
+    estatal: ESCALA_AHORRO_MITAD_2021,
+    autonomica: ESCALA_AHORRO_MITAD_2021,
+  } satisfies EscalasIrpfAhorroPorGravamen,
+  fuente: fuenteEscalasAhorro(
+    "Ley 35/2006, arts. 66.1 y 76 (redacción de la Ley 11/2020)",
+    `${LEY_IRPF_BOE}&p=20201231#a66`
+  ),
+})
+
+const ESCALAS_AHORRO_2023_A_2024 = parametroNormativo({
+  nombre: "Escalas estatal y autonómica del ahorro 2023-2024",
+  valor: {
+    estatal: ESCALA_AHORRO_MITAD_2023,
+    autonomica: ESCALA_AHORRO_MITAD_2023,
+  } satisfies EscalasIrpfAhorroPorGravamen,
+  fuente: fuenteEscalasAhorro(
+    "Ley 35/2006, arts. 66.1 y 76 (redacción de la Ley 31/2022)",
+    `${LEY_IRPF_BOE}&p=20221224#a66`
+  ),
+})
+
+const ESCALAS_AHORRO_DESDE_2025 = parametroNormativo({
+  nombre: "Escalas estatal y autonómica del ahorro desde 2025",
+  valor: {
+    estatal: ESCALA_AHORRO_MITAD_2025,
+    autonomica: ESCALA_AHORRO_MITAD_2025,
+  } satisfies EscalasIrpfAhorroPorGravamen,
+  fuente: fuenteEscalasAhorro(
+    "Ley 35/2006, arts. 66.1 y 76 (redacción de la Ley 7/2024)",
+    `${LEY_IRPF_BOE}#a66`
+  ),
+})
+
+export const ESCALAS_IRPF_AHORRO_POR_GRAVAMEN: Readonly<
+  Record<AnioFiscal, ParametroNormativoEjecutable<EscalasIrpfAhorroPorGravamen>>
+> = {
+  2012: ESCALAS_AHORRO_2012_A_2014,
+  2013: ESCALAS_AHORRO_2012_A_2014,
+  2014: ESCALAS_AHORRO_2012_A_2014,
+  2015: ESCALAS_AHORRO_2015,
+  2016: ESCALAS_AHORRO_2016_A_2020,
+  2017: ESCALAS_AHORRO_2016_A_2020,
+  2018: ESCALAS_AHORRO_2016_A_2020,
+  2019: ESCALAS_AHORRO_2016_A_2020,
+  2020: ESCALAS_AHORRO_2016_A_2020,
+  2021: ESCALAS_AHORRO_2021_A_2022,
+  2022: ESCALAS_AHORRO_2021_A_2022,
+  2023: ESCALAS_AHORRO_2023_A_2024,
+  2024: ESCALAS_AHORRO_2023_A_2024,
+  2025: ESCALAS_AHORRO_DESDE_2025,
+  2026: ESCALAS_AHORRO_DESDE_2025,
+}
 
 export const REDUCCION_MOVILIDAD_GEOGRAFICA_TRANSITORIA_2015 = {
   condicionAplicacion:

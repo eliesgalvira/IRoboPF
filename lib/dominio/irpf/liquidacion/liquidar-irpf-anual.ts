@@ -28,6 +28,7 @@ import {
 } from "../comunidades/comunidad-autonoma"
 import { calcularCuotaDiferencialCentimos } from "../cuotas/cuota-diferencial"
 import {
+  calcularCuotaMinimoPersonalAhorro,
   calcularCuotaPorEscalaAhorro,
   calcularDesgloseCuotaPorEscalaAhorro,
 } from "../cuotas/cuota-integra-ahorro"
@@ -476,15 +477,13 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
     0,
     minimoPersonalYFamiliarAutonomico.minus(baseLiquidableGeneral)
   )
-  const cuotaMinimoPersonalAhorro = calcularCuotaPorEscalaAhorro({
+  const cuotaMinimoPersonalAhorro = calcularCuotaMinimoPersonalAhorro({
     anio: caso.anio,
-    base: Decimal.min(
-      Decimal.max(
-        remanenteMinimoPersonalParaAhorro,
-        remanenteMinimoPersonalAutonomicoParaAhorro
-      ),
-      baseLiquidableAhorro
-    ),
+    baseLiquidableAhorro,
+    remanentes: {
+      estatal: remanenteMinimoPersonalParaAhorro,
+      autonomico: remanenteMinimoPersonalAutonomicoParaAhorro,
+    },
   })
   const desgloseCuotaMinimoPersonalEstatal = usaEscalaAutonomicaReal
     ? calcularDesgloseCuotaPorEscala({
