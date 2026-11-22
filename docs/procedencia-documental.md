@@ -260,8 +260,8 @@ una sola escala del ahorro (estatal más autonómica); el manual publica las dos
 mitades. `procedencia/composiciones/2025.json` declara que
 `escala-ahorro-agregada` se coteja con la suma, tramo a tramo, de
 `escala-ahorro-estatal` y `escala-ahorro-autonomica`. Antes de sumar se exige
-que las dos tengan los mismos tramos, todas sus celdas y las mismas bases y
-restos; cuotas y tipos se suman en decimal exacto. El resultado entra en el
+que las dos se hayan extraído sin excepciones y tengan los mismos tramos, todas
+sus celdas y las mismas bases y restos; cuotas y tipos se suman en decimal exacto. El resultado entra en el
 cotejo como `DerivadoDelManual`, con las dos celdas de origen y su testigo, y se
 cuenta en `derivadasDelManual`. Si las mitades no encadenan igual, es
 `ComposicionNoResuelta` y no se suma nada. Las claves de las mitades siguen

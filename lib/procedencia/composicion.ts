@@ -51,10 +51,10 @@ const tramosDe = (celdas: ReadonlyMap<string, ValorExtraido>) =>
   new Set(Array.from(celdas.keys(), (clave) => Number(clave.split("|")[0])))
 
 // Compone la escala `resultado` como la suma, tramo a tramo, de las dos
-// escalas `sumandos`. Antes de sumar comprueba que las dos tienen los mismos
-// tramos, todas sus celdas y las mismas bases y restos; si algo falla, no da
-// ningún valor y devuelve ComposicionNoResuelta con todas las claves que
-// habría dado.
+// escalas `sumandos`. Antes de sumar comprueba que las dos se extrajeron sin
+// excepciones y tienen los mismos tramos, todas sus celdas y las mismas bases
+// y restos; si algo falla, no da ningún valor y devuelve
+// ComposicionNoResuelta con todas las claves que habría dado.
 export const componer = (
   composicion: Composicion,
   extracciones: ReadonlyArray<ExtraccionTabla>
@@ -92,6 +92,13 @@ export const componer = (
     return fallo(
       null,
       `no hay extracción de la tabla «${a === undefined ? tablaA : tablaB}»`
+    )
+  }
+  const conExcepciones = [a, b].find((e) => e.excepciones.length > 0)
+  if (conExcepciones !== undefined) {
+    return fallo(
+      null,
+      `la tabla «${conExcepciones.tabla}» tiene excepciones de extracción: ${conExcepciones.excepciones.map((e) => e._tag).join(", ")}`
     )
   }
   const valores: Array<Compuesto> = []
