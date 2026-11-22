@@ -150,6 +150,29 @@ describe("localizador de tabla", () => {
     ).toThrow()
   })
 
+  it.each([
+    fila("0,00", "<span hidden>1</span>9,50%"),
+    fila("0,00", '<span style="display:none">1</span>9,50%'),
+    fila("0,00", '<span aria-hidden="true">1</span>9,50%'),
+    fila("0,00", '<span class="d-none">1</span>9,50%'),
+    fila("0,00", "<b>9,50%</b>"),
+    fila("0,00", "<sup>9,50%</sup>"),
+    fila("0,00", '<p class="letrita" title="x">9,50%</p>'),
+    "<tr><td>0,00</td><td hidden>9,50%</td></tr>",
+    '<tr><td>0,00</td><td class="sr-only">9,50%</td></tr>',
+    "<tr hidden><td>0,00</td><td>9,50%</td></tr>",
+  ])("fuera de la lista cerrada de elementos y atributos: %s", (filaHtml) => {
+    expect(fallo(extraerEscala(escala(), html(tabla(filaHtml))))).toBe(
+      "EstructuraNoAdmitida"
+    )
+  })
+
+  it("la lista cerrada cubre los elementos y atributos de las páginas reales", () => {
+    const real =
+      '<tr><td letrita2="" class="texto_der">0,00</td><td class="texto_cen"><p class="letrita sangrado-izq"><span class="letrita"><strong>9,50%</strong></span></p></td></tr>'
+    expect(fallo(extraerEscala(escala(), html(tabla(real))))).toBe("sin fallo")
+  })
+
   it("las celdas combinadas no se admiten", () => {
     const combinada = html(tabla('<tr><td colspan="2">0,00</td></tr>'))
     expect(fallo(extraerEscala(escala(), combinada))).toBe(
