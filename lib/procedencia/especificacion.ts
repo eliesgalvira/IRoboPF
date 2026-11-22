@@ -60,13 +60,26 @@ const sinRepetidos =
       ? undefined
       : `${nombre} repetido`
 
+// La tabla del PDF se localiza en el árbol etiquetado de las páginas
+// declaradas, que son consecutivas (una tabla partida sigue en la página
+// siguiente), por los literales de su fila de cabecera tal como los trae el
+// PDF y, si en esas páginas hay más de una con esa cabecera, por el literal del
+// encabezado que la precede.
 const TestigoPdf = Schema.Struct({
   sha256: Sha256,
   paginas: Schema.NonEmptyArray(Pagina).check(
-    Schema.makeFilter(
-      sinRepetidos("número de página", (p: number) => String(p))
+    Schema.makeFilter((paginas: ReadonlyArray<number>) =>
+      paginas.every(
+        (pagina, i) => i === 0 || pagina === (paginas[i - 1] ?? 0) + 1
+      )
+        ? undefined
+        : "las páginas del testigo han de ser consecutivas y sin repetir"
     )
   ),
+  cabecera: Schema.NonEmptyArray(LiteralCanonico).check(
+    Schema.makeFilter(sinRepetidos("cabecera del PDF", (c: string) => c))
+  ),
+  encabezado: Schema.optionalKey(LiteralCanonico),
 })
 
 // La evidencia ha de aparecer entera en el texto fijo, sin una letra ni una
@@ -127,7 +140,13 @@ export const EspecificacionEscala = Schema.Struct({
     )
   ),
   testigo: TestigoPdf,
-})
+}).check(
+  Schema.makeFilter((especificacion) =>
+    especificacion.testigo.cabecera.length === especificacion.columnas.length
+      ? undefined
+      : "el testigo ha de declarar una cabecera del PDF por columna, en su mismo orden"
+  )
+)
 export type EspecificacionEscala = typeof EspecificacionEscala.Type
 
 const IdNota = Schema.String.check(Schema.isPattern(/^[a-z0-9]+(-[a-z0-9]+)*$/))
@@ -289,6 +308,12 @@ export const EspecificacionCuadro = Schema.Struct({
           ]),
     ]
     const problemas = [
+      ...(especificacion.testigo.cabecera.length ===
+      especificacion.columnas.length + 1
+        ? []
+        : [
+            "el testigo ha de declarar la cabecera del PDF de la columna de filas y de cada columna, en su mismo orden",
+          ]),
       ...especificacion.filas
         .filter((fila) => !territorios.has(fila.territorio))
         .map(

@@ -25,11 +25,7 @@ import {
   PaginaInexistente,
   ResultadoIlegible,
 } from "./excepciones"
-import {
-  extraerCuadro,
-  extraerEscala,
-  type ValorPendienteDeTestigo,
-} from "./extraccion"
+import { extraerCuadro, extraerEscala } from "./extraccion"
 import { proyectarMotor2025 } from "./motor-2025"
 import {
   ColaExcepciones,
@@ -40,9 +36,11 @@ import {
 } from "./resultado"
 import {
   abrirPdf,
-  aparicionesDe,
-  asignarTestigos,
-  type PaginaDeTexto,
+  atestiguar,
+  localizarTablaPdf,
+  trozosDeTablas,
+  type Correspondencia,
+  type PaginaEtiquetada,
   type PdfAbierto,
 } from "./testigo-pdf"
 import { compararTexto } from "./vocabulario"
@@ -185,17 +183,15 @@ export const leerEspecificaciones = Effect.fn(
   const especificaciones: Array<EspecificacionLeida> = []
   for (const archivo of archivos) {
     const ruta = path.join(RUTAS.especificaciones, archivo)
-    const texto = yield* fs
-      .readFileString(ruta)
-      .pipe(
-        Effect.mapError(
-          (error) =>
-            new EspecificacionInvalida({
-              archivo: ruta,
-              detalle: error.message,
-            })
-        )
+    const texto = yield* fs.readFileString(ruta).pipe(
+      Effect.mapError(
+        (error) =>
+          new EspecificacionInvalida({
+            archivo: ruta,
+            detalle: error.message,
+          })
       )
+    )
     const especificacion = yield* Schema.decodeUnknownEffect(
       EspecificacionDesdeJson
     )(texto, { onExcessProperty: "error" }).pipe(
@@ -223,11 +219,23 @@ interface EspecificacionLeida {
   readonly huella: string
 }
 
-interface TablaExtraida {
-  readonly extraccion: Omit<ExtraccionTabla, "valores">
-  readonly pendientes: ReadonlyArray<ValorPendienteDeTestigo>
-  // Páginas que hay que leer para el testigo; vacío si la tabla falló.
-  readonly paginas: ReadonlyArray<number>
+const correspondenciaDe = (especificacion: Especificacion): Correspondencia => {
+  const { cabecera } = especificacion.testigo
+  return especificacion.tipo === "escala"
+    ? {
+        _tag: "Escala",
+        tramos: 0,
+        columnaPdf: new Map(
+          especificacion.columnas.map((c, i) => [c.cabecera, cabecera[i] ?? ""])
+        ),
+      }
+    : {
+        _tag: "Cuadro",
+        cabeceraDeFilasPdf: cabecera[0],
+        columnaPdf: new Map(
+          especificacion.columnas.map((c, i) => [c, cabecera[i + 1] ?? ""])
+        ),
+      }
 }
 
 const extraerTabla = Effect.fn("procedencia.tabla")(function* (
@@ -247,19 +255,20 @@ const extraerTabla = Effect.fn("procedencia.tabla")(function* (
     tipo: especificacion.tipo,
     magnitud: especificacion.magnitud,
     territorios: especificacion.territorios,
-    testigoPdf: especificacion.testigo,
+    testigoPdf: {
+      sha256: especificacion.testigo.sha256,
+      paginas: especificacion.testigo.paginas,
+    },
   }
-  const fallo = (excepcion: ExtraccionTabla["excepciones"][number]) =>
-    ({
-      extraccion: {
-        ...base,
-        documento: { sha256, tablaLocalizada: null },
-        notas: [],
-        excepciones: [excepcion],
-      },
-      pendientes: [],
-      paginas: [],
-    }) satisfies TablaExtraida
+  const fallo = (
+    excepcion: ExtraccionTabla["excepciones"][number]
+  ): ExtraccionTabla => ({
+    ...base,
+    documento: { sha256, tablaLocalizada: null },
+    valores: [],
+    notas: [],
+    excepciones: [excepcion],
+  })
   const paginaFuera = especificacion.testigo.paginas.find(
     (pagina) => pagina > pdf.numeroDePaginas
   )
@@ -279,16 +288,24 @@ const extraerTabla = Effect.fn("procedencia.tabla")(function* (
   if (Result.isFailure(extraido)) {
     return fallo(extraido.failure)
   }
+  const paginas = yield* Effect.forEach(
+    especificacion.testigo.paginas,
+    pdf.leerPagina
+  )
+  const correspondencia = correspondenciaDe(especificacion)
   return {
-    extraccion: {
-      ...base,
-      documento: { sha256, tablaLocalizada: extraido.success.tablaLocalizada },
-      notas: extraido.success.notas,
-      excepciones: extraido.success.excepciones,
-    },
-    pendientes: extraido.success.valores,
-    paginas: especificacion.testigo.paginas,
-  } satisfies TablaExtraida
+    ...base,
+    documento: { sha256, tablaLocalizada: extraido.success.tablaLocalizada },
+    valores: atestiguar(
+      localizarTablaPdf(especificacion.testigo, paginas),
+      correspondencia._tag === "Escala"
+        ? { ...correspondencia, tramos: extraido.success.filasDeDatos }
+        : correspondencia,
+      extraido.success.valores
+    ),
+    notas: extraido.success.notas,
+    excepciones: extraido.success.excepciones,
+  } satisfies ExtraccionTabla
 })
 
 const abrirPdfDelAlmacen = (
@@ -300,54 +317,63 @@ const abrirPdfDelAlmacen = (
     Effect.flatMap((bytes) => abrirPdf(sha256, bytes))
   )
 
-// Siempre se extraen todas las especificaciones: el testigo de una tabla
-// depende de las demás que declaran sus mismas páginas. Las apariciones de
-// documentos distintos nunca coinciden, así que basta resolverlo por PDF.
-export const extraer = Effect.fn("procedencia.extraer")(function* (
+// Extrae todas las especificaciones y devuelve el texto sellado de cada una,
+// por ruta, sin escribirlo. Cada página del PDF se lee una sola vez.
+export const extraerTextos = Effect.fn("procedencia.extraerTextos")(function* (
   almacen: string
 ) {
   const path = yield* Path.Path
   const manifiesto = yield* leerManifiesto()
   const especificaciones = yield* leerEspecificaciones()
+  const textos = new Map<string, string>()
   const pdfs = Array.from(
     new Set(especificaciones.map((e) => e.especificacion.testigo.sha256))
   ).sort()
   for (const sha256 of pdfs) {
     yield* Effect.scoped(
       Effect.gen(function* () {
-        const pdf = yield* abrirPdfDelAlmacen(almacen, sha256, manifiesto)
-        const extraidas = yield* Effect.forEach(
-          especificaciones.filter(
-            (e) => e.especificacion.testigo.sha256 === sha256
-          ),
-          (leida) => extraerTabla(leida, almacen, manifiesto, pdf)
-        )
-        const leidas = new Map<number, PaginaDeTexto>()
-        for (const pagina of new Set(extraidas.flatMap((t) => t.paginas))) {
-          leidas.set(pagina, yield* pdf.leerPagina(pagina))
+        const abierto = yield* abrirPdfDelAlmacen(almacen, sha256, manifiesto)
+        const leidas = new Map<number, PaginaEtiquetada>()
+        const pdf: PdfAbierto = {
+          numeroDePaginas: abierto.numeroDePaginas,
+          leerPagina: (pagina) => {
+            const leida = leidas.get(pagina)
+            return leida !== undefined
+              ? Effect.succeed(leida)
+              : abierto
+                  .leerPagina(pagina)
+                  .pipe(
+                    Effect.tap((nueva) =>
+                      Effect.sync(() => leidas.set(pagina, nueva))
+                    )
+                  )
+          },
         }
-        const valores = asignarTestigos(
-          extraidas.map(({ extraccion, pendientes, paginas }) => ({
-            tabla: extraccion.tabla,
-            sha256,
-            paginas: paginas.map(
-              (pagina) => leidas.get(pagina) as PaginaDeTexto
-            ),
-            valores: pendientes,
-          }))
-        )
-        for (const { extraccion } of extraidas) {
-          yield* escribirJson(
+        for (const leida of especificaciones.filter(
+          (e) => e.especificacion.testigo.sha256 === sha256
+        )) {
+          const extraccion = yield* extraerTabla(
+            leida,
+            almacen,
+            manifiesto,
+            pdf
+          )
+          textos.set(
             path.join(RUTAS.extraccion, `${extraccion.tabla}.json`),
-            ExtraccionTabla,
-            {
-              ...extraccion,
-              valores: valores.get(extraccion.tabla) ?? [],
-            }
+            yield* textoJson(ExtraccionTabla, extraccion)
           )
         }
       })
     )
+  }
+  return textos
+})
+
+export const extraer = Effect.fn("procedencia.extraer")(function* (
+  almacen: string
+) {
+  for (const [ruta, texto] of yield* extraerTextos(almacen)) {
+    yield* escribir(ruta, Effect.succeed(texto))
   }
 })
 
@@ -436,27 +462,27 @@ export const obtener = Effect.fn("procedencia.obtener")(function* (
   return { sha256, bytes: bytes.length, nuevo: !yaRegistrado }
 })
 
-export const buscarLiteral = Effect.fn("procedencia.buscarLiteral")(function* (
+// Ayuda al autor de especificaciones: las tablas del árbol etiquetado de unas
+// páginas consecutivas, con su encabezado anterior y el texto de sus filas,
+// tal como las ve el testigo.
+export const listarTablas = Effect.fn("procedencia.listarTablas")(function* (
   almacen: string,
   sha256: string,
-  literal: string
+  paginas: ReadonlyArray<number>
 ) {
   const manifiesto = yield* leerManifiesto()
   return yield* Effect.scoped(
     Effect.gen(function* () {
       const pdf = yield* abrirPdfDelAlmacen(almacen, sha256, manifiesto)
-      const resultados: Array<{
-        readonly pagina: number
-        readonly apariciones: ReturnType<typeof aparicionesDe>
-      }> = []
-      for (let pagina = 1; pagina <= pdf.numeroDePaginas; pagina++) {
-        const texto = yield* pdf.leerPagina(pagina)
-        const apariciones = aparicionesDe(literal, [texto])
-        if (apariciones.length > 0) {
-          resultados.push({ pagina, apariciones })
-        }
+      const leidas = yield* Effect.forEach(paginas, pdf.leerPagina)
+      const sinArbol = leidas.find((pagina) => pagina.raiz === null)
+      if (sinArbol !== undefined) {
+        return yield* new DocumentoNoDisponible({
+          sha256,
+          motivo: `la página ${sinArbol.pagina} no tiene árbol de estructura`,
+        })
       }
-      return resultados
+      return trozosDeTablas(leidas)
     })
   )
 })

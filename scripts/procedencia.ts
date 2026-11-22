@@ -3,14 +3,14 @@ import { Config, Console, Effect, Schema } from "effect"
 import { Command, Flag } from "effect/unstable/cli"
 import { FetchHttpClient } from "effect/unstable/http"
 
-import { normalizar } from "../lib/procedencia/literales"
 import {
-  buscarLiteral,
   extraer,
   generarCotejo,
+  listarTablas,
   obtener,
 } from "../lib/procedencia/programa"
 import { Resumen } from "../lib/procedencia/resultado"
+import { normalizarPdf } from "../lib/procedencia/testigo-pdf"
 
 const almacen = Flag.directory("almacen").pipe(
   Flag.withDescription(
@@ -70,30 +70,37 @@ const cotejarSellado = Command.make(
   )
 )
 
-const buscar = Command.make(
-  "buscar",
+const tablas = Command.make(
+  "tablas",
   {
     almacen,
     sha256: Flag.string("sha256").pipe(
       Flag.withDescription("SHA-256 del PDF registrado")
     ),
-    literal: Flag.string("literal").pipe(
-      Flag.withDescription("Literal exacto que se busca")
-    ),
+    desde: Flag.integer("desde").pipe(Flag.withDescription("Primera página")),
+    hasta: Flag.integer("hasta").pipe(Flag.withDescription("Última página")),
   },
-  Effect.fn(function* ({ almacen, sha256, literal }) {
-    const paginas = yield* buscarLiteral(almacen, sha256, normalizar(literal))
-    for (const { pagina, apariciones } of paginas) {
+  Effect.fn(function* ({ almacen, sha256, desde, hasta }) {
+    const paginas = Array.from(
+      { length: Math.max(0, hasta - desde + 1) },
+      (_, i) => desde + i
+    )
+    for (const trozo of yield* listarTablas(almacen, sha256, paginas)) {
       yield* Console.log(
-        `página ${pagina}: ${apariciones.length} ${apariciones
-          .map((a) => `(elemento ${a.elemento}, x=${a.x}, y=${a.y})`)
-          .join(" ")}`
+        `página ${trozo.pagina}, tabla ${trozo.indice}, encabezado ${trozo.encabezado === null ? "ninguno" : `«${trozo.encabezado}»`}`
       )
+      for (const [indice, fila] of trozo.filas.entries()) {
+        yield* Console.log(
+          `  fila ${indice} (${fila.seccion ?? "sin sección"}): ${fila.celdas
+            .map((celda) => `«${normalizarPdf(celda.join("\n"))}»`)
+            .join(" | ")}`
+        )
+      }
     }
   })
 ).pipe(
   Command.withDescription(
-    "Ayuda al autor de especificaciones: lista las páginas del PDF donde aparece un literal"
+    "Ayuda al autor de especificaciones: lista las tablas del árbol etiquetado de unas páginas del PDF, con su encabezado anterior y el texto de sus celdas"
   )
 )
 
@@ -105,7 +112,7 @@ Command.make("procedencia").pipe(
     obtenerDocumento,
     extraerYCotejar,
     cotejarSellado,
-    buscar,
+    tablas,
   ]),
   Command.run({ version: "2025.1" }),
   Effect.provide([BunServices.layer, FetchHttpClient.layer]),

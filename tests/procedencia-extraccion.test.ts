@@ -10,10 +10,14 @@ import {
   extraerEscala,
   type ExtraccionHtml,
 } from "../lib/procedencia/extraccion"
-import { asignarTestigos } from "../lib/procedencia/testigo-pdf"
 
 const SHA_HTML = "a".repeat(64)
 const SHA_PDF = "b".repeat(64)
+const TESTIGO = {
+  sha256: SHA_PDF,
+  paginas: [1],
+  cabecera: ["Base", "Resto", "Tipo"],
+}
 
 const columnaBase = {
   cabecera: "Base liquidable hasta (euros)",
@@ -48,7 +52,7 @@ const escala = (cambios: Record<string, unknown> = {}) =>
       localizador: { _tag: "UnicaTablaDelDocumento" },
     },
     columnas: [columnaBase, columnaResto, columnaTipo],
-    testigo: { sha256: SHA_PDF, paginas: [1] },
+    testigo: TESTIGO,
     ...cambios,
   })
 
@@ -296,8 +300,10 @@ describe("extracción de una escala", () => {
   })
 
   it("una especificación con una página del testigo repetida no se decodifica", () => {
+    expect(() => escala({ testigo: { ...TESTIGO, paginas: [1, 1] } })).toThrow()
+    expect(() => escala({ testigo: { ...TESTIGO, paginas: [1, 3] } })).toThrow()
     expect(() =>
-      escala({ testigo: { sha256: SHA_PDF, paginas: [1, 1] } })
+      escala({ testigo: { ...TESTIGO, cabecera: ["Base", "Resto"] } })
     ).toThrow()
   })
 
@@ -413,7 +419,7 @@ const cuadro = (
       columnas: ["Mínimo por contribuyente"],
       filas,
       celdas,
-      testigo: { sha256: SHA_PDF, paginas: [1] },
+      testigo: { ...TESTIGO, cabecera: ["Importes", "Contribuyente"] },
     },
     { onExcessProperty: "error" }
   )
@@ -530,13 +536,13 @@ describe("extracción de un cuadro de partidas", () => {
         v.valor,
         v.claves.length,
         v.origen._tag,
-        v.literalTestigo,
+        v.atestiguable._tag,
       ])
     ).toEqual([
-      [{ _tag: "Numero", decimal: "5550" }, 1, "Directo", "5.550"],
-      [{ _tag: "Numero", decimal: "2400" }, 0, "Directo", "2.400"],
-      [{ _tag: "Numero", decimal: "5550" }, 1, "Remision", null],
-      [{ _tag: "Numero", decimal: "2400" }, 0, "Remision", null],
+      [{ _tag: "Numero", decimal: "5550" }, 1, "Directo", "Celda"],
+      [{ _tag: "Numero", decimal: "2400" }, 0, "Directo", "Celda"],
+      [{ _tag: "Numero", decimal: "5550" }, 1, "Remision", "PorRemision"],
+      [{ _tag: "Numero", decimal: "2400" }, 0, "Remision", "PorRemision"],
     ])
   })
 
@@ -809,48 +815,4 @@ describe("remisión a los mínimos estatales", () => {
       ])
     }
   )
-})
-
-describe("testigo en el PDF", () => {
-  const extraccion = exito(
-    extraerEscala(
-      escala(),
-      html(tabla([unTramo("9,50%"), unTramo("12,00%")].join("")))
-    )
-  )
-  const pagina = (...textos: ReadonlyArray<string>) => [
-    {
-      pagina: 1,
-      elementos: textos.map((texto, indice) => ({ texto, x: indice, y: 0 })),
-    },
-  ]
-
-  it("n celdas con el mismo literal piden n apariciones; si faltan, ninguna tiene testigo", () => {
-    const testigos = (paginas: ReturnType<typeof pagina>) =>
-      (
-        asignarTestigos([
-          {
-            tabla: "prueba",
-            sha256: SHA_PDF,
-            paginas,
-            valores: extraccion.valores,
-          },
-        ]).get("prueba") ?? []
-      ).map((v) => v.testigo._tag)
-    expect(
-      testigos(
-        pagina("0,00", "0,00", "En adelante", "En adelante", "9,50%", "12,00%")
-      )
-    ).toEqual(Array.from({ length: 6 }, () => "ConTestigo"))
-    expect(
-      testigos(pagina("0,00", "En adelante", "En adelante", "19,50%", "12,00%"))
-    ).toEqual([
-      "SinTestigo",
-      "ConTestigo",
-      "SinTestigo",
-      "SinTestigo",
-      "ConTestigo",
-      "ConTestigo",
-    ])
-  })
 })

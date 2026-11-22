@@ -4,7 +4,6 @@ import { Result } from "effect"
 import {
   leerLiteral,
   normalizar,
-  tokensNumericos,
   type GramaticaNumero,
 } from "../lib/procedencia/literales"
 
@@ -17,7 +16,7 @@ const porcentaje: GramaticaNumero = {
 
 const valor = (literal: string, gramatica: GramaticaNumero) =>
   Result.match(leerLiteral(literal, gramatica), {
-    onSuccess: (leido) => leido.valor,
+    onSuccess: (leido) => leido,
     onFailure: () => "rechazado" as const,
   })
 
@@ -72,15 +71,9 @@ describe("gramática de literales", () => {
     })
     expect(valor("en adelante", ahorro)).toBe("rechazado")
   })
-
-  it("el literal de testigo es el número sin el sufijo", () => {
-    expect(
-      Result.map(leerLiteral("22,50%", porcentaje), (l) => l.literalTestigo)
-    ).toEqual(Result.succeed("22,50"))
-  })
 })
 
-describe("normalización y tokens", () => {
+describe("normalización", () => {
   it("sólo convierte espacio duro, colapsa espacios HTML y recorta", () => {
     expect(normalizar("  5.790\u00a0euros \n anuales ")).toBe(
       "5.790 euros anuales"
@@ -92,13 +85,5 @@ describe("normalización y tokens", () => {
     expect(normalizar("\u202f9,50\u202f")).toBe("\u202f9,50\u202f")
     expect(normalizar("9,\u202f50")).toBe("9,\u202f50")
     expect(normalizar("\u00a0\t9,50 \n")).toBe("9,50")
-  })
-
-  it("un token numérico es maximal: 9,50 no aparece dentro de 19,50%", () => {
-    expect(tokensNumericos("19,50%")).toEqual(["19,50"])
-    expect(tokensNumericos("13.000,00 y 1.235,00.")).toEqual([
-      "13.000,00",
-      "1.235,00",
-    ])
   })
 })

@@ -1,3 +1,4 @@
+import Decimal from "decimal.js"
 import { Schema } from "effect"
 
 import type { ComunidadAutonoma } from "../dominio/irpf/caso-fiscal-anual"
@@ -192,5 +193,12 @@ export const Valor = Schema.Union([
   Schema.TaggedStruct("Centinela", { centinela: Centinela }),
 ])
 export type Valor = typeof Valor.Type
+
+export const mismoValor = (a: Valor, b: Valor): boolean =>
+  a._tag === "Numero" && b._tag === "Numero"
+    ? new Decimal(a.decimal).eq(b.decimal)
+    : a._tag === "Centinela" &&
+      b._tag === "Centinela" &&
+      a.centinela === b.centinela
 
 export const Sha256 = Schema.String.check(Schema.isPattern(/^[0-9a-f]{64}$/))

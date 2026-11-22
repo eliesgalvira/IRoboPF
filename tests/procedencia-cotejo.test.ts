@@ -45,7 +45,10 @@ const manual = (
   claves: [claveManual],
   alcance: { _tag: "CabeceraDeColumna", literal: "c" },
   origen: { _tag: "Directo" },
-  testigo: { _tag: "ConTestigo", literal: decimal, apariciones: [] },
+  testigo: {
+    _tag: "MismoLiteral",
+    celda: { pagina: 1, tabla: 0, fila: 1, columna: 0, paginas: [1] },
+  },
   ...extra,
 })
 
@@ -164,7 +167,7 @@ describe("cotejo por clave", () => {
     expect(resultado.excepciones.cotejo).toEqual([])
     expect(resultado.resumen.porTabla[0]?.contadores).toMatchObject({
       valoresExtraidos: 2,
-      conTestigo: 2,
+      testigoMismoLiteral: 2,
       sinClaveDeMotor: 1,
       claves: 1,
       coincidentes: 1,
@@ -178,7 +181,7 @@ describe("cotejo por clave", () => {
         unidad: "EUR",
         valor: { _tag: "Numero", decimal: "2400" },
         origen: { _tag: "Directo" },
-        testigo: "ConTestigo",
+        testigo: "MismoLiteral",
       },
     ])
   })
@@ -338,22 +341,37 @@ describe("lo sellado no puede representar un testigo vacío", () => {
       )
     ) as { valores: Array<{ testigo: Record<string, unknown> }> }
   const decodificar = (sellado: unknown) =>
-    Schema.decodeUnknownSync(ExtraccionTablaDesdeJson)(JSON.stringify(sellado), {
-      onExcessProperty: "error",
-    })
+    Schema.decodeUnknownSync(ExtraccionTablaDesdeJson)(
+      JSON.stringify(sellado),
+      {
+        onExcessProperty: "error",
+      }
+    )
 
   it("decodifica la extracción sellada tal cual", () => {
     expect(() => decodificar(madrid())).not.toThrow()
   })
 
-  it("un valor con testigo pero sin la referencia a su celda no se decodifica", () => {
-    const sellado = madrid()
-    const [primero] = sellado.valores
-    if (primero !== undefined) {
-      primero.testigo = { _tag: primero.testigo._tag, literal: "0", apariciones: [] }
+  it.each([
+    { _tag: "MismoLiteral" },
+    {
+      _tag: "MismoLiteral",
+      celda: { pagina: 1128, tabla: 0, fila: 1, columna: 0, paginas: [] },
+    },
+    { _tag: "MismoValorOtroLiteral", literalPdf: "0" },
+    { _tag: "MismoLiteral", literal: "0", apariciones: [] },
+    { _tag: "SinTestigo" },
+  ])(
+    "un valor con testigo pero sin la referencia a su celda no se decodifica (%o)",
+    (testigo) => {
+      const sellado = madrid()
+      const [primero] = sellado.valores
+      if (primero !== undefined) {
+        primero.testigo = testigo
+      }
+      expect(() => decodificar(sellado)).toThrow()
     }
-    expect(() => decodificar(sellado)).toThrow()
-  })
+  )
 })
 
 describe("escala agregada del ahorro", () => {

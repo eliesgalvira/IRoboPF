@@ -11,30 +11,70 @@ import {
   Valor,
 } from "./vocabulario"
 
-export const Aparicion = Schema.Struct({
-  pagina: Schema.Int,
-  elemento: Schema.Int,
-  ocurrencia: Schema.Int,
-  x: Schema.Number,
-  y: Schema.Number,
-})
-export type Aparicion = typeof Aparicion.Type
+const Pagina = Schema.Int.check(Schema.isGreaterThanOrEqualTo(1))
+const Indice = Schema.Int.check(Schema.isGreaterThanOrEqualTo(0))
 
-// `apariciones` son las candidatas: todas las del literal en las páginas que
-// declara la tabla. No hay asignación de una aparición a una celda.
+// Una celda del árbol etiquetado del PDF: la tabla (la página donde está su
+// cabecera y su índice entre las tablas de esa página, en el orden del árbol),
+// la fila (índice del TR en la tabla) y la columna (índice de la celda en el
+// TR).
+export const PosicionPdf = Schema.Struct({
+  pagina: Pagina,
+  tabla: Indice,
+  fila: Indice,
+  columna: Indice,
+})
+export type PosicionPdf = typeof PosicionPdf.Type
+
+// La celda que atestigua un valor, con las páginas donde está su contenido:
+// una celda con testigo siempre tiene contenido en alguna.
+export const CeldaPdf = Schema.Struct({
+  ...PosicionPdf.fields,
+  paginas: Schema.NonEmptyArray(Pagina),
+})
+export type CeldaPdf = typeof CeldaPdf.Type
+
+export const MotivoSinTestigo = Schema.Union([
+  Schema.TaggedStruct("PaginaSinEstructura", { pagina: Pagina }),
+  Schema.TaggedStruct("TablaPdfNoLocalizada", { encontradas: Indice }),
+  Schema.TaggedStruct("ContinuacionNoLocalizada", {
+    pagina: Pagina,
+    encontradas: Indice,
+  }),
+  Schema.TaggedStruct("ContinuacionIrregular", { pagina: Pagina }),
+  Schema.TaggedStruct("FilasDistintas", { html: Indice, pdf: Indice }),
+  Schema.TaggedStruct("FilaPdfNoLocalizada", {
+    fila: Schema.String,
+    encontradas: Indice,
+  }),
+  Schema.TaggedStruct("CeldaPdfInexistente", { posicion: PosicionPdf }),
+  Schema.TaggedStruct("CeldaPdfVacia", { posicion: PosicionPdf }),
+  Schema.TaggedStruct("TextoDistinto", {
+    posicion: PosicionPdf,
+    textoPdf: Schema.String,
+  }),
+  Schema.TaggedStruct("LiteralPdfFueraDeGramatica", {
+    posicion: PosicionPdf,
+    literalPdf: Schema.String,
+    motivo: Schema.String,
+  }),
+  Schema.TaggedStruct("ValorPdfDistinto", {
+    posicion: PosicionPdf,
+    literalPdf: Schema.String,
+    valorPdf: Valor,
+  }),
+])
+export type MotivoSinTestigo = typeof MotivoSinTestigo.Type
+
+// «Mismo literal» y «mismo valor, otro literal» llevan obligatoriamente la
+// celda: no hay testigo sin la celda que lo da.
 export const Testigo = Schema.Union([
-  Schema.TaggedStruct("ConTestigo", {
-    literal: Schema.String,
-    apariciones: Schema.Array(Aparicion),
+  Schema.TaggedStruct("MismoLiteral", { celda: CeldaPdf }),
+  Schema.TaggedStruct("MismoValorOtroLiteral", {
+    celda: CeldaPdf,
+    literalPdf: Schema.String,
   }),
-  Schema.TaggedStruct("SinTestigo", {
-    literal: Schema.String,
-    tablas: Schema.Array(Schema.String),
-    celdas: Schema.Int,
-    aparicionesDisponibles: Schema.Int,
-    cubiertas: Schema.Int,
-    apariciones: Schema.Array(Aparicion),
-  }),
+  Schema.TaggedStruct("SinTestigo", { motivo: MotivoSinTestigo }),
   Schema.TaggedStruct("PorRemision", {}),
 ])
 export type Testigo = typeof Testigo.Type
@@ -144,7 +184,8 @@ export type EntradaCotejo = typeof EntradaCotejo.Type
 
 export const Contadores = Schema.Struct({
   valoresExtraidos: Schema.Int,
-  conTestigo: Schema.Int,
+  testigoMismoLiteral: Schema.Int,
+  testigoMismoValorOtroLiteral: Schema.Int,
   sinTestigo: Schema.Int,
   testigoPorRemision: Schema.Int,
   sinClaveDeMotor: Schema.Int,

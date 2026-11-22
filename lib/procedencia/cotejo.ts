@@ -1,4 +1,3 @@
-import Decimal from "decimal.js"
 import { Result } from "effect"
 
 import {
@@ -21,18 +20,11 @@ import type {
 } from "./resultado"
 import {
   compararClaves,
+  mismoValor,
   textoClave,
   type Clave,
-  type Valor,
 } from "./vocabulario"
 import { EXCLUIDOS_DEL_MOTOR } from "./motor-2025"
-
-const mismoValor = (a: Valor, b: Valor): boolean =>
-  a._tag === "Numero" && b._tag === "Numero"
-    ? new Decimal(a.decimal).eq(b.decimal)
-    : a._tag === "Centinela" &&
-      b._tag === "Centinela" &&
-      a.centinela === b.centinela
 
 const ambito = (territorio: string, magnitud: string) =>
   `${territorio}|${magnitud}`
@@ -211,7 +203,12 @@ export const cotejar = (
       ).length
     return {
       valoresExtraidos: valores.length,
-      conTestigo: valores.filter((v) => v.testigo._tag === "ConTestigo").length,
+      testigoMismoLiteral: valores.filter(
+        (v) => v.testigo._tag === "MismoLiteral"
+      ).length,
+      testigoMismoValorOtroLiteral: valores.filter(
+        (v) => v.testigo._tag === "MismoValorOtroLiteral"
+      ).length,
       sinTestigo: valores.filter((v) => v.testigo._tag === "SinTestigo").length,
       testigoPorRemision: valores.filter(
         (v) => v.testigo._tag === "PorRemision"

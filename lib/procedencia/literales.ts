@@ -36,24 +36,19 @@ export interface GramaticaNumero {
   }>
 }
 
-export interface LiteralLeido {
-  readonly valor: Valor
-  readonly literalTestigo: string
-}
-
 const NUMERO_ESPANOL = /^(0|[1-9][0-9]{0,2}(?:\.[0-9]{3})*)(?:,([0-9]+))?$/
 
 export const leerLiteral = (
   literal: string,
   gramatica: GramaticaNumero
-): Result.Result<LiteralLeido, string> => {
+): Result.Result<Valor, string> => {
   const centinela = gramatica.centinelas.find(
     (declarado) => declarado.literal === literal
   )
   if (centinela !== undefined) {
     return Result.succeed({
-      valor: { _tag: "Centinela", centinela: centinela.centinela },
-      literalTestigo: literal,
+      _tag: "Centinela",
+      centinela: centinela.centinela,
     })
   }
   const sufijo = gramatica.sufijo ?? ""
@@ -79,15 +74,5 @@ export const leerLiteral = (
   const decimal = new Decimal(
     `${entera.replaceAll(".", "")}${fraccion === "" ? "" : `.${fraccion}`}`
   )
-  return Result.succeed({
-    valor: { _tag: "Numero", decimal: decimal.toFixed() },
-    literalTestigo: numero,
-  })
+  return Result.succeed({ _tag: "Numero", decimal: decimal.toFixed() })
 }
-
-const TOKEN_NUMERICO = /[0-9](?:[0-9.,]*[0-9])?/g
-
-// Un token numérico es una secuencia maximal de dígitos con «.» o «,»
-// interiores; un literal sólo cuenta si coincide con un token entero.
-export const tokensNumericos = (texto: string): ReadonlyArray<string> =>
-  Array.from(texto.matchAll(TOKEN_NUMERICO), (coincidencia) => coincidencia[0])

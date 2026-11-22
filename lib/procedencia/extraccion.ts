@@ -35,27 +35,34 @@ import {
   type FilaHtml,
   type TablaHtml,
 } from "./html"
-import { leerLiteral } from "./literales"
-import type { AlcanceExtraido, Origen } from "./resultado"
+import { leerLiteral, type GramaticaNumero } from "./literales"
+import type { ValorExtraido } from "./resultado"
 import type {
   Clave,
   ClaveEscala,
   ColumnaEscala,
   Territorio,
-  Unidad,
   Valor,
 } from "./vocabulario"
 
-export interface ValorPendienteDeTestigo {
-  readonly ubicacion: Ubicacion
-  readonly literal: string
-  readonly unidad: Unidad
-  readonly valor: Valor
-  readonly claves: ReadonlyArray<Clave>
-  readonly alcance: AlcanceExtraido
-  readonly origen: Origen
-  // null cuando el valor procede de una remisión y no de un literal propio.
-  readonly literalTestigo: string | null
+// Lo que el testigo necesita de la celda del HTML: su fila (índice de tramo o
+// literal de la cabecera de fila), su columna (literal de la cabecera), su
+// texto entero y, en una escala, la gramática de la columna. Un valor remitido
+// no tiene celda propia.
+export interface CeldaAtestiguable {
+  readonly _tag: "Celda"
+  readonly fila: number | string
+  readonly columna: string
+  readonly textoHtml: string
+  readonly gramatica: GramaticaNumero | null
+}
+export type Atestiguable = CeldaAtestiguable | { readonly _tag: "PorRemision" }
+
+export interface ValorPendienteDeTestigo extends Omit<
+  ValorExtraido,
+  "testigo"
+> {
+  readonly atestiguable: Atestiguable
 }
 
 export interface ExtraccionHtml {
@@ -64,6 +71,8 @@ export interface ExtraccionHtml {
     readonly columnaFuente: number
     readonly caption: string | null
   }
+  // Número de filas de datos de la tabla.
+  readonly filasDeDatos: number
   readonly valores: ReadonlyArray<ValorPendienteDeTestigo>
   readonly notas: ReadonlyArray<{
     readonly ubicacion: Ubicacion
@@ -298,16 +307,28 @@ export const extraerEscala = (
             ubicacion,
             literal: bloque.texto,
             unidad: columna.unidad._tag,
-            valor: leido.success.valor,
+            valor: leido.success,
             claves,
             alcance: { _tag: "CabeceraDeColumna", literal: columna.cabecera },
             origen: { _tag: "Directo" },
-            literalTestigo: leido.success.literalTestigo,
+            atestiguable: {
+              _tag: "Celda",
+              fila: indice,
+              columna: columna.cabecera,
+              textoHtml: bloque.texto,
+              gramatica: columna.gramatica,
+            },
           })
         }
       })
       excepciones.push(...incoherencias(tabla, datos.length, valores, clavesDe))
-      return { tablaLocalizada, valores, notas: [], excepciones }
+      return {
+        tablaLocalizada,
+        filasDeDatos: datos.length,
+        valores,
+        notas: [],
+        excepciones,
+      }
     }
   )
 }
@@ -533,14 +554,20 @@ const leerCelda = (
       ubicacion,
       literal: bloque.texto,
       unidad: declarado.unidad._tag,
-      valor: leido.success.valor,
+      valor: leido.success,
       claves: clavesPartida,
       alcance:
         nota === undefined
           ? { _tag: "CabeceraDeColumna", literal: columna }
           : { _tag: "NotaAnterior", ...nota },
       origen: { _tag: "Directo" },
-      literalTestigo: leido.success.literalTestigo,
+      atestiguable: {
+        _tag: "Celda",
+        fila,
+        columna,
+        textoHtml: celda.texto,
+        gramatica: null,
+      },
     })
   })
   return { valores, notas, excepciones, remision }
@@ -595,7 +622,7 @@ const resolverRemision = (
         literal: remision.literal,
         ubicacionRemision: remision.ubicacion,
       },
-      literalTestigo: null,
+      atestiguable: { _tag: "PorRemision" },
     })),
     notas: [],
     excepciones: [],
@@ -749,6 +776,7 @@ export const extraerCuadro = (
       })
       return {
         tablaLocalizada,
+        filasDeDatos: datos.length,
         valores: [...directas.flatMap((l) => l.valores), ...remitidas],
         notas: directas.flatMap((l) => l.notas),
         excepciones,
