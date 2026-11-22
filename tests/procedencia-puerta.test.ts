@@ -84,7 +84,7 @@ describe("puerta de las excepciones aceptadas", () => {
 
   it("una clave que no está en la lista no está aceptada", () => {
     const clave = "aragon|minimos-personales-familiares|contribuyente|general"
-    const lista = aceptadas.flatMap((aceptada) => {
+    const lista = aceptadas.flatMap((aceptada): ReadonlyArray<Aceptada> => {
       if (aceptada._tag !== "Claves") {
         return [aceptada]
       }
@@ -93,7 +93,7 @@ describe("puerta de las excepciones aceptadas", () => {
       )
       return primera === undefined
         ? []
-        : [{ ...aceptada, claves: [primera, ...resto] as const }]
+        : [{ ...aceptada, claves: [primera, ...resto] }]
     })
     expect(fallo(puerta(sellado(), motor, lista))).toMatchObject({
       sinAceptar: [`clave ${clave} (ausente-en-manual)`],
