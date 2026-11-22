@@ -253,6 +253,21 @@ describe("extracción de una escala", () => {
     ).toThrow()
   })
 
+  it.each([
+    ["porcentaje", "(euros)"],
+    ["EUR", "liquidable"],
+    ["EUR", "Base"],
+  ])(
+    "una columna en %s con evidencia «%s» no se decodifica",
+    (unidad, evidenciaUnidad) => {
+      expect(() =>
+        escala({
+          columnas: [{ ...columnaBase, unidad, evidenciaUnidad }, columnaTipo],
+        })
+      ).toThrow()
+    }
+  )
+
   it("una especificación con una página del testigo repetida no se decodifica", () => {
     expect(() =>
       escala({ testigo: { sha256: SHA_PDF, paginas: [1, 1] } })
@@ -428,6 +443,20 @@ describe("extracción de un cuadro de partidas", () => {
       [{ _tag: "Numero", decimal: "5550" }, 1, "Remision", null],
       [{ _tag: "Numero", decimal: "2400" }, 0, "Remision", null],
     ])
+  })
+
+  it("una partida en porcentaje con la evidencia «euros» no se decodifica", () => {
+    expect(() =>
+      cuadro([
+        {
+          fila: "Estatal",
+          columna: "Mínimo por contribuyente",
+          partidas: [{ ...general, unidad: "porcentaje" }],
+          remisiones: [],
+          notas: [],
+        },
+      ])
+    ).toThrow()
   })
 
   it("una partida con una columna que no es de su fila no se decodifica", () => {
