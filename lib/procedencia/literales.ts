@@ -3,7 +3,7 @@ import { Result } from "effect"
 
 import type { Centinela, Valor } from "./vocabulario"
 
-const ESPACIO_DURO = / /g
+const ESPACIO_DURO = /\u00a0/g
 const ESPACIOS_HTML = /[ \t\n\f\r]+/g
 const ESPACIO_EN_EXTREMO = /^ | $/g
 const NO_ADMITIDO = /(?! )[\p{White_Space}\p{Cc}\p{Cf}]/u

@@ -82,14 +82,16 @@ describe("gramática de literales", () => {
 
 describe("normalización y tokens", () => {
   it("sólo convierte espacio duro, colapsa espacios HTML y recorta", () => {
-    expect(normalizar("  5.790 euros \n anuales ")).toBe("5.790 euros anuales")
-    expect(normalizar("a b")).toBe("a b")
+    expect(normalizar("  5.790\u00a0euros \n anuales ")).toBe(
+      "5.790 euros anuales"
+    )
+    expect(normalizar("a\u202fb")).toBe("a\u202fb")
   })
 
   it("aplica las mismas reglas en los extremos que en el interior", () => {
-    expect(normalizar(" 9,50 ")).toBe(" 9,50 ")
-    expect(normalizar("9, 50")).toBe("9, 50")
-    expect(normalizar(" \t9,50 \n")).toBe("9,50")
+    expect(normalizar("\u202f9,50\u202f")).toBe("\u202f9,50\u202f")
+    expect(normalizar("9,\u202f50")).toBe("9,\u202f50")
+    expect(normalizar("\u00a0\t9,50 \n")).toBe("9,50")
   })
 
   it("un token numérico es maximal: 9,50 no aparece dentro de 19,50%", () => {

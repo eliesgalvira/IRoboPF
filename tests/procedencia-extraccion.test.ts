@@ -127,10 +127,10 @@ describe("localizador de tabla", () => {
 
   it("un espacio Unicode o un carácter de control en una celda es un error, también en los extremos", () => {
     for (const celda of [
-      " 9,50%",
-      "9,50% ",
-      "9, 50%",
-      "​9,50%",
+      "\u202f9,50%",
+      "9,50%\u202f",
+      "9,\u202f50%",
+      "\u200b9,50%",
       "9,50%\u0007",
     ]) {
       expect(
@@ -143,7 +143,7 @@ describe("localizador de tabla", () => {
     expect(() =>
       escala({
         columnas: [
-          { ...columnaBase, cabecera: "Base liquidable hasta (euros)" },
+          { ...columnaBase, cabecera: "Base liquidable hasta\u202f(euros)" },
           columnaTipo,
         ],
       })
