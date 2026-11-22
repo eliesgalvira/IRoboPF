@@ -28,9 +28,8 @@ import {
 } from "../comunidades/comunidad-autonoma"
 import { calcularCuotaDiferencialCentimos } from "../cuotas/cuota-diferencial"
 import {
-  calcularCuotaMinimoPersonalAhorro,
-  calcularCuotaPorEscalaAhorro,
-  calcularDesgloseCuotaPorEscalaAhorro,
+  calcularCuotasAhorro,
+  type GravamenAhorro,
 } from "../cuotas/cuota-integra-ahorro"
 import {
   calcularCuotaPorEscala,
@@ -110,8 +109,18 @@ export interface LiquidacionIrpfAnualCalculada {
   readonly solidaridadEmpresarialCentimos: number
   readonly solidaridadTrabajadorCentimos: number
   readonly cuotaIntegraGeneralCentimos: number
+  /**
+   * Cuotas de las escalas estatal y autonómica del ahorro sobre la base que
+   * grava la regla del mínimo del ejercicio: la base entera desde 2015 y la
+   * base menos el remanente de cada mínimo en 2012-2014.
+   */
   readonly cuotaIntegraAhorroCentimos: number
   readonly cuotaMinimoPersonalCentimos: number
+  /**
+   * Minoración de la cuota íntegra del ahorro por el remanente del mínimo
+   * personal y familiar (desde 2015). Cero en 2012-2014, donde el remanente
+   * ya se descuenta de la base gravada.
+   */
   readonly cuotaMinimoPersonalAhorroCentimos: number
   readonly deduccionesAutonomicasCentimos: number
   readonly cuotaLiquidaCentimos: number
@@ -378,10 +387,6 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
   const cuotaIntegraGeneral = cuotaIntegraGeneralEstatal.plus(
     cuotaIntegraGeneralAutonomica
   )
-  const cuotaIntegraAhorro = calcularCuotaPorEscalaAhorro({
-    anio: caso.anio,
-    base: baseLiquidableAhorro,
-  })
   const desgloseCuotaIntegraGeneralEstatal = usaEscalaAutonomicaReal
     ? calcularDesgloseCuotaPorEscala({
         base: baseLiquidableGeneral,
@@ -397,10 +402,6 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
         tramos: parametrosComunidad.escalaAutonomica.tramos,
       })
     : []
-  const desgloseCuotaIntegraAhorro = calcularDesgloseCuotaPorEscalaAhorro({
-    anio: caso.anio,
-    base: baseLiquidableAhorro,
-  })
   registrarTiempoAgregadoAuditoria(
     "liquidacion.cuotasIntegrasYDesgloses",
     tiempoAuditoriaMs() - inicioCuotasIntegras
@@ -477,7 +478,7 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
     0,
     minimoPersonalYFamiliarAutonomico.minus(baseLiquidableGeneral)
   )
-  const cuotaMinimoPersonalAhorro = calcularCuotaMinimoPersonalAhorro({
+  const cuotasAhorro = calcularCuotasAhorro({
     anio: caso.anio,
     baseLiquidableAhorro,
     remanentes: {
@@ -485,6 +486,8 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
       autonomico: remanenteMinimoPersonalAutonomicoParaAhorro,
     },
   })
+  const cuotaIntegraAhorro = cuotasAhorro.cuotaIntegra
+  const cuotaMinimoPersonalAhorro = cuotasAhorro.cuotaMinimo
   const desgloseCuotaMinimoPersonalEstatal = usaEscalaAutonomicaReal
     ? calcularDesgloseCuotaPorEscala({
         base: Decimal.min(minimoPersonalYFamiliar, baseLiquidableGeneral),
@@ -1045,30 +1048,35 @@ const liquidarTrabajoIndividualSimple = Effect.fn(
         {
           _tag: "PasoExplicacion",
           titulo: "Cuota íntegra del ahorro",
-          descripcion:
-            "Aplicación de la escala del ahorro a la base liquidable del ahorro.",
+          descripcion: Match.valueTags(cuotasAhorro.reglaMinimo, {
+            GravarBaseNetaDeMinimo: () =>
+              "Cada escala del ahorro grava la base liquidable del ahorro menos el remanente de su mínimo personal y familiar; el mínimo no minora la cuota.",
+            MinorarCuotaConLaDelMinimo: () =>
+              "Cada escala del ahorro grava la base liquidable del ahorro; la cuota se minora con la de esa escala aplicada al remanente de su mínimo personal y familiar.",
+          }),
           lineasCalculo: [
-            ...desgloseCuotaIntegraAhorro.map((tramo) => ({
-              etiqueta: `Tramo ahorro ${euros(tramo.limiteInferior)} - ${euros(tramo.limiteSuperior)}`,
-              formula: `${euros(tramo.baseAplicada)} x ${porcentaje(tramo.tipo)}`,
-              resultado: euros(tramo.cuota),
-            })),
+            ...lineasGravamenAhorro("estatal", cuotasAhorro.estatal),
+            ...lineasGravamenAhorro("autonómico", cuotasAhorro.autonomico),
             {
               etiqueta: "Cuota íntegra del ahorro",
-              formula: "Suma de cuotas por tramo",
+              formula: "Suma de las cuotas estatal y autonómica",
               resultado: euros(cuotaIntegraAhorro),
             },
             {
               etiqueta: "Cuota del remanente del mínimo personal",
-              formula:
-                "Parte del mínimo personal y familiar no absorbida por la base general",
+              formula: Match.valueTags(cuotasAhorro.reglaMinimo, {
+                GravarBaseNetaDeMinimo: () =>
+                  "Sin minoración: el remanente ya se descontó de la base gravada",
+                MinorarCuotaConLaDelMinimo: () =>
+                  "Escala de cada gravamen aplicada a su remanente, limitado a la base del ahorro",
+              }),
               resultado: euros(cuotaMinimoPersonalAhorro),
             },
           ],
           fuentes: [
             {
-              titulo: "Manual Renta 2025 Parte 1",
-              referencia: "docs/fuentes/aeat/manual-renta-2025-parte-1.md",
+              titulo: cuotasAhorro.reglaMinimo.fuente.titulo,
+              referencia: cuotasAhorro.reglaMinimo.fuente.referencia,
             },
           ],
         },
@@ -1234,6 +1242,22 @@ const calcularMinimoPersonalYFamiliar = ({
 const euros = (importe: Decimal): string => `${importe.toFixed(2)} euros`
 
 const porcentaje = (tipo: Decimal): string => `${tipo.mul(100).toFixed(2)}%`
+
+const lineasGravamenAhorro = (
+  gravamen: "estatal" | "autonómico",
+  { baseGravada, cuota, desglose }: GravamenAhorro
+) => [
+  ...desglose.map((tramo) => ({
+    etiqueta: `Tramo ahorro ${gravamen} ${euros(tramo.limiteInferior)} - ${euros(tramo.limiteSuperior)}`,
+    formula: `${euros(tramo.baseAplicada)} x ${porcentaje(tramo.tipo)}`,
+    resultado: euros(tramo.cuota),
+  })),
+  {
+    etiqueta: `Cuota del ahorro ${gravamen}`,
+    formula: `Escala ${gravamen} del ahorro sobre ${euros(baseGravada)}`,
+    resultado: euros(cuota),
+  },
+]
 
 const pasoRetencionTrabajoAeat = (
   retencion: RetencionTrabajoCalculada

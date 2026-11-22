@@ -173,7 +173,28 @@ export const TRAMOS_IRPF_AHORRO_2013: TramosIrpf = TRAMOS_IRPF_AHORRO_2014
 
 export const TRAMOS_IRPF_AHORRO_2012: TramosIrpf = TRAMOS_IRPF_AHORRO_2014
 
+/**
+ * Operación que liga la base liquidable del ahorro, el remanente de cada
+ * mínimo personal y familiar (su exceso sobre la base liquidable general,
+ * limitado a la base del ahorro) y la escala de cada gravamen.
+ */
+export type ReglaMinimoAhorro =
+  | {
+      /** Cada escala grava la base del ahorro menos su remanente. */
+      readonly _tag: "GravarBaseNetaDeMinimo"
+      readonly fuente: FuenteNormativaNormalizada
+    }
+  | {
+      /**
+       * Cada escala grava la base del ahorro entera y la cuota se minora con
+       * la de esa misma escala aplicada a su remanente.
+       */
+      readonly _tag: "MinorarCuotaConLaDelMinimo"
+      readonly fuente: FuenteNormativaNormalizada
+    }
+
 export interface EscalasIrpfAhorroPorGravamen {
+  readonly reglaMinimo: ReglaMinimoAhorro
   readonly estatal: TramosIrpf
   readonly autonomica: TramosIrpf
 }
@@ -182,13 +203,32 @@ const LEY_IRPF_BOE = "https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764"
 
 const fuenteEscalasAhorro = (
   titulo: string,
-  referencia: string
+  referencia: string,
+  nota = "Escala estatal (art. 66.1) y autonómica (art. 76) del ahorro."
 ): FuenteNormativaNormalizada => ({
   _tag: "FuenteNormativaNormalizada",
   titulo,
   referencia,
-  nota: "Escala estatal (art. 66.1.1.º) y autonómica (art. 76.1.º) del ahorro; la suma de ambas es la escala agregada del ejercicio.",
+  nota,
 })
+
+const GRAVAR_BASE_NETA_DE_MINIMO: ReglaMinimoAhorro = {
+  _tag: "GravarBaseNetaDeMinimo",
+  fuente: fuenteEscalasAhorro(
+    "Ley 35/2006, arts. 66.1 y 76 (redacción de la Ley 39/2010, art. 63) y disposición adicional trigésima quinta.1.b",
+    `${LEY_IRPF_BOE}&p=20131226#a66`,
+    "«La base liquidable del ahorro, en la parte que no corresponda, en su caso, con el mínimo personal y familiar […] se gravará a los tipos que aparecen en la siguiente escala»; el gravamen complementario de la DA 35.ª.1.b se aplica a la misma base. Vigente del 1 de enero de 2012 al 31 de diciembre de 2014."
+  ),
+}
+
+const MINORAR_CUOTA_CON_LA_DEL_MINIMO: ReglaMinimoAhorro = {
+  _tag: "MinorarCuotaConLaDelMinimo",
+  fuente: fuenteEscalasAhorro(
+    "Ley 35/2006, arts. 66.1.2.º y 76.2.º (redacción de la Ley 26/2014, art. primero, apartados cuarenta y dos y cincuenta y uno)",
+    `${LEY_IRPF_BOE}&p=20141128#a66`,
+    "«La cuantía resultante se minorará en el importe derivado de aplicar a la parte de la base liquidable del ahorro correspondiente al mínimo personal y familiar, la escala prevista en el número 1.º anterior». En vigor desde el 1 de enero de 2015 (Ley 26/2014, disposición final sexta)."
+  ),
+}
 
 const ESCALA_AHORRO_MITAD_2010: TramosIrpf = [
   [importe(6000), importe("0.095")],
@@ -227,9 +267,10 @@ const ESCALA_AHORRO_MITAD_2025: TramosIrpf = [
 const ESCALAS_AHORRO_2012_A_2014 = parametroNormativo({
   nombre: "Escalas estatal y autonómica del ahorro 2012-2014",
   valor: {
+    reglaMinimo: GRAVAR_BASE_NETA_DE_MINIMO,
     // Art. 66.1 (9,5 / 10,5) más el gravamen complementario estatal de la
-    // DA 35.ª.1.b (2 / 4 / 6), que grava la base del ahorro que excede del
-    // mínimo del art. 56, es decir, del mínimo estatal.
+    // DA 35.ª.1.b (2 / 4 / 6), que grava la base del ahorro en la parte que
+    // no corresponda con el mínimo del art. 56, es decir, el estatal.
     estatal: [
       [importe(6000), importe("0.115")],
       [importe(24000), importe("0.145")],
@@ -238,14 +279,16 @@ const ESCALAS_AHORRO_2012_A_2014 = parametroNormativo({
     autonomica: ESCALA_AHORRO_MITAD_2010,
   } satisfies EscalasIrpfAhorroPorGravamen,
   fuente: fuenteEscalasAhorro(
-    "Ley 35/2006, arts. 66.1 y 76 (redacción de la Ley 39/2010) y disposición adicional trigésima quinta.1.b",
-    `${LEY_IRPF_BOE}&p=20101223#datrigesimaquinta`
+    "Ley 35/2006, arts. 66.1 y 76 (redacción de la Ley 39/2010, art. 63) y disposición adicional trigésima quinta.1.b (añadida por el Real Decreto-ley 20/2011, disposición final segunda, para 2012 y 2013, y prorrogada a 2014 por la Ley 22/2013, art. 64)",
+    `${LEY_IRPF_BOE}&p=20131226#datrigesimaquinta`,
+    "Arts. 66.1 y 76: https://www.boe.es/buscar/act.php?id=BOE-A-2010-19703#a63. Alta de la DA 35.ª: https://www.boe.es/buscar/act.php?id=BOE-A-2011-20638#segunda-3. Prórroga a 2014: https://www.boe.es/buscar/act.php?id=BOE-A-2013-13616#a64."
   ),
 })
 
 const ESCALAS_AHORRO_2015 = parametroNormativo({
   nombre: "Escalas estatal y autonómica del ahorro 2015",
   valor: {
+    reglaMinimo: MINORAR_CUOTA_CON_LA_DEL_MINIMO,
     estatal: ESCALA_AHORRO_MITAD_2015,
     autonomica: [
       [importe(6000), importe("0.10")],
@@ -262,6 +305,7 @@ const ESCALAS_AHORRO_2015 = parametroNormativo({
 const ESCALAS_AHORRO_2016_A_2020 = parametroNormativo({
   nombre: "Escalas estatal y autonómica del ahorro 2016-2020",
   valor: {
+    reglaMinimo: MINORAR_CUOTA_CON_LA_DEL_MINIMO,
     estatal: ESCALA_AHORRO_MITAD_2015,
     autonomica: ESCALA_AHORRO_MITAD_2015,
   } satisfies EscalasIrpfAhorroPorGravamen,
@@ -274,6 +318,7 @@ const ESCALAS_AHORRO_2016_A_2020 = parametroNormativo({
 const ESCALAS_AHORRO_2021_A_2022 = parametroNormativo({
   nombre: "Escalas estatal y autonómica del ahorro 2021-2022",
   valor: {
+    reglaMinimo: MINORAR_CUOTA_CON_LA_DEL_MINIMO,
     estatal: ESCALA_AHORRO_MITAD_2021,
     autonomica: ESCALA_AHORRO_MITAD_2021,
   } satisfies EscalasIrpfAhorroPorGravamen,
@@ -286,6 +331,7 @@ const ESCALAS_AHORRO_2021_A_2022 = parametroNormativo({
 const ESCALAS_AHORRO_2023_A_2024 = parametroNormativo({
   nombre: "Escalas estatal y autonómica del ahorro 2023-2024",
   valor: {
+    reglaMinimo: MINORAR_CUOTA_CON_LA_DEL_MINIMO,
     estatal: ESCALA_AHORRO_MITAD_2023,
     autonomica: ESCALA_AHORRO_MITAD_2023,
   } satisfies EscalasIrpfAhorroPorGravamen,
@@ -298,6 +344,7 @@ const ESCALAS_AHORRO_2023_A_2024 = parametroNormativo({
 const ESCALAS_AHORRO_DESDE_2025 = parametroNormativo({
   nombre: "Escalas estatal y autonómica del ahorro desde 2025",
   valor: {
+    reglaMinimo: MINORAR_CUOTA_CON_LA_DEL_MINIMO,
     estatal: ESCALA_AHORRO_MITAD_2025,
     autonomica: ESCALA_AHORRO_MITAD_2025,
   } satisfies EscalasIrpfAhorroPorGravamen,
