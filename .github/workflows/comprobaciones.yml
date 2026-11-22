@@ -23,9 +23,11 @@ jobs:
       - name: Pruebas
         timeout-minutes: 15
         run: nix develop -c bun run test
-      - name: El cotejo regenerado desde la extracción sellada coincide con el de git
+      - name: Lo sellado se regenera idéntico y toda diferencia está aceptada
         timeout-minutes: 5
+        run: nix develop -c bun scripts/procedencia.ts comprobar
+      - name: La reextracción desde las fuentes, verificadas por tamaño y SHA-256, da lo sellado
+        timeout-minutes: 15
         run: |
-          nix develop -c bun scripts/procedencia.ts cotejar
-          git status --porcelain -- procedencia/resultados
-          test -z "$(git status --porcelain -- procedencia/resultados)"
+          nix develop -c bun scripts/procedencia.ts obtener-fuentes --almacen "$RUNNER_TEMP/originales"
+          nix develop -c bun scripts/procedencia.ts comprobar --almacen "$RUNNER_TEMP/originales"

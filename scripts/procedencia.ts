@@ -4,10 +4,12 @@ import { Command, Flag } from "effect/unstable/cli"
 import { FetchHttpClient } from "effect/unstable/http"
 
 import {
+  comprobar,
   extraer,
   generarCotejo,
   listarTablas,
   obtener,
+  obtenerFuentes,
 } from "../lib/procedencia/programa"
 import { Resumen } from "../lib/procedencia/resultado"
 import { normalizarPdf } from "../lib/procedencia/testigo-pdf"
@@ -70,6 +72,46 @@ const cotejarSellado = Command.make(
   )
 )
 
+const comprobarSellado = Command.make(
+  "comprobar",
+  {
+    almacen: Flag.directory("almacen").pipe(
+      Flag.withDescription(
+        "Almacén con los originales: si se da, también se reextrae y se compara la extracción sellada"
+      ),
+      Flag.optional
+    ),
+  },
+  Effect.fn(function* ({ almacen }) {
+    yield* mostrarResumen(yield* comprobar(almacen))
+  })
+).pipe(
+  Command.withDescription(
+    "Sin escribir nada: lo regenerado (y lo reextraído, con almacén) es idéntico a lo sellado y toda diferencia está aceptada"
+  )
+)
+
+const obtenerTodas = Command.make(
+  "obtener-fuentes",
+  {
+    almacen: Flag.string("almacen").pipe(
+      Flag.withDescription(
+        "Almacén donde se guardan los documentos por SHA-256"
+      )
+    ),
+  },
+  Effect.fn(function* ({ almacen }) {
+    const documentos = yield* obtenerFuentes(almacen)
+    yield* Console.log(
+      `${documentos} documentos del manifiesto obtenidos con su tamaño y SHA-256`
+    )
+  })
+).pipe(
+  Command.withDescription(
+    "Descarga todos los documentos del manifiesto por su URL y comprueba tamaño y SHA-256, sin registrar nada"
+  )
+)
+
 const tablas = Command.make(
   "tablas",
   {
@@ -112,6 +154,8 @@ Command.make("procedencia").pipe(
     obtenerDocumento,
     extraerYCotejar,
     cotejarSellado,
+    comprobarSellado,
+    obtenerTodas,
     tablas,
   ]),
   Command.run({ version: "2025.1" }),

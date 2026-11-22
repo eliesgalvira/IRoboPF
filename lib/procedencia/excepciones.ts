@@ -287,3 +287,44 @@ export class DescargaFallida extends Schema.TaggedErrorClass<DescargaFallida>()(
     return `${this.url}: ${String(this.cause)}`
   }
 }
+
+export class DiferenciasNoAceptadas extends Schema.TaggedErrorClass<DiferenciasNoAceptadas>()(
+  "DiferenciasNoAceptadas",
+  {
+    sinAceptar: Schema.Array(Schema.String),
+    yaNoOcurren: Schema.Array(Schema.String),
+  }
+) {
+  override get message(): string {
+    return [
+      `${this.sinAceptar.length} diferencias que no están en las excepciones aceptadas:`,
+      ...this.sinAceptar.map((linea) => `  - ${linea}`),
+      `${this.yaNoOcurren.length} aceptaciones que ya no ocurren así:`,
+      ...this.yaNoOcurren.map((linea) => `  - ${linea}`),
+    ].join("\n")
+  }
+}
+
+export class FuenteCambiada extends Schema.TaggedErrorClass<FuenteCambiada>()(
+  "FuenteCambiada",
+  {
+    url: Schema.String,
+    sha256: Sha256,
+    bytes: Schema.Int,
+    sha256Obtenido: Sha256,
+    bytesObtenidos: Schema.Int,
+  }
+) {
+  override get message(): string {
+    return `${this.url}: la fuente ha cambiado: el manifiesto registra ${this.bytes} bytes con SHA-256 ${this.sha256} y se han obtenido ${this.bytesObtenidos} bytes con SHA-256 ${this.sha256Obtenido}`
+  }
+}
+
+export class ResultadoDesactualizado extends Schema.TaggedErrorClass<ResultadoDesactualizado>()(
+  "ResultadoDesactualizado",
+  { archivos: Schema.Array(Schema.String) }
+) {
+  override get message(): string {
+    return `lo regenerado no es idéntico byte a byte a lo sellado en: ${this.archivos.join(", ")}`
+  }
+}

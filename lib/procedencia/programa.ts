@@ -2,6 +2,7 @@ import {
   DateTime,
   Effect,
   FileSystem,
+  Option,
   Path,
   Result,
   Schema,
@@ -10,6 +11,7 @@ import {
 } from "effect"
 import { HttpClient } from "effect/unstable/http"
 
+import { comprobarAceptadas, ExcepcionesAceptadasDesdeJson } from "./aceptadas"
 import { cotejar } from "./cotejo"
 import {
   ComposicionesDesdeJson,
@@ -23,7 +25,9 @@ import {
   DescargaFallida,
   DocumentoNoDisponible,
   EspecificacionInvalida,
+  FuenteCambiada,
   PaginaInexistente,
+  ResultadoDesactualizado,
   ResultadoIlegible,
 } from "./excepciones"
 import { extraerCuadro, extraerEscala } from "./extraccion"
@@ -54,6 +58,7 @@ export const RUTAS = {
   excepciones: "procedencia/resultados/2025/excepciones.json",
   resumen: "procedencia/resultados/2025/resumen.json",
   composiciones: "procedencia/composiciones/2025.json",
+  aceptadas: "procedencia/excepciones-aceptadas/2025.json",
 } as const
 
 const jsonLegible = <S extends Schema.Top>(schema: S) =>
@@ -379,7 +384,28 @@ export const extraer = Effect.fn("procedencia.extraer")(function* (
   }
 })
 
-export const generarCotejo = Effect.fn("procedencia.cotejar")(function* () {
+const decodificarArchivo = <
+  S extends Schema.Top & { readonly DecodingServices: never },
+>(
+  ruta: string,
+  schema: S
+) =>
+  Effect.gen(function* () {
+    const fs = yield* FileSystem.FileSystem
+    return yield* fs.readFileString(ruta).pipe(
+      Effect.flatMap((texto) =>
+        Schema.decodeUnknownEffect(schema)(texto, { onExcessProperty: "error" })
+      ),
+      Effect.mapError(
+        (error) =>
+          new EspecificacionInvalida({ archivo: ruta, detalle: error.message })
+      )
+    )
+  })
+
+// Lo sellado se decodifica con Schema estricto: un campo de más, un testigo
+// sin su celda o un estado que no existe no se leen.
+const leerSellado = Effect.fn("procedencia.leerSellado")(function* () {
   const fs = yield* FileSystem.FileSystem
   const path = yield* Path.Path
   const especificaciones = yield* leerEspecificaciones()
@@ -395,12 +421,16 @@ export const generarCotejo = Effect.fn("procedencia.cotejar")(function* () {
       detalle: `las extracciones selladas (${archivos.join(", ")}) no corresponden a las especificaciones (${esperados.join(", ")}); vuelve a extraer`,
     })
   }
-  const extracciones = yield* Effect.forEach(
+  return yield* Effect.forEach(
     especificaciones,
     Effect.fnUntraced(function* ({ especificacion, huella }) {
       const ruta = path.join(RUTAS.extraccion, `${especificacion.tabla}.json`)
       const extraccion = yield* fs.readFileString(ruta).pipe(
-        Effect.flatMap(Schema.decodeUnknownEffect(ExtraccionTablaDesdeJson)),
+        Effect.flatMap((texto) =>
+          Schema.decodeUnknownEffect(ExtraccionTablaDesdeJson)(texto, {
+            onExcessProperty: "error",
+          })
+        ),
         Effect.mapError(
           (error) =>
             new ResultadoIlegible({ archivo: ruta, detalle: error.message })
@@ -419,28 +449,82 @@ export const generarCotejo = Effect.fn("procedencia.cotejar")(function* () {
       return extraccion
     })
   )
-  const { composiciones } = yield* fs.readFileString(RUTAS.composiciones).pipe(
-    Effect.flatMap((texto) =>
-      Schema.decodeUnknownEffect(ComposicionesDesdeJson)(texto, {
-        onExcessProperty: "error",
-      })
-    ),
-    Effect.mapError(
-      (error) =>
-        new EspecificacionInvalida({
-          archivo: RUTAS.composiciones,
-          detalle: error.message,
-        })
+})
+
+// El cotejo de lo sellado con el motor, como textos por ruta, y la puerta:
+// ninguna diferencia sin aceptar ni aceptación que ya no ocurra.
+const cotejoDeLoSellado = Effect.fn("procedencia.cotejoDeLoSellado")(
+  function* () {
+    const extracciones = yield* leerSellado()
+    const { composiciones } = yield* decodificarArchivo(
+      RUTAS.composiciones,
+      ComposicionesDesdeJson
     )
-  )
-  const cotejo = yield* cotejar(
-    extracciones,
-    yield* proyectarMotor2025(),
-    composiciones
-  )
-  yield* escribir(RUTAS.cotejo, textoCotejo(cotejo.entradas))
-  yield* escribirJson(RUTAS.excepciones, ColaExcepciones, cotejo.excepciones)
-  yield* escribirJson(RUTAS.resumen, Resumen, cotejo.resumen)
+    const { aceptadas } = yield* decodificarArchivo(
+      RUTAS.aceptadas,
+      ExcepcionesAceptadasDesdeJson
+    )
+    const cotejo = yield* cotejar(
+      extracciones,
+      yield* proyectarMotor2025(),
+      composiciones
+    )
+    const textos = new Map<string, string>([
+      [RUTAS.cotejo, yield* textoCotejo(cotejo.entradas)],
+      [
+        RUTAS.excepciones,
+        yield* textoJson(ColaExcepciones, cotejo.excepciones),
+      ],
+      [RUTAS.resumen, yield* textoJson(Resumen, cotejo.resumen)],
+    ])
+    return {
+      textos,
+      resumen: cotejo.resumen,
+      puerta: comprobarAceptadas(cotejo, extracciones, aceptadas),
+    }
+  }
+)
+
+// Escribe el cotejo y después aplica la puerta: el cotejo queda a la vista
+// aunque haya diferencias sin aceptar.
+export const generarCotejo = Effect.fn("procedencia.cotejar")(function* () {
+  const { textos, resumen, puerta } = yield* cotejoDeLoSellado()
+  for (const [ruta, texto] of textos) {
+    yield* escribir(ruta, Effect.succeed(texto))
+  }
+  yield* puerta
+  return resumen
+})
+
+// Sin escribir nada: lo regenerado (y, con almacén, lo reextraído desde los
+// originales) ha de ser idéntico byte a byte a lo sellado, y la puerta pasar.
+export const comprobar = Effect.fn("procedencia.comprobar")(function* (
+  almacen: Option.Option<string>
+) {
+  const fs = yield* FileSystem.FileSystem
+  const textos = new Map<string, string>()
+  if (Option.isSome(almacen)) {
+    for (const [ruta, texto] of yield* extraerTextos(almacen.value)) {
+      textos.set(ruta, texto)
+    }
+  }
+  const cotejo = yield* cotejoDeLoSellado()
+  for (const [ruta, texto] of cotejo.textos) {
+    textos.set(ruta, texto)
+  }
+  const distintos: Array<string> = []
+  for (const [ruta, texto] of textos) {
+    const sellado = yield* fs
+      .readFileString(ruta)
+      .pipe(Effect.orElseSucceed(() => null))
+    if (sellado !== texto) {
+      distintos.push(ruta)
+    }
+  }
+  if (distintos.length > 0) {
+    return yield* new ResultadoDesactualizado({ archivos: distintos.sort() })
+  }
+  yield* cotejo.puerta
   return cotejo.resumen
 })
 
@@ -481,6 +565,44 @@ export const obtener = Effect.fn("procedencia.obtener")(function* (
   }
   return { sha256, bytes: bytes.length, nuevo: !yaRegistrado }
 })
+
+// Descarga cada documento del manifiesto por su URL a un almacén, sin
+// registrar nada: el tamaño y el SHA-256 han de ser los registrados. Si una
+// fuente no responde es DescargaFallida; si responde con otros bytes,
+// FuenteCambiada, con el documento.
+export const obtenerFuentes = Effect.fn("procedencia.obtenerFuentes")(
+  function* (almacen: string) {
+    const fs = yield* FileSystem.FileSystem
+    const path = yield* Path.Path
+    const cliente = (yield* HttpClient.HttpClient).pipe(
+      HttpClient.filterStatusOk
+    )
+    const { documentos } = yield* leerManifiesto()
+    for (const documento of documentos) {
+      const bytes = yield* cliente.get(documento.url).pipe(
+        Effect.flatMap((respuesta) => respuesta.arrayBuffer),
+        Effect.map((buffer) => new Uint8Array(buffer)),
+        Effect.mapError(
+          (cause) => new DescargaFallida({ url: documento.url, cause })
+        )
+      )
+      const sha256 = yield* sha256Hex(bytes)
+      if (sha256 !== documento.sha256 || bytes.length !== documento.bytes) {
+        return yield* new FuenteCambiada({
+          url: documento.url,
+          sha256: documento.sha256,
+          bytes: documento.bytes,
+          sha256Obtenido: sha256,
+          bytesObtenidos: bytes.length,
+        })
+      }
+      const destino = path.join(almacen, "sha256", sha256)
+      yield* fs.makeDirectory(path.dirname(destino), { recursive: true })
+      yield* fs.writeFile(destino, bytes)
+    }
+    return documentos.length
+  }
+)
 
 // Ayuda al autor de especificaciones: las tablas del árbol etiquetado de unas
 // páginas consecutivas, con su encabezado anterior y el texto de sus filas,
