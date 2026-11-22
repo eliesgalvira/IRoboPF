@@ -1,8 +1,10 @@
 import Decimal from "decimal.js"
+import { Result } from "effect"
 
 import {
   AusenteEnManual,
   ClaveDuplicada,
+  ClaveRepetidaEnMotor,
   SinHomologoEnMotor,
   UnidadDistinta,
   ValorDistinto,
@@ -41,10 +43,19 @@ export interface Cotejo {
   readonly resumen: Resumen
 }
 
+// Una clave identifica un solo valor del motor: si la proyección repite una,
+// el cotejo no elige cuál vale.
 export const cotejar = (
   extracciones: ReadonlyArray<ExtraccionTabla>,
   motor: ReadonlyArray<ValorMotor>
-): Cotejo => {
+): Result.Result<Cotejo, ClaveRepetidaEnMotor> => {
+  const motorPorClave = new Map<string, ValorMotor>()
+  for (const valor of motor) {
+    if (motorPorClave.has(textoClave(valor.clave))) {
+      return Result.fail(new ClaveRepetidaEnMotor({ clave: valor.clave }))
+    }
+    motorPorClave.set(textoClave(valor.clave), valor)
+  }
   const tablasPorAmbito = new Map<string, Array<string>>()
   const fallosDeTabla = new Map<string, Array<string>>()
   const manualPorClave = new Map<
@@ -97,9 +108,6 @@ export const cotejar = (
       }
     }
   }
-  const motorPorClave = new Map(
-    motor.map((valor) => [textoClave(valor.clave), valor])
-  )
   for (const valor of motor) {
     claves.set(textoClave(valor.clave), valor.clave)
   }
@@ -121,6 +129,8 @@ export const cotejar = (
       ...(excepcionesPorClave.get(texto) ?? []),
       ...tablas.flatMap((tabla) => fallosDeTabla.get(tabla) ?? []),
     ])
+    // Sólo es coincidente una clave con exactamente un valor del manual y
+    // ninguna excepción de extracción.
     let estado: EstadoCotejo
     const [unico] = manual
     if (tablas.length === 0) {
@@ -130,6 +140,13 @@ export const cotejar = (
       excepciones.push(
         new ClaveDuplicada({ clave, tablas: manual.map((m) => m.tabla) })
       )
+    } else if (deExtraccion.has("CeldaAmbigua")) {
+      estado = "ambigua"
+    } else if (deExtraccion.size > 0) {
+      estado =
+        unico === undefined && deExtraccion.has("CeldaAusente")
+          ? "ausente-en-manual"
+          : "excepcion-de-extraccion"
     } else if (unico !== undefined) {
       if (valorMotor === null) {
         estado = "sin-homologo-en-motor"
@@ -158,12 +175,6 @@ export const cotejar = (
           })
         )
       }
-    } else if (deExtraccion.has("CeldaAmbigua")) {
-      estado = "ambigua"
-    } else if (deExtraccion.has("CeldaAusente")) {
-      estado = "ausente-en-manual"
-    } else if (deExtraccion.size > 0) {
-      estado = "excepcion-de-extraccion"
     } else {
       estado = "ausente-en-manual"
       excepciones.push(new AusenteEnManual({ clave, tablas }))
@@ -240,7 +251,7 @@ export const cotejar = (
     }
   }
 
-  return {
+  return Result.succeed({
     entradas,
     excepciones: {
       extraccion: extracciones.flatMap((e) =>
@@ -277,5 +288,5 @@ export const cotejar = (
       ),
       excluidosDelMotor: EXCLUIDOS_DEL_MOTOR,
     },
-  }
+  })
 }

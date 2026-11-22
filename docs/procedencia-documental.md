@@ -209,7 +209,9 @@ ningún tipo: esa celda sale `ValorDistinto` con los dos valores exactos y
 **Cotejo por clave.** El cotejo recorre la unión de claves del manual, del motor
 y de las excepciones. Cada clave termina en uno de estos estados:
 
-- coincidente;
+- coincidente: exactamente un valor del manual, igual al del motor, y ninguna
+  excepción de extracción que nombre la clave (una celda ambigua y otra buena
+  para la misma clave no dan una coincidencia);
 - distinta (`ValorDistinto`, con el origen del valor del motor);
 - unidad distinta;
 - ambigua (`ClaveDuplicada` o `CeldaAmbigua`);
@@ -217,6 +219,12 @@ y de las excepciones. Cada clave termina en uno de estos estados:
 - sin homólogo en el motor;
 - excepción de extracción;
 - fuera de alcance.
+
+Una clave identifica un solo valor del motor: si la proyección repite una, el
+cotejo falla con `ClaveRepetidaEnMotor` en vez de quedarse con la última. La
+clave está discriminada por magnitud: en una escala, índice de tramo y columna
+de la escala; en el cuadro, una fila de mínimo con una de sus columnas. Una
+clave mal formada no se puede escribir ni decodificar.
 
 El alcance de una tabla son sus `territorios` × su `magnitud`. Una clave del
 motor que ninguna especificación cubre es «fuera de alcance». No cuenta como

@@ -1,6 +1,13 @@
 import { Schema } from "effect"
 
-import { Clave, OrigenMotor, Sha256, Unidad, Valor } from "./vocabulario"
+import {
+  Clave,
+  OrigenMotor,
+  Sha256,
+  textoClave,
+  Unidad,
+  Valor,
+} from "./vocabulario"
 
 // Procedencia de un elemento del HTML. «fila» y «columna» son los
 // identificadores declarados (índice de fila o literal de su cabecera y
@@ -174,6 +181,15 @@ export class EspecificacionInvalida extends Schema.TaggedErrorClass<Especificaci
 ) {
   override get message(): string {
     return `${this.archivo}: ${this.detalle}`
+  }
+}
+
+export class ClaveRepetidaEnMotor extends Schema.TaggedErrorClass<ClaveRepetidaEnMotor>()(
+  "ClaveRepetidaEnMotor",
+  { clave: Clave }
+) {
+  override get message(): string {
+    return `la proyección del motor repite la clave ${textoClave(this.clave)}`
   }
 }
 

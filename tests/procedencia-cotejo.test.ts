@@ -76,9 +76,12 @@ const extraccion = (valores: ExtraccionTabla["valores"]): ExtraccionTabla => ({
   excepciones: [],
 })
 
+const cotejarBien = (...argumentos: Parameters<typeof cotejar>) =>
+  Result.getOrThrow(cotejar(...argumentos))
+
 describe("cotejo por clave", () => {
   it("clasifica la unión de claves y cuenta lo derivado aparte", () => {
-    const resultado = cotejar(
+    const resultado = cotejarBien(
       [
         extraccion([
           manual(clave(0, "base-liquidable"), "1235"),
@@ -135,7 +138,7 @@ describe("cotejo por clave", () => {
   })
 
   it("ordena las filas de una escala por su índice", () => {
-    const resultado = cotejar(
+    const resultado = cotejarBien(
       [
         extraccion(
           [10, 2, 1].map((fila) => manual(clave(fila, "base-liquidable"), "1"))
@@ -147,7 +150,7 @@ describe("cotejo por clave", () => {
   })
 
   it("un valor sin clave de motor no entra en el cotejo y se cuenta aparte", () => {
-    const resultado = cotejar(
+    const resultado = cotejarBien(
       [
         extraccion([
           manual(clave(0, "base-liquidable"), "1"),
@@ -180,7 +183,7 @@ describe("cotejo por clave", () => {
   })
 
   it("una clave con dos valores del manual es ambigua", () => {
-    const resultado = cotejar(
+    const resultado = cotejarBien(
       [
         extraccion([
           manual(clave(0, "base-liquidable"), "1"),
@@ -207,7 +210,7 @@ describe("cotejo por clave", () => {
         }),
       ],
     }
-    const resultado = cotejar(
+    const resultado = cotejarBien(
       [fallida],
       [motor(clave(0, "base-liquidable"), "1")]
     )
@@ -222,16 +225,14 @@ describe("identidad y coincidencia", () => {
   const k = clave(0, "base-liquidable")
 
   it("una clave repetida en el motor es un error, no gana la última", () => {
-    const resultado: unknown = cotejar(
+    const resultado = cotejar(
       [extraccion([manual(k, "2")])],
       [motor(k, "1"), motor(k, "2")]
     )
-    expect(Result.isResult(resultado) && Result.isFailure(resultado)).toBe(true)
-    expect(
-      Result.isResult(resultado) && Result.isFailure(resultado)
-        ? resultado.failure
-        : resultado
-    ).toMatchObject({ _tag: "ClaveRepetidaEnMotor", clave: k })
+    expect(Result.isFailure(resultado) && resultado.failure).toMatchObject({
+      _tag: "ClaveRepetidaEnMotor",
+      clave: k,
+    })
   })
 
   it.each([
@@ -259,14 +260,11 @@ describe("identidad y coincidencia", () => {
   ])(
     "un valor igual al del motor no es coincidente si la clave tiene una excepción de extracción (%o)",
     (excepcion, estado) => {
-      const resultado: unknown = cotejar(
+      const resultado = cotejarBien(
         [{ ...extraccion([manual(k, "1")]), excepciones: [excepcion] }],
         [motor(k, "1")]
       )
-      const cotejo = (
-        Result.isResult(resultado) ? Result.getOrThrow(resultado) : resultado
-      ) as { entradas: ReadonlyArray<{ estado: string }> }
-      expect(cotejo.entradas.map((e) => e.estado)).toEqual([estado])
+      expect(resultado.entradas.map((e) => e.estado)).toEqual([estado])
     }
   )
 })
@@ -285,7 +283,7 @@ describe("extracción sellada", () => {
               readFileSync(`${RUTAS.extraccion}/${archivo}`, "utf8")
             )
         )
-        const { entradas } = cotejar(extracciones, proyectarMotor2025())
+        const { entradas } = cotejarBien(extracciones, proyectarMotor2025())
         expect(yield* textoCotejo(entradas)).toBe(
           readFileSync(RUTAS.cotejo, "utf8")
         )
