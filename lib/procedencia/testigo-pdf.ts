@@ -358,13 +358,27 @@ export const atestiguar = (
   correspondencia: Correspondencia,
   pendientes: ReadonlyArray<ValorPendienteDeTestigo>
 ): ReadonlyArray<ValorExtraido> => {
-  const testigoDe = (atestiguable: CeldaAtestiguable, valor: Valor): Testigo => {
+  const testigoDe = (
+    atestiguable: CeldaAtestiguable,
+    valor: Valor
+  ): Testigo => {
     if (Result.isFailure(tabla)) {
       return sinTestigo(tabla.failure)
     }
     const { pagina, indice, columnas, datos } = tabla.success
     const { fila, columna } = atestiguable
-    let datosDeFila: TablaPdf["datos"][number] | undefined
+    const cabeceraPdf = correspondencia.columnaPdf.get(columna)
+    if (cabeceraPdf === undefined) {
+      return sinTestigo({ _tag: "ColumnaSinCorrespondencia", columna })
+    }
+    const posicionColumna = columnas.get(cabeceraPdf)
+    if (posicionColumna === undefined) {
+      return sinTestigo({
+        _tag: "ColumnaPdfNoLocalizada",
+        cabecera: cabeceraPdf,
+      })
+    }
+    let encontradas: TablaPdf["datos"]
     if (correspondencia._tag === "Escala") {
       if (datos.length !== correspondencia.tramos) {
         return sinTestigo({
@@ -373,31 +387,34 @@ export const atestiguar = (
           pdf: datos.length,
         })
       }
-      datosDeFila = datos[Number(fila)]
+      encontradas = datos.slice(Number(fila), Number(fila) + 1)
     } else {
-      const columnaDeFilas =
-        columnas.get(correspondencia.cabeceraDeFilasPdf) ?? -1
-      const encontradas = datos.filter(
-        (d) => d.celdas[columnaDeFilas]?.texto === fila
-      )
-      if (encontradas.length !== 1) {
+      const columnaDeFilas = columnas.get(correspondencia.cabeceraDeFilasPdf)
+      if (columnaDeFilas === undefined) {
         return sinTestigo({
-          _tag: "FilaPdfNoLocalizada",
-          fila: String(fila),
-          encontradas: encontradas.length,
+          _tag: "ColumnaPdfNoLocalizada",
+          cabecera: correspondencia.cabeceraDeFilasPdf,
         })
       }
-      datosDeFila = encontradas[0]
+      encontradas = datos.filter(
+        (d) => d.celdas[columnaDeFilas]?.texto === fila
+      )
     }
-    const posicionColumna =
-      columnas.get(correspondencia.columnaPdf.get(columna) ?? "") ?? -1
+    const [datosDeFila, ...otras] = encontradas
+    if (datosDeFila === undefined || otras.length > 0) {
+      return sinTestigo({
+        _tag: "FilaPdfNoLocalizada",
+        fila: String(fila),
+        encontradas: encontradas.length,
+      })
+    }
     const posicion: PosicionPdf = {
       pagina,
       tabla: indice,
-      fila: datosDeFila?.fila ?? 0,
+      fila: datosDeFila.fila,
       columna: posicionColumna,
     }
-    const celda = datosDeFila?.celdas[posicionColumna]
+    const celda = datosDeFila.celdas[posicionColumna]
     return celda === undefined
       ? sinTestigo({ _tag: "CeldaPdfInexistente", posicion })
       : testigoDeCelda(atestiguable, valor, posicion, celda)

@@ -57,6 +57,11 @@ export const MotivoSinTestigo = Schema.Union([
     fila: Schema.String,
     encontradas: Indice,
   }),
+  // Una columna sin resolver no tiene índice: se nombra por su literal, el
+  // de la columna del HTML sin cabecera del PDF declarada o el de la cabecera
+  // declarada que la tabla no tiene.
+  Schema.TaggedStruct("ColumnaSinCorrespondencia", { columna: Schema.String }),
+  Schema.TaggedStruct("ColumnaPdfNoLocalizada", { cabecera: Schema.String }),
   Schema.TaggedStruct("CeldaPdfInexistente", { posicion: PosicionPdf }),
   Schema.TaggedStruct("CeldaPdfVacia", { posicion: PosicionPdf }),
   Schema.TaggedStruct("TextoDistinto", {
