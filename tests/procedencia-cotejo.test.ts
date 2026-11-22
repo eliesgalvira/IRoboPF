@@ -3,10 +3,14 @@
 import { readdirSync, readFileSync } from "node:fs"
 
 import { describe, expect, it } from "@effect/vitest"
-import { Effect, Schema } from "effect"
+import { Effect, Result, Schema } from "effect"
 
 import { cotejar } from "../lib/procedencia/cotejo"
-import { TablaNoLocalizada } from "../lib/procedencia/excepciones"
+import {
+  CeldaAmbigua,
+  LiteralFueraDeGramatica,
+  TablaNoLocalizada,
+} from "../lib/procedencia/excepciones"
 import { proyectarMotor2025 } from "../lib/procedencia/motor-2025"
 import { RUTAS, textoCotejo } from "../lib/procedencia/programa"
 import {
@@ -212,6 +216,59 @@ describe("cotejo por clave", () => {
     ).toEqual([["excepcion-de-extraccion", ["TablaNoLocalizada"]]])
     expect(resultado.excepciones.cotejo).toEqual([])
   })
+})
+
+describe("identidad y coincidencia", () => {
+  const k = clave(0, "base-liquidable")
+
+  it("una clave repetida en el motor es un error, no gana la última", () => {
+    const resultado: unknown = cotejar(
+      [extraccion([manual(k, "2")])],
+      [motor(k, "1"), motor(k, "2")]
+    )
+    expect(Result.isResult(resultado) && Result.isFailure(resultado)).toBe(true)
+    expect(
+      Result.isResult(resultado) && Result.isFailure(resultado)
+        ? resultado.failure
+        : resultado
+    ).toMatchObject({ _tag: "ClaveRepetidaEnMotor", clave: k })
+  })
+
+  it.each([
+    [
+      new LiteralFueraDeGramatica({
+        tabla: "prueba",
+        ubicacion,
+        literal: "1,0.",
+        motivo: "prueba",
+        claves: [k],
+      }),
+      "excepcion-de-extraccion",
+    ],
+    [
+      new CeldaAmbigua({
+        tabla: "prueba",
+        fila: "0",
+        columna: "c",
+        buscado: "prueba",
+        coincidencias: [ubicacion],
+        claves: [k],
+      }),
+      "ambigua",
+    ],
+  ])(
+    "un valor igual al del motor no es coincidente si la clave tiene una excepción de extracción (%o)",
+    (excepcion, estado) => {
+      const resultado: unknown = cotejar(
+        [{ ...extraccion([manual(k, "1")]), excepciones: [excepcion] }],
+        [motor(k, "1")]
+      )
+      const cotejo = (
+        Result.isResult(resultado) ? Result.getOrThrow(resultado) : resultado
+      ) as { entradas: ReadonlyArray<{ estado: string }> }
+      expect(cotejo.entradas.map((e) => e.estado)).toEqual([estado])
+    }
+  )
 })
 
 describe("extracción sellada", () => {
