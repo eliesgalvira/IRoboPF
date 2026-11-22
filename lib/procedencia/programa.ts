@@ -324,14 +324,14 @@ const abrirPdfDelAlmacen = (
     Effect.flatMap((bytes) => abrirPdf(sha256, bytes))
   )
 
-// Extrae todas las especificaciones y devuelve el texto sellado de cada una,
-// por ruta, sin escribirlo. Cada página del PDF se lee una sola vez.
+// Extrae las especificaciones y devuelve el texto sellado de cada una, por
+// ruta, sin escribirlo. Cada página del PDF se lee una sola vez.
 const extraerTextos = Effect.fn("procedencia.extraerTextos")(function* (
-  almacen: string
+  almacen: string,
+  especificaciones: ReadonlyArray<EspecificacionLeida>
 ) {
   const path = yield* Path.Path
   const manifiesto = yield* leerManifiesto()
-  const especificaciones = yield* leerEspecificaciones()
   const textos = new Map<string, string>()
   const pdfs = Array.from(
     new Set(especificaciones.map((e) => e.especificacion.testigo.sha256))
@@ -379,7 +379,10 @@ const extraerTextos = Effect.fn("procedencia.extraerTextos")(function* (
 export const extraer = Effect.fn("procedencia.extraer")(function* (
   almacen: string
 ) {
-  for (const [ruta, texto] of yield* extraerTextos(almacen)) {
+  for (const [ruta, texto] of yield* extraerTextos(
+    almacen,
+    yield* leerEspecificaciones()
+  )) {
     yield* escribir(ruta, Effect.succeed(texto))
   }
 })
@@ -405,10 +408,11 @@ const decodificarArchivo = <
 
 // Lo sellado se decodifica con Schema estricto: un campo de más, un testigo
 // sin su celda o un estado que no existe no se leen.
-const leerSellado = Effect.fn("procedencia.leerSellado")(function* () {
+const leerSellado = Effect.fn("procedencia.leerSellado")(function* (
+  especificaciones: ReadonlyArray<EspecificacionLeida>
+) {
   const fs = yield* FileSystem.FileSystem
   const path = yield* Path.Path
-  const especificaciones = yield* leerEspecificaciones()
   const archivos = (yield* fs.readDirectory(RUTAS.extraccion))
     .filter((archivo) => archivo.endsWith(".json"))
     .sort()
@@ -454,8 +458,8 @@ const leerSellado = Effect.fn("procedencia.leerSellado")(function* () {
 // El cotejo de lo sellado con el motor, como textos por ruta, y la puerta:
 // ninguna diferencia sin aceptar ni aceptación que ya no ocurra.
 const cotejoDeLoSellado = Effect.fn("procedencia.cotejoDeLoSellado")(
-  function* () {
-    const extracciones = yield* leerSellado()
+  function* (especificaciones: ReadonlyArray<EspecificacionLeida>) {
+    const extracciones = yield* leerSellado(especificaciones)
     const { composiciones } = yield* decodificarArchivo(
       RUTAS.composiciones,
       ComposicionesDesdeJson
@@ -488,7 +492,9 @@ const cotejoDeLoSellado = Effect.fn("procedencia.cotejoDeLoSellado")(
 // Escribe el cotejo y después aplica la puerta: el cotejo queda a la vista
 // aunque haya diferencias sin aceptar.
 export const generarCotejo = Effect.fn("procedencia.cotejar")(function* () {
-  const { textos, resumen, puerta } = yield* cotejoDeLoSellado()
+  const { textos, resumen, puerta } = yield* cotejoDeLoSellado(
+    yield* leerEspecificaciones()
+  )
   for (const [ruta, texto] of textos) {
     yield* escribir(ruta, Effect.succeed(texto))
   }
@@ -502,13 +508,18 @@ export const comprobar = Effect.fn("procedencia.comprobar")(function* (
   almacen: Option.Option<string>
 ) {
   const fs = yield* FileSystem.FileSystem
+  // Una sola lectura de las fichas para la reextracción y para lo sellado.
+  const especificaciones = yield* leerEspecificaciones()
   const textos = new Map<string, string>()
   if (Option.isSome(almacen)) {
-    for (const [ruta, texto] of yield* extraerTextos(almacen.value)) {
+    for (const [ruta, texto] of yield* extraerTextos(
+      almacen.value,
+      especificaciones
+    )) {
       textos.set(ruta, texto)
     }
   }
-  const cotejo = yield* cotejoDeLoSellado()
+  const cotejo = yield* cotejoDeLoSellado(especificaciones)
   for (const [ruta, texto] of cotejo.textos) {
     textos.set(ruta, texto)
   }
